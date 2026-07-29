@@ -2,7 +2,7 @@ backend:
   name: github
   repo: TranHang2601/chuavinhhung # Thay bằng Username/Tên-Repo của bạn
   branch: main # Nhánh chính của code
-  site_domain: https://chuavinhung.chuavinhhung.workers.dev # Tên miền Cloudflare Pages của bạn
+  site_domain: https://decap-oauth.chuavinhhung.workers.dev # Tên miền Cloudflare Pages của bạn
 
 media_folder: "static/images/uploads" # Nơi lưu ảnh đăng lên
 public_folder: "/images/uploads"
