@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: TranHang2601/chuavinhhung # Thay bằng Username/Tên-Repo của bạn
+  branch: main # Nhánh chính của code
+  site_domain: https://chuavinhung.chuavinhhung.workers.dev # Tên miền Cloudflare Pages của bạn
+
+media_folder: "static/images/uploads" # Nơi lưu ảnh đăng lên
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Bài viết & Tin tức"
+    folder: "content/posts" # Nơi bài viết sẽ tự lưu dưới dạng file .md
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Tiêu đề bài viết", name: "title", widget: "string"}
+      - {label: "Ngày đăng", name: "date", widget: "datetime"}
+      - {label: "Hình ảnh đại diện", name: "image", widget: "image", required: false}
+      - {label: "Nội dung bài viết", name: "body", widget: "markdown"}
