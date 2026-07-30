@@ -72,7 +72,7 @@
             </div>
             <div>
                 <h3 class="text-xl font-bold font-serif text-chua-darkred uppercase">Đăng Nhập Quản Trị</h3>
-                <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN quản lý tin tức (Mặc định: 1234)</p>
+                <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN quản lý tin tức </p>
             </div>
             <div class="space-y-4">
                 <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN..." maxlength="8" onkeypress="if(event.key === 'Enter') window.unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none">
@@ -193,7 +193,7 @@
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
     <script>
-        const FIREBASE_NEWS_URL = 'https://chua-vinh-hung-default-rtdb.asia-southeast1.firebasedatabase.app/news';
+        const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news';
         let newsList = [];
 
         window.showToast = function(message, isError = false) {
