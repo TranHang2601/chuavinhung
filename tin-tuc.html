@@ -151,50 +151,45 @@
                 <div id="posts-container">Đang tải bài viết...</div>
 
                 <script>
-                // Thông tin kết nối Supabase của bạn
-                const SUPABASE_URL = 'https://hambcvcvsyqwptdumywg.supabase.co';
-                const SUPABASE_ANON_KEY = 'sb_publishable_sagetYaLckRL6UovNa_4kA_5l9AF7Ak'; 
-                
-                const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    const SUPABASE_URL = 'https://hambcvcvsyqwptdumywg.supabase.co';
+                    const SUPABASE_ANON_KEY = 'sb_publishable_sagetYaLckRL6UovNa_4kA_5l9AF7Ak';
+                    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-                async function loadPosts() {
-                    const container = document.getElementById('posts-container');
-                    
-                    // Lấy dữ liệu từ bảng posts, sắp xếp bài mới nhất lên trên
-                    let { data: posts, error } = await supabaseClient
-                    .from('posts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                    async function loadNewsList() {
+                        const container = document.getElementById('news-list');
 
-                    if (error) {
-                    container.innerHTML = 'Lỗi khi tải bài viết từ cơ sở dữ liệu.';
-                    console.error(error);
-                    return;
+                        // Lấy ID, Tiêu đề, Ngày đăng từ bảng posts
+                        let { data: posts, error } = await supabaseClient
+                        .from('posts')
+                        .select('id, title, created_at')
+                        .order('created_at', { ascending: false });
+
+                        if (error || !posts || posts.length === 0) {
+                        container.innerHTML = '<p>Chưa có tin tức nào.</p>';
+                        return;
+                        }
+
+                        let html = '';
+                        posts.forEach(post => {
+                        const date = new Date(post.created_at).toLocaleDateString('vi-VN');
+                        html += `
+                            <div class="news-item" style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                            <h3>
+                                <!-- Đường dẫn truyền ID bài viết qua tham số ?id= -->
+                                <a href="chi-tiet-tin-tuc.html?id=${post.id}" style="text-decoration: none; color: #0066cc;">
+                                ${post.title}
+                                </a>
+                            </h3>
+                            <small style="color: #888;">Ngày đăng: ${date}</small>
+                            </div>
+                        `;
+                        });
+
+                        container.innerHTML = html;
                     }
 
-                    if (!posts || posts.length === 0) {
-                    container.innerHTML = '<p>Chưa có bài viết nào.</p>';
-                    return;
-                    }
-
-                    // Đổ dữ liệu ra giao diện HTML
-                    let html = '';
-                    posts.forEach(post => {
-                    html += `
-                        <article style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                        <h2 style="color: #333; margin-bottom: 5px;">${post.title}</h2>
-                        <p style="color: #777; font-size: 14px;">Ngày đăng: ${new Date(post.created_at).toLocaleDateString('vi-VN')}</p>
-                        <div style="color: #444; line-height: 1.6;">${post.content}</div>
-                        </article>
-                    `;
-                    });
-
-                    container.innerHTML = html;
-                }
-
-                // Chạy hàm tải bài viết khi trang mở lên
-                loadPosts();
-                </script>
+                    loadNewsList();
+                    </script>
             </div>
             
             <!-- Pagination -->

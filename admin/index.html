@@ -1,43 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trang Quản Trị - Chùa Vĩnh Hưng</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Đăng Bài - Chùa Vĩnh Hưng</title>
+  <!-- Thư viện Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 40px;
+    }
+    .admin-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+      margin-top: 0;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 15px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    textarea {
+      height: 250px;
+      resize: vertical;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #status-message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <!-- Thư viện Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <!-- Khai báo cấu hình trực tiếp để tránh lỗi không tìm thấy file config.yml -->
+
+  <div class="admin-container">
+    <h2>✍️ Đăng Tin Tức Mới</h2>
+    
+    <div class="form-group">
+      <label for="post-title">Tiêu đề bài viết:</label>
+      <input type="text" id="post-title" placeholder="Nhập tiêu đề ở đây...">
+    </div>
+
+    <div class="form-group">
+      <label for="post-content">Nội dung bài viết:</label>
+      <textarea id="post-content" placeholder="Nhập nội dung bài viết..."></textarea>
+    </div>
+
+    <button onclick="submitPost()">Đăng Bài Viết Lên Web</button>
+    
+    <p id="status-message"></p>
+  </div>
+
   <script>
-    CMS.init({
-      config: {
-        backend: {
-          name: "github",
-          repo: "TranHang2601/chuavinhung",
-          branch: "main",
-          base_url: "https://decap-oauth.chuavinhhung.workers.dev",
-          client_id: "Ov23liixP8ONSVZfah6H"
-        },
-        media_folder: "static/images/uploads",
-        public_folder: "/images/uploads",
-        collections: [
-          {
-            name: "posts",
-            label: "Bài viết & Tin tức",
-            folder: "content/posts",
-            create: true,
-            slug: "{{slug}}",
-            fields: [
-              {label: "Tiêu đề", name: "title", widget: "string"},
-              {label: "Ngày đăng", name: "date", widget: "datetime"},
-              {label: "Hình ảnh", name: "image", widget: "image", required: false},
-              {label: "Nội dung", name: "body", widget: "markdown"}
-            ]
-          }
-        ]
+    // 1. Kết nối với cơ sở dữ liệu Supabase của bạn
+    const SUPABASE_URL = 'https://hambcvcvsyqwptdumywg.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_sagetYaLckRL6UovNa_4kA_5l9AF7Ak'; 
+    
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // 2. Hàm xử lý khi bấm nút đăng bài
+    async function submitPost() {
+      const title = document.getElementById('post-title').value.trim();
+      const content = document.getElementById('post-content').value.trim();
+      const statusMsg = document.getElementById('status-message');
+
+      if (!title || !content) {
+        statusMsg.style.color = 'red';
+        statusMsg.innerText = '⚠️ Vui lòng nhập đầy đủ tiêu đề và nội dung!';
+        return;
       }
-    });
+
+      statusMsg.style.color = 'blue';
+      statusMsg.innerText = '⏳ Đang đăng bài, vui lòng đợi...';
+
+      // Đưa dữ liệu lên bảng posts trong Supabase
+      const { data, error } = await supabaseClient
+        .from('posts')
+        .insert([{ title: title, content: content }]);
+
+      if (error) {
+        statusMsg.style.color = 'red';
+        statusMsg.innerText = '❌ Lỗi khi đăng bài: ' + error.message;
+      } else {
+        statusMsg.style.color = 'green';
+        statusMsg.innerText = '🎉 Đăng bài thành công! Bài viết đã xuất hiện trên website.';
+        
+        // Xóa trắng ô nhập liệu sau khi đăng xong
+        document.getElementById('post-title').value = '';
+        document.getElementById('post-content').value = '';
+      }
+    }
   </script>
+
 </body>
 </html>
