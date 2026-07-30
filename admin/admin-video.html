@@ -67,44 +67,45 @@
                 </button>
             </div>
         </div>
-
-        <!-- Dashboard Statistics -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
-                <div class="w-14 h-14 rounded-xl bg-amber-100 text-chua-amber flex items-center justify-center text-2xl font-bold">
-                    <i class="fa-solid fa-play"></i>
+        <div id="admin-content" class="hidden space-y-6">
+            <!-- Dashboard Statistics -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-xl bg-amber-100 text-chua-amber flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Tổng số video</p>
+                        <h3 id="stat-total" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-xs font-semibold text-gray-500 uppercase">Tổng số video</p>
-                    <h3 id="stat-total" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center justify-center">
+                    <button onclick="window.openVideoModal()" class="w-full py-3.5 bg-gradient-to-r from-chua-amber to-chua-red hover:from-chua-red hover:to-chua-darkred text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm uppercase">
+                        <i class="fa-solid fa-plus-circle text-lg"></i>
+                        <span>Thêm Video Mới</span>
+                    </button>
                 </div>
             </div>
-            <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center justify-center">
-                <button onclick="window.openVideoModal()" class="w-full py-3.5 bg-gradient-to-r from-chua-amber to-chua-red hover:from-chua-red hover:to-chua-darkred text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm uppercase">
-                    <i class="fa-solid fa-plus-circle text-lg"></i>
-                    <span>Thêm Video Mới</span>
-                </button>
-            </div>
-        </div>
 
-        <!-- Video Table -->
-        <div class="bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200">
-            <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
-                <h2 class="text-xl font-serif font-bold text-chua-red uppercase">Danh sách video</h2>
-            </div>
-            <div class="overflow-x-auto rounded-xl border border-gray-200">
-                <table class="w-full text-left min-w-[600px]">
-                    <thead class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold">
-                        <tr>
-                            <th class="py-3 px-4">Tiêu đề video</th>
-                            <th class="py-3 px-4">Link YouTube</th>
-                            <th class="py-3 px-4 text-center">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="video-list" class="divide-y divide-gray-100 text-sm">
-                        <!-- Loaded by JS -->
-                    </tbody>
-                </table>
+            <!-- Video Table -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200">
+                <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+                    <h2 class="text-xl font-serif font-bold text-chua-red uppercase">Danh sách video</h2>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-left min-w-[600px]">
+                        <thead class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold">
+                            <tr>
+                                <th class="py-3 px-4">Tiêu đề video</th>
+                                <th class="py-3 px-4">Link YouTube</th>
+                                <th class="py-3 px-4 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="video-list" class="divide-y divide-gray-100 text-sm">
+                            <!-- Loaded by JS -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
@@ -151,7 +152,23 @@
         }
 
         window.openVideoModal = () => document.getElementById('video-modal').classList.remove('hidden');
+        window.unlockAdmin = function() {
+            const pin = document.getElementById('admin-pin-input').value;
+            if (pin === '1234') {
+                document.getElementById('admin-lock-screen').classList.add('hidden');
+                document.getElementById('admin-content').classList.remove('hidden');
+                window.fetchNewsFromFirebase();
+                window.showToast("Đăng nhập quản trị thành công!");
+            } else {
+                window.showToast("Mã PIN không đúng (Mặc định: 1234)", true);
+            }
+        };
 
+        window.logoutAdmin = function() {
+            document.getElementById('admin-lock-screen').classList.remove('hidden');
+            document.getElementById('admin-content').classList.add('hidden');
+            window.showToast("Đã khóa màn hình quản trị");
+        };
         document.getElementById('video-form').onsubmit = async (e) => {
             e.preventDefault();
             const title = document.getElementById('v-title').value;
