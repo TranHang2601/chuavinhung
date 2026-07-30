@@ -233,54 +233,9 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Cập nhật những thông tin mới nhất về các hoạt động tu học, từ thiện và các sự kiện diễn ra tại chùa.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Bài viết 1 -->
-                <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="relative overflow-hidden group h-60">
-                        <img src="https://images.unsplash.com/photo-1605816988069-b11383b50717?q=80&w=2000&auto=format&fit=crop" alt="Tin tức 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 left-4 bg-buddhist-gold text-xs font-bold px-3 py-1 rounded text-buddhist-dark uppercase tracking-wide">Hoạt Động</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-sm text-gray-500 mb-2">
-                            <i class="fa-regular fa-calendar mr-2"></i> 15 Tháng 4, 2024
-                        </div>
-                        <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer">Đại Lễ Phật Đản PL.2568 - DL.2024 Tại Chùa Bát Nhã</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">Hàng ngàn Phật tử đã vân tập về bổn tự để cùng tham dự Đại lễ Phật Đản, tưởng nhớ ngày đấng Giác Ngộ thị hiện ở đời vì hạnh phúc và an lạc cho số đông.</p>
-                        <a href="tin-tuc.html" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Xem chi tiết <i class="fa-solid fa-angle-right ml-1"></i></a>
-                    </div>
-                </article>
-
-                <!-- Bài viết 2 -->
-                <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="relative overflow-hidden group h-60">
-                        <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?q=80&w=2070&auto=format&fit=crop" alt="Tin tức 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 left-4 bg-buddhist-maroon text-xs font-bold px-3 py-1 rounded text-white uppercase tracking-wide">Từ Thiện</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-sm text-gray-500 mb-2">
-                            <i class="fa-regular fa-calendar mr-2"></i> 10 Tháng 4, 2024
-                        </div>
-                        <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer">Trao Tặng 500 Suất Quà Tình Thương Cùng Quỹ Bát Nhã</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">Phát huy tinh thần từ bi cứu khổ của đạo Phật, nhà chùa cùng các mạnh thường quân đã tổ chức chuyến từ thiện, trao nhu yếu phẩm cho bà con vùng sâu.</p>
-                        <a href="tin-tuc.html" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Xem chi tiết <i class="fa-solid fa-angle-right ml-1"></i></a>
-                    </div>
-                </article>
-
-                <!-- Bài viết 3 -->
-                <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <div class="relative overflow-hidden group h-60">
-                        <img src="https://images.unsplash.com/photo-1533036481741-2b6357d7634c?q=80&w=2070&auto=format&fit=crop" alt="Tin tức 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute top-4 left-4 bg-buddhist-gold text-xs font-bold px-3 py-1 rounded text-buddhist-dark uppercase tracking-wide">Khóa Tu</div>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-sm text-gray-500 mb-2">
-                            <i class="fa-regular fa-calendar mr-2"></i> 01 Tháng 4, 2024
-                        </div>
-                        <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer">Thông Báo: Khóa Tu Mùa Hè "Ươm Mầm Trí Tuệ" Lần Thứ 5</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">Kính mời quý phụ huynh đăng ký cho các em thanh thiếu niên tham dự khóa tu mùa hè 7 ngày để rèn luyện nhân cách, đạo đức, biết yêu thương và hiếu đạo.</p>
-                        <a href="tin-tuc.html" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Xem chi tiết <i class="fa-solid fa-angle-right ml-1"></i></a>
-                    </div>
-                </article>
+            <!-- CONTAINER NÀY SẼ CHỨA DỮ LIỆU TỰ ĐỘNG -->
+            <div id="tin-tuc-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <p class="text-center col-span-full">Đang tải tin tức...</p>
             </div>
             
             <div class="text-center mt-12">
@@ -290,6 +245,7 @@
             </div>
         </div>
     </section>
+
 
     <section id="phat-phap" class="py-20 bg-gray-900 text-white relative">
         <!-- Nền mờ họa tiết sen (placeholder) -->
@@ -477,6 +433,47 @@
     </footer>
 
     <script>
+        async function loadLatestNews() {
+            try {
+                const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json');
+                const data = await response.json();
+                
+                const container = document.getElementById('tin-tuc-container');
+                
+                if (data) {
+                    const newsList = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    })).sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+                    
+                    const latestThree = newsList.slice(0, 3);
+                    
+                    container.innerHTML = latestThree.map(item => `
+                        <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                            <div class="relative overflow-hidden group h-60">
+                                <img src="${item.image || 'https://placehold.co/600x400?text=ChuaVinhHung'}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                            </div>
+                            <div class="p-6">
+                                <div class="text-sm text-gray-500 mb-2">
+                                    <i class="fa-regular fa-calendar mr-2"></i> ${item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Đang cập nhật'}
+                                </div>
+                                <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer">${item.title}</h3>
+                                <p class="text-gray-600 mb-4 line-clamp-3">${item.content ? item.content.replace(/<[^>]*>/g, '').substring(0, 200) : ''}...</p>
+                                <a href="tin-tuc.html" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Xem chi tiết <i class="fa-solid fa-angle-right ml-1"></i></a>
+                            </div>
+                        </article>
+                    `).join('');
+                } else {
+                    container.innerHTML = "<p class='text-center col-span-full'>Hiện chưa có bài viết nào.</p>";
+                }
+            } catch (error) {
+                document.getElementById('tin-tuc-container').innerHTML = "<p class='text-center col-span-full'>Không thể tải tin tức.</p>";
+            }
+        }
+        
+        // Gọi hàm khi trang load
+        loadLatestNews();
+
         // Xử lý Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
