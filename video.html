@@ -64,7 +64,7 @@
                     <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Tin Tức & Khóa Tu</a>
                     <a href="video.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Giảng Pháp</a>
                     <a href="lien-he.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Liên Hệ</a>
-                    <a href="admin/admin-tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Quản Trị</a>
+                    <a href="admin/admin-video.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Quản Trị</a>
                 </nav>
             </div>
         </div>
@@ -72,17 +72,17 @@
 
     <section class="hero-sub h-[40vh] mt-0 flex items-center justify-center relative">
         <div class="text-center px-4 z-10 text-white mt-10">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Tin Tức & Phật Sự</h1>
-            <p class="text-lg text-gray-200 font-light">Cập nhật lịch hoạt động, khóa tu và các chuyến từ thiện mới nhất.</p>
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Thư Viện Video Bài Giảng</h1>
+            <p class="text-lg text-gray-200 font-light">Lắng nghe những chia sẻ, pháp thoại từ chư Tôn đức để tìm thấy sự an lạc.</p>
         </div>
     </section>
 
     <section class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="col-span-full text-center py-20">
                     <i class="fa-solid fa-spinner fa-spin text-4xl text-buddhist-gold"></i>
-                    <p class="mt-4 text-gray-500">Đang tải tin tức...</p>
+                    <p class="mt-4 text-gray-500">Đang tải danh sách video...</p>
                 </div>
             </div>
         </div>
@@ -180,7 +180,7 @@
             </div>
         </div>
 </footer>
-<script>
+    <script>
         const DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos.json';
 
         function getYouTubeID(url) {
