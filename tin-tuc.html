@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tin Tức & Khóa Tu | Chùa Vĩnh Hưng</title>
     
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -145,7 +146,55 @@
                         <a href="#" class="text-buddhist-gold font-semibold">Đọc tiếp &rarr;</a>
                     </div>
                 </article>
+                
+                <!-- Nơi danh sách bài viết sẽ hiện ra -->
+                <div id="posts-container">Đang tải bài viết...</div>
 
+                <script>
+                // Thông tin kết nối Supabase của bạn
+                const SUPABASE_URL = 'https://hambcvcvsyqwptdumywg.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_sagetYaLckRL6UovNa_4kA_5l9AF7Ak'; 
+                
+                const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                async function loadPosts() {
+                    const container = document.getElementById('posts-container');
+                    
+                    // Lấy dữ liệu từ bảng posts, sắp xếp bài mới nhất lên trên
+                    let { data: posts, error } = await supabaseClient
+                    .from('posts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                    if (error) {
+                    container.innerHTML = 'Lỗi khi tải bài viết từ cơ sở dữ liệu.';
+                    console.error(error);
+                    return;
+                    }
+
+                    if (!posts || posts.length === 0) {
+                    container.innerHTML = '<p>Chưa có bài viết nào.</p>';
+                    return;
+                    }
+
+                    // Đổ dữ liệu ra giao diện HTML
+                    let html = '';
+                    posts.forEach(post => {
+                    html += `
+                        <article style="margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                        <h2 style="color: #333; margin-bottom: 5px;">${post.title}</h2>
+                        <p style="color: #777; font-size: 14px;">Ngày đăng: ${new Date(post.created_at).toLocaleDateString('vi-VN')}</p>
+                        <div style="color: #444; line-height: 1.6;">${post.content}</div>
+                        </article>
+                    `;
+                    });
+
+                    container.innerHTML = html;
+                }
+
+                // Chạy hàm tải bài viết khi trang mở lên
+                loadPosts();
+                </script>
             </div>
             
             <!-- Pagination -->
