@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị Video - Chùa Vĩnh Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chua: {
+                            red: '#991b1b', gold: '#d97706', amber: '#b45309', darkred: '#7f1d1d', cream: '#fef3c7', bg: '#fdfbf7'
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8f6f0; }
+        .custom-shadow { box-shadow: 0 10px 25px -5px rgba(153, 27, 27, 0.1), 0 8px 10px -6px rgba(153, 27, 27, 0.05); }
+    </style>
+</head>
+<body class="font-sans text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-lg border-b-4 border-chua-gold sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-white p-1 shadow flex items-center justify-center border-2 border-chua-gold">
+                    <i class="fa-solid fa-video text-chua-red text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold font-serif tracking-wide text-amber-200 uppercase">QUẢN TRỊ VIDEO</h1>
+                    <p class="text-xs text-red-100 font-light">Quản lý kho tàng Pháp thoại Chùa Vĩnh Hưng</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto w-full px-4 py-6 flex-grow">
+        <!-- Dashboard Statistics -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                <div class="w-14 h-14 rounded-xl bg-amber-100 text-chua-amber flex items-center justify-center text-2xl font-bold">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-500 uppercase">Tổng số video</p>
+                    <h3 id="stat-total" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center justify-center">
+                <button onclick="window.openVideoModal()" class="w-full py-3.5 bg-gradient-to-r from-chua-amber to-chua-red hover:from-chua-red hover:to-chua-darkred text-white font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2 text-sm uppercase">
+                    <i class="fa-solid fa-plus-circle text-lg"></i>
+                    <span>Thêm Video Mới</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Video Table -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+                <h2 class="text-xl font-serif font-bold text-chua-red uppercase">Danh sách video</h2>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-gray-200">
+                <table class="w-full text-left min-w-[600px]">
+                    <thead class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold">
+                        <tr>
+                            <th class="py-3 px-4">Tiêu đề video</th>
+                            <th class="py-3 px-4">Link YouTube</th>
+                            <th class="py-3 px-4 text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="video-list" class="divide-y divide-gray-100 text-sm">
+                        <!-- Loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="video-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <h2 class="text-lg font-bold font-serif text-chua-red mb-4 uppercase border-b pb-2">Thêm Video</h2>
+            <form id="video-form" class="space-y-4">
+                <input type="text" id="v-title" placeholder="Tiêu đề bài giảng" required class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                <input type="url" id="v-url" placeholder="Link YouTube (https://youtube.com/...)" required class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                <div class="flex space-x-3 pt-2">
+                    <button type="button" onclick="document.getElementById('video-modal').classList.add('hidden')" class="w-full py-2.5 bg-gray-100 rounded-xl font-semibold">Hủy</button>
+                    <button type="submit" class="w-full py-2.5 bg-chua-amber text-white rounded-xl font-bold">Lưu Video</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos.json';
+        const BASE_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos';
+
+        async function loadVideos() {
+            const res = await fetch(DB_URL);
+            const data = await res.json();
+            const list = document.getElementById('video-list');
+            list.innerHTML = '';
+            let count = 0;
+            
+            for (let key in data) {
+                count++;
+                list.innerHTML += `
+                    <tr class="hover:bg-amber-50/30 transition">
+                        <td class="py-3 px-4 font-semibold">${data[key].title}</td>
+                        <td class="py-3 px-4 text-blue-600 truncate max-w-[200px] text-xs">${data[key].url}</td>
+                        <td class="py-3 px-4 text-center">
+                            <button onclick="deleteVideo('${key}')" class="text-red-500 hover:text-red-700 p-2"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }
+            document.getElementById('stat-total').textContent = count;
+        }
+
+        window.openVideoModal = () => document.getElementById('video-modal').classList.remove('hidden');
+
+        document.getElementById('video-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('v-title').value;
+            const url = document.getElementById('v-url').value;
+            await fetch(DB_URL, { method: 'POST', body: JSON.stringify({ title, url, created_at: Date.now() }) });
+            document.getElementById('video-modal').classList.add('hidden');
+            document.getElementById('video-form').reset();
+            loadVideos();
+        };
+
+        async function deleteVideo(key) {
+            if(confirm('Bạn có chắc chắn muốn xóa video này?')) {
+                await fetch(`${BASE_URL}/${key}.json`, { method: 'DELETE' });
+                loadVideos();
+            }
+        }
+
+        loadVideos();
+    </script>
+</body>
+</html>

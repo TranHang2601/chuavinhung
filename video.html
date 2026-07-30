@@ -179,52 +179,57 @@
                 </div>
             </div>
         </div>
-    </footer>
-    <script>
-        const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+</footer>
+<script>
+        const DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos.json';
 
-        async function fetchNews() {
-            const grid = document.getElementById('news-grid');
+        function getYouTubeID(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        async function fetchVideos() {
+            const grid = document.getElementById('video-grid');
             try {
-                const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json');
+                const response = await fetch(DB_URL);
                 const data = await response.json();
                 
                 grid.innerHTML = '';
                 
                 if (!data) {
-                    grid.innerHTML = '<div class="col-span-full text-center py-10">Chưa có bài viết nào.</div>';
+                    grid.innerHTML = '<div class="col-span-full text-center py-10">Hiện chưa có video nào được đăng.</div>';
                     return;
                 }
 
-                const newsArray = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-                newsArray.sort((a, b) => b.created_at - a.created_at);
-
-                newsArray.forEach(post => {
-                    const article = document.createElement('article');
-                    article.className = "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300";
+                Object.keys(data).forEach(key => {
+                    const v = data[key];
+                    const vId = getYouTubeID(v.url);
                     
-                    // Logic xử lý ảnh: Nếu không có ảnh hoặc link ảnh trống, dùng ảnh mặc định.
-                    // Nếu link ảnh bắt đầu bằng "images/", nó sẽ tìm trong folder local của bạn.
-                    // Thay thế dòng 111 hiện tại bằng dòng này:
-                    const imgSrc = (post.image && post.image.trim() !== "") ? post.image : 'https://placehold.co/600x400/3d1c1d/d4af37?text=ChuaVinhHung';
-
-                    article.innerHTML = `
-                        <img src="${imgSrc}" class="w-full h-56 object-cover" onerror="this.src='https://placehold.co/600x400/3d1c1d/d4af37?text=ChuaVinhHung'">
-                        <div class="p-6">
-                            <div class="text-sm text-gray-500 mb-2">${post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : ''}</div>
-                            <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer">${post.title}</h3>
-                            <p class="text-gray-600 mb-4 line-clamp-3">${post.content.replace(/<[^>]*>?/gm, '')}</p>
-                            <a href="#" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Đọc tiếp &rarr;</a>
-                        </div>
-                    `;
-                    grid.appendChild(article);
+                    if (vId) {
+                        const card = document.createElement('div');
+                        card.className = "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300";
+                        card.innerHTML = `
+                            <a href="${v.url}" target="_blank" class="block relative group overflow-hidden">
+                                <img src="https://img.youtube.com/vi/${vId}/mqdefault.jpg" alt="${v.title}" class="w-full aspect-video object-cover transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition">
+                                    <i class="fa-solid fa-play text-white text-4xl opacity-80"></i>
+                                </div>
+                            </a>
+                            <div class="p-6">
+                                <h3 class="text-lg font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer line-clamp-2">${v.title}</h3>
+                                <a href="${v.url}" target="_blank" class="text-buddhist-gold font-semibold hover:text-buddhist-maroon transition">Xem trên YouTube &rarr;</a>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
                 });
             } catch (err) {
-                grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-600">Không thể tải dữ liệu.</div>';
+                grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-600">Không thể tải dữ liệu video.</div>';
             }
         }
 
-        window.onload = fetchNews;
+        window.onload = fetchVideos;
     </script>
 </body>
 </html>
