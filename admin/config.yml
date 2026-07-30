@@ -4,6 +4,7 @@ backend:
   branch: main
   base_url: https://decap-oauth.chuavinhhung.workers.dev
   client_id: Ov23liixP8ONSVZfah6H
+  site_id: https://chuavinhung.chuavinhhung.workers.dev
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
