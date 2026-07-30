@@ -211,6 +211,7 @@
                         card.className = "bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300";
                         card.innerHTML = `
                             <a href="${v.url}" target="_blank" class="block relative group overflow-hidden">
+                                <!-- Đổi mqdefault.jpg thành maxresdefault.jpg để lấy ảnh nét nhất -->
                                 <img src="https://img.youtube.com/vi/${vId}/maxresdefault.jpg" alt="${v.title}" class="w-full aspect-video object-cover transition duration-500 group-hover:scale-110">
                                 <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition">
                                     <i class="fa-solid fa-play text-white text-4xl opacity-80"></i>
