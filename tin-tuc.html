@@ -161,8 +161,8 @@
                         // Lấy ID, Tiêu đề, Ngày đăng từ bảng posts
                         let { data: posts, error } = await supabaseClient
                         .from('posts')
-                        .select('id, title, created_at')
-                        .order('created_at', { ascending: false });
+                        .select('id, title, content, date')
+                        .order('date', { ascending: false });
 
                         if (error || !posts || posts.length === 0) {
                         container.innerHTML = '<p>Chưa có tin tức nào.</p>';
