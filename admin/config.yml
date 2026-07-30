@@ -2,7 +2,8 @@ backend:
   name: github
   repo: TranHang2601/chuavinhung
   branch: main
-  base_url: https://decap-oauth.chuavinhhung.workers.dev/
+  base_url: https://decap-oauth.chuavinhhung.workers.dev
+  client_id: Ov23liixP8ONSVZfah6H
 
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
