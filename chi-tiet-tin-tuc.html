@@ -7,10 +7,10 @@
 <body>
 
   <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
-    <h1 id="post-title">Đang tải...</h1>
-    <p id="post-date" style="color: #666; font-size: 14px;"></p>
+    <h1 id="tinTuc-title">Đang tải...</h1>
+    <p id="tinTuc-date" style="color: #666; font-size: 14px;"></p>
     <hr>
-    <div id="post-content" style="line-height: 1.8; font-size: 16px;"></div>
+    <div id="tinTuc-content" style="line-height: 1.8; font-size: 16px;"></div>
     
     <br><br>
     <a href="tin-tuc.html">← Quay lại danh sách tin tức</a>
@@ -26,19 +26,19 @@
       const slug = urlParams.get('slug');
 
       if (!slug) {
-        document.getElementById('post-title').innerText = 'Không tìm thấy bài viết!';
+        document.getElementById('tinTuc-title').innerText = 'Không tìm thấy bài viết!';
         return;
       }
 
       // 2. Gọi API lọc chính xác bài viết có slug tương ứng
-      const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=post&fields.slug=${slug}`;
+      const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=tinTuc&fields.slug=${slug}`;
 
       try {
         const response = await fetch(url);
         const data = await response.json();
 
         if (!data.items || data.items.length === 0) {
-          document.getElementById('post-title').innerText = 'Bài viết không tồn tại!';
+          document.getElementById('tinTuc-title').innerText = 'Bài viết không tồn tại!';
           return;
         }
 
@@ -46,12 +46,12 @@
 
         // 3. Đổ dữ liệu lên giao diện
         document.title = post.title;
-        document.getElementById('post-title').innerText = post.title;
-        document.getElementById('post-date').innerText = 'Ngày đăng: ' + new Date(post.publishDate).toLocaleDateString('vi-VN');
-        document.getElementById('post-content').innerHTML = post.content;
+        document.getElementById('tinTuc-title').innerText = post.title;
+        document.getElementById('tinTuc-date').innerText = 'Ngày đăng: ' + new Date(post.publishDate).toLocaleDateString('vi-VN');
+        document.getElementById('tinTuc-content').innerHTML = post.content;
 
       } catch (error) {
-        document.getElementById('post-title').innerText = 'Lỗi kết nối tới máy chủ!';
+        document.getElementById('tinTuc-title').innerText = 'Lỗi kết nối tới máy chủ!';
         console.error(error);
       }
     }
