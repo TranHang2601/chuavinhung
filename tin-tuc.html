@@ -147,49 +147,54 @@
                     </div>
                 </article>
                 
-                <!-- Nơi danh sách bài viết sẽ hiện ra -->
-                <div id="posts-container">Đang tải bài viết...</div>
+                <div id="news-container">Đang tải tin tức...</div>
 
                 <script>
-                    const SUPABASE_URL = 'https://hambcvcvsyqwptdumywg.supabase.co';
-                    const SUPABASE_ANON_KEY = 'sb_publishable_sagetYaLckRL6UovNa_4kA_5l9AF7Ak';
-                    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                const SPACE_ID = '13lbaz8khdx5';       // Thay Space ID của bạn vào đây
+                const ACCESS_TOKEN = 'bZBfnhs9v-qSe9fFBTA8VVvUVaWFLergFpAJCEi35cM'; // Thay Access Token của bạn vào đây
 
-                    async function loadNewsList() {
-                        const container = document.getElementById('news-list');
+                // Đường dẫn API lấy danh sách bài viết thuộc content type 'post'
+                const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=post`;
 
-                        // Lấy ID, Tiêu đề, Ngày đăng từ bảng posts
-                        let { data: posts, error } = await supabaseClient
-                        .from('posts')
-                        .select('id, title, content, date')
-                        .order('date', { ascending: false });
+                async function loadNewsFromContentful() {
+                    const container = document.getElementById('news-container');
+                    
+                    try {
+                    const response = await fetch(url);
+                    const data = await response.json();
 
-                        if (error || !posts || posts.length === 0) {
-                        container.innerHTML = '<p>Chưa có tin tức nào.</p>';
+                    if (!data.items || data.items.length === 0) {
+                        container.innerHTML = '<p>Chưa có bài viết nào.</p>';
                         return;
-                        }
-
-                        let html = '';
-                        posts.forEach(post => {
-                        const date = new Date(post.created_at).toLocaleDateString('vi-VN');
-                        html += `
-                            <div class="news-item" style="margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                            <h3>
-                                <!-- Đường dẫn truyền ID bài viết qua tham số ?id= -->
-                                <a href="chi-tiet-tin-tuc.html?id=${post.id}" style="text-decoration: none; color: #0066cc;">
-                                ${post.title}
-                                </a>
-                            </h3>
-                            <small style="color: #888;">Ngày đăng: ${date}</small>
-                            </div>
-                        `;
-                        });
-
-                        container.innerHTML = html;
                     }
 
-                    loadNewsList();
-                    </script>
+                    let html = '';
+                    data.items.forEach(item => {
+                        const post = item.fields;
+                        const date = new Date(post.publishDate || item.sys.createdAt).toLocaleDateString('vi-VN');
+                        
+                        html += `
+                        <div class="news-item" style="margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 15px;">
+                            <h3>
+                            <!-- Truyền slug qua đường dẫn sang trang chi tiết -->
+                            <a href="chi-tiet.html?slug=${post.slug}" style="text-decoration: none; color: #0066cc;">
+                                ${post.title}
+                            </a>
+                            </h3>
+                            <small style="color: #777;">Ngày đăng: ${date}</small>
+                        </div>
+                        `;
+                    });
+
+                    container.innerHTML = html;
+                    } catch (error) {
+                    container.innerHTML = 'Lỗi khi tải dữ liệu từ Contentful.';
+                    console.error(error);
+                    }
+                }
+
+                loadNewsFromContentful();
+                </script>
             </div>
             
             <!-- Pagination -->
