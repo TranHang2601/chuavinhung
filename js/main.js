@@ -58,7 +58,8 @@ function initHeaderEvents() {
                 header.classList.remove('bg-black', 'bg-opacity-40');
                 
                 navLinks.forEach(link => {
-                    if (!link.classList.contains('border-buddhist-gold')) {
+                    // CHỈ ĐỔI MÀU NẾU KHÔNG PHẢI MỤC ACTIVE
+                    if (!link.classList.contains('text-buddhist-gold')) {
                         link.classList.add('text-gray-800');
                         link.classList.remove('text-white');
                     }
@@ -77,8 +78,11 @@ function initHeaderEvents() {
                 header.classList.add('bg-black', 'bg-opacity-40');
 
                 navLinks.forEach(link => {
-                    link.classList.add('text-white');
-                    link.classList.remove('text-gray-800');
+                    // MỤC ACTIVE VẪN GIỮ MÀU VÀNG, CÁC MỤC KHÁC CHUYỂN TRẮNG
+                    if (!link.classList.contains('text-buddhist-gold')) {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-gray-800');
+                    }
                 });
 
                 if (logoText) {
