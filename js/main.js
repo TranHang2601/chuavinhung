@@ -19,6 +19,21 @@ async function includeHTML(targetId, filePath) {
     }
 }
 
+// 2. Tự động đánh dấu Menu Active dựa trên URL hiện tại
+function setActiveNavLink() {
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPath) {
+            link.classList.add('text-buddhist-gold', 'font-bold');
+            if (link.classList.contains('nav-link')) {
+                link.classList.add('border-b-2', 'border-buddhist-gold');
+            }
+        }
+    });
+}
 
 // 3. Khởi tạo các sự kiện cho Header (Scroll effect & Mobile Menu)
 function initHeaderEvents() {
@@ -81,27 +96,6 @@ function initHeaderEvents() {
             }
         });
     }
-}
-// 2. Tự động đánh dấu Menu Active ổn định hơn
-function setActiveNavLink() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const currentPath = window.location.pathname; 
-    
-    navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        
-        // Điều kiện 1: Nếu là trang chủ
-        const isHomePage = (currentPath === '/' || currentPath.endsWith('index.html')) && href === 'index.html';
-        
-        // Điều kiện 2: Nếu là các trang khác
-        const isOtherPage = href !== 'index.html' && currentPath.includes(href);
-
-        if (isHomePage || isOtherPage) {
-            link.classList.add('text-buddhist-gold', 'font-bold', 'border-b-2', 'border-buddhist-gold');
-            // Xóa màu trắng nếu có để đảm bảo màu vàng hiển thị
-            link.classList.remove('text-white');
-        }
-    });
 }
 
 // === BỔ SUNG ĐOẠN NÀY VÀO CUỐI FILE MAIN.JS ===
