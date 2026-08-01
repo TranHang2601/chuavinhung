@@ -84,16 +84,17 @@ function initHeaderEvents() {
 }
 // 2. Tự động đánh dấu Menu Active ổn định hơn
 function setActiveNavLink() {
-    const currentPath = window.location.pathname; 
     const navLinks = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname; 
+    
+    console.log("Current Path:", currentPath); // F12 xem console để biết nó đang đọc là gì
 
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        
-        // Kiểm tra xem đường dẫn hiện tại có chứa tên file của link không
-        // Cách này an toàn hơn so với việc so sánh tuyệt đối
-        if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+        // So sánh bằng cách lấy đuôi của đường dẫn
+        if (currentPath.endsWith(href)) {
             link.classList.add('text-buddhist-gold', 'font-bold', 'border-b-2', 'border-buddhist-gold');
+            console.log("Matched:", href);
         }
     });
 }
