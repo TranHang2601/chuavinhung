@@ -19,18 +19,18 @@ async function includeHTML(targetId, filePath) {
     }
 }
 
-// 2. Tự động đánh dấu Menu Active dựa trên URL hiện tại
+// 2. Tự động đánh dấu Menu Active ổn định hơn
 function setActiveNavLink() {
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+    const currentPath = window.location.pathname; 
+    const navLinks = document.querySelectorAll('.nav-link');
 
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (href === currentPath) {
-            link.classList.add('text-buddhist-gold', 'font-bold');
-            if (link.classList.contains('nav-link')) {
-                link.classList.add('border-b-2', 'border-buddhist-gold');
-            }
+        
+        // Kiểm tra xem đường dẫn hiện tại có chứa tên file của link không
+        // Cách này an toàn hơn so với việc so sánh tuyệt đối
+        if (currentPath.includes(href) || (currentPath === '/' && href === 'index.html')) {
+            link.classList.add('text-buddhist-gold', 'font-bold', 'border-b-2', 'border-buddhist-gold');
         }
     });
 }
