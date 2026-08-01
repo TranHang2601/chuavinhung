@@ -87,14 +87,19 @@ function setActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-link');
     const currentPath = window.location.pathname; 
     
-    console.log("Current Path:", currentPath); // F12 xem console để biết nó đang đọc là gì
-
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        // So sánh bằng cách lấy đuôi của đường dẫn
-        if (currentPath.endsWith(href)) {
+        
+        // Điều kiện 1: Nếu là trang chủ
+        const isHomePage = (currentPath === '/' || currentPath.endsWith('index.html')) && href === 'index.html';
+        
+        // Điều kiện 2: Nếu là các trang khác
+        const isOtherPage = href !== 'index.html' && currentPath.includes(href);
+
+        if (isHomePage || isOtherPage) {
             link.classList.add('text-buddhist-gold', 'font-bold', 'border-b-2', 'border-buddhist-gold');
-            console.log("Matched:", href);
+            // Xóa màu trắng nếu có để đảm bảo màu vàng hiển thị
+            link.classList.remove('text-white');
         }
     });
 }
