@@ -26,9 +26,8 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body { font-family: 'Nunito Sans', sans-serif; background-color: #faf8f5; }
-        h1, h2, h3, h4 { font-family: 'Lora', serif; }
         .nen{
             background-image: url(images/ngoichua4.jpg);
         }
@@ -36,44 +35,8 @@
 </head>
 <body class="text-gray-800 antialiased nen">
 
-    <header id="header" class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="w-16 h-16 sm:w-14 sm:h-14 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-chua-gold overflow-hidden flex items-center justify-center">
-                        <img src="images/logo.png" alt="Logo Chùa Vĩnh Hưng" >
-                    </div>
-                    <span class="logo-text text-2xl font-heading font-bold tracking-wider transition-colors duration-300" style="margin-left: 5mm;">
-                        CHÙA VĨNH HƯNG
-                    </span>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Trang Chủ</a>
-                    <a href="gioi-thieu.html" class="nav-link text-sm font-semibold uppercase tracking-wider text-buddhist-gold transition-colors border-b-2 border-buddhist-gold">Giới Thiệu</a>
-                    <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Tin Tức & Khóa Tu</a>
-                    <!-- <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Khóa Tu</a> -->
-                    <a href="chuavang.html#phat-phap" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Phật Pháp</a>
-                    <a href="lien-he.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Liên Hệ</a>
-                </nav>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-200 hover:text-white focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-20 border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Trang Chủ</a>
-                <a href="gioi-thieu.html" class="block px-3 py-2 text-base font-medium text-buddhist-maroon hover:bg-gray-50 hover:text-buddhist-gold">Giới Thiệu</a>
-                <a href="tin-tuc.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Tin Tức & Khóa Tu</a>
-                <!-- <a href="tin-tuc.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Khóa Tu</a> -->
-                <a href="chuavang.html#phat-phap" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Phật Pháp</a>
-                <a href="lien-he.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Liên Hệ</a>
-            </div>
-        </div>
-    </header>
+    <!-- Thẻ header -->
+    <div id="header-container"></div>
 
     <main class="pt-32 pb-16 container mx-auto px-4">
         <div class="text-center mb-12">
@@ -152,107 +115,8 @@
         </div>
     </main>
 
-    <footer id="lien-he" class="bg-buddhist-dark text-gray-300 pt-16 pb-8 border-t-[6px] border-buddhist-gold">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-                <!-- Cột 1 -->
-                <div>
-                    <div class="flex items-center mb-6">
-                        <i class="fa-solid fa-dharmachakra text-3xl text-buddhist-gold mr-3"></i>
-                        <span class="text-2xl font-heading font-bold tracking-wider text-white">
-                            CHÙA VĨNH HƯNG
-                        </span>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-6">
-                        Ngôi chùa thanh tịnh, nơi lan tỏa ánh sáng Phật pháp, giúp mọi người tìm thấy sự bình an trong tâm hồn và hướng tới nếp sống chân - thiện - mỹ.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cột 2 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Liên Kết Nhanh
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="gioi-thieu.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giới thiệu Chùa</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Lịch hoạt động & Khóa tu</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Thư viện Video Bài Giảng</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Hoạt động Từ Thiện</a></li>
-                        <li><a href="#lien-he" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Quỹ Cúng Dường</a></li>
-                    </ul>
-                </div>
-
-                <!-- Cột 3 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Thông Tin Liên Hệ
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-location-dot mt-1 text-buddhist-gold mr-3"></i>
-                            <span>Khu Phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-phone text-buddhist-gold mr-3"></i>
-                            <span>(028) 3812 3456</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-envelope text-buddhist-gold mr-3"></i>
-                            <span>chuavinhhung@gmail.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-regular fa-clock text-buddhist-gold mr-3"></i>
-                            <span>Mở cửa: 04:30 - 21:00 mỗi ngày</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Cột 4 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Đăng Ký Nhận Tin
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <p class="text-sm mb-4">Để lại email để nhận thông báo về các khóa tu và bản tin Phật sự mới nhất.</p>
-                    <form class="flex flex-col space-y-3">
-                        <input type="email" placeholder="Nhập địa chỉ email..." class="bg-gray-800 text-white border border-gray-700 px-4 py-2 rounded focus:outline-none focus:border-buddhist-gold">
-                        <button type="button" class="bg-buddhist-gold text-buddhist-dark font-bold py-2 rounded hover:bg-yellow-500 transition">
-                            Đăng Ký
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                <p>&copy; 2026 Chùa Vĩnh Hưng. Tất cả các quyền được bảo lưu.</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-white transition">Chính sách bảo mật</a>
-                    <a href="#" class="hover:text-white transition">Điều khoản sử dụng</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script>
-        // Xử lý Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+    <!-- Thẻ header -->
+    <div id="footer-container"></div>
+    <script src="js/main.js"></script>
 </body>
 </html>

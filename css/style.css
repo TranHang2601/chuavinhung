@@ -1,0 +1,42 @@
+/* Custom CSS cho website Chùa Vĩnh Hưng */
+
+/* 1. Cấu hình phông chữ & nền trang */
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #faf8f5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+}
+
+/* 2. Banner trang phụ (Hero sub) */
+.hero-bg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/ngoichua3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* 3. Tiện ích cắt dòng văn bản (Line Clamp) */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 4. Tùy chỉnh thanh cuộn trang (Optional - giúp trang thêm chỉn chu) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #6b2024;
+}

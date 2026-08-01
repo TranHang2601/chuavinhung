@@ -37,235 +37,92 @@
     </script>
 
     <style>
-        body {
-            font-family: 'Nunito Sans', sans-serif;
-            background-color: #faf8f5;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Lora', serif;
-        }
-        
         .hero-sub {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542880941-1979eb00d07a?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/ngoichua7.jpg');
             background-size: cover;
             background-position: center;
         }
-
-        .scrolled-nav {
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .scrolled-nav .nav-link { color: #6b2024; }
-        .scrolled-nav .logo-text { color: #6b2024; }
     </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="text-gray-800 antialiased">
 
-    <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 text-white bg-black bg-opacity-40">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
-                    <div class="w-16 h-16 sm:w-14 sm:h-14 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-chua-gold overflow-hidden flex items-center justify-center">
-                        <img src="images/logo.png" alt="Logo Chùa Vĩnh Hưng" >
-                    </div>
-                    <span class="logo-text text-2xl font-heading font-bold tracking-wider transition-colors duration-300" style="margin-left: 5mm;">
-                        CHÙA VĨNH HƯNG
-                    </span>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Trang Chủ</a>
-                    <a href="gioi-thieu.html" class="nav-link text-sm font-semibold uppercase tracking-wider text-buddhist-gold transition-colors border-b-2 border-buddhist-gold">Giới Thiệu</a>
-                    <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Tin Tức & Khóa Tu</a>
-                    <!-- <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Khóa Tu</a> -->
-                    <a href="video.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Giảng Pháp</a>
-                    <a href="lien-he.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Liên Hệ</a>
-                </nav>
-
-                <!-- <div class="hidden md:block">
-                    <a href="#lien-he" class="bg-buddhist-maroon hover:bg-red-800 text-white px-5 py-2.5 rounded-md font-semibold transition shadow-md">
-                        Phát Tâm Cúng Dường
-                    </a>
-                </div> -->
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-200 hover:text-white focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-20 border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="chuavang.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Trang Chủ</a>
-                <a href="gioi-thieu.html" class="block px-3 py-2 text-base font-medium text-buddhist-maroon hover:bg-gray-50 hover:text-buddhist-gold">Giới Thiệu</a>
-                <a href="tin-tuc.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Tin Tức & Khóa Tu</a>
-                <!-- <a href="tin-tuc.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Khóa Tu</a> -->
-                <a href="chuavang.html#phat-phap" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Phật Pháp</a>
-                <a href="lien-he.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Liên Hệ</a>
-            </div>
-        </div>
-    </header>
+    <!-- Thẻ header -->
+    <div id="header-container"></div>
 
     <section class="hero-sub h-[40vh] mt-0 flex items-center justify-center relative">
         <div class="text-center px-4 z-10 text-white mt-10">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Giới Thiệu Chùa Bát Nhã</h1>
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Giới Thiệu Chùa Vĩnh Hưng</h1>
             <p class="text-lg text-gray-200 font-light">Nơi hội tụ tinh hoa Phật pháp, gieo mầm từ bi và trí tuệ.</p>
         </div>
     </section>
 
     <section class="py-16 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-            <div class="mb-12">
-                <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6">Lịch Sử Hình Thành</h2>
-                <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
-                <p class="text-gray-700 leading-loose mb-6 text-lg">
-                    Chùa Bát Nhã được thành lập vào năm 1995 (Phật lịch 2539) bởi Cố Hòa Thượng Thích Thiện Tâm. Ban đầu, chùa chỉ là một am tranh nhỏ đơn sơ nằm giữa vùng đồi núi thanh vắng, nơi ngài dừng chân tu tập sau nhiều năm vân du hóa đạo. Với đức độ và đạo hạnh của Ngài, ánh sáng Phật pháp dần lan tỏa, thu hút đông đảo thiện nam tín nữ gần xa tìm về nương tựa.
-                </p>
-                <p class="text-gray-700 leading-loose mb-6 text-lg">
-                    Trải qua gần 3 thập kỷ, dưới sự dìu dắt của chư Tôn đức tiền bối và sự phát tâm dõng mãnh của hàng phật tử tại gia, Chùa Bát Nhã đã trải qua 3 đợt đại trùng tu. Tới nay, bổn tự đã khoác lên mình diện mạo khang trang, bề thế nhưng vẫn giữ được nét cổ kính, trang nghiêm của kiến trúc Phật giáo Á Đông.
-                </p>
+        <div class="container mx-auto px-4 max-w-20xl">
+            <div class="flex flex-col lg:flex-row gap-12">
                 
-                <img src="https://images.unsplash.com/photo-1590457631379-3d126622fb41?q=80&w=2070&auto=format&fit=crop" class="w-full rounded-lg shadow-lg my-10" alt="Lịch sử chùa">
+                <!-- CỘT TRÁI: CÁC Ô DANH MỤC -->
+                <div class="lg:w-1/4 space-y-4">
+                    <button onclick="showTab('lich-su')" id="btn-lich-su" class="w-full text-left p-5 border-2 border-buddhist-gold rounded-xl font-bold text-buddhist-maroon bg-buddhist-lightgold/30 transition shadow-sm">
+                        <i class="fa-solid fa-scroll mr-2"></i> Lịch Sử Hình Thành
+                    </button>
+                    <button onclick="showTab('thanh-vien')" id="btn-thanh-vien" class="w-full text-left p-5 border-2 border-gray-200 rounded-xl font-bold text-gray-700 hover:bg-gray-50 transition shadow-sm">
+                        <i class="fa-solid fa-users mr-2"></i> Danh Sách Thành Viên
+                    </button>
+                </div>
 
-                <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6 mt-12">Kiến Trúc & Cảnh Quan</h2>
-                <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
-                <p class="text-gray-700 leading-loose mb-6 text-lg">
-                    Quần thể kiến trúc Chùa Bát Nhã được thiết kế theo lối chữ "Công" (工), bao gồm: Cổng Tam Quan, Sân Đại AvL, Ngôi Chánh Điện, Nhà Hậu Tổ, Giảng Đường và Khuôn viên Tượng Phật Quan Âm lộ thiên. 
-                </p>
-                <p class="text-gray-700 leading-loose mb-6 text-lg">
-                    Điểm nhấn đặc biệt của chùa là không gian xanh mát với những hàng cây cổ thụ hàng chục năm tuổi, những hồ sen tĩnh lặng và các lối đi lát đá tự nhiên. Tất cả tạo nên một khung cảnh thanh tịnh, giúp bất cứ ai bước chân qua Cổng Tam Quan đều cảm thấy bỏ lại được những bộn bề, lo toan của cuộc sống thế tục.
-                </p>
+                <!-- CỘT PHẢI: NỘI DUNG THAY ĐỔI -->
+                <div class="lg:w-3/4">
+                    <!-- Nội dung Lịch sử -->
+                    <div id="tab-lich-su" class="tab-content">
+                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6">Lịch Sử Hình Thành</h2>
+                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
+                        <p class="text-gray-700 leading-loose mb-6 text-lg">
+                            Chùa Vĩnh Hưng được thành lập vào năm 1995 (Phật lịch 2539) bởi Cố Hòa Thượng Thích Thiện Tâm. Ban đầu, chùa chỉ là một am tranh nhỏ đơn sơ nằm giữa vùng đồi núi thanh vắng, nơi ngài dừng chân tu tập sau nhiều năm vân du hóa đạo. Với đức độ và đạo hạnh của Ngài, ánh sáng Phật pháp dần lan tỏa, thu hút đông đảo thiện nam tín nữ gần xa tìm về nương tựa.
+                        </p>
+                        <p class="text-gray-700 leading-loose mb-6 text-lg">
+                            Trải qua gần 3 thập kỷ, dưới sự dìu dắt của chư Tôn đức tiền bối và sự phát tâm dõng mãnh của hàng phật tử tại gia, Chùa Bát Nhã đã trải qua 3 đợt đại trùng tu. Tới nay, bổn tự đã khoác lên mình diện mạo khang trang, bề thế nhưng vẫn giữ được nét cổ kính, trang nghiêm của kiến trúc Phật giáo Á Đông.
+                        </p>
+                        
+                        <img src="images/chuaxua1.jpg" class="w-full rounded-lg shadow-lg my-10" alt="Lịch sử chùa">
 
-                <div class="bg-[#faf8f5] p-8 border-l-4 border-buddhist-gold my-10 rounded-r-lg">
-                    <p class="text-xl font-heading text-gray-800 italic">
-                        "Mục đích lớn nhất của Bổn tự không phải là xây dựng cơ sở vật chất to lớn, mà là xây dựng một đạo tràng thanh tịnh, nơi mỗi người có thể tìm thấy con đường tu tập giải thoát và lan tỏa tình yêu thương đến muôn loài."
-                    </p>
-                    <p class="mt-4 text-buddhist-maroon font-bold">— Trụ trì Thích Tâm An</p>
+                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6 mt-12">Kiến Trúc & Cảnh Quan</h2>
+                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
+                        <p class="text-gray-700 leading-loose mb-6 text-lg">
+                            Quần thể kiến trúc Chùa Bát Nhã được thiết kế theo lối chữ "Công" (工), bao gồm: Cổng Tam Quan, Sân Đại AvL, Ngôi Chánh Điện, Nhà Hậu Tổ, Giảng Đường và Khuôn viên Tượng Phật Quan Âm lộ thiên. 
+                        </p>
+                        <p class="text-gray-700 leading-loose mb-6 text-lg">
+                            Điểm nhấn đặc biệt của chùa là không gian xanh mát với những hàng cây cổ thụ hàng chục năm tuổi, những hồ sen tĩnh lặng và các lối đi lát đá tự nhiên. Tất cả tạo nên một khung cảnh thanh tịnh, giúp bất cứ ai bước chân qua Cổng Tam Quan đều cảm thấy bỏ lại được những bộn bề, lo toan của cuộc sống thế tục.
+                        </p>
+
+                        <div class="bg-[#faf8f5] p-8 border-l-4 border-buddhist-gold my-10 rounded-r-lg">
+                            <p class="text-xl font-heading text-gray-800 italic">
+                                "Mục đích lớn nhất của Bổn tự không phải là xây dựng cơ sở vật chất to lớn, mà là xây dựng một đạo tràng thanh tịnh, nơi mỗi người có thể tìm thấy con đường tu tập giải thoát và lan tỏa tình yêu thương đến muôn loài."
+                            </p>
+                            <p class="mt-4 text-buddhist-maroon font-bold">— Trụ trì Thích Tâm An</p>
+                        </div>
+                    </div>
+                    <!-- Nội dung Thành viên -->
+                    <div id="tab-thanh-vien" class="tab-content hidden">
+                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6">Chư Tăng & Ban Quản Trị</h2>
+                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Ví dụ 1 thành viên -->
+                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                                <img src="images/tru-tri.jpg" class="w-full h-64 object-cover rounded-xl mb-4" alt="Trụ trì">
+                                <h3 class="text-xl font-bold text-buddhist-dark">Đại Đức Thích Tâm An</h3>
+                                <p class="text-gray-600 mt-2">Trụ trì bổn tự, người dẫn dắt Phật tử tu tập...</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="lien-he" class="bg-buddhist-dark text-gray-300 pt-16 pb-8 border-t-[6px] border-buddhist-gold">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-                <!-- Cột 1 -->
-                <div>
-                    <div class="flex items-center mb-6">
-                        <i class="fa-solid fa-dharmachakra text-3xl text-buddhist-gold mr-3"></i>
-                        <span class="text-2xl font-heading font-bold tracking-wider text-white">
-                            CHÙA VĨNH HƯNG
-                        </span>
-                    </div>
-                    <p class="text-sm leading-relaxed mb-6">
-                        Ngôi chùa thanh tịnh, nơi lan tỏa ánh sáng Phật pháp, giúp mọi người tìm thấy sự bình an trong tâm hồn và hướng tới nếp sống chân - thiện - mỹ.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
+    <div id="footer-container"></div>
 
-                <!-- Cột 2 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Liên Kết Nhanh
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="gioi-thieu.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giới thiệu Chùa</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Lịch hoạt động & Khóa tu</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Thư viện Video Bài Giảng</a></li>
-                        <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Hoạt động Từ Thiện</a></li>
-                        <li><a href="#lien-he" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Quỹ Cúng Dường</a></li>
-                    </ul>
-                </div>
-
-                <!-- Cột 3 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Thông Tin Liên Hệ
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <ul class="space-y-4 text-sm">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-location-dot mt-1 text-buddhist-gold mr-3"></i>
-                            <span>Khu Phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-phone text-buddhist-gold mr-3"></i>
-                            <span>(028) 3812 3456</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-envelope text-buddhist-gold mr-3"></i>
-                            <span>chuavinhhung@gmail.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-regular fa-clock text-buddhist-gold mr-3"></i>
-                            <span>Mở cửa: 04:30 - 21:00 mỗi ngày</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Cột 4 -->
-                <div>
-                    <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                        Đăng Ký Nhận Tin
-                        <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                    </h4>
-                    <p class="text-sm mb-4">Để lại email để nhận thông báo về các khóa tu và bản tin Phật sự mới nhất.</p>
-                    <form class="flex flex-col space-y-3">
-                        <input type="email" placeholder="Nhập địa chỉ email..." class="bg-gray-800 text-white border border-gray-700 px-4 py-2 rounded focus:outline-none focus:border-buddhist-gold">
-                        <button type="button" class="bg-buddhist-gold text-buddhist-dark font-bold py-2 rounded hover:bg-yellow-500 transition">
-                            Đăng Ký
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                <p>&copy; 2026 Chùa Vĩnh Hưng. Tất cả các quyền được bảo lưu.</p>
-                <div class="mt-4 md:mt-0 space-x-4">
-                    <a href="#" class="hover:text-white transition">Chính sách bảo mật</a>
-                    <a href="#" class="hover:text-white transition">Điều khoản sử dụng</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
-
-        const header = document.getElementById('header');
-        const navLinks = document.querySelectorAll('.nav-link:not(.text-buddhist-gold)');
-        const logoText = document.querySelector('.logo-text');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('bg-white', 'shadow-md', 'py-1');
-                header.classList.remove('bg-black', 'bg-opacity-40', 'py-0');
-                navLinks.forEach(link => { link.classList.remove('text-white'); link.classList.add('text-gray-800'); });
-                logoText.classList.remove('text-white'); logoText.classList.add('text-buddhist-maroon');
-                btn.classList.remove('text-gray-200'); btn.classList.add('text-gray-800');
-            } else {
-                header.classList.remove('bg-white', 'shadow-md', 'py-1');
-                header.classList.add('bg-black', 'bg-opacity-40', 'py-0');
-                navLinks.forEach(link => { link.classList.add('text-white'); link.classList.remove('text-gray-800'); });
-                logoText.classList.add('text-white'); logoText.classList.remove('text-buddhist-maroon');
-                btn.classList.add('text-gray-200'); btn.classList.remove('text-gray-800');
-            }
-        });
-    </script>
+    <script src="js/main.js"></script>
+    <script src="js/gioi-thieu.js"></script>
 </body>
 </html>

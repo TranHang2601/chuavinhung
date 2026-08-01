@@ -1,0 +1,52 @@
+<header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 text-white bg-black bg-opacity-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <div class="w-16 h-16 sm:w-14 sm:h-14 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-chua-gold overflow-hidden flex items-center justify-center">
+                        <img src="images/logo.png" alt="Logo Chùa Vĩnh Hưng" >
+                    </div>
+                    <span class="logo-text text-2xl font-heading font-bold tracking-wider transition-colors duration-300" style="margin-left: 5mm;">
+                        CHÙA VĨNH HƯNG
+                    </span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Trang Chủ</a>
+                    <a href="gioi-thieu.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Giới Thiệu</a>
+                    <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Tin Tức & Khóa Tu</a>
+                    <a href="video.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Giảng Pháp</a>
+                    <a href="lien-he.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-buddhist-gold transition-colors">Liên Hệ</a>
+                </nav>
+
+                <!-- Nút Cúng Dường / Đăng ký (Desktop) -->
+                <!-- <div class="hidden md:block">
+                    <a href="#lien-he" class="bg-buddhist-maroon hover:bg-red-800 text-white px-5 py-2.5 rounded-md font-semibold transition shadow-md">
+                        Phát Tâm Cúng Dường
+                    </a>
+                </div> -->
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-200 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-20 border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 text-base font-medium text-buddhist-maroon hover:bg-gray-50 hover:text-buddhist-gold">Trang Chủ</a>
+                <a href="gioi-thieu.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Giới Thiệu</a>
+                <a href="tin-tuc.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Tin Tức & Khóa Tu</a>
+                <a href="video.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Giảng Pháp</a>
+                <a href="lien-he.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-buddhist-gold">Liên Hệ</a>
+                <!-- <a href="#lien-he" class="block w-full text-center mt-4 bg-buddhist-maroon text-white px-5 py-3 rounded-md font-semibold">
+                    Phát Tâm Cúng Dường
+                </a> -->
+            </div>
+        </div>
+    </header>
