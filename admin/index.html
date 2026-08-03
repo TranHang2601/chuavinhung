@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Điều Khiển Quản Trị Tổng Hợp | Chùa Vĩnh Hưng</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chua: {
+                            red: '#991b1b',
+                            gold: '#d97706',
+                            amber: '#b45309',
+                            darkred: '#7f1d1d',
+                            cream: '#fef3c7',
+                            bg: '#f8f6f0',
+                            dark: '#3d1c1d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Lora', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8f6f0; font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Lora', serif; }
+        .custom-shadow { box-shadow: 0 10px 25px -5px rgba(153, 27, 27, 0.08), 0 8px 10px -6px rgba(153, 27, 27, 0.03); }
+        .tab-btn.active {
+            background-color: #991b1b;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(153, 27, 27, 0.25);
+        }
+    </style>
+</head>
+<body class="text-gray-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Top Header -->
+    <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-md border-b-4 border-chua-gold sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-full bg-white p-1 shadow flex items-center justify-center border-2 border-chua-gold flex-shrink-0">
+                    <i class="fa-solid fa-dharmachakra text-chua-red text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold font-serif tracking-wide text-amber-200 uppercase">QUẢN TRỊ CHÙA VĨNH HƯNG</h1>
+                    <p class="text-xs text-red-100 font-light hidden sm:block">Hệ thống điều hành và quản lý nội dung số</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <a href="index.html" target="_blank" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition flex items-center border border-amber-400/30">
+                    <i class="fa-solid fa-globe mr-1.5"></i> <span class="hidden sm:inline">Xem Trực Tuyến</span>
+                </a>
+                <button onclick="window.logoutAdmin()" class="px-3.5 py-2 bg-red-950/70 hover:bg-red-950 text-amber-200 rounded-xl text-xs font-semibold transition flex items-center border border-red-800">
+                    <i class="fa-solid fa-lock mr-1.5"></i> Khóa
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Màn hình Đăng Nhập / Mở Khóa System -->
+    <div id="admin-lock-screen" class="bg-white rounded-3xl p-8 sm:p-12 custom-shadow border border-amber-200 text-center max-w-md mx-auto space-y-6 my-12">
+        <div class="w-20 h-20 rounded-full bg-amber-100 text-chua-red flex items-center justify-center mx-auto text-3xl border-2 border-amber-300 shadow-inner">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+            <h3 class="text-xl font-bold font-serif text-chua-darkred uppercase">Đăng Nhập Bảng Điều Khiển</h3>
+            <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN bảo mật để truy cập quản trị</p>
+        </div>
+        <div class="space-y-4">
+            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN (1234)..." maxlength="8" onkeypress="if(event.key === 'Enter') window.unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+            <button onclick="window.unlockAdmin()" class="w-full py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl shadow transition text-sm uppercase">
+                Mở Khóa Quản Trị
+            </button>
+            <p class="text-[11px] text-gray-400">Mã PIN mặc định: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-chua-amber font-mono">1234</code></p>
+        </div>
+    </div>
+
+    <!-- MAIN ADMIN CONTENT (Ẩn cho đến khi đăng nhập) -->
+    <main id="admin-content" class="hidden max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 flex-grow space-y-6">
+
+        <!-- DANH SÁCH TAB QUẢN TRỊ (ADMIN NAVIGATION TABS) -->
+        <nav class="bg-white p-2 rounded-2xl custom-shadow border border-amber-200 flex flex-wrap gap-2 text-sm font-semibold text-gray-600">
+            <button onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn active px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Tổng Quan</span>
+            </button>
+            <button onclick="switchTab('news')" id="tab-btn-news" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+                <i class="fa-solid fa-newspaper"></i>
+                <span>Bài Viết & Tin Tức</span>
+            </button>
+            <button onclick="switchTab('videos')" id="tab-btn-videos" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+                <i class="fa-solid fa-circle-play"></i>
+                <span>Video Pháp Thoại</span>
+            </button>
+            <button onclick="switchTab('monks')" id="tab-btn-monks" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+                <i class="fa-solid fa-users"></i>
+                <span>Chư Tăng & BQT</span>
+            </button>
+            <button onclick="switchTab('settings')" id="tab-btn-settings" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Cài Đặt Hệ Thống</span>
+            </button>
+        </nav>
+
+        <!-- TAB 1: TỔNG QUAN (OVERVIEW) -->
+        <section id="tab-sec-overview" class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Stat Card 1 -->
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-chua-amber flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Bài Viết Tin Tức</p>
+                        <h3 id="stat-news-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                    </div>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-red-100 text-chua-red flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Video Pháp Thoại</p>
+                        <h3 id="stat-video-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                    </div>
+                </div>
+
+                <!-- Stat Card 3 -->
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Chư Tăng & BQT</p>
+                        <h3 id="stat-monk-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+                    </div>
+                </div>
+
+                <!-- Stat Card 4 -->
+                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-cloud-check"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase">Kết Nối Cloud</p>
+                        <h3 class="text-sm font-bold text-emerald-600 mt-1">Firebase RTDB</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phím Tắt Thao Tác Nhanh -->
+            <div class="bg-white p-6 rounded-2xl custom-shadow border border-amber-200 space-y-4">
+                <h3 class="text-base font-serif font-bold text-chua-darkred uppercase border-b border-gray-100 pb-3">Thao Tác Tốc Độ</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <button onclick="window.openNewsModal()" class="py-4 px-5 bg-gradient-to-r from-chua-amber to-chua-red text-white font-bold rounded-xl shadow hover:opacity-95 transition flex items-center justify-center space-x-3">
+                        <i class="fa-solid fa-plus-circle text-xl"></i>
+                        <span>Soạn Bài Viết Mới</span>
+                    </button>
+                    <button onclick="window.openVideoModal()" class="py-4 px-5 bg-gradient-to-r from-red-800 to-red-950 text-white font-bold rounded-xl shadow hover:opacity-95 transition flex items-center justify-center space-x-3">
+                        <i class="fa-solid fa-video text-xl"></i>
+                        <span>Thêm Video Pháp Thoại</span>
+                    </button>
+                    <button onclick="window.openMonkModal()" class="py-4 px-5 bg-amber-800 hover:bg-amber-900 text-white font-bold rounded-xl shadow transition flex items-center justify-center space-x-3">
+                        <i class="fa-solid fa-user-plus text-xl"></i>
+                        <span>Thêm Thành Viên Mới</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: QUẢN LÝ BÀI VIẾT & TIN TỨC (NEWS) -->
+        <section id="tab-sec-news" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-chua-red uppercase">Danh Sách Bài Viết Tin Tức & Khóa Tu</h2>
+                        <p class="text-xs text-gray-500">Quản lý bài viết hiển thị trên trang tin tức Chùa Vĩnh Hưng</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center bg-gray-50 px-3 py-2 rounded-xl border border-gray-200 w-full sm:w-64">
+                            <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2 text-xs"></i>
+                            <input type="text" id="news-search" oninput="window.renderNewsTable()" placeholder="Tìm kiếm tiêu đề..." class="w-full bg-transparent outline-none text-xs">
+                        </div>
+                        <button onclick="window.openNewsModal()" class="px-4 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-xs uppercase shadow transition whitespace-nowrap">
+                            <i class="fa-solid fa-plus mr-1"></i> Bài Viết Mới
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[650px]">
+                        <thead>
+                            <tr class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold border-b border-amber-200">
+                                <th class="py-3 px-4 w-12 text-center">STT</th>
+                                <th class="py-3 px-4 w-32">Ngày đăng</th>
+                                <th class="py-3 px-4">Tiêu đề bài viết</th>
+                                <th class="py-3 px-4 w-40">Đường dẫn (Slug)</th>
+                                <th class="py-3 px-4 w-28 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="news-table-body" class="divide-y divide-gray-100 text-sm">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: QUẢN LÝ VIDEO PHÁP THOẠI (VIDEOS) -->
+        <section id="tab-sec-videos" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-chua-red uppercase">Danh Sách Video Bài Giảng Pháp Thoại</h2>
+                        <p class="text-xs text-gray-500">Các video lưu trữ từ kênh YouTube chính thức của Chùa</p>
+                    </div>
+                    <button onclick="window.openVideoModal()" class="px-4 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-xs uppercase shadow transition self-start sm:self-auto">
+                        <i class="fa-solid fa-plus mr-1"></i> Thêm Video Mới
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[650px]">
+                        <thead>
+                            <tr class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold border-b border-amber-200">
+                                <th class="py-3 px-4 w-24 text-center">Xem thử</th>
+                                <th class="py-3 px-4">Tiêu đề Video</th>
+                                <th class="py-3 px-4 w-48">Link YouTube</th>
+                                <th class="py-3 px-4 w-28 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="video-table-body" class="divide-y divide-gray-100 text-sm">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: CHƯ TĂNG & BAN QUẢN TRỊ (MONKS) -->
+        <section id="tab-sec-monks" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-chua-red uppercase">Danh Sách Chư Tăng & Ban Quản Trị</h2>
+                        <p class="text-xs text-gray-500">Thông tin chư Tôn đức Tăng ni và thành viên BQT Chùa Vĩnh Hưng</p>
+                    </div>
+                    <button onclick="window.openMonkModal()" class="px-4 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-xs uppercase shadow transition self-start sm:self-auto">
+                        <i class="fa-solid fa-user-plus mr-1"></i> Thêm Thành Viên
+                    </button>
+                </div>
+
+                <div id="monk-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- JS Inject Card danh sách -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: CÀI ĐẶT HỆ THỐNG (SETTINGS) -->
+        <section id="tab-sec-settings" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-6">
+                <h2 class="text-lg font-serif font-bold text-chua-red uppercase border-b border-gray-100 pb-3">Cấu Hình Kết Nối Firebase & Website</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <label class="block text-xs font-bold text-gray-700 uppercase">Đường dẫn Firebase Realtime Database</label>
+                        <input type="text" id="cfg-firebase-url" readonly value="https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app" class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 font-mono text-xs text-gray-600 outline-none">
+                        
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
+                            <p class="font-bold"><i class="fa-solid fa-circle-info mr-1"></i> Trạng thái đồng bộ tự động:</p>
+                            <p>Toàn bộ dữ liệu tin tức, video và ban quản trị được đồng bộ trực tiếp lên máy chủ đám mây Firebase Realtime Database.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-xs font-bold text-gray-700 uppercase">Kiểm tra kết nối Máy chủ</label>
+                        <button onclick="window.testCloudConnection()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs uppercase transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-network-wired"></i>
+                            <span>Kiểm Tra Kết Nối Cloud</span>
+                        </button>
+                        <p id="connection-status" class="text-xs text-center font-semibold text-gray-500"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: BÀI VIẾT TIN TỨC -->
+    <div id="modal-news" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col p-6 shadow-2xl border border-amber-200">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-200">
+                <h3 id="news-modal-title" class="text-base font-bold font-serif text-chua-red uppercase">Thêm Bài Viết Mới</h3>
+                <button onclick="window.closeNewsModal()" class="text-gray-400 hover:text-gray-600 text-lg px-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="news-form" onsubmit="window.saveNews(event)" class="overflow-y-auto my-4 py-2 space-y-4 flex-1 text-xs">
+                <input type="hidden" id="news-key">
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Tiêu đề bài viết <span class="text-red-600">*</span></label>
+                    <input type="text" id="news-title" required placeholder="Nhập tiêu đề..." oninput="window.autoSlug()" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-gray-700 uppercase mb-1">Slug đường dẫn</label>
+                        <input type="text" id="news-slug" placeholder="tu-khoa-bai-viet" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none bg-gray-50">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-700 uppercase mb-1">Ảnh đại diện (URL / Tên file)</label>
+                        <input type="text" id="news-image" placeholder="images/tintuc1.jpg hoặc link https://..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Nội dung chi tiết <span class="text-red-600">*</span></label>
+                    <textarea id="news-content" required rows="7" placeholder="Nội dung bài viết..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none font-sans text-xs"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-3 border-t border-gray-200">
+                    <button type="button" onclick="window.closeNewsModal()" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition">Hủy</button>
+                    <button type="submit" class="px-6 py-2.5 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl transition shadow">Lưu Bài Viết</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: VIDEO PHÁP THOẠI -->
+    <div id="modal-video" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-amber-200 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-200">
+                <h3 class="text-base font-bold font-serif text-chua-red uppercase">Thêm / Sửa Video</h3>
+                <button onclick="window.closeVideoModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="video-form" onsubmit="window.saveVideo(event)" class="space-y-4 text-xs">
+                <input type="hidden" id="video-key">
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Tiêu đề video pháp thoại</label>
+                    <input type="text" id="video-title" required placeholder="Nội dung bài giảng..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Đường dẫn YouTube (URL)</label>
+                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="window.closeVideoModal()" class="px-4 py-2 bg-gray-100 rounded-xl font-semibold">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-chua-amber text-white font-bold rounded-xl shadow">Lưu Video</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: CHƯ TĂNG / BAN QUẢN TRỊ -->
+    <div id="modal-monk" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-amber-200 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-200">
+                <h3 class="text-base font-bold font-serif text-chua-red uppercase">Thành Viên Ban Quản Trị</h3>
+                <button onclick="window.closeMonkModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="monk-form" onsubmit="window.saveMonk(event)" class="space-y-4 text-xs">
+                <input type="hidden" id="monk-key">
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Pháp danh / Họ tên</label>
+                    <input type="text" id="monk-name" required placeholder="Đại Đức Thích..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Chức vụ / Vị trí</label>
+                    <input type="text" id="monk-role" required placeholder="Trụ trì bổn tự / Phó Trụ trì..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Ảnh đại diện (URL)</label>
+                    <input type="text" id="monk-avatar" placeholder="images/tru-tri.jpg" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+                </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Mô tả vắn tắt</label>
+                    <textarea id="monk-desc" rows="3" placeholder="Đôi nét giới thiệu..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="window.closeMonkModal()" class="px-4 py-2 bg-gray-100 rounded-xl font-semibold">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-chua-amber text-white font-bold rounded-xl shadow">Lưu Thông Tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL XÁC NHẬN XÓA (Custom Delete Confirmation) -->
+    <div id="modal-confirm" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4 border border-red-200">
+            <div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold font-serif text-gray-800">Xác Nhận Xóa</h4>
+                <p id="confirm-msg" class="text-xs text-gray-500 mt-1">Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa?</p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="window.closeConfirmModal(false)" class="w-full py-2.5 bg-gray-100 text-gray-700 font-semibold text-xs rounded-xl">Hủy bỏ</button>
+                <button onclick="window.closeConfirmModal(true)" class="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow">Xác Nhận Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+        <p>© 2026 Chùa Vĩnh Hưng. Hệ thống Quản trị Web Nội bộ.</p>
+    </footer>
+
+    <script>
+        const FIREBASE_BASE = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app';
+        
+        let newsData = {};
+        let videosData = {};
+        let monksData = {};
+        let confirmResolver = null;
+
+        window.showToast = function(msg, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-xl text-xs font-semibold shadow-lg text-white flex items-center space-x-2 pointer-events-none transition transform duration-300 ${isError ? 'bg-red-600' : 'bg-emerald-600'}`;
+            toast.innerHTML = `<i class="fa-solid ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'} text-base"></i><span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        };
+
+        window.askConfirm = function(message) {
+            document.getElementById('confirm-msg').textContent = message || 'Bạn có chắc chắn muốn thực hiện thao tác này?';
+            document.getElementById('modal-confirm').classList.remove('hidden');
+            return new Promise((resolve) => {
+                confirmResolver = resolve;
+            });
+        };
+
+        window.closeConfirmModal = function(result) {
+            document.getElementById('modal-confirm').classList.add('hidden');
+            if (confirmResolver) {
+                confirmResolver(result);
+                confirmResolver = null;
+            }
+        };
+
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('section[id^="tab-sec-"]').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            const targetSec = document.getElementById(`tab-sec-${tabName}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if (targetSec && targetBtn) {
+                targetSec.classList.remove('hidden');
+                targetBtn.classList.add('active');
+            }
+        };
+
+        window.unlockAdmin = function() {
+            const pin = document.getElementById('admin-pin-input').value;
+            if (pin === '1234' || pin === '123456') {
+                document.getElementById('admin-lock-screen').classList.add('hidden');
+                document.getElementById('admin-content').classList.remove('hidden');
+                window.loadAllData();
+                window.showToast("Mở khóa hệ thống quản trị thành công!");
+            } else {
+                window.showToast("Mã PIN không hợp lệ!", true);
+            }
+        };
+
+        window.logoutAdmin = function() {
+            document.getElementById('admin-lock-screen').classList.remove('hidden');
+            document.getElementById('admin-content').classList.add('hidden');
+            document.getElementById('admin-pin-input').value = '';
+            window.showToast("Đã khóa bảng điều khiển!");
+        };
+
+        window.loadAllData = async function() {
+            await Promise.all([fetchNews(), fetchVideos(), fetchMonks()]);
+            updateStats();
+        };
+
+        function updateStats() {
+            document.getElementById('stat-news-count').textContent = Object.keys(newsData).length;
+            document.getElementById('stat-video-count').textContent = Object.keys(videosData).length;
+            document.getElementById('stat-monk-count').textContent = Object.keys(monksData).length;
+        }
+
+        async function fetchNews() {
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/news.json`);
+                newsData = (await res.json()) || {};
+                renderNewsTable();
+            } catch (e) {
+                window.showToast("Lỗi tải danh sách tin tức", true);
+            }
+        }
+
+        window.renderNewsTable = function() {
+            const tbody = document.getElementById('news-table-body');
+            const search = (document.getElementById('news-search')?.value || '').toLowerCase();
+            tbody.innerHTML = '';
+
+            const keys = Object.keys(newsData).filter(k => (newsData[k].title || '').toLowerCase().includes(search));
+
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-gray-400 italic">Không tìm thấy bài viết nào.</td></tr>`;
+                return;
+            }
+
+            keys.forEach((key, idx) => {
+                const item = newsData[key];
+                const dateStr = new Date(item.created_at || Date.now()).toLocaleDateString('vi-VN');
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-amber-50/50 transition border-b border-gray-100";
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-center font-bold text-gray-400">#${idx + 1}</td>
+                    <td class="py-3 px-4 text-xs text-gray-500">${dateStr}</td>
+                    <td class="py-3 px-4 font-semibold text-gray-800">${item.title || ''}</td>
+                    <td class="py-3 px-4 text-xs font-mono text-chua-amber">${item.slug || '-'}</td>
+                    <td class="py-3 px-4 text-center space-x-1">
+                        <button onclick="window.editNews('${key}')" class="p-1.5 text-amber-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="window.deleteNews('${key}')" class="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            updateStats();
+        };
+
+        window.openNewsModal = function() {
+            document.getElementById('news-form').reset();
+            document.getElementById('news-key').value = '';
+            document.getElementById('news-modal-title').textContent = "Thêm Bài Viết Mới";
+            document.getElementById('modal-news').classList.remove('hidden');
+        };
+
+        window.closeNewsModal = function() {
+            document.getElementById('modal-news').classList.add('hidden');
+        };
+
+        window.autoSlug = function() {
+            const title = document.getElementById('news-title').value;
+            const slug = title.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[đĐ]/g, 'd')
+                .replace(/([^0-9a-z-\s])/g, '')
+                .replace(/(\s+)/g, '-');
+            document.getElementById('news-slug').value = slug;
+        };
+
+        window.editNews = function(key) {
+            const item = newsData[key];
+            if (!item) return;
+            document.getElementById('news-key').value = key;
+            document.getElementById('news-title').value = item.title || '';
+            document.getElementById('news-slug').value = item.slug || '';
+            document.getElementById('news-image').value = item.image || '';
+            document.getElementById('news-content').value = item.content || '';
+            document.getElementById('news-modal-title').textContent = "Chỉnh Sửa Bài Viết";
+            document.getElementById('modal-news').classList.remove('hidden');
+        };
+
+        window.saveNews = async function(e) {
+            e.preventDefault();
+            const key = document.getElementById('news-key').value;
+            const payload = {
+                title: document.getElementById('news-title').value,
+                slug: document.getElementById('news-slug').value,
+                image: document.getElementById('news-image').value,
+                content: document.getElementById('news-content').value,
+                created_at: key && newsData[key] ? (newsData[key].created_at || Date.now()) : Date.now()
+            };
+
+            if (key) {
+                await fetch(`${FIREBASE_BASE}/news/${key}.json`, { method: 'PUT', body: JSON.stringify(payload) });
+                window.showToast("Đã cập nhật bài viết!");
+            } else {
+                await fetch(`${FIREBASE_BASE}/news.json`, { method: 'POST', body: JSON.stringify(payload) });
+                window.showToast("Đã thêm bài viết mới!");
+            }
+            window.closeNewsModal();
+            fetchNews();
+        };
+
+        window.deleteNews = async function(key) {
+            const ok = await window.askConfirm("Bạn có chắc chắn muốn xóa bài viết này không?");
+            if (ok) {
+                await fetch(`${FIREBASE_BASE}/news/${key}.json`, { method: 'DELETE' });
+                window.showToast("Đã xóa bài viết!");
+                fetchNews();
+            }
+        };
+
+        function getYouTubeID(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = (url || '').match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        async function fetchVideos() {
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/videos.json`);
+                videosData = (await res.json()) || {};
+                renderVideosTable();
+            } catch (e) {
+                window.showToast("Lỗi tải danh sách video", true);
+            }
+        }
+
+        function renderVideosTable() {
+            const tbody = document.getElementById('video-table-body');
+            tbody.innerHTML = '';
+            const keys = Object.keys(videosData);
+
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-8 text-center text-gray-400 italic">Chưa có video nào.</td></tr>`;
+                return;
+            }
+
+            keys.forEach(key => {
+                const item = videosData[key];
+                const yid = getYouTubeID(item.url);
+                const thumb = yid ? `https://img.youtube.com/vi/${yid}/mqdefault.jpg` : 'https://placehold.co/120x80/3d1c1d/d4af37?text=Video';
+                
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-amber-50/50 transition border-b border-gray-100";
+                tr.innerHTML = `
+                    <td class="py-2 px-4 text-center">
+                        <img src="${thumb}" class="w-16 h-10 object-cover rounded-md mx-auto shadow-sm" alt="Thumbnail">
+                    </td>
+                    <td class="py-3 px-4 font-semibold text-gray-800">${item.title}</td>
+                    <td class="py-3 px-4 text-xs text-blue-600 font-mono truncate max-w-[200px]"><a href="${item.url}" target="_blank">${item.url}</a></td>
+                    <td class="py-3 px-4 text-center space-x-1">
+                        <button onclick="window.editVideo('${key}')" class="p-1.5 text-amber-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="window.deleteVideo('${key}')" class="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition" title="Xóa"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            updateStats();
+        }
+
+        window.openVideoModal = function() {
+            document.getElementById('video-form').reset();
+            document.getElementById('video-key').value = '';
+            document.getElementById('modal-video').classList.remove('hidden');
+        };
+
+        window.closeVideoModal = function() {
+            document.getElementById('modal-video').classList.add('hidden');
+        };
+
+        window.editVideo = function(key) {
+            const v = videosData[key];
+            if (!v) return;
+            document.getElementById('video-key').value = key;
+            document.getElementById('video-title').value = v.title || '';
+            document.getElementById('video-url').value = v.url || '';
+            document.getElementById('modal-video').classList.remove('hidden');
+        };
+
+        window.saveVideo = async function(e) {
+            e.preventDefault();
+            const key = document.getElementById('video-key').value;
+            const payload = {
+                title: document.getElementById('video-title').value,
+                url: document.getElementById('video-url').value,
+                created_at: Date.now()
+            };
+
+            if (key) {
+                await fetch(`${FIREBASE_BASE}/videos/${key}.json`, { method: 'PUT', body: JSON.stringify(payload) });
+                window.showToast("Đã lưu video!");
+            } else {
+                await fetch(`${FIREBASE_BASE}/videos.json`, { method: 'POST', body: JSON.stringify(payload) });
+                window.showToast("Đã thêm video pháp thoại mới!");
+            }
+            window.closeVideoModal();
+            fetchVideos();
+        };
+
+        window.deleteVideo = async function(key) {
+            const ok = await window.askConfirm("Bạn có chắc chắn muốn xóa video này không?");
+            if (ok) {
+                await fetch(`${FIREBASE_BASE}/videos/${key}.json`, { method: 'DELETE' });
+                window.showToast("Đã xóa video!");
+                fetchVideos();
+            }
+        };
+
+        async function fetchMonks() {
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/monks.json`);
+                monksData = (await res.json()) || {};
+                renderMonksGrid();
+            } catch (e) {
+                window.showToast("Lỗi tải danh sách Ban quản trị", true);
+            }
+        }
+
+        function renderMonksGrid() {
+            const grid = document.getElementById('monk-grid');
+            grid.innerHTML = '';
+            const keys = Object.keys(monksData);
+
+            if (keys.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-8 text-gray-400 italic">Chưa có thông tin chư Tăng hay Ban quản trị.</div>`;
+                return;
+            }
+
+            keys.forEach(key => {
+                const m = monksData[key];
+                const card = document.createElement('div');
+                card.className = "bg-gray-50 border border-amber-200 rounded-2xl p-4 flex items-start space-x-3 relative group";
+                card.innerHTML = `
+                    <img src="${m.avatar || 'https://placehold.co/100x100/3d1c1d/d4af37?text=T%C6%B0%E1 meng'}" class="w-16 h-16 rounded-xl object-cover border border-amber-300" alt="${m.name}">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold font-serif text-chua-darkred text-sm truncate">${m.name}</h4>
+                        <p class="text-xs font-semibold text-chua-amber">${m.role || ''}</p>
+                        <p class="text-[11px] text-gray-500 mt-1 line-clamp-2">${m.desc || ''}</p>
+                    </div>
+                    <div class="flex flex-col space-y-1">
+                        <button onclick="window.editMonk('${key}')" class="text-amber-600 hover:text-amber-800 text-xs p-1"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="window.deleteMonk('${key}')" class="text-red-500 hover:text-red-700 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            updateStats();
+        }
+
+        window.openMonkModal = function() {
+            document.getElementById('monk-form').reset();
+            document.getElementById('monk-key').value = '';
+            document.getElementById('modal-monk').classList.remove('hidden');
+        };
+
+        window.closeMonkModal = function() {
+            document.getElementById('modal-monk').classList.add('hidden');
+        };
+
+        window.editMonk = function(key) {
+            const m = monksData[key];
+            if (!m) return;
+            document.getElementById('monk-key').value = key;
+            document.getElementById('monk-name').value = m.name || '';
+            document.getElementById('monk-role').value = m.role || '';
+            document.getElementById('monk-avatar').value = m.avatar || '';
+            document.getElementById('monk-desc').value = m.desc || '';
+            document.getElementById('modal-monk').classList.remove('hidden');
+        };
+
+        window.saveMonk = async function(e) {
+            e.preventDefault();
+            const key = document.getElementById('monk-key').value;
+            const payload = {
+                name: document.getElementById('monk-name').value,
+                role: document.getElementById('monk-role').value,
+                avatar: document.getElementById('monk-avatar').value,
+                desc: document.getElementById('monk-desc').value
+            };
+
+            if (key) {
+                await fetch(`${FIREBASE_BASE}/monks/${key}.json`, { method: 'PUT', body: JSON.stringify(payload) });
+                window.showToast("Đã cập nhật thông tin!");
+            } else {
+                await fetch(`${FIREBASE_BASE}/monks.json`, { method: 'POST', body: JSON.stringify(payload) });
+                window.showToast("Đã thêm thành viên mới!");
+            }
+            window.closeMonkModal();
+            fetchMonks();
+        };
+
+        window.deleteMonk = async function(key) {
+            const ok = await window.askConfirm("Bạn có muốn xóa vị này khỏi danh sách Ban Quản Trị?");
+            if (ok) {
+                await fetch(`${FIREBASE_BASE}/monks/${key}.json`, { method: 'DELETE' });
+                window.showToast("Đã xóa thành viên!");
+                fetchMonks();
+            }
+        };
+
+        window.testCloudConnection = async function() {
+            const statusEl = document.getElementById('connection-status');
+            statusEl.textContent = "Đang kiểm tra kết nối...";
+            statusEl.className = "text-xs text-center font-semibold text-amber-600";
+            
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/.json?shallow=true`);
+                if (res.ok) {
+                    statusEl.textContent = "✓ Kết nối thành công! Máy chủ Firebase Realtime Database phản hồi tốt.";
+                    statusEl.className = "text-xs text-center font-semibold text-emerald-600";
+                    window.showToast("Kết nối Cloud tốt!");
+                } else {
+                    throw new Error("Không thể đọc phản hồi");
+                }
+            } catch (err) {
+                statusEl.textContent = "✕ Thất bại! Vui lòng kiểm tra lại kết nối mạng hoặc quy tắc Firebase.";
+                statusEl.className = "text-xs text-center font-semibold text-red-600";
+                window.showToast("Kết nối Cloud thất bại", true);
+            }
+        };
+    </script>
+</body>
+</html>
