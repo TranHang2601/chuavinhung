@@ -50,7 +50,7 @@
 
     <!-- Top Header -->
     <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-md border-b-4 border-chua-gold sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div class="max-w-10xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-full bg-white p-1 shadow flex items-center justify-center border-2 border-chua-gold flex-shrink-0">
                     <i class="fa-solid fa-dharmachakra text-chua-red text-2xl"></i>
@@ -62,12 +62,15 @@
             </div>
             
             <div class="flex items-center space-x-3">
-                <a href="index.html" target="_blank" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition flex items-center border border-amber-400/30">
+                <a href="../index.html" target="_blank" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition flex items-center border border-amber-400/30">
                     <i class="fa-solid fa-globe mr-1.5"></i> <span class="hidden sm:inline">Xem Trực Tuyến</span>
                 </a>
                 <button onclick="window.logoutAdmin()" class="px-3.5 py-2 bg-red-950/70 hover:bg-red-950 text-amber-200 rounded-xl text-xs font-semibold transition flex items-center border border-red-800">
                     <i class="fa-solid fa-lock mr-1.5"></i> Khóa
                 </button>
+                <div id="welcome-msg" class="hidden text-xs font-semibold text-amber-200 bg-black/20 px-3 py-1.5 rounded-lg border border-amber-500/30">
+                    <i class="fa-solid fa-user-circle mr-1"></i>  Xin chào, <span id="admin-display-name"> </span>
+                </div>
             </div>
         </div>
     </header>
@@ -82,98 +85,103 @@
             <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN bảo mật để truy cập quản trị</p>
         </div>
         <div class="space-y-4">
-            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN (1234)..." maxlength="8" onkeypress="if(event.key === 'Enter') window.unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN ..." maxlength="8" onkeypress="if(event.key === 'Enter') window.unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
             <button onclick="window.unlockAdmin()" class="w-full py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl shadow transition text-sm uppercase">
                 Mở Khóa Quản Trị
             </button>
-            <p class="text-[11px] text-gray-400">Mã PIN mặc định: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-chua-amber font-mono">1234</code></p>
         </div>
     </div>
 
     <!-- MAIN ADMIN CONTENT (Ẩn cho đến khi đăng nhập) -->
-    <main id="admin-content" class="hidden max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 flex-grow space-y-6">
+    <main id="admin-content" class="hidden max-w-10xl mx-auto w-full px-4 sm:px-6 py-6 flex-grow flex flex-col md:flex-row gap-6">
 
-        <!-- DANH SÁCH TAB QUẢN TRỊ (ADMIN NAVIGATION TABS) -->
-        <nav class="bg-white p-2 rounded-2xl custom-shadow border border-amber-200 flex flex-wrap gap-2 text-sm font-semibold text-gray-600">
-            <button onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn active px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+        <!-- SIDEBAR NAVIGATION (DẠNG DỌC) -->
+        <nav id="admin-sidebar" class="bg-white p-4 rounded-2xl custom-shadow border border-amber-200 md:w-64 flex flex-col gap-2 text-sm font-semibold text-gray-600 flex-shrink-0">
+            <div class="px-2 py-3 border-b border-gray-100 mb-2">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Danh mục quản lý</h3>
+            </div>
+            <button onclick="switchTab('overview')" id="tab-btn-overview" class="tab-btn active px-4 py-3 rounded-xl flex items-center space-x-3 transition">
                 <i class="fa-solid fa-chart-pie"></i>
                 <span>Tổng Quan</span>
             </button>
-            <button onclick="switchTab('news')" id="tab-btn-news" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+            <button onclick="switchTab('news')" id="tab-btn-news" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition">
                 <i class="fa-solid fa-newspaper"></i>
                 <span>Bài Viết & Tin Tức</span>
             </button>
-            <button onclick="switchTab('videos')" id="tab-btn-videos" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+            <button onclick="switchTab('videos')" id="tab-btn-videos" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition">
                 <i class="fa-solid fa-circle-play"></i>
                 <span>Video Pháp Thoại</span>
             </button>
-            <button onclick="switchTab('monks')" id="tab-btn-monks" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
+            <button onclick="switchTab('monks')" id="tab-btn-monks" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition">
                 <i class="fa-solid fa-users"></i>
                 <span>Chư Tăng & BQT</span>
             </button>
-            <button onclick="switchTab('settings')" id="tab-btn-settings" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-2 transition flex-1 sm:flex-none justify-center">
-                <i class="fa-solid fa-sliders"></i>
-                <span>Cài Đặt Hệ Thống</span>
+            <button onclick="switchTab('permissions')" id="tab-btn-permissions" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition">
+                <i class="fa-solid fa-user-shield"></i>
+                <span>Phân Quyền</span>
             </button>
+            <div class="mt-4 pt-4 border-t border-gray-100">
+                <button onclick="switchTab('settings')" id="tab-btn-settings" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition w-full">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Cài Đặt Hệ Thống</span>
+                </button>
+            </div>
         </nav>
 
-        <!-- TAB 1: TỔNG QUAN (OVERVIEW) -->
-        <section id="tab-sec-overview" class="space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Stat Card 1 -->
-                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-chua-amber flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-newspaper"></i>
+        <!-- CONTAINER NỘI DUNG CHÍNH (Chiếm diện tích còn lại) -->
+        <div class="flex-1 w-full space-y-6">
+            <!-- TAB 1: TỔNG QUAN (OVERVIEW) -->
+            <section id="tab-sec-overview" class="space-y-6">
+                <!-- Grid Thống Kê Sửa Lại -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Stat Card 1 -->
+                    <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-chua-red flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-newspaper"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Bài Viết</p>
+                            <h3 id="stat-news-count" class="text-xl font-bold text-chua-red">0</h3>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 uppercase">Bài Viết Tin Tức</p>
-                        <h3 id="stat-news-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
+
+                    <!-- Stat Card 2 -->
+                    <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-red-100 text-chua-red flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Video</p>
+                            <h3 id="stat-video-count" class="text-xl font-bold text-chua-red">0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Chư Tăng</p>
+                            <h3 id="stat-monk-count" class="text-xl font-bold text-chua-red">0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 4 -->
+                    <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-cloud-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Cloud</p>
+                            <h3 class="text-xs font-bold text-emerald-600 mt-1">Online</h3>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Stat Card 2 -->
-                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-red-100 text-chua-red flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-play"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 uppercase">Video Pháp Thoại</p>
-                        <h3 id="stat-video-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
-                    </div>
-                </div>
-
-                <!-- Stat Card 3 -->
-                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 uppercase">Chư Tăng & BQT</p>
-                        <h3 id="stat-monk-count" class="text-2xl font-bold text-chua-red mt-0.5">0</h3>
-                    </div>
-                </div>
-
-                <!-- Stat Card 4 -->
-                <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-cloud-check"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 uppercase">Kết Nối Cloud</p>
-                        <h3 class="text-sm font-bold text-emerald-600 mt-1">Firebase RTDB</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Phím Tắt Thao Tác Nhanh -->
-            <div class="bg-white p-6 rounded-2xl custom-shadow border border-amber-200 space-y-4">
-                <h3 class="text-base font-serif font-bold text-chua-darkred uppercase border-b border-gray-100 pb-3">Thao Tác Tốc Độ</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <button onclick="window.openNewsModal()" class="py-4 px-5 bg-gradient-to-r from-chua-amber to-chua-red text-white font-bold rounded-xl shadow hover:opacity-95 transition flex items-center justify-center space-x-3">
-                        <i class="fa-solid fa-plus-circle text-xl"></i>
-                        <span>Soạn Bài Viết Mới</span>
-                    </button>
-                    <button onclick="window.openVideoModal()" class="py-4 px-5 bg-gradient-to-r from-red-800 to-red-950 text-white font-bold rounded-xl shadow hover:opacity-95 transition flex items-center justify-center space-x-3">
+                <!-- Phím Tắt Thao Tác Nhanh -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <button onclick="window.openVideoModal()" class="py-4 px-5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition flex items-center justify-center space-x-3">
                         <i class="fa-solid fa-video text-xl"></i>
                         <span>Thêm Video Pháp Thoại</span>
                     </button>
@@ -182,9 +190,7 @@
                         <span>Thêm Thành Viên Mới</span>
                     </button>
                 </div>
-            </div>
-        </section>
-
+            </section>
         <!-- TAB 2: QUẢN LÝ BÀI VIẾT & TIN TỨC (NEWS) -->
         <section id="tab-sec-news" class="hidden space-y-4">
             <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-4">
@@ -268,7 +274,36 @@
                 </div>
 
                 <div id="monk-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- JS Inject Card danh sách -->
+                <!-- JS Inject Card danh sách -->
+            </div>
+        </section>
+
+        <!-- TAB MỚI: PHÂN QUYỀN HỆ THỐNG (PERMISSIONS) -->
+        <section id="tab-sec-permissions" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-4">
+                <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-chua-red uppercase">Phân Quyền Quản Trị Viên</h2>
+                        <p class="text-xs text-gray-500">Quản lý cấp quyền và tài khoản đăng nhập hệ thống</p>
+                    </div>
+                    <button onclick="document.getElementById('admin-modal').classList.remove('hidden')" class="px-4 py-2 bg-chua-amber text-white font-bold rounded-xl text-xs uppercase shadow transition">
+                        <i class="fa-solid fa-user-plus mr-1"></i> Thêm Admin
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-xs text-gray-400 uppercase">
+                                <th class="py-3">Tài khoản</th>
+                                <th class="py-3">Mã PIN (ID)</th>
+                                <th class="py-3">Quyền truy cập</th>
+                                <th class="py-3 text-center">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-gray-100 text-sm">
+                            <!-- JS Inject -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -416,7 +451,22 @@
             </div>
         </div>
     </div>
-
+    <!-- Thêm Modal Thêm Admin ở cuối file -->
+    <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Thêm Quản Trị Viên</h2>
+            <input type="text" id="new-admin-name" placeholder="Tên người dùng" class="w-full mb-3 p-2 border rounded">
+            <input type="text" id="new-admin-pin" placeholder="Mã PIN (ID)" class="w-full mb-3 p-2 border rounded">
+            <select id="new-admin-role" class="w-full mb-4 p-2 border rounded">
+                <option value="superadmin">Toàn quyền</option>
+                <option value="editor">Ban nội dung</option>
+            </select>
+            <div class="flex justify-end gap-2">
+                <button onclick="document.getElementById('admin-modal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 rounded">Hủy</button>
+                <button onclick="saveNewAdmin()" class="px-4 py-2 bg-amber-700 text-white rounded">Lưu</button>
+            </div>
+        </div>
+    </div>
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
@@ -471,25 +521,74 @@
             }
         };
 
-        window.unlockAdmin = function() {
+        window.unlockAdmin = async function() {
             const pin = document.getElementById('admin-pin-input').value;
-            if (pin === '1234' || pin === '123456') {
+            const MASTER_PIN = "8888"; // MÃ CỨU HỘ KHẨN CẤP (BẠN NÊN ĐỔI MÃ NÀY)
+
+            if (!pin) return window.showToast("Vui lòng nhập mã PIN!", true);
+            
+            // Kiểm tra mã cứu hộ khẩn cấp
+            if (pin === MASTER_PIN) {
+                sessionStorage.setItem("admin_name", "Quản Trị Viên Hệ Thống");
+                sessionStorage.setItem("admin_role", "superadmin");
+                
                 document.getElementById('admin-lock-screen').classList.add('hidden');
                 document.getElementById('admin-content').classList.remove('hidden');
+                document.getElementById('tab-btn-permissions').classList.remove('hidden');
+                
+                // Cập nhật tên và hiển thị
+                document.getElementById('admin-display-name').textContent = "Quản Trị Viên Hệ Thống";
+                document.getElementById('welcome-msg').classList.remove('hidden');
+                
                 window.loadAllData();
-                window.showToast("Mở khóa hệ thống quản trị thành công!");
-            } else {
-                window.showToast("Mã PIN không hợp lệ!", true);
+                window.showToast("Đã đăng nhập bằng quyền cứu hộ!");
+                return;
+            }
+
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/admins/${pin}.json`);
+                const admin = await res.json();
+                
+                if (admin) {
+                    sessionStorage.setItem("admin_name", admin.name);
+                    sessionStorage.setItem("admin_role", admin.role);
+                    
+                    document.getElementById('admin-lock-screen').classList.add('hidden');
+                    document.getElementById('admin-content').classList.remove('hidden');
+                    
+                    // Cập nhật tên và hiển thị
+                    document.getElementById('admin-display-name').textContent = admin.name;
+                    document.getElementById('welcome-msg').classList.remove('hidden');
+                    
+                    const permTab = document.getElementById('tab-btn-permissions');
+                    if (admin.role === 'superadmin') {
+                        permTab.classList.remove('hidden');
+                    } else {
+                        permTab.classList.add('hidden');
+                    }
+
+                    window.loadAllData();
+                    window.showToast(`Chào mừng ${admin.name}!`);
+                } else {
+                    window.showToast("Mã PIN không đúng!", true);
+                }
+            } catch (e) {
+                window.showToast("Lỗi kết nối máy chủ!", true);
             }
         };
-
         window.logoutAdmin = function() {
+            sessionStorage.clear();
             document.getElementById('admin-lock-screen').classList.remove('hidden');
             document.getElementById('admin-content').classList.add('hidden');
-            document.getElementById('admin-pin-input').value = '';
+            document.getElementById('welcome-msg').classList.add('hidden'); // Ẩn khi logout
             window.showToast("Đã khóa bảng điều khiển!");
         };
-
+        window.logoutAdmin = function() {
+            sessionStorage.clear();
+            document.getElementById('admin-lock-screen').classList.remove('hidden');
+            document.getElementById('admin-content').classList.add('hidden');
+            window.showToast("Đã khóa bảng điều khiển!");
+        };
         window.loadAllData = async function() {
             await Promise.all([fetchNews(), fetchVideos(), fetchMonks()]);
             updateStats();
@@ -814,6 +913,71 @@
                 statusEl.textContent = "✕ Thất bại! Vui lòng kiểm tra lại kết nối mạng hoặc quy tắc Firebase.";
                 statusEl.className = "text-xs text-center font-semibold text-red-600";
                 window.showToast("Kết nối Cloud thất bại", true);
+            }
+        };
+        let adminsData = {};
+
+        window.loadAllData = async function() {
+            await Promise.all([fetchNews(), fetchVideos(), fetchMonks(), fetchAdmins()]);
+            updateStats();
+        };
+
+        async function fetchAdmins() {
+            try {
+                const res = await fetch(`${FIREBASE_BASE}/admins.json`);
+                adminsData = (await res.json()) || {};
+                const tbody = document.getElementById('admin-table-body');
+                tbody.innerHTML = '';
+                
+                Object.keys(adminsData).forEach(pin => {
+                    const admin = adminsData[pin];
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-amber-50/50">
+                            <td class="py-3 font-semibold text-gray-700">${admin.name}</td>
+                            <td class="py-3 font-mono text-gray-500">${pin}</td>
+                            <td class="py-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-[10px] uppercase font-bold">${admin.role}</span></td>
+                            <td class="py-3 text-center">
+                                <button onclick="deleteAdmin('${pin}')" class="text-red-500 hover:text-red-700 text-xs"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (e) {
+                window.showToast("Lỗi tải danh sách Admin", true);
+            }
+        }
+
+        window.deleteAdmin = async function(pin) {
+            const ok = await window.askConfirm("Bạn có chắc chắn muốn xóa quyền truy cập của quản trị viên này?");
+            if (ok) {
+                await fetch(`${FIREBASE_BASE}/admins/${pin}.json`, { method: 'DELETE' });
+                window.showToast("Đã xóa quản trị viên!");
+                fetchAdmins();
+            }
+        };
+
+        window.saveNewAdmin = async function() {
+            const name = document.getElementById('new-admin-name').value;
+            const pin = document.getElementById('new-admin-pin').value;
+            const role = document.getElementById('new-admin-role').value;
+
+            if (!name || !pin) return window.showToast("Vui lòng nhập đầy đủ tên và mã PIN!", true);
+
+            try {
+                const response = await fetch(`${FIREBASE_BASE}/admins/${pin}.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ name, role, status: "Hoạt động" })
+                });
+
+                if (response.ok) {
+                    window.showToast("Đã thêm Admin thành công!");
+                    document.getElementById('admin-modal').classList.add('hidden');
+                    document.getElementById('new-admin-name').value = '';
+                    document.getElementById('new-admin-pin').value = '';
+                    fetchAdmins();
+                }
+            } catch (error) {
+                window.showToast("Lỗi kết nối Firebase!", true);
             }
         };
     </script>
