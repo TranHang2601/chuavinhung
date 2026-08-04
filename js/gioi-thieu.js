@@ -1,17 +1,3 @@
-function setActiveNavLink() {
-    const currentPath = window.location.pathname.split('/').pop() || 'gioithieu.html';
-    const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
-
-    navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPath) {
-            link.classList.add('text-buddhist-gold', 'font-bold');
-            if (link.classList.contains('nav-link')) {
-                link.classList.add('border-b-2', 'border-buddhist-gold');
-            }
-        }
-    });
-}
 function showTab(tabId) {
     // Ẩn tất cả nội dung
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
