@@ -1,62 +1,113 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title id="page-title">Chi tiết tin tức</title>
-</head>
-<body>
-
-  <div style="max-width: 800px; margin: 40px auto; padding: 20px;">
-    <h1 id="tinTuc-title">Đang tải...</h1>
-    <p id="tinTuc-date" style="color: #666; font-size: 14px;"></p>
-    <hr>
-    <div id="tinTuc-content" style="line-height: 1.8; font-size: 16px;"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Tin Tức | Chùa Vĩnh Hưng</title>
     
-    <br><br>
-    <a href="tin-tuc.html">← Quay lại danh sách tin tức</a>
-  </div>
-
-  <script>
-    const SPACE_ID = 'YOUR_SPACE_ID';
-    const ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN';
-
-    async function loadPostDetail() {
-      // 1. Đọc slug từ URL (ví dụ: chi-tiet.html?slug=khoa-tu-mua-he)
-      const urlParams = new URLSearchParams(window.location.search);
-      const slug = urlParams.get('slug');
-
-      if (!slug) {
-        document.getElementById('tinTuc-title').innerText = 'Không tìm thấy bài viết!';
-        return;
-      }
-
-      // 2. Gọi API lọc chính xác bài viết có slug tương ứng
-      const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master/entries?access_token=${ACCESS_TOKEN}&content_type=tinTuc&fields.slug=${slug}`;
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (!data.items || data.items.length === 0) {
-          document.getElementById('tinTuc-title').innerText = 'Bài viết không tồn tại!';
-          return;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        buddhist: { gold: '#d4af37', lightgold: '#f3e5ab', maroon: '#6b2024', dark: '#3d1c1d' }
+                    },
+                    fontFamily: { heading: ['Lora', 'serif'], body: ['Nunito Sans', 'sans-serif'] }
+                }
+            }
         }
+    </script>
 
-        const post = data.items[0].fields;
+    <style>
+        body { font-family: 'Nunito Sans', sans-serif; background-color: #faf8f5; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Lora', serif; }
+        .hero-sub {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/quanam.jpg');
+            background-size: cover; background-position: center;
+        }
+        .article-content p { margin-bottom: 1.25rem; line-height: 1.8; color: #374151; }
+        .article-content h3 { font-size: 1.5rem; font-weight: 700; color: #6b2024; margin-top: 2rem; margin-bottom: 1rem; }
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .article-content li { margin-bottom: 0.5rem; line-height: 1.6; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
 
-        // 3. Đổ dữ liệu lên giao diện
-        document.title = post.title;
-        document.getElementById('tinTuc-title').innerText = post.title;
-        document.getElementById('tinTuc-date').innerText = 'Ngày đăng: ' + new Date(post.publishDate).toLocaleDateString('vi-VN');
-        document.getElementById('tinTuc-content').innerHTML = post.content;
+    <div id="header-container"></div>
 
-      } catch (error) {
-        document.getElementById('tinTuc-title').innerText = 'Lỗi kết nối tới máy chủ!';
-        console.error(error);
-      }
-    }
+    <!-- Banner tiêu đề phụ -->
+    <section class="hero-sub h-[35vh] mt-0 flex items-center justify-center relative">
+        <div class="text-center px-4 z-10 text-white mt-10">
+            <span class="bg-buddhist-gold text-buddhist-dark px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Phật Sự Tông Môn</span>
+            <h1 class="text-3xl md:text-4xl font-heading font-bold max-w-4xl mx-auto leading-tight" id="news-banner-title">Chi Tiết Tin Tức</h1>
+        </div>
+    </section>
 
-    loadPostDetail();
-  </script>
+    <!-- Nội dung chi tiết tin tức -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden p-6 md:p-12">
+                
+                <!-- Nút quay lại danh sách -->
+                <div class="mb-8">
+                    <a href="tin-tuc.html" class="inline-flex items-center gap-2 text-buddhist-maroon hover:text-buddhist-gold font-semibold transition">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách tin tức
+                    </a>
+                </div>
+
+                <!-- Thông tin meta bài viết -->
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-buddhist-gold"></i> <span id="news-date">Đang cập nhật...</span></span>
+                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-buddhist-gold"></i> <span>Ban Biên Tập Chùa Vĩnh Hưng</span></span>
+                </div>
+
+                <!-- Tiêu đề chính -->
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-buddhist-dark mb-6 leading-snug" id="news-title">Đang tải tiêu đề...</h2>
+
+                <!-- Ảnh đại diện bài viết -->
+                <div class="mb-8 rounded-xl overflow-hidden shadow-md">
+                    <img id="news-image" src="https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-auto object-cover max-h-[450px]" onerror="this.src='https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung'">
+                </div>
+
+                <!-- Nội dung chi tiết -->
+                <div class="article-content text-lg" id="news-body">
+                    <div class="text-center py-12">
+                        <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
+                        <p class="mt-3 text-gray-500">Đang tải nội dung bài viết từ hệ thống...</p>
+                    </div>
+                </div>
+
+                <!-- Chia sẻ bài viết -->
+                <div class="mt-12 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="font-semibold text-gray-700">Chia sẻ bài viết:</span>
+                        <button onclick="shareArticle('facebook')" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition"><i class="fa-brands fa-facebook-f"></i></button>
+                        <button onclick="shareArticle('zalo')" class="w-10 h-10 rounded-full bg-cyan-500 text-white flex items-center justify-center hover:opacity-90 transition font-bold text-xs">Zalo</button>
+                        <button onclick="copyLink()" class="w-10 h-10 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition" title="Sao chép liên kết"><i class="fa-solid fa-link"></i></button>
+                    </div>
+                    <div id="copy-alert" class="text-sm text-green-600 font-medium hidden">Đã sao chép liên kết vào bộ nhớ tạm!</div>
+                </div>
+
+            </div>
+
+            <!-- Bài viết liên quan -->
+            <div class="max-w-4xl mx-auto mt-16">
+                <h3 class="text-2xl font-heading font-bold text-buddhist-dark mb-6">Tin Tức Khác</h3>
+                <div id="related-news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Nạp động qua JS -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <div id="footer-container"></div>
+    <script src="js/main.js"></script>
+    <script src="js/chi-tiet-tin-tuc.js"></script>
 </body>
 </html>
