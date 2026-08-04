@@ -1,4 +1,5 @@
 const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+
 async function fetchArticleDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     let newsId = urlParams.get('id');
@@ -13,7 +14,6 @@ async function fetchArticleDetail() {
             return;
         }
 
-        // Nếu không có id trên URL, lấy tự động bài viết đầu tiên hoặc mới nhất
         const newsArray = Object.keys(data).map(key => ({ id: key, ...data[key] }));
         newsArray.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
 
@@ -31,17 +31,31 @@ async function fetchArticleDetail() {
             return;
         }
         
-        // Cập nhật thông tin lên giao diện
+        // Cập nhật nội dung giao diện
         document.getElementById('news-banner-title').textContent = post.title || '';
         document.getElementById('news-title').textContent = post.title || '';
         document.getElementById('news-date').textContent = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
         
+        let articleImg = 'https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung';
         if (post.image && post.image.trim() !== '') {
-            document.getElementById('news-image').src = post.image;
+            articleImg = post.image;
+            document.getElementById('news-image').src = articleImg;
         }
 
         document.getElementById('news-body').innerHTML = post.content || '<p>Đang cập nhật nội dung...</p>';
-        document.title = (post.title || 'Chi Tiết Tin Tức') + " | Chùa Vĩnh Hưng";
+        
+        // Cập nhật Tiêu đề trang & Thẻ Meta Open Graph động cho Facebook
+        const pageTitle = (post.title || 'Chi Tiết Tin Tức') + " | Chùa Vĩnh Hưng";
+        const plainSummary = post.content ? post.content.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...' : 'Cập nhật tin tức phật sự tại Chùa Vĩnh Hưng.';
+        const currentUrl = window.location.href;
+
+        document.title = pageTitle;
+        document.getElementById('meta-title').textContent = pageTitle;
+        document.getElementById('meta-desc').setAttribute('content', plainSummary);
+        document.getElementById('og-title').setAttribute('content', pageTitle);
+        document.getElementById('og-description').setAttribute('content', plainSummary);
+        document.getElementById('og-image').setAttribute('content', articleImg);
+        document.getElementById('og-url').setAttribute('content', currentUrl);
 
         // Hiển thị danh sách tin tức liên quan khác
         const relatedArticles = newsArray.filter(item => item.id !== newsId).slice(0, 2);
@@ -101,10 +115,10 @@ window.copyLink = function() {
 
 window.shareArticle = function(platform) {
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent(document.title);
     if (platform === 'facebook') {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
     } else if (platform === 'zalo') {
+        const title = encodeURIComponent(document.title);
         window.open(`https://zalo.me/share?url=${url}&title=${title}`, '_blank');
     }
 };
