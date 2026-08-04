@@ -174,22 +174,8 @@
             </div>
 
             <div id="home-video-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
+                <!-- <p class="text-sm text-gray-300 mt-1">Giảng sư: Thích Tâm An</p> -->
 
-                <div class="flex flex-col gap-6 lg:col-span-2">
-                    <div class="flex gap-4 group cursor-pointer">
-                        <div class="relative w-40 h-28 rounded-md overflow-hidden flex-shrink-0">
-                            <img src="https://images.unsplash.com/photo-1540954932976-559d81d24326?q=80&w=2072&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-                                <i class="fa-solid fa-play text-white opacity-80 group-hover:text-buddhist-gold group-hover:opacity-100 transition text-2xl"></i>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <h4 class="font-heading font-bold text-lg group-hover:text-buddhist-gold transition line-clamp-2">Nghiệp Quả và Cách Hóa Giải Oan Trái</h4>
-                            <p class="text-sm text-gray-400 mt-2">Đăng 2 ngày trước</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -214,19 +200,6 @@
     <!-- Nhúng file Script dùng chung vào cuối trang -->
     <script src="js/main.js"></script>
     <script>
-        // Script của tin tức trang chủ
-        //  Khởi chạy tất cả khi DOM đã sẵn sàng
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Tải đồng thời cả Header và Footer
-            await Promise.all([
-                includeHTML('header-container', 'pages/header.html'),
-                includeHTML('footer-container', 'pages/footer.html')
-            ]);
-
-            // Gán các sự kiện sau khi giao diện đã được đưa vào DOM
-            initHeaderEvents();
-            setActiveNavLink();
-        });
         async function loadLatestNews() {
             try {
                 const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json');
@@ -300,7 +273,6 @@
                         <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
                             <span class="bg-buddhist-maroon text-xs px-2 py-1 rounded text-white mb-2 inline-block">Mới nhất</span>
                             <h3 class="text-xl font-heading font-bold text-white group-hover:text-buddhist-gold transition">${main.title}</h3>
-                            <p class="text-sm text-gray-300 mt-1">Giảng sư: Thích Tâm An</p>
                         </div>
                     </a>
 
@@ -316,7 +288,6 @@
                             </div>
                             <div class="flex flex-col justify-center">
                                 <h4 class="font-heading font-bold text-lg group-hover:text-buddhist-gold transition line-clamp-2">${v.title}</h4>
-                                <p class="text-sm text-gray-400 mt-2">Đăng 2 ngày trước</p>
                             </div>
                         </a>
                         `).join('')}
