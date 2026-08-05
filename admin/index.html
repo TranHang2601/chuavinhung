@@ -159,7 +159,7 @@
                     <span>Quản Lý Phân Quyền</span>
                 </button>
             </div>
-            <div class="mt-2">
+            <div class="mt-2" id="nav-settings-wrapper">
                 <button onclick="switchTab('settings')" id="tab-btn-settings" class="tab-btn px-4 py-3 rounded-xl flex items-center space-x-3 transition w-full">
                     <i class="fa-solid fa-sliders"></i>
                     <span>Cài Đặt Hệ Thống</span>
@@ -283,7 +283,7 @@
                                     <th class="py-3 px-4 w-28 text-center">Ảnh Video</th>
                                     <th class="py-3 px-4">Tiêu đề Video</th>
                                     <th class="py-3 px-4 w-48">Link YouTube</th>
-                                    <th class="py-3 px-4 w-28 text-center video-action-th">Thao tác</th>
+                                    <th class="py-3 px-4 w-36 text-center video-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="video-table-body" class="divide-y divide-gray-100 text-sm">
@@ -656,6 +656,10 @@
         });
 
         function saveImgBBKeySetting() {
+            if (currentAdminRole !== 'super') {
+                showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền đổi cấu hình hệ thống!", true);
+                return;
+            }
             const keyVal = document.getElementById('setting-imgbb-key').value.trim();
             if (!keyVal) {
                 showToast("Vui lòng nhập ImgBB API Key hợp lệ!", true);
@@ -887,9 +891,9 @@
                 activeCard.classList.add('border-chua-red', 'bg-amber-50/60');
             }
             const pinInput = document.getElementById('admin-pin-input');
-            if (role === 'super') pinInput.placeholder = "Nhập mã PIN...";
-            if (role === 'editor') pinInput.placeholder = "Nhập mã PIN...";
-            if (role === 'viewer') pinInput.placeholder = "Nhập mã PIN...";
+            if (role === 'super') pinInput.placeholder = "Nhập mã PIN Tối Cao (Mặc định: 8888)...";
+            if (role === 'editor') pinInput.placeholder = "Nhập mã PIN Biên Tập (Mặc định: 6666)...";
+            if (role === 'viewer') pinInput.placeholder = "Nhập mã PIN Theo Dõi (Mặc định: 1111)...";
         }
 
         async function unlockAdmin() {
@@ -936,7 +940,7 @@
                 showToast(`Đăng nhập thành công (${matchedAccountName})`);
                 loadAllData();
             } else {
-                showToast("Mã PIN không đúng!", true);
+                showToast("Mã PIN không đúng với vai trò đã chọn!", true);
             }
         }
 
@@ -944,6 +948,7 @@
             const badge = document.getElementById('sidebar-role-badge');
             const nameDisplay = document.getElementById('admin-display-name');
             const permTabWrapper = document.getElementById('nav-permissions-wrapper');
+            const settingsTabWrapper = document.getElementById('nav-settings-wrapper');
             const quickButtons = document.getElementById('quick-action-buttons');
             const savedName = sessionStorage.getItem('vinhhung_admin_name') || 'Quản Trị Viên';
 
@@ -952,18 +957,29 @@
                 badge.className = "inline-block mt-1 px-2 py-0.5 rounded text-[10px] bg-red-100 text-chua-red font-bold uppercase";
                 nameDisplay.textContent = savedName;
                 if (permTabWrapper) permTabWrapper.style.display = 'block';
+                if (settingsTabWrapper) settingsTabWrapper.style.display = 'block';
                 if (quickButtons) quickButtons.style.display = 'grid';
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'inline-flex';
+                });
             } else if (currentAdminRole === 'editor') {
                 badge.textContent = "Quyền: Biên Tập";
                 badge.className = "inline-block mt-1 px-2 py-0.5 rounded text-[10px] bg-blue-100 text-blue-700 font-bold uppercase";
                 nameDisplay.textContent = savedName;
                 if (permTabWrapper) permTabWrapper.style.display = 'none';
+                if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'grid';
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'inline-flex';
+                });
             } else {
                 badge.textContent = "Quyền: Theo Dõi";
                 badge.className = "inline-block mt-1 px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-700 font-bold uppercase";
                 nameDisplay.textContent = savedName;
                 if (permTabWrapper) permTabWrapper.style.display = 'none';
+                if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'none';
                 
                 ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
@@ -990,8 +1006,8 @@
         }
 
         function switchTab(tabName) {
-            if (currentAdminRole === 'viewer' && (tabName === 'permissions')) {
-                showToast("Tài khoản Theo dõi không có quyền truy cập mục này!", true);
+            if (currentAdminRole !== 'super' && (tabName === 'permissions' || tabName === 'settings')) {
+                showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền truy cập mục này!", true);
                 return;
             }
             document.querySelectorAll('section[id^="tab-sec-"]').forEach(sec => sec.classList.add('hidden'));
@@ -1048,7 +1064,7 @@
 
             keys.forEach(key => {
                 const acc = adminAccountsData[key];
-                let roleBadge = acc.role === 'super' ? '<span class="px-2 py-0.5 bg-red-100 text-chua-red text-[10px] font-bold rounded uppercase">Tối Cao</span>' : '<span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase">Biên Tập</span>';
+                let roleBadge = acc.role === 'super' ? '<span class="px-2 py-0.5 bg-red-100 text-chua-red text-[10px] font-bold rounded uppercase">Tối Cao</span>' : (acc.role === 'editor' ? '<span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase">Biên Tập</span>' : '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded uppercase">Theo Dõi</span>');
                 let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteAdminAccount('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition"><i class="fa-solid fa-trash"></i> Xóa</button>` : '';
 
                 html += `
@@ -1064,7 +1080,7 @@
         }
 
         function openAddAdminModal() {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền thêm tài khoản!", true); return; }
+            if (currentAdminRole !== 'super') { showToast("Chỉ tài khoản Tối Cao mới có quyền cấp tài khoản!", true); return; }
             document.getElementById('admin-acc-name').value = '';
             document.getElementById('admin-acc-pin').value = '';
             document.getElementById('modal-admin-account').classList.remove('hidden');
@@ -1076,6 +1092,10 @@
 
         async function saveAdminAccount(e) {
             e.preventDefault();
+            if (currentAdminRole !== 'super') {
+                showToast("Bạn không có quyền thực hiện thao tác này!", true);
+                return;
+            }
             const name = document.getElementById('admin-acc-name').value.trim();
             const role = document.getElementById('admin-acc-role').value;
             const pin = document.getElementById('admin-acc-pin').value.trim();
@@ -1136,7 +1156,7 @@
                 const item = newsData[key];
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const isHidden = item.hidden === true;
-                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded ml-2">ĐÃ HẨN</span>' : '';
+                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded ml-2">ĐÃ ẨN</span>' : '';
                 
                 let actionButtons = '';
                 if (currentAdminRole === 'viewer') {
@@ -1145,11 +1165,16 @@
                     const hideToggleText = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện' : '<i class="fa-solid fa-eye-slash"></i> Ẩn';
                     const hideToggleClass = isHidden ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100';
                     
+                    let deleteBtnHtml = '';
+                    if (currentAdminRole === 'super') {
+                        deleteBtnHtml = `<button onclick="deleteNews('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-semibold transition" title="Xóa bài viết"><i class="fa-solid fa-trash"></i></button>`;
+                    }
+
                     actionButtons = `
                         <div class="flex items-center justify-center gap-1.5">
                             <button onclick="toggleHideNews('${key}')" class="px-2.5 py-1 ${hideToggleClass} rounded-lg text-xs font-semibold transition" title="${isHidden ? 'Hiện bài viết' : 'Ẩn bài viết'}">${hideToggleText}</button>
-                            <button onclick="openNewsModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-semibold transition"><i class="fa-solid fa-pen"></i> Sửa</button>
-                            <button onclick="deleteNews('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-semibold transition"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="openNewsModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-semibold transition" title="Sửa bài viết"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            ${deleteBtnHtml}
                         </div>
                     `;
                 }
@@ -1170,7 +1195,7 @@
         }
 
         function openNewsModal(key = null) {
-            if (currentAdminRole === 'viewer') { showToast("Tài khoản theo dõi không được phép thêm/sửa!", true); return; }
+            if (currentAdminRole === 'viewer') { showToast("Tài khoản theo dõi không được phép thêm/sửa bài viết!", true); return; }
             document.getElementById('news-key').value = key || '';
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
@@ -1210,6 +1235,10 @@
 
         async function saveNews(e) {
             e.preventDefault();
+            if (currentAdminRole === 'viewer') {
+                showToast("Bạn không có quyền thực hiện hành động này!", true);
+                return;
+            }
             const key = document.getElementById('news-key').value;
             const title = document.getElementById('news-title').value.trim();
             const slug = document.getElementById('news-slug').value.trim() || generateSlug(title);
@@ -1250,7 +1279,7 @@
         }
 
         async function toggleHideNews(key) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền ẩn/hiện bài viết!", true); return; }
             const currentHidden = newsData[key].hidden === true;
             try {
                 await database.ref(`news/${key}`).update({ hidden: !currentHidden });
@@ -1262,7 +1291,7 @@
         }
 
         async function deleteNews(key) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền xóa bài viết!", true); return; }
             const confirmDel = await promptConfirm("Bạn có chắc chắn muốn xóa vĩnh viễn bài viết này?");
             if (confirmDel) {
                 try {
@@ -1275,7 +1304,7 @@
             }
         }
 
-        // VIDEOS MANAGEMENT WITH THUMBNAIL SUPPORT
+        // VIDEOS MANAGEMENT
         function extractYoutubeId(url) {
             if (!url) return null;
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -1347,14 +1376,25 @@
                     else thumbUrl = 'https://placehold.co/120x68/3d1c1d/d4af37?text=Video';
                 }
 
+                const isHidden = item.hidden === true;
+                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded ml-2">ĐÃ ẨN</span>' : '';
+
                 let actionButtons = '';
                 if (currentAdminRole === 'viewer') {
                     actionButtons = `<span class="text-xs text-gray-400 italic">Chỉ xem</span>`;
                 } else {
+                    const hideToggleText = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện' : '<i class="fa-solid fa-eye-slash"></i> Ẩn';
+                    const hideToggleClass = isHidden ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100';
+
+                    let deleteBtnHtml = '';
+                    if (currentAdminRole === 'super') {
+                        deleteBtnHtml = `<button onclick="deleteVideo('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-100 transition" title="Xóa video"><i class="fa-solid fa-trash"></i></button>`;
+                    }
                     actionButtons = `
                         <div class="flex items-center justify-center gap-1.5">
-                            <button onclick="openVideoModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold hover:bg-blue-100 transition"><i class="fa-solid fa-pen"></i> Sửa</button>
-                            <button onclick="deleteVideo('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-100 transition"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="toggleHideVideo('${key}')" class="px-2.5 py-1 ${hideToggleClass} rounded-lg text-xs font-semibold transition" title="${isHidden ? 'Hiện video' : 'Ẩn video'}">${hideToggleText}</button>
+                            <button onclick="openVideoModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold hover:bg-blue-100 transition" title="Sửa video"><i class="fa-solid fa-pen"></i></button>
+                            ${deleteBtnHtml}
                         </div>
                     `;
                 }
@@ -1366,7 +1406,9 @@
                                 <img src="${thumbUrl}" alt="Thumbnail" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/120x68/3d1c1d/d4af37?text=Video'">
                             </div>
                         </td>
-                        <td class="py-3 px-4 font-bold text-gray-900">${item.title || ''}</td>
+                        <td class="py-3 px-4">
+                            <div class="font-bold text-gray-900">${item.title || ''} ${hiddenBadge}</div>
+                        </td>
                         <td class="py-3 px-4 text-xs font-mono text-blue-600 truncate max-w-xs"><a href="${item.url}" target="_blank" class="underline">${item.url}</a></td>
                         <td class="py-3 px-4 text-center">${actionButtons}</td>
                     </tr>
@@ -1375,8 +1417,20 @@
             tbody.innerHTML = html;
         }
 
+        async function toggleHideVideo(key) {
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền ẩn/hiện video!", true); return; }
+            const currentHidden = videosData[key].hidden === true;
+            try {
+                await database.ref(`videos/${key}`).update({ hidden: !currentHidden });
+                showToast(currentHidden ? "Đã hiện video!" : "Đã ẩn video khỏi danh sách!");
+                loadVideos();
+            } catch (err) {
+                showToast("Lỗi cập nhật trạng thái video: " + err.message, true);
+            }
+        }
+
         function openVideoModal(key = null) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Tài khoản theo dõi không được phép quản lý video!", true); return; }
             document.getElementById('video-key').value = key || '';
             document.getElementById('video-title').value = '';
             document.getElementById('video-url').value = '';
@@ -1399,6 +1453,7 @@
 
         async function saveVideo(e) {
             e.preventDefault();
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền thực hiện hành động này!", true); return; }
             const key = document.getElementById('video-key').value;
             const title = document.getElementById('video-title').value.trim();
             const url = document.getElementById('video-url').value.trim();
@@ -1411,9 +1466,11 @@
 
             try {
                 if (key) {
-                    await database.ref(`videos/${key}`).update({ title, url, thumbnail });
+                    const videoObj = { title, url, thumbnail };
+                    videoObj.hidden = videosData[key].hidden || false;
+                    await database.ref(`videos/${key}`).update(videoObj);
                 } else {
-                    await database.ref('videos').push({ title, url, thumbnail });
+                    await database.ref('videos').push({ title, url, thumbnail, hidden: false });
                 }
                 closeVideoModal();
                 showToast("Lưu video thành công!");
@@ -1424,7 +1481,7 @@
         }
 
         async function deleteVideo(key) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền xóa video!", true); return; }
             const confirmDel = await promptConfirm("Bạn có chắc muốn xóa video này?");
             if (confirmDel) {
                 await database.ref(`videos/${key}`).remove();
@@ -1461,10 +1518,14 @@
                 const avatar = item.avatar || 'https://placehold.co/200x200/3d1c1d/d4af37?text=ChuaVinhHung';
                 let actionBtns = '';
                 if (currentAdminRole !== 'viewer') {
+                    let deleteBtnHtml = '';
+                    if (currentAdminRole === 'super') {
+                        deleteBtnHtml = `<button onclick="deleteMonk('${key}')" class="flex-1 py-1.5 bg-red-50 text-red-600 font-bold rounded-lg text-xs hover:bg-red-100 transition">Xóa</button>`;
+                    }
                     actionBtns = `
                         <div class="flex gap-2 mt-3 pt-3 border-t border-gray-100">
                             <button onclick="openMonkModal('${key}')" class="flex-1 py-1.5 bg-blue-50 text-blue-700 font-bold rounded-lg text-xs hover:bg-blue-100 transition">Sửa</button>
-                            <button onclick="deleteMonk('${key}')" class="flex-1 py-1.5 bg-red-50 text-red-600 font-bold rounded-lg text-xs hover:bg-red-100 transition">Xóa</button>
+                            ${deleteBtnHtml}
                         </div>
                     `;
                 }
@@ -1484,7 +1545,7 @@
         }
 
         function openMonkModal(key = null) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Tài khoản theo dõi không được phép quản lý chư tăng!", true); return; }
             document.getElementById('monk-key').value = key || '';
             document.getElementById('monk-name').value = '';
             document.getElementById('monk-role').value = '';
@@ -1504,6 +1565,7 @@
 
         async function saveMonk(e) {
             e.preventDefault();
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền thực hiện hành động này!", true); return; }
             const key = document.getElementById('monk-key').value;
             const name = document.getElementById('monk-name').value.trim();
             const role = document.getElementById('monk-role').value.trim();
@@ -1524,7 +1586,7 @@
         }
 
         async function deleteMonk(key) {
-            if (currentAdminRole === 'viewer') return;
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền xóa thành viên này!", true); return; }
             const confirmDel = await promptConfirm("Bạn có chắc muốn xóa thành viên này?");
             if (confirmDel) {
                 await database.ref(`monks/${key}`).remove();
