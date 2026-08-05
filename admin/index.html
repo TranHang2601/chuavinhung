@@ -12,6 +12,11 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
+    <!-- Firebase SDKs (Compat version for stable direct JS integration) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -45,19 +50,23 @@
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(153, 27, 27, 0.25);
         }
+        .dropzone-active {
+            border-color: #991b1b !important;
+            background-color: #fef2f2 !important;
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen flex flex-col justify-between">
 
-    <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-md border-b-4 border-chua-gold sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <header class="bg-gradient-to-r from-chua-darkred via-chua-red to-chua-darkred text-white shadow-md border-b-4 border-chua-gold sticky top-0 z-30 w-full">
+        <div class="w-full px-4 sm:px-8 py-3 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-full bg-white p-1 shadow flex items-center justify-center border-2 border-chua-gold flex-shrink-0">
                     <i class="fa-solid fa-dharmachakra text-chua-red text-2xl"></i>
                 </div>
                 <div>
                     <h1 class="text-lg sm:text-xl font-bold font-serif tracking-wide text-amber-200 uppercase">QUẢN TRỊ CHÙA VĨNH HƯNG</h1>
-                    <p class="text-xs text-red-100 font-light hidden sm:block">Hệ thống điều hành và phân quyền quản lý số</p>
+                    <p class="text-xs text-red-100 font-light hidden sm:block">Hệ thống điều hành tích hợp ImgBB & Firebase</p>
                 </div>
             </div>
             
@@ -118,7 +127,7 @@
         </div>
     </div>
 
-    <main id="admin-content" class="hidden max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 flex-grow flex flex-col md:flex-row gap-6">
+    <main id="admin-content" class="hidden w-full px-4 sm:px-8 py-6 flex-grow flex flex-col md:flex-row gap-6">
 
         <!-- Sidebar Navigation -->
         <nav id="admin-sidebar" class="bg-white p-4 rounded-2xl custom-shadow border border-amber-200 md:w-72 flex flex-col gap-2 text-sm font-semibold text-gray-600 flex-shrink-0">
@@ -160,7 +169,7 @@
 
         <!-- Main Content Sections -->
         <div class="flex-1 w-full space-y-6">
-            
+                
             <!-- TAB 1: OVERVIEW -->
             <section id="tab-sec-overview" class="space-y-6">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -196,11 +205,11 @@
 
                     <div class="bg-white p-5 rounded-2xl custom-shadow border border-amber-200 flex items-center space-x-4">
                         <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
-                            <i class="fa-solid fa-shield-halved"></i>
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Phân Quyền</p>
-                            <h3 id="stat-role-text" class="text-xs font-bold text-emerald-600 mt-1">Đã kích hoạt</h3>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">ImgBB API</p>
+                            <h3 class="text-xs font-bold text-emerald-600 mt-1">Sẵn sàng (Dropzone)</h3>
                         </div>
                     </div>
                 </div>
@@ -223,7 +232,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
                         <div>
                             <h2 class="text-lg font-serif font-bold text-chua-red uppercase">Danh Sách Bài Viết Tin Tức & Khóa Tu</h2>
-                            <p class="text-xs text-gray-500">Quản lý bài viết hiển thị trên trang tin tức Chùa Vĩnh Hưng</p>
+                            <p class="text-xs text-gray-500">Quản lý bài viết trên trang tin tức Chùa Vĩnh Hưng</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="flex items-center bg-gray-50 px-3 py-2 rounded-xl border border-gray-200 w-full sm:w-64">
@@ -243,7 +252,7 @@
                                     <th class="py-3 px-4 w-12 text-center">STT</th>
                                     <th class="py-3 px-4 w-32">Ngày đăng</th>
                                     <th class="py-3 px-4">Tiêu đề & Slug</th>
-                                    <th class="py-3 px-4 w-28 text-center news-action-th">Thao tác</th>
+                                    <th class="py-3 px-4 w-40 text-center news-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="news-table-body" class="divide-y divide-gray-100 text-sm">
@@ -268,16 +277,17 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-xl border border-gray-200">
-                        <table class="w-full text-left border-collapse min-w-[650px]">
+                        <table class="w-full text-left border-collapse min-w-[700px]">
                             <thead>
                                 <tr class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold border-b border-amber-200">
+                                    <th class="py-3 px-4 w-28 text-center">Ảnh Video</th>
                                     <th class="py-3 px-4">Tiêu đề Video</th>
                                     <th class="py-3 px-4 w-48">Link YouTube</th>
                                     <th class="py-3 px-4 w-28 text-center video-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="video-table-body" class="divide-y divide-gray-100 text-sm">
-                                <tr><td colspan="3" class="py-6 text-center text-gray-400">Đang tải danh sách video...</td></tr>
+                                <tr><td colspan="4" class="py-6 text-center text-gray-400">Đang tải danh sách video...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -340,12 +350,17 @@
             <!-- TAB 6: SETTINGS -->
             <section id="tab-sec-settings" class="hidden space-y-6">
                 <div class="bg-white rounded-2xl p-6 custom-shadow border border-amber-200 space-y-6">
-                    <h2 class="text-lg font-serif font-bold text-chua-red uppercase border-b border-gray-100 pb-3">Cấu Hình Kết Nối Firebase & Website</h2>
+                    <h2 class="text-lg font-serif font-bold text-chua-red uppercase border-b border-gray-100 pb-3">Cấu Hình Kết Nối ImgBB & Firebase</h2>
                     <div class="space-y-4">
-                        <label class="block text-xs font-bold text-gray-700 uppercase">Đường dẫn Firebase Realtime Database</label>
-                        <input type="text" readonly value="https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app" class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 font-mono text-xs text-gray-600 outline-none">
+                        <label class="block text-xs font-bold text-gray-700 uppercase">Cấu hình API Key ImgBB (Tự động tải lên)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="setting-imgbb-key" value="d25b42d2a45a34f82803b0c8b3260c6d" class="flex-1 px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 font-mono text-xs text-gray-700 outline-none focus:ring-2 focus:ring-chua-amber">
+                            <button onclick="saveImgBBKeySetting()" class="px-5 py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl text-xs uppercase transition">Lưu API Key</button>
+                        </div>
+                        <p class="text-[11px] text-gray-500">Mã khoá mặc định công khai sẵn có. Bạn có thể thay thế bằng API Key cá nhân từ trang <a href="https://api.imgbb.com/" target="_blank" class="text-chua-red underline font-bold">api.imgbb.com</a>.</p>
+                        
                         <button onclick="testCloudConnection()" class="py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs uppercase transition">
-                            Kiểm Tra Kết Nối Cloud
+                            Kiểm Tra Kết Nối Realtime Database
                         </button>
                         <p id="connection-status" class="text-xs font-semibold text-gray-500"></p>
                     </div>
@@ -380,20 +395,41 @@
                 </div>
 
                 <div>
-                    <label class="block font-semibold text-gray-700 uppercase mb-1">Ảnh đại diện chính</label>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Ảnh đại diện chính (Kéo thả hoặc tải lên qua ImgBB)</label>
                     <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <label class="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl font-semibold text-xs transition border border-gray-300 inline-flex items-center gap-2">
-                                <i class="fa-solid fa-folder-open text-buddhist-maroon"></i> Chọn ảnh từ máy tính
-                                <input type="file" id="news-file-input" accept="image/*" class="hidden" onchange="previewNewsImage(event)">
-                            </label>
-                            <span id="news-file-name" class="text-xs text-gray-500 italic truncate max-w-xs">Chưa có tệp nào được chọn</span>
-                        </div>
-                        <input type="text" id="news-input-image" placeholder="Hoặc dán đường dẫn URL ảnh trực tiếp tại đây..." class="w-full px-4 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-chua-amber outline-none">
                         
-                        <div id="news-preview-container" class="hidden mt-2 relative w-32 h-24 rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
+                        <!-- DROPZONE CONTAINER FOR IMGBB -->
+                        <div id="imgbb-dropzone" 
+                             class="border-2 border-dashed border-amber-300 bg-amber-50/40 hover:bg-amber-50 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center relative"
+                             ondragover="handleDragOver(event)" 
+                             ondragleave="handleDragLeave(event)" 
+                             ondrop="handleDrop(event)"
+                             onclick="document.getElementById('news-file-input').click()">
+                            
+                            <input type="file" id="news-file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                            
+                            <div id="dropzone-prompt" class="space-y-2 pointer-events-none">
+                                <div class="w-12 h-12 rounded-full bg-amber-200 text-chua-red flex items-center justify-center mx-auto text-xl shadow-inner">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <p class="font-bold text-gray-700 text-xs">Kéo thả ảnh vào đây hoặc <span class="text-chua-red underline">bấm để chọn ảnh</span></p>
+                                <p class="text-[10px] text-gray-400">Hỗ trợ JPG, PNG, WEBP (Tự động đẩy lên ImgBB API)</p>
+                            </div>
+
+                            <div id="dropzone-loading" class="hidden absolute inset-0 bg-white/90 rounded-2xl flex flex-col items-center justify-center space-y-2">
+                                <i class="fa-solid fa-spinner fa-spin text-chua-red text-2xl"></i>
+                                <p id="dropzone-status-text" class="font-bold text-xs text-gray-700">Đang tải ảnh lên ImgBB API...</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="news-input-image" placeholder="Hoặc dán URL ảnh trực tiếp tại đây..." class="flex-1 px-4 py-2 rounded-xl border border-gray-300 text-xs focus:ring-2 focus:ring-chua-amber outline-none" oninput="previewDirectUrl(this.value)">
+                            <button type="button" onclick="clearNewsImage()" class="px-3 py-2 bg-gray-100 hover:bg-red-100 hover:text-red-600 rounded-xl text-xs font-bold transition">Xóa ảnh</button>
+                        </div>
+
+                        <div id="news-preview-container" class="hidden mt-2 relative w-36 h-28 rounded-xl overflow-hidden border border-amber-300 bg-gray-50 shadow-sm">
                             <img id="news-preview-img" src="" alt="Xem trước ảnh" class="w-full h-full object-cover">
-                            <button type="button" onclick="clearNewsImage()" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow hover:bg-red-700"><i class="fa-solid fa-trash"></i></button>
+                            <div class="absolute bottom-1 right-1 bg-black/70 text-white text-[9px] px-1.5 py-0.5 rounded font-mono">Đã tải lên ImgBB</div>
                         </div>
                     </div>
                 </div>
@@ -401,7 +437,6 @@
                 <div>
                     <div class="flex items-center justify-between mb-1">
                         <label class="font-semibold text-gray-700 uppercase">Nội dung chi tiết <span class="text-red-600">*</span></label>
-                        <!-- Enhanced Visual Rich Text Toolbar -->
                         <div class="flex flex-wrap items-center gap-1 bg-gray-100 p-1.5 rounded-xl border border-gray-300">
                             <button type="button" onclick="formatText('bold')" title="In đậm (Bold)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg font-bold shadow-sm transition text-xs"><i class="fa-solid fa-bold"></i></button>
                             <button type="button" onclick="formatText('italic')" title="In nghiêng (Italic)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg italic shadow-sm transition text-xs"><i class="fa-solid fa-italic"></i></button>
@@ -420,11 +455,9 @@
                         </div>
                     </div>
                     
-                    <!-- Editor Input Area and Live Visual Preview Pane side-by-side or toggled -->
                     <div class="relative">
                         <textarea id="news-content" required rows="9" placeholder="Soạn thảo nội dung chi tiết với các định dạng phong phú..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none font-sans text-sm leading-relaxed" oninput="updateLivePreview()"></textarea>
                         
-                        <!-- Visual Live Preview Pane -->
                         <div id="live-content-preview" class="hidden absolute inset-0 bg-white border border-amber-300 rounded-xl p-4 overflow-y-auto font-sans text-sm text-gray-800 shadow-inner">
                             <div class="flex items-center justify-between border-b border-amber-200 pb-2 mb-3">
                                 <span class="text-xs font-bold text-chua-red uppercase"><i class="fa-solid fa-eye mr-1"></i> Xem trước giao diện bài viết thực tế</span>
@@ -471,8 +504,23 @@
                 </div>
                 <div>
                     <label class="block font-semibold text-gray-700 uppercase mb-1">Đường dẫn YouTube (URL)</label>
-                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm outline-none">
+                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." oninput="onVideoUrlChange(this.value)" class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm outline-none">
                 </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 uppercase mb-1">Ảnh thu nhỏ (Thumbnail URL)</label>
+                    <div class="flex gap-2">
+                        <input type="url" id="video-thumbnail" placeholder="Tự động lấy từ YouTube hoặc dán URL ảnh..." class="flex-1 px-3.5 py-2 border border-gray-300 rounded-xl text-xs outline-none" oninput="previewVideoThumb(this.value)">
+                        <button type="button" onclick="autoExtractYoutubeThumb()" class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-chua-darkred rounded-xl font-bold transition text-xs whitespace-nowrap">Lấy từ YouTube</button>
+                    </div>
+                </div>
+                <!-- Thumbnail Preview Box -->
+                <div id="video-thumb-preview-wrap" class="hidden">
+                    <span class="block font-semibold text-gray-500 uppercase text-[10px] mb-1">Xem trước ảnh video:</span>
+                    <div class="w-full h-32 rounded-xl overflow-hidden border border-amber-200 bg-gray-50 shadow-sm relative">
+                        <img id="video-thumb-preview-img" src="" alt="Thumbnail preview" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
                 <div class="flex justify-end space-x-3 pt-2">
                     <button type="button" onclick="closeVideoModal()" class="px-4 py-2 bg-gray-100 rounded-xl font-semibold">Hủy</button>
                     <button type="submit" class="px-5 py-2 bg-chua-amber text-white font-bold rounded-xl shadow">Lưu Video</button>
@@ -561,11 +609,21 @@
 
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
-    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500 w-full">
         <p>© 2026 Chùa Vĩnh Hưng. Hệ thống Quản trị & Phân quyền Web Nội bộ.</p>
     </footer>
 
     <script>
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "chuavinhhung-web.appspot.com"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const database = firebase.database();
         const FIREBASE_BASE = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app';
         
         let newsData = {};
@@ -575,6 +633,8 @@
         let confirmResolver = null;
         let selectedLoginRole = 'super';
         let currentAdminRole = 'super';
+
+        const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
 
         document.addEventListener('DOMContentLoaded', () => {
             const isAuth = sessionStorage.getItem('vinhhung_admin_logged');
@@ -587,7 +647,109 @@
                 applyRolePermissions();
                 loadAllData();
             }
+
+            const savedKey = localStorage.getItem('vinhhung_imgbb_key');
+            if (savedKey) {
+                const keyInput = document.getElementById('setting-imgbb-key');
+                if (keyInput) keyInput.value = savedKey;
+            }
         });
+
+        function saveImgBBKeySetting() {
+            const keyVal = document.getElementById('setting-imgbb-key').value.trim();
+            if (!keyVal) {
+                showToast("Vui lòng nhập ImgBB API Key hợp lệ!", true);
+                return;
+            }
+            localStorage.setItem('vinhhung_imgbb_key', keyVal);
+            showToast("Đã lưu ImgBB API Key thành công!");
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('imgbb-dropzone').classList.add('dropzone-active');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('imgbb-dropzone').classList.remove('dropzone-active');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('imgbb-dropzone').classList.remove('dropzone-active');
+            
+            const files = event.dataTransfer.files;
+            if (files && files.length > 0) {
+                uploadImageToImgBB(files[0]);
+            }
+        }
+
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            if (files && files.length > 0) {
+                uploadImageToImgBB(files[0]);
+            }
+        }
+
+        async function uploadImageToImgBB(file) {
+            if (!file.type.startsWith('image/')) {
+                showToast("Vui lòng chọn tệp hình ảnh hợp lệ!", true);
+                return;
+            }
+
+            const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+            const loadingBox = document.getElementById('dropzone-loading');
+            const statusText = document.getElementById('dropzone-status-text');
+
+            loadingBox.classList.remove('hidden');
+            statusText.textContent = `Đang tải ảnh "${file.name}" lên ImgBB...`;
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                loadingBox.classList.add('hidden');
+
+                if (data && data.success) {
+                    const imageUrl = data.data.url;
+                    document.getElementById('news-input-image').value = imageUrl;
+                    document.getElementById('news-preview-img').src = imageUrl;
+                    document.getElementById('news-preview-container').classList.remove('hidden');
+                    showToast("Tải ảnh lên ImgBB thành công!");
+                } else {
+                    showToast("Tải ảnh thất bại từ ImgBB: " + (data.error?.message || 'Lỗi không xác định'), true);
+                }
+            } catch (error) {
+                loadingBox.classList.add('hidden');
+                console.error("ImgBB Upload Error:", error);
+                showToast("Lỗi kết nối khi gọi ImgBB API: " + error.message, true);
+            }
+        }
+
+        function previewDirectUrl(url) {
+            if (url && url.startsWith('http')) {
+                document.getElementById('news-preview-img').src = url;
+                document.getElementById('news-preview-container').classList.remove('hidden');
+            } else {
+                document.getElementById('news-preview-container').classList.add('hidden');
+            }
+        }
+
+        function clearNewsImage() {
+            document.getElementById('news-input-image').value = '';
+            document.getElementById('news-file-input').value = '';
+            document.getElementById('news-preview-container').classList.add('hidden');
+        }
 
         function generateSlug(str) {
             if (!str) return '';
@@ -608,7 +770,6 @@
             }
         }
 
-        // Rich Text Formatting Toolbar Action Handler
         function formatText(type) {
             const textarea = document.getElementById('news-content');
             if (!textarea) return;
@@ -679,6 +840,30 @@
             renderBody.innerHTML = renderMarkdownContent(rawContent, []);
         }
 
+        function renderMarkdownContent(rawContent, galleryList = []) {
+            if (!rawContent) return '<p class="text-gray-400 italic">Chưa có nội dung...</p>';
+            let html = rawContent
+                .replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4 my-4 bg-amber-50 border-l-4 border-chua-gold rounded-r-xl text-gray-800 shadow-sm font-medium">$1</div>')
+                .replace(/^##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-chua-red mt-6 mb-3 border-b border-amber-200 pb-1">$1</h2>')
+                .replace(/^###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-chua-darkred mt-4 mb-2">$1</h3>')
+                .replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-chua-amber pl-4 py-2.5 my-4 italic text-gray-700 bg-amber-50/50 rounded-r-xl shadow-sm">$1</blockquote>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
+                .replace(/(^|[^*])\*(?!\*)(.*?)\*(?!\*)/g, '$1<em class="italic">$2</em>')
+                .replace(/<u>(.*?)<\/u>/g, '<u class="underline decoration-chua-gold font-semibold">$1</u>')
+                .replace(/\n\n/g, '</p><p class="mb-3">');
+
+            html = '<p class="mb-3">' + html + '</p>';
+
+            if (galleryList && Array.isArray(galleryList) && galleryList.length > 0) {
+                html += '<div class="mt-8 pt-6 border-t border-gray-200"><h4 class="font-serif font-bold text-chua-red uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
+                galleryList.forEach(imgUrl => {
+                    html += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover"></div>`;
+                });
+                html += '</div></div>';
+            }
+            return html;
+        }
+
         function addGalleryImageInput(urlValue = '') {
             const container = document.getElementById('gallery-images-container');
             const div = document.createElement('div');
@@ -702,9 +887,9 @@
                 activeCard.classList.add('border-chua-red', 'bg-amber-50/60');
             }
             const pinInput = document.getElementById('admin-pin-input');
-            if (role === 'super') pinInput.placeholder = "Mã PIN Tối Cao (Mặc định: 8888)...";
-            if (role === 'editor') pinInput.placeholder = "Mã PIN Biên Tập (Mặc định: 6666)...";
-            if (role === 'viewer') pinInput.placeholder = "Mã PIN Theo Dõi (Mặc định: 1111)...";
+            if (role === 'super') pinInput.placeholder = "Nhập mã PIN...";
+            if (role === 'editor') pinInput.placeholder = "Nhập mã PIN...";
+            if (role === 'viewer') pinInput.placeholder = "Nhập mã PIN...";
         }
 
         async function unlockAdmin() {
@@ -751,7 +936,7 @@
                 showToast(`Đăng nhập thành công (${matchedAccountName})`);
                 loadAllData();
             } else {
-                showToast("Mã PIN không đúng! (Thử: 8888, 6666 hoặc 1111)", true);
+                showToast("Mã PIN không đúng!", true);
             }
         }
 
@@ -882,253 +1067,253 @@
             if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền thêm tài khoản!", true); return; }
             document.getElementById('admin-acc-name').value = '';
             document.getElementById('admin-acc-pin').value = '';
-            document.getElementById('admin-acc-role').value = 'editor';
             document.getElementById('modal-admin-account').classList.remove('hidden');
         }
 
-        function closeAddAdminModal() { document.getElementById('modal-admin-account').classList.add('hidden'); }
+        function closeAddAdminModal() {
+            document.getElementById('modal-admin-account').classList.add('hidden');
+        }
 
         async function saveAdminAccount(e) {
             e.preventDefault();
             const name = document.getElementById('admin-acc-name').value.trim();
             const role = document.getElementById('admin-acc-role').value;
             const pin = document.getElementById('admin-acc-pin').value.trim();
+
             try {
-                await fetch(`${FIREBASE_BASE}/admin_accounts.json`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, role, pin, created_at: Date.now() })
-                });
-                showToast("Đã cấp tài khoản quản trị thành công!");
+                await database.ref('admin_accounts').push({ name, role, pin });
                 closeAddAdminModal();
+                showToast("Cấp tài khoản quản trị thành công!");
                 loadAdminAccounts();
-            } catch (err) { showToast("Lỗi kết nối khi lưu tài khoản.", true); }
+            } catch (err) {
+                showToast("Lỗi khi lưu tài khoản: " + err.message, true);
+            }
         }
 
         async function deleteAdminAccount(key) {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền xóa!", true); return; }
-            if (confirm("Xóa tài khoản này?")) {
-                await fetch(`${FIREBASE_BASE}/admin_accounts/${key}.json`, { method: 'DELETE' });
+            if (currentAdminRole !== 'super') { showToast("Bạn không có quyền xóa tài khoản!", true); return; }
+            const confirmDel = await promptConfirm("Bạn có chắc muốn xóa tài khoản quản trị này?");
+            if (confirmDel) {
+                await database.ref(`admin_accounts/${key}`).remove();
                 showToast("Đã xóa tài khoản!");
                 loadAdminAccounts();
             }
         }
 
-        function previewNewsImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            document.getElementById('news-file-name').textContent = file.name;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const base64 = e.target.result;
-                document.getElementById('news-input-image').value = base64;
-                document.getElementById('news-preview-img').src = base64;
-                document.getElementById('news-preview-container').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearNewsImage() {
-            document.getElementById('news-input-image').value = '';
-            document.getElementById('news-file-input').value = '';
-            document.getElementById('news-file-name').textContent = 'Chưa có tệp nào được chọn';
-            document.getElementById('news-preview-container').classList.add('hidden');
-        }
-
+        // NEWS MANAGEMENT
         async function loadNews() {
             try {
                 const res = await fetch(`${FIREBASE_BASE}/news.json`);
                 const data = await res.json();
                 newsData = data || {};
-                renderNewsTable();
                 document.getElementById('stat-news-count').textContent = Object.keys(newsData).length;
+                renderNewsTable();
             } catch (err) { console.error("Lỗi tải tin tức:", err); }
-        }
-
-        // Markdown / HTML Rendering Parser for formatted content (Bold, Italic, Underline, Headings)
-        function renderMarkdownContent(rawContent, galleryArray) {
-            if (!rawContent) return '<p class="text-gray-400 italic">Chưa có nội dung...</p>';
-            let html = rawContent
-                // Highlight Callout box parsing
-                .replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4 my-4 bg-amber-50 border-l-4 border-chua-gold rounded-r-xl text-gray-800 shadow-sm font-medium">$1</div>')
-                // Heading H2 parsing
-                .replace(/^##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-chua-red mt-6 mb-3 border-b border-amber-200 pb-1">$1</h2>')
-                // Heading H3 parsing
-                .replace(/^###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-chua-darkred mt-4 mb-2">$1</h3>')
-                // Quote parsing
-                .replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-chua-amber pl-4 py-2.5 my-4 italic text-gray-700 bg-amber-50/50 rounded-r-xl shadow-sm">$1</blockquote>')
-                // Bullet list parsing
-                .replace(/^-\s+(.*)$/gm, '<li class="ml-5 list-disc text-gray-700 my-1">$1</li>')
-                // Bold text parsing **text**
-                .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
-                // Italic text parsing *text*
-                .replace(/(^|[^*])\*(?!\*)(.*?)\*(?!\*)/g, '$1<em class="italic">$2</em>')
-                // Underline text parsing <u>text</u>
-                .replace(/<u>(.*?)<\/u>/g, '<u class="underline decoration-chua-gold font-semibold">$1</u>')
-                // Paragraph line breaks
-                .replace(/\n\n/g, '</p><p class="mb-3">');
-
-            html = '<p class="mb-3">' + html + '</p>';
-
-            if (galleryArray && Array.isArray(galleryArray) && galleryArray.length > 0) {
-                html += '<div class="mt-8 pt-6 border-t border-gray-200"><h4 class="font-serif font-bold text-chua-red uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
-                galleryArray.forEach(imgUrl => {
-                    html += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover"></div>`;
-                });
-                html += '</div></div>';
-            }
-
-            return html;
         }
 
         function renderNewsTable() {
             const tbody = document.getElementById('news-table-body');
-            const searchVal = (document.getElementById('news-search')?.value || '').toLowerCase();
+            if (!tbody) return;
             tbody.innerHTML = '';
 
-            const keys = Object.keys(newsData);
-            if (keys.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-gray-400">Chưa có bài viết nào trên hệ thống.</td></tr>';
+            const searchTerm = (document.getElementById('news-search').value || '').toLowerCase();
+            const keys = Object.keys(newsData).sort((a, b) => (newsData[b].created_at || 0) - (newsData[a].created_at || 0));
+            
+            let filteredKeys = keys.filter(key => {
+                const item = newsData[key];
+                const title = (item.title || '').toLowerCase();
+                const slug = (item.slug || '').toLowerCase();
+                return title.includes(searchTerm) || slug.includes(searchTerm);
+            });
+
+            if (filteredKeys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-gray-400">Không tìm thấy bài viết nào phù hợp.</td></tr>`;
                 return;
             }
 
-            let count = 0;
-            keys.reverse().forEach(key => {
+            let html = '';
+            filteredKeys.forEach((key, index) => {
                 const item = newsData[key];
-                if (searchVal && !item.title.toLowerCase().includes(searchVal) && !(item.slug && item.slug.toLowerCase().includes(searchVal))) return;
-                count++;
-
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-amber-50/40 transition";
-                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
-
-                let actionHtml = '';
-                if (currentAdminRole === 'viewer') actionHtml = `<span class="text-xs text-gray-400 italic">Chỉ xem</span>`;
-                else if (currentAdminRole === 'editor') actionHtml = `<button onclick="editNews('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition"><i class="fa-solid fa-pen"></i> Sửa</button>`;
-                else {
-                    actionHtml = `
-                        <button onclick="editNews('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="confirmDeleteNews('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition"><i class="fa-solid fa-trash"></i></button>
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
+                const isHidden = item.hidden === true;
+                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded ml-2">ĐÃ HẨN</span>' : '';
+                
+                let actionButtons = '';
+                if (currentAdminRole === 'viewer') {
+                    actionButtons = `<span class="text-xs text-gray-400 italic">Chỉ xem</span>`;
+                } else {
+                    const hideToggleText = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện' : '<i class="fa-solid fa-eye-slash"></i> Ẩn';
+                    const hideToggleClass = isHidden ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100';
+                    
+                    actionButtons = `
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="toggleHideNews('${key}')" class="px-2.5 py-1 ${hideToggleClass} rounded-lg text-xs font-semibold transition" title="${isHidden ? 'Hiện bài viết' : 'Ẩn bài viết'}">${hideToggleText}</button>
+                            <button onclick="openNewsModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-semibold transition"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button onclick="deleteNews('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-semibold transition"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     `;
                 }
 
-                tr.innerHTML = `
-                    <td class="py-3 px-4 text-center font-bold text-gray-500">${count}</td>
-                    <td class="py-3 px-4 text-gray-600 text-xs">${dateStr}</td>
-                    <td class="py-3 px-4">
-                        <div class="font-semibold text-gray-800">${item.title || ''}</div>
-                        <div class="text-[11px] font-mono text-chua-amber">Slug: /${item.slug || 'chua-co-slug'}</div>
-                    </td>
-                    <td class="py-3 px-4 text-center space-x-2">${actionHtml}</td>
+                html += `
+                    <tr class="hover:bg-amber-50/40 transition">
+                        <td class="py-3 px-4 text-center font-bold text-gray-500">${index + 1}</td>
+                        <td class="py-3 px-4 text-xs font-semibold text-gray-600">${dateStr}</td>
+                        <td class="py-3 px-4">
+                            <div class="font-bold text-gray-900">${item.title || ''} ${hiddenBadge}</div>
+                            <div class="text-[11px] font-mono text-chua-red mt-0.5">slug: ${item.slug || generateSlug(item.title)}</div>
+                        </td>
+                        <td class="py-3 px-4 text-center">${actionButtons}</td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             });
+            tbody.innerHTML = html;
         }
 
-        function openNewsModal() {
-            if (currentAdminRole === 'viewer') { showToast("Tài khoản Theo dõi không có quyền thêm bài viết!", true); return; }
-            document.getElementById('news-key').value = '';
+        function openNewsModal(key = null) {
+            if (currentAdminRole === 'viewer') { showToast("Tài khoản theo dõi không được phép thêm/sửa!", true); return; }
+            document.getElementById('news-key').value = key || '';
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
             document.getElementById('news-input-image').value = '';
+            document.getElementById('news-file-input').value = '';
+            document.getElementById('news-preview-container').classList.add('hidden');
             document.getElementById('news-content').value = '';
             document.getElementById('gallery-images-container').innerHTML = '';
-            clearNewsImage();
-            document.getElementById('news-modal-title').textContent = 'Thêm Bài Viết Mới';
+            
+            if (key && newsData[key]) {
+                const item = newsData[key];
+                document.getElementById('news-modal-title').textContent = "Chỉnh Sửa Bài Viết";
+                document.getElementById('news-title').value = item.title || '';
+                document.getElementById('news-slug').value = item.slug || generateSlug(item.title);
+                document.getElementById('news-content').value = item.content || '';
+                
+                if (item.image) {
+                    document.getElementById('news-input-image').value = item.image;
+                    document.getElementById('news-preview-img').src = item.image;
+                    document.getElementById('news-preview-container').classList.remove('hidden');
+                }
+
+                if (item.gallery && Array.isArray(item.gallery)) {
+                    item.gallery.forEach(imgUrl => addGalleryImageInput(imgUrl));
+                }
+            } else {
+                document.getElementById('news-modal-title').textContent = "Thêm Bài Viết Mới";
+            }
+            
+            if (isPreviewMode) toggleContentPreview();
             document.getElementById('modal-news').classList.remove('hidden');
         }
 
-        function closeNewsModal() { document.getElementById('modal-news').classList.add('hidden'); }
+        function closeNewsModal() {
+            document.getElementById('modal-news').classList.add('hidden');
+        }
 
         async function saveNews(e) {
             e.preventDefault();
             const key = document.getElementById('news-key').value;
-            const title = document.getElementById('news-title').value;
-            let slug = document.getElementById('news-slug').value.trim();
-            if (!slug) slug = generateSlug(title);
-            const image = document.getElementById('news-input-image').value;
-            const content = document.getElementById('news-content').value;
+            const title = document.getElementById('news-title').value.trim();
+            const slug = document.getElementById('news-slug').value.trim() || generateSlug(title);
+            const image = document.getElementById('news-input-image').value.trim();
+            const content = document.getElementById('news-content').value.trim();
 
             const galleryInputs = document.querySelectorAll('.gallery-url-input');
-            const galleryImages = [];
+            const gallery = [];
             galleryInputs.forEach(input => {
-                if (input.value.trim()) galleryImages.push(input.value.trim());
+                if (input.value.trim()) gallery.push(input.value.trim());
             });
 
-            // Nếu trang chi tiết công khai chưa tự parse markdown, bạn có thể lưu sẵn HTML đã render hoặc giữ nguyên content nhưng đảm bảo trang chi tiết gọi hàm renderMarkdownContent()
-            const postData = {
+            const rendered_html = renderMarkdownContent(content, gallery);
+            const postObj = {
                 title,
                 slug,
                 image,
-                content, // Giữ lại nội dung thô hoặc lưu HTML nếu trang chi tiết đọc trực tiếp
-                rendered_html: renderMarkdownContent(content, galleryImages), // Lưu sẵn chuỗi HTML chuẩn để trang ngoài hiển thị tức thì
-                gallery: galleryImages,
-                created_at: key && newsData[key]?.created_at ? newsData[key].created_at : Date.now()
+                content,
+                rendered_html,
+                gallery,
+                created_at: key && newsData[key] ? newsData[key].created_at : Date.now()
             };
-
-            const url = key ? `${FIREBASE_BASE}/news/${key}.json` : `${FIREBASE_BASE}/news.json`;
-            const method = key ? 'PUT' : 'POST';
 
             try {
-                const res = await fetch(url, {
-                    method: method,
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(postData)
-                });
-                if (res.ok) {
-                    showToast(key ? "Đã cập nhật bài viết thành công!" : "Đã thêm bài viết mới thành công!");
-                    closeNewsModal();
-                    loadNews();
+                if (key) {
+                    postObj.hidden = newsData[key].hidden || false;
+                    await database.ref(`news/${key}`).update(postObj);
                 } else {
-                    showToast("Không thể lưu bài viết lên Firebase.", true);
+                    postObj.hidden = false;
+                    await database.ref('news').push(postObj);
                 }
-            } catch (err) { showToast("Lỗi kết nối khi lưu bài viết.", true); }
+                closeNewsModal();
+                showToast("Lưu bài viết thành công!");
+                loadNews();
+            } catch (err) {
+                showToast("Lỗi khi lưu bài viết: " + err.message, true);
+            }
         }
 
-        function editNews(key) {
-            if (currentAdminRole === 'viewer') { showToast("Tài khoản Theo dõi không được phép sửa!", true); return; }
-            const item = newsData[key];
-            if (!item) return;
-            document.getElementById('news-key').value = key;
-            document.getElementById('news-title').value = item.title || '';
-            document.getElementById('news-slug').value = item.slug || generateSlug(item.title || '');
-            document.getElementById('news-input-image').value = item.image || '';
-            document.getElementById('news-content').value = item.content || '';
-            
-            const galleryContainer = document.getElementById('gallery-images-container');
-            galleryContainer.innerHTML = '';
-            if (item.gallery && Array.isArray(item.gallery)) {
-                item.gallery.forEach(imgUrl => addGalleryImageInput(imgUrl));
+        async function toggleHideNews(key) {
+            if (currentAdminRole === 'viewer') return;
+            const currentHidden = newsData[key].hidden === true;
+            try {
+                await database.ref(`news/${key}`).update({ hidden: !currentHidden });
+                showToast(currentHidden ? "Đã hiện bài viết!" : "Đã ẩn bài viết khỏi trang tin tức!");
+                loadNews();
+            } catch (err) {
+                showToast("Lỗi cập nhật trạng thái: " + err.message, true);
             }
-
-            if (item.image) {
-                document.getElementById('news-preview-img').src = item.image;
-                document.getElementById('news-preview-container').classList.remove('hidden');
-                document.getElementById('news-file-name').textContent = 'Ảnh đã có sẵn';
-            } else {
-                clearNewsImage();
-            }
-
-            document.getElementById('news-modal-title').textContent = 'Chỉnh Sửa Bài Viết';
-            document.getElementById('modal-news').classList.remove('hidden');
         }
 
-        function confirmDeleteNews(key) {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền xóa!", true); return; }
-            document.getElementById('confirm-msg').textContent = "Bạn có chắc chắn muốn xóa bài viết này không?";
-            document.getElementById('modal-confirm').classList.remove('hidden');
-            confirmResolver = async (res) => {
-                if (res) {
-                    await fetch(`${FIREBASE_BASE}/news/${key}.json`, { method: 'DELETE' });
+        async function deleteNews(key) {
+            if (currentAdminRole === 'viewer') return;
+            const confirmDel = await promptConfirm("Bạn có chắc chắn muốn xóa vĩnh viễn bài viết này?");
+            if (confirmDel) {
+                try {
+                    await database.ref(`news/${key}`).remove();
                     showToast("Đã xóa bài viết thành công!");
                     loadNews();
+                } catch (err) {
+                    showToast("Lỗi khi xóa: " + err.message, true);
                 }
-            };
+            }
         }
 
-        function closeConfirmModal(result) {
-            document.getElementById('modal-confirm').classList.add('hidden');
-            if (confirmResolver) { confirmResolver(result); confirmResolver = null; }
+        // VIDEOS MANAGEMENT WITH THUMBNAIL SUPPORT
+        function extractYoutubeId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function autoExtractYoutubeThumb() {
+            const url = document.getElementById('video-url').value.trim();
+            const videoId = extractYoutubeId(url);
+            if (videoId) {
+                const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                document.getElementById('video-thumbnail').value = thumbUrl;
+                previewVideoThumb(thumbUrl);
+                showToast("Đã tự động lấy ảnh thu nhỏ từ YouTube!");
+            } else {
+                showToast("Không tìm thấy ID YouTube hợp lệ từ đường dẫn!", true);
+            }
+        }
+
+        function onVideoUrlChange(url) {
+            const videoId = extractYoutubeId(url);
+            if (videoId && !document.getElementById('video-thumbnail').value) {
+                const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                document.getElementById('video-thumbnail').value = thumbUrl;
+                previewVideoThumb(thumbUrl);
+            }
+        }
+
+        function previewVideoThumb(url) {
+            const wrap = document.getElementById('video-thumb-preview-wrap');
+            const img = document.getElementById('video-thumb-preview-img');
+            if (url && url.startsWith('http')) {
+                img.src = url;
+                wrap.classList.remove('hidden');
+            } else {
+                wrap.classList.add('hidden');
+            }
         }
 
         async function loadVideos() {
@@ -1136,135 +1321,251 @@
                 const res = await fetch(`${FIREBASE_BASE}/videos.json`);
                 const data = await res.json();
                 videosData = data || {};
-                const tbody = document.getElementById('video-table-body');
-                tbody.innerHTML = '';
-                const keys = Object.keys(videosData);
-                document.getElementById('stat-video-count').textContent = keys.length;
-
-                if (keys.length === 0) { tbody.innerHTML = '<tr><td colspan="3" class="py-6 text-center text-gray-400">Chưa có video nào.</td></tr>'; return; }
-
-                keys.forEach(key => {
-                    const item = videosData[key];
-                    const tr = document.createElement('tr');
-                    tr.className = "hover:bg-amber-50/40 transition";
-                    let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteVideo('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg"><i class="fa-solid fa-trash"></i></button>` : '';
-                    tr.innerHTML = `
-                        <td class="py-3 px-4 font-semibold text-gray-800">${item.title || ''}</td>
-                        <td class="py-3 px-4 text-blue-600 truncate max-w-xs"><a href="${item.url}" target="_blank">${item.url}</a></td>
-                        <td class="py-3 px-4 text-center space-x-2">${delBtn}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) { console.error(err); }
+                document.getElementById('stat-video-count').textContent = Object.keys(videosData).length;
+                renderVideosTable();
+            } catch (err) { console.error("Lỗi tải video:", err); }
         }
 
-        function openVideoModal() {
-            if (currentAdminRole === 'viewer') { showToast("Không có quyền thêm video!", true); return; }
-            document.getElementById('video-key').value = '';
+        function renderVideosTable() {
+            const tbody = document.getElementById('video-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const keys = Object.keys(videosData);
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-gray-400">Chưa có video pháp thoại nào.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            keys.forEach(key => {
+                const item = videosData[key];
+                let thumbUrl = item.thumbnail;
+                if (!thumbUrl) {
+                    const vidId = extractYoutubeId(item.url);
+                    if (vidId) thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+                    else thumbUrl = 'https://placehold.co/120x68/3d1c1d/d4af37?text=Video';
+                }
+
+                let actionButtons = '';
+                if (currentAdminRole === 'viewer') {
+                    actionButtons = `<span class="text-xs text-gray-400 italic">Chỉ xem</span>`;
+                } else {
+                    actionButtons = `
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="openVideoModal('${key}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold hover:bg-blue-100 transition"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button onclick="deleteVideo('${key}')" class="px-2.5 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-100 transition"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <tr class="hover:bg-amber-50/40 transition">
+                        <td class="py-3 px-4 text-center">
+                            <div class="w-20 h-12 rounded-lg overflow-hidden border border-amber-200 bg-gray-100 mx-auto shadow-sm">
+                                <img src="${thumbUrl}" alt="Thumbnail" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/120x68/3d1c1d/d4af37?text=Video'">
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 font-bold text-gray-900">${item.title || ''}</td>
+                        <td class="py-3 px-4 text-xs font-mono text-blue-600 truncate max-w-xs"><a href="${item.url}" target="_blank" class="underline">${item.url}</a></td>
+                        <td class="py-3 px-4 text-center">${actionButtons}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function openVideoModal(key = null) {
+            if (currentAdminRole === 'viewer') return;
+            document.getElementById('video-key').value = key || '';
             document.getElementById('video-title').value = '';
             document.getElementById('video-url').value = '';
+            document.getElementById('video-thumbnail').value = '';
+            document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
+
+            if (key && videosData[key]) {
+                document.getElementById('video-title').value = videosData[key].title || '';
+                document.getElementById('video-url').value = videosData[key].url || '';
+                const thumb = videosData[key].thumbnail || '';
+                document.getElementById('video-thumbnail').value = thumb;
+                if (thumb) previewVideoThumb(thumb);
+            }
             document.getElementById('modal-video').classList.remove('hidden');
         }
 
-        function closeVideoModal() { document.getElementById('modal-video').classList.add('hidden'); }
+        function closeVideoModal() {
+            document.getElementById('modal-video').classList.add('hidden');
+        }
 
         async function saveVideo(e) {
             e.preventDefault();
-            const title = document.getElementById('video-title').value;
-            const url = document.getElementById('video-url').value;
-            await fetch(`${FIREBASE_BASE}/videos.json`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, url })
-            });
-            showToast("Đã thêm video thành công!");
-            closeVideoModal();
-            loadVideos();
+            const key = document.getElementById('video-key').value;
+            const title = document.getElementById('video-title').value.trim();
+            const url = document.getElementById('video-url').value.trim();
+            let thumbnail = document.getElementById('video-thumbnail').value.trim();
+
+            if (!thumbnail) {
+                const vidId = extractYoutubeId(url);
+                if (vidId) thumbnail = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+            }
+
+            try {
+                if (key) {
+                    await database.ref(`videos/${key}`).update({ title, url, thumbnail });
+                } else {
+                    await database.ref('videos').push({ title, url, thumbnail });
+                }
+                closeVideoModal();
+                showToast("Lưu video thành công!");
+                loadVideos();
+            } catch (err) {
+                showToast("Lỗi lưu video: " + err.message, true);
+            }
         }
 
         async function deleteVideo(key) {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền xóa!", true); return; }
-            if (confirm("Xóa video này?")) {
-                await fetch(`${FIREBASE_BASE}/videos/${key}.json`, { method: 'DELETE' });
+            if (currentAdminRole === 'viewer') return;
+            const confirmDel = await promptConfirm("Bạn có chắc muốn xóa video này?");
+            if (confirmDel) {
+                await database.ref(`videos/${key}`).remove();
                 showToast("Đã xóa video!");
                 loadVideos();
             }
         }
 
+        // MONKS MANAGEMENT
         async function loadMonks() {
             try {
                 const res = await fetch(`${FIREBASE_BASE}/monks.json`);
                 const data = await res.json();
                 monksData = data || {};
-                const grid = document.getElementById('monk-grid');
-                grid.innerHTML = '';
-                const keys = Object.keys(monksData);
-                document.getElementById('stat-monk-count').textContent = keys.length;
-
-                if (keys.length === 0) { grid.innerHTML = '<p class="text-gray-400 text-sm">Chưa có thông tin chư tăng.</p>'; return; }
-
-                keys.forEach(key => {
-                    const item = monksData[key];
-                    const div = document.createElement('div');
-                    div.className = "bg-gray-50 border border-gray-200 rounded-xl p-4 flex items-center space-x-4";
-                    let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteMonk('${key}')" class="text-red-500 hover:text-red-700 p-2"><i class="fa-solid fa-trash"></i></button>` : '';
-                    div.innerHTML = `
-                        <img src="${item.avatar || 'https://placehold.co/100x100/3d1c1d/d4af37?text=Ảnh'}" class="w-14 h-14 rounded-full object-cover border border-amber-300">
-                        <div class="flex-1 overflow-hidden">
-                            <h4 class="font-bold text-gray-800 text-sm truncate">${item.name}</h4>
-                            <p class="text-xs text-chua-red font-semibold">${item.role}</p>
-                        </div>
-                        ${delBtn}
-                    `;
-                    grid.appendChild(div);
-                });
-            } catch (err) { console.error(err); }
+                document.getElementById('stat-monk-count').textContent = Object.keys(monksData).length;
+                renderMonksGrid();
+            } catch (err) { console.error("Lỗi tải chư tăng:", err); }
         }
 
-        function openMonkModal() {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền thêm!", true); return; }
+        function renderMonksGrid() {
+            const grid = document.getElementById('monk-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const keys = Object.keys(monksData);
+            if (keys.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-6">Chưa có thông tin chư tăng.</p>`;
+                return;
+            }
+
+            let html = '';
+            keys.forEach(key => {
+                const item = monksData[key];
+                const avatar = item.avatar || 'https://placehold.co/200x200/3d1c1d/d4af37?text=ChuaVinhHung';
+                let actionBtns = '';
+                if (currentAdminRole !== 'viewer') {
+                    actionBtns = `
+                        <div class="flex gap-2 mt-3 pt-3 border-t border-gray-100">
+                            <button onclick="openMonkModal('${key}')" class="flex-1 py-1.5 bg-blue-50 text-blue-700 font-bold rounded-lg text-xs hover:bg-blue-100 transition">Sửa</button>
+                            <button onclick="deleteMonk('${key}')" class="flex-1 py-1.5 bg-red-50 text-red-600 font-bold rounded-lg text-xs hover:bg-red-100 transition">Xóa</button>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border border-amber-200 custom-shadow flex items-center space-x-4">
+                        <img src="${avatar}" alt="${item.name}" class="w-16 h-16 rounded-full object-cover border-2 border-amber-300 flex-shrink-0" onerror="this.src='https://placehold.co/200x200/3d1c1d/d4af37?text=ChuaVinhHung'">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold font-serif text-gray-900 truncate">${item.name}</h4>
+                            <p class="text-xs text-chua-red font-semibold truncate">${item.role}</p>
+                            ${actionBtns}
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        function openMonkModal(key = null) {
+            if (currentAdminRole === 'viewer') return;
+            document.getElementById('monk-key').value = key || '';
+            document.getElementById('monk-name').value = '';
+            document.getElementById('monk-role').value = '';
+            document.getElementById('monk-avatar').value = '';
+
+            if (key && monksData[key]) {
+                document.getElementById('monk-name').value = monksData[key].name || '';
+                document.getElementById('monk-role').value = monksData[key].role || '';
+                document.getElementById('monk-avatar').value = monksData[key].avatar || '';
+            }
             document.getElementById('modal-monk').classList.remove('hidden');
         }
 
-        function closeMonkModal() { document.getElementById('modal-monk').classList.add('hidden'); }
+        function closeMonkModal() {
+            document.getElementById('modal-monk').classList.add('hidden');
+        }
 
         async function saveMonk(e) {
             e.preventDefault();
-            const name = document.getElementById('monk-name').value;
-            const role = document.getElementById('monk-role').value;
-            const avatar = document.getElementById('monk-avatar').value;
-            await fetch(`${FIREBASE_BASE}/monks.json`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, role, avatar })
-            });
-            showToast("Đã thêm thành viên!");
-            closeMonkModal();
-            loadMonks();
+            const key = document.getElementById('monk-key').value;
+            const name = document.getElementById('monk-name').value.trim();
+            const role = document.getElementById('monk-role').value.trim();
+            const avatar = document.getElementById('monk-avatar').value.trim();
+
+            try {
+                if (key) {
+                    await database.ref(`monks/${key}`).update({ name, role, avatar });
+                } else {
+                    await database.ref('monks').push({ name, role, avatar });
+                }
+                closeMonkModal();
+                showToast("Lưu thông tin thành công!");
+                loadMonks();
+            } catch (err) {
+                showToast("Lỗi lưu thông tin: " + err.message, true);
+            }
         }
 
         async function deleteMonk(key) {
-            if (currentAdminRole !== 'super') { showToast("Chỉ Super Admin mới có quyền xóa!", true); return; }
-            if (confirm("Xóa thành viên này?")) {
-                await fetch(`${FIREBASE_BASE}/monks/${key}.json`, { method: 'DELETE' });
-                showToast("Đã xóa thành viên!");
+            if (currentAdminRole === 'viewer') return;
+            const confirmDel = await promptConfirm("Bạn có chắc muốn xóa thành viên này?");
+            if (confirmDel) {
+                await database.ref(`monks/${key}`).remove();
+                showToast("Đã xóa thành công!");
                 loadMonks();
             }
         }
 
         function testCloudConnection() {
-            const status = document.getElementById('connection-status');
-            status.textContent = "Đang kiểm tra kết nối...";
-            fetch(`${FIREBASE_BASE}/news.json`)
-                .then(r => r.json())
-                .then(() => {
-                    status.textContent = "Kết nối Firebase Realtime Database thành công!";
-                    status.className = "text-xs font-semibold text-emerald-600";
-                })
-                .catch(() => {
-                    status.textContent = "Không thể kết nối tới Firebase!";
-                    status.className = "text-xs font-semibold text-red-600";
-                });
+            const statusEl = document.getElementById('connection-status');
+            statusEl.textContent = "Đang kiểm tra kết nối Realtime Database...";
+            statusEl.className = "text-xs font-semibold text-amber-600";
+
+            database.ref('.info/connected').once('value').then(snap => {
+                if (snap.val() === true) {
+                    statusEl.textContent = "Kết nối Firebase Realtime Database thành công!";
+                    statusEl.className = "text-xs font-semibold text-emerald-600";
+                } else {
+                    statusEl.textContent = "Không thể kết nối Realtime Database (Mất tín hiệu).";
+                    statusEl.className = "text-xs font-semibold text-red-600";
+                }
+            }).catch(err => {
+                statusEl.textContent = "Lỗi kết nối: " + err.message;
+                statusEl.className = "text-xs font-semibold text-red-600";
+            });
+        }
+
+        function promptConfirm(msg) {
+            return new Promise((resolve) => {
+                document.getElementById('confirm-msg').textContent = msg;
+                document.getElementById('modal-confirm').classList.remove('hidden');
+                confirmResolver = resolve;
+            });
+        }
+
+        function closeConfirmModal(result) {
+            document.getElementById('modal-confirm').classList.add('hidden');
+            if (confirmResolver) {
+                confirmResolver(result);
+                confirmResolver = null;
+            }
         }
     </script>
 </body>
