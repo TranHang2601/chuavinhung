@@ -401,19 +401,38 @@
                 <div>
                     <div class="flex items-center justify-between mb-1">
                         <label class="font-semibold text-gray-700 uppercase">Nội dung chi tiết <span class="text-red-600">*</span></label>
-                        <!-- Rich Text Toolbar -->
-                        <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-lg border border-gray-300">
-                            <button type="button" onclick="formatText('bold')" title="In đậm (Bold)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded font-bold shadow-sm transition"><i class="fa-solid fa-bold"></i></button>
-                            <button type="button" onclick="formatText('italic')" title="In nghiêng (Italic)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded italic shadow-sm transition"><i class="fa-solid fa-italic"></i></button>
-                            <button type="button" onclick="formatText('underline')" title="Gạch chân (Underline)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded underline shadow-sm transition"><i class="fa-solid fa-underline"></i></button>
+                        <!-- Enhanced Visual Rich Text Toolbar -->
+                        <div class="flex flex-wrap items-center gap-1 bg-gray-100 p-1.5 rounded-xl border border-gray-300">
+                            <button type="button" onclick="formatText('bold')" title="In đậm (Bold)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg font-bold shadow-sm transition text-xs"><i class="fa-solid fa-bold"></i></button>
+                            <button type="button" onclick="formatText('italic')" title="In nghiêng (Italic)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg italic shadow-sm transition text-xs"><i class="fa-solid fa-italic"></i></button>
+                            <button type="button" onclick="formatText('underline')" title="Gạch chân (Underline)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg underline shadow-sm transition text-xs"><i class="fa-solid fa-underline"></i></button>
                             <span class="text-gray-300">|</span>
-                            <button type="button" onclick="formatText('heading')" title="Tiêu đề đoạn (Heading)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded font-bold shadow-sm transition">H2</button>
-                            <button type="button" onclick="formatText('list')" title="Danh sách (Bullet)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded shadow-sm transition"><i class="fa-solid fa-list-ul"></i></button>
-                            <button type="button" onclick="formatText('quote')" title="Trích dẫn (Quote)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded shadow-sm transition"><i class="fa-solid fa-quote-left"></i></button>
-                            <button type="button" onclick="formatText('link')" title="Chèn liên kết (Link)" class="px-2 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded shadow-sm transition"><i class="fa-solid fa-link"></i></button>
+                            <button type="button" onclick="formatText('heading')" title="Tiêu đề đoạn (H2)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg font-bold shadow-sm transition text-xs">H2</button>
+                            <button type="button" onclick="formatText('subheading')" title="Tiêu đề nhỏ (H3)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg font-bold shadow-sm transition text-xs">H3</button>
+                            <button type="button" onclick="formatText('list')" title="Danh sách (Bullet)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg shadow-sm transition text-xs"><i class="fa-solid fa-list-ul"></i></button>
+                            <button type="button" onclick="formatText('quote')" title="Trích dẫn lời Phật dạy (Quote)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-amber-800 rounded-lg shadow-sm transition text-xs font-semibold"><i class="fa-solid fa-quote-left mr-1"></i>Trích dẫn</button>
+                            <button type="button" onclick="formatText('highlight')" title="Đóng khung nổi bật (Callout Box)" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-chua-red rounded-lg shadow-sm transition text-xs font-semibold"><i class="fa-solid fa-box-archive mr-1"></i>Khung nổi bật</button>
+                            <button type="button" onclick="formatText('link')" title="Chèn liên kết" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-gray-800 rounded-lg shadow-sm transition text-xs"><i class="fa-solid fa-link"></i></button>
+                            <span class="text-gray-300">|</span>
+                            <button type="button" onclick="toggleContentPreview()" id="btn-toggle-preview" class="px-3 py-1 bg-chua-amber hover:bg-chua-red text-white rounded-lg font-semibold shadow-sm transition text-xs flex items-center gap-1">
+                                <i class="fa-solid fa-eye"></i> Xem Trước Trực Quan
+                            </button>
                         </div>
                     </div>
-                    <textarea id="news-content" required rows="7" placeholder="Soạn thảo nội dung bài viết chi tiết tại đây..." class="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none font-sans text-sm leading-relaxed"></textarea>
+                    
+                    <!-- Editor Input Area and Live Visual Preview Pane side-by-side or toggled -->
+                    <div class="relative">
+                        <textarea id="news-content" required rows="9" placeholder="Soạn thảo nội dung chi tiết với các định dạng phong phú..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none font-sans text-sm leading-relaxed" oninput="updateLivePreview()"></textarea>
+                        
+                        <!-- Visual Live Preview Pane -->
+                        <div id="live-content-preview" class="hidden absolute inset-0 bg-white border border-amber-300 rounded-xl p-4 overflow-y-auto font-sans text-sm text-gray-800 shadow-inner">
+                            <div class="flex items-center justify-between border-b border-amber-200 pb-2 mb-3">
+                                <span class="text-xs font-bold text-chua-red uppercase"><i class="fa-solid fa-eye mr-1"></i> Xem trước giao diện bài viết thực tế</span>
+                                <button type="button" onclick="toggleContentPreview()" class="text-xs text-gray-500 hover:text-gray-800 font-bold px-2 py-1 bg-gray-100 rounded">Quay lại soạn thảo</button>
+                            </div>
+                            <div id="preview-render-body" class="space-y-3 prose max-w-none"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="border-t border-gray-200 pt-4 space-y-3">
@@ -609,13 +628,19 @@
                     replacement = `<u>${selectedText || 'chữ gạch chân'}</u>`;
                     break;
                 case 'heading':
-                    replacement = `\n## ${selectedText || 'Tiêu đề phần'} \n`;
+                    replacement = `\n## ${selectedText || 'Tiêu đề phần chính (H2)'} \n`;
+                    break;
+                case 'subheading':
+                    replacement = `\n### ${selectedText || 'Tiêu đề phụ (H3)'} \n`;
                     break;
                 case 'list':
-                    replacement = `\n- ${selectedText || 'Mục danh sách 1'}\n- Mục danh sách 2\n`;
+                    replacement = `\n- ${selectedText || 'Mục danh sách 1'}\n- Mục danh sách 2\n- Mục danh sách 3\n`;
                     break;
                 case 'quote':
-                    replacement = `\n> ${selectedText || 'Trích dẫn lời Phật dạy...'}\n`;
+                    replacement = `\n> ${selectedText || 'Trích dẫn lời Phật dạy hoặc thông điệp quan trọng...'}\n`;
+                    break;
+                case 'highlight':
+                    replacement = `\n:::highlight\n${selectedText || 'Nội dung thông báo hoặc điểm lưu ý quan trọng đóng khung trực quan...'}\n:::\n`;
                     break;
                 case 'link':
                     replacement = `[${selectedText || 'Tên liên kết'}](https://)`;
@@ -625,6 +650,33 @@
             textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
             textarea.focus();
             textarea.setSelectionRange(start + replacement.length, start + replacement.length);
+            updateLivePreview();
+        }
+
+        let isPreviewMode = false;
+        function toggleContentPreview() {
+            isPreviewMode = !isPreviewMode;
+            const previewPane = document.getElementById('live-content-preview');
+            const textarea = document.getElementById('news-content');
+            const btn = document.getElementById('btn-toggle-preview');
+
+            if (isPreviewMode) {
+                updateLivePreview();
+                textarea.classList.add('invisible');
+                previewPane.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-pen"></i> Chỉnh Sửa Văn Bản';
+            } else {
+                textarea.classList.remove('invisible');
+                previewPane.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem Trước Trực Quan';
+            }
+        }
+
+        function updateLivePreview() {
+            const rawContent = document.getElementById('news-content').value;
+            const renderBody = document.getElementById('preview-render-body');
+            if (!renderBody) return;
+            renderBody.innerHTML = renderMarkdownContent(rawContent, []);
         }
 
         function addGalleryImageInput(urlValue = '') {
@@ -895,28 +947,33 @@
 
         // Markdown / HTML Rendering Parser for formatted content (Bold, Italic, Underline, Headings)
         function renderMarkdownContent(rawContent, galleryArray) {
-            if (!rawContent) return '';
+            if (!rawContent) return '<p class="text-gray-400 italic">Chưa có nội dung...</p>';
             let html = rawContent
+                // Highlight Callout box parsing
+                .replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4 my-4 bg-amber-50 border-l-4 border-chua-gold rounded-r-xl text-gray-800 shadow-sm font-medium">$1</div>')
                 // Heading H2 parsing
-                .replace(/^##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-chua-red mt-6 mb-3">$1</h2>')
+                .replace(/^##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-chua-red mt-6 mb-3 border-b border-amber-200 pb-1">$1</h2>')
+                // Heading H3 parsing
+                .replace(/^###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-chua-darkred mt-4 mb-2">$1</h3>')
                 // Quote parsing
-                .replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-chua-amber pl-4 py-2 my-4 italic text-gray-700 bg-amber-50/50 rounded-r-xl">$1</blockquote>')
+                .replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-chua-amber pl-4 py-2.5 my-4 italic text-gray-700 bg-amber-50/50 rounded-r-xl shadow-sm">$1</blockquote>')
+                // Bullet list parsing
+                .replace(/^-\s+(.*)$/gm, '<li class="ml-5 list-disc text-gray-700 my-1">$1</li>')
                 // Bold text parsing **text**
                 .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
                 // Italic text parsing *text*
                 .replace(/(^|[^*])\*(?!\*)(.*?)\*(?!\*)/g, '$1<em class="italic">$2</em>')
-                // Underline text parsing <u>text</u> or ++text++
-                .replace(/<u>(.*?)<\/u>/g, '<u class="underline decoration-chua-gold">$1</u>')
-                .replace(/\+\+(.*?)\+\+/g, '<u class="underline decoration-chua-gold">$1</u>')
+                // Underline text parsing <u>text</u>
+                .replace(/<u>(.*?)<\/u>/g, '<u class="underline decoration-chua-gold font-semibold">$1</u>')
                 // Paragraph line breaks
-                .replace(/\n\n/g, '</p><p class="mb-4">');
+                .replace(/\n\n/g, '</p><p class="mb-3">');
 
-            html = '<p class="mb-4">' + html + '</p>';
+            html = '<p class="mb-3">' + html + '</p>';
 
             if (galleryArray && Array.isArray(galleryArray) && galleryArray.length > 0) {
                 html += '<div class="mt-8 pt-6 border-t border-gray-200"><h4 class="font-serif font-bold text-chua-red uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
                 galleryArray.forEach(imgUrl => {
-                    html += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover hover:scale-105 transition duration-300"></div>`;
+                    html += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover"></div>`;
                 });
                 html += '</div></div>';
             }
@@ -998,11 +1055,13 @@
                 if (input.value.trim()) galleryImages.push(input.value.trim());
             });
 
+            // Nếu trang chi tiết công khai chưa tự parse markdown, bạn có thể lưu sẵn HTML đã render hoặc giữ nguyên content nhưng đảm bảo trang chi tiết gọi hàm renderMarkdownContent()
             const postData = {
                 title,
                 slug,
                 image,
-                content,
+                content, // Giữ lại nội dung thô hoặc lưu HTML nếu trang chi tiết đọc trực tiếp
+                rendered_html: renderMarkdownContent(content, galleryImages), // Lưu sẵn chuỗi HTML chuẩn để trang ngoài hiển thị tức thì
                 gallery: galleryImages,
                 created_at: key && newsData[key]?.created_at ? newsData[key].created_at : Date.now()
             };
