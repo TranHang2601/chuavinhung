@@ -18,7 +18,18 @@ async function fetchVideos() {
             return;
         }
 
-        Object.keys(data).forEach(key => {
+        // Lọc qua các video và chỉ lấy những video không bị ẩn (hidden !== true và hidden !== 'true')
+        const activeVideos = Object.keys(data).filter(key => {
+            const v = data[key];
+            return v.hidden !== true && v.hidden !== 'true';
+        });
+
+        if (activeVideos.length === 0) {
+            grid.innerHTML = '<div class="col-span-full text-center py-10">Hiện chưa có video nào được hiển thị.</div>';
+            return;
+        }
+
+        activeVideos.forEach(key => {
             const v = data[key];
             const vId = getYouTubeID(v.url);
             
