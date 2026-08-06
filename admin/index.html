@@ -71,7 +71,7 @@
             </div>
             
             <div class="flex items-center space-x-3">
-                <a href="index.html" target="_blank" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition flex items-center border border-amber-400/30">
+                <a href="../index.html" target="_blank" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold transition flex items-center border border-amber-400/30">
                     <i class="fa-solid fa-globe mr-1.5"></i> <span class="hidden sm:inline">Xem Trực Tuyến</span>
                 </a>
                 <button onclick="logoutAdmin()" class="px-3.5 py-2 bg-red-950/70 hover:bg-red-950 text-amber-200 rounded-xl text-xs font-semibold transition flex items-center border border-red-800">
@@ -120,9 +120,9 @@
         </div>
 
         <div class="space-y-4 pt-2 border-t border-gray-100">
-            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN phân quyền (Mặc định: 8888)..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-4 py-3 text-center text-base tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
+            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN ..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-4 py-3 text-center text-base tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber outline-none">
             <button onclick="unlockAdmin()" class="w-full py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl shadow transition text-sm uppercase">
-                Xác Nhận Đăng Nhập Phân Quyền
+                Đăng Nhập
             </button>
         </div>
     </div>
@@ -891,9 +891,9 @@
                 activeCard.classList.add('border-chua-red', 'bg-amber-50/60');
             }
             const pinInput = document.getElementById('admin-pin-input');
-            if (role === 'super') pinInput.placeholder = "Nhập mã PIN Tối Cao (Mặc định: 8888)...";
-            if (role === 'editor') pinInput.placeholder = "Nhập mã PIN Biên Tập (Mặc định: 6666)...";
-            if (role === 'viewer') pinInput.placeholder = "Nhập mã PIN Theo Dõi (Mặc định: 1111)...";
+            if (role === 'super') pinInput.placeholder = "Nhập mã PIN ...";
+            if (role === 'editor') pinInput.placeholder = "Nhập mã PIN ...";
+            if (role === 'viewer') pinInput.placeholder = "Nhập mã PIN ...";
         }
 
         async function unlockAdmin() {
