@@ -241,11 +241,11 @@
                 </div>
 
                 <div id="quick-action-buttons" class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
-                    <button onclick="openNewsModal()" class="py-4.5 px-6 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold rounded-2xl shadow-lg shadow-rose-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
+                    <button onclick="openNewsModal()" class="w-full py-5 px-8 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold rounded-2xl shadow-lg shadow-rose-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
                         <i class="fa-solid fa-pen-to-square text-xl"></i>
                         <span>Thêm Bài Viết Tin Tức Mới</span>
                     </button>
-                    <button onclick="openVideoModal()" class="py-4.5 px-6 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl shadow-lg shadow-amber-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
+                    <button onclick="openVideoModal()" class="w-full py-5 px-8 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl shadow-lg shadow-amber-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
                         <i class="fa-solid fa-video text-xl"></i>
                         <span>Thêm Video Pháp Thoại</span>
                     </button>
@@ -275,8 +275,8 @@
                         <div class="flex items-center space-x-2 text-xs font-bold text-slate-700">
                             <span>Hiển thị:</span>
                             <select id="news-per-page-select" onchange="changeNewsPerPage(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
-                                <option value="10">10 bài</option>
-                                <option value="20" selected>20 bài</option>
+                                <option value="10" selected>10 bài</option>
+                                <option value="20">20 bài</option>
                                 <option value="50">50 bài</option>
                             </select>
                             <span>bài viết trên mỗi trang</span>
@@ -324,8 +324,8 @@
                         <div class="flex items-center space-x-2 text-xs font-bold text-slate-700">
                             <span>Hiển thị:</span>
                             <select id="video-per-page-select" onchange="changeVideoPerPage(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
-                                <option value="10">10 bài</option>
-                                <option value="20" selected>20 bài</option>
+                                <option value="10" selected>10 bài</option>
+                                <option value="20">20 bài</option>
                                 <option value="50">50 bài</option>
                             </select>
                             <span>video trên mỗi trang</span>
@@ -858,10 +858,10 @@
         let currentAdminRole = 'super';
         
         let currentNewsPage = 1;
-        let newsPerPage = 20;
+        let newsPerPage = 10;
 
         let currentVideoPage = 1;
-        let videoPerPage = 20;
+        let videoPerPage = 10;
 
         const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
 
