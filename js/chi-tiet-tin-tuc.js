@@ -1,4 +1,4 @@
-// const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
 
         // Hàm tạo slug tự động từ tiêu đề
         function createSlug(str) {

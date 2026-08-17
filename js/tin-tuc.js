@@ -1,4 +1,4 @@
-// const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
 // async function fetchNews() {
 //     const grid = document.getElementById('news-grid');
 //     try {
