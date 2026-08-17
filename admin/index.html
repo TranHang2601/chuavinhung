@@ -149,7 +149,6 @@
         </div>
     </div>
 
-    <!-- MAIN ADMIN CONTENT - FULL WIDTH -->
     <main id="admin-content" class="hidden w-full px-4 sm:px-8 py-6 flex-grow flex flex-col md:flex-row gap-6">
 
         <!-- Sidebar Navigation -->
@@ -175,6 +174,10 @@
             <button onclick="switchTab('monks')" id="tab-btn-monks" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
                 <i class="fa-solid fa-users text-base"></i>
                 <span>Chư Tăng & BQT</span>
+            </button>
+            <button onclick="switchTab('menu')" id="tab-btn-menu" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
+                <i class="fa-solid fa-bars-staggered text-base"></i>
+                <span>Quản Lý Menu</span>
             </button>
             <div id="nav-permissions-wrapper" class="mt-2 pt-2 border-t border-slate-100">
                 <button onclick="switchTab('permissions')" id="tab-btn-permissions" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full bg-rose-50/80 text-rose-700 border border-rose-200 font-semibold text-xs uppercase tracking-wide shadow-sm">
@@ -249,7 +252,6 @@
                 </div>
             </section>
 
-            <!-- TAB 2: NEWS MANAGEMENT -->
             <section id="tab-sec-news" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -287,6 +289,7 @@
                             <thead>
                                 <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
                                     <th class="py-3.5 px-4 w-12 text-center">STT</th>
+                                    <th class="py-3.5 px-4 w-28 text-center">Ảnh Bài Viết</th>
                                     <th class="py-3.5 px-4">Tiêu đề & Đường dẫn</th>
                                     <th class="py-3.5 px-4 w-32">Ngày đăng</th>
                                     <th class="py-3.5 px-4 w-44">Người đăng</th>
@@ -294,7 +297,7 @@
                                 </tr>
                             </thead>
                             <tbody id="news-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-                                <tr><td colspan="5" class="py-8 text-center text-slate-400">Đang tải danh sách bài viết...</td></tr>
+                                <tr><td colspan="6" class="py-8 text-center text-slate-400">Đang tải danh sách bài viết...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -304,7 +307,6 @@
                 </div>
             </section>
 
-            <!-- TAB 3: VIDEOS MANAGEMENT -->
             <section id="tab-sec-videos" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -355,7 +357,6 @@
                 </div>
             </section>
 
-            <!-- TAB 4: MONKS MANAGEMENT -->
             <section id="tab-sec-monks" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -370,6 +371,38 @@
 
                     <div id="monk-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         <p class="text-slate-400 text-sm">Đang tải danh sách chư tăng...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: MENU MANAGEMENT -->
+            <section id="tab-sec-menu" class="hidden space-y-4">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                        <div>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Menu Điều Hướng Website</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Tùy chỉnh các liên kết menu trên thanh tiêu đề website công khai</p>
+                        </div>
+                        <button id="btn-add-menu" onclick="openMenuModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
+                            <i class="fa-solid fa-plus mr-1.5"></i> Thêm Mục Menu
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
+                                    <th class="py-3.5 px-4 w-16 text-center">STT</th>
+                                    <th class="py-3.5 px-4">Tên Menu</th>
+                                    <th class="py-3.5 px-4">Đường Dẫn (URL)</th>
+                                    <th class="py-3.5 px-4 w-24 text-center">Thứ Tự</th>
+                                    <th class="py-3.5 px-4 w-44 text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menu-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+                                <tr><td colspan="5" class="py-8 text-center text-slate-400">Đang tải danh sách menu...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
@@ -436,7 +469,6 @@
         </div>
     </main>
 
-    <!-- MODAL NEWS EDITING & CREATION (LARGE) -->
     <div id="modal-news" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
         <div class="bg-white rounded-3xl max-w-6xl w-full h-[90vh] max-h-[92vh] flex flex-col p-6 sm:p-10 shadow-2xl border border-slate-200">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -651,7 +683,7 @@
         </div>
     </div>
 
-    <!-- Video Modal (Enlarged) -->
+    <!-- Video Modal -->
     <div id="modal-video" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -691,7 +723,7 @@
         </div>
     </div>
 
-    <!-- Monk Modal (Enlarged) -->
+    <!-- Monk Modal -->
     <div id="modal-monk" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -720,7 +752,36 @@
         </div>
     </div>
 
-    <!-- Admin Account Modal (Enlarged) -->
+    <!-- Menu Modal -->
+    <div id="modal-menu" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 id="menu-modal-title" class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm / Sửa Mục Menu</h3>
+                <button onclick="closeMenuModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="menu-form" onsubmit="saveMenu(event)" class="space-y-5 text-xs sm:text-sm">
+                <input type="hidden" id="menu-key">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Tên hiển thị Menu <span class="text-rose-600">*</span></label>
+                    <input type="text" id="menu-title" required placeholder="Ví dụ: Trang Chủ, Tin Tức..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Đường dẫn (URL) <span class="text-rose-600">*</span></label>
+                    <input type="text" id="menu-url" required placeholder="index.html hoặc #section..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Thứ tự hiển thị</label>
+                    <input type="number" id="menu-order" value="1" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-bold text-slate-700 shadow-inner">
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeMenuModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
+                    <button type="submit" class="px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs">Lưu Menu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Account Modal -->
     <div id="modal-admin-account" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -790,6 +851,7 @@
         let newsData = {};
         let videosData = {};
         let monksData = {};
+        let menuData = {};
         let adminAccountsData = {};
         let confirmResolver = null;
         let selectedLoginRole = 'super';
@@ -1371,7 +1433,7 @@
         }
 
         async function loadAllData() {
-            await Promise.all([loadNews(), loadVideos(), loadMonks(), loadAdminAccounts()]);
+            await Promise.all([loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts()]);
         }
 
         async function loadAdminAccounts() {
@@ -1467,7 +1529,7 @@
             }
         }
 
-        // NEWS MANAGEMENT (WITH PAGINATION, AUTHOR, HIDE/SHOW, SORTING)
+        // NEWS MANAGEMENT (WITH IMAGE COLUMN RIGHT AFTER STT)
         async function loadNews() {
             try {
                 const snapshot = await database.ref('news').once('value');
@@ -1511,7 +1573,7 @@
 
             const totalNews = filteredKeys.length;
             if (totalNews === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Không tìm thấy bài viết nào phù hợp.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Không tìm thấy bài viết nào phù hợp.</td></tr>`;
                 if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 bài viết";
                 if (paginationContainer) paginationContainer.innerHTML = '';
                 return;
@@ -1558,6 +1620,11 @@
                 html += `
                     <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
                         <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${actualIndex}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="w-16 h-12 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 mx-auto shadow-sm">
+                                <img src="${item.image || 'https://placehold.co/150x100/f1f5f9/64748b?text=News'}" alt="Ảnh bài viết" class="w-full h-full object-cover">
+                            </div>
+                        </td>
                         <td class="py-3.5 px-4">
                             <div class="font-bold text-slate-900 line-clamp-1">${item.title || 'Không tiêu đề'} ${hiddenBadge}</div>
                             <div class="text-[11px] text-slate-400 font-mono">/${item.slug || ''}</div>
@@ -1708,7 +1775,7 @@
             }
         }
 
-        // VIDEOS MANAGEMENT (WITH SORTING, HIDE/SHOW, PAGINATION, STT, DATE, AUTHOR AFTER LINK)
+        // VIDEOS MANAGEMENT
         async function loadVideos() {
             try {
                 const snapshot = await database.ref('videos').once('value');
@@ -1739,7 +1806,7 @@
             const keys = Object.keys(videosData).sort((a, b) => {
                 const timeA = videosData[a].created_at || 0;
                 const timeB = videosData[b].created_at || 0;
-                return timeB - timeA; // Mới nhất lên đầu
+                return timeB - timeA;
             });
 
             const totalVideos = keys.length;
@@ -1806,7 +1873,6 @@
             });
             tbody.innerHTML = html;
 
-            // Render Pagination
             if (paginationContainer) {
                 if (totalPages <= 1) {
                     paginationContainer.innerHTML = '';
@@ -2057,6 +2123,134 @@
                     await database.ref(`monks/${key}`).remove();
                     showToast("Đã xóa thành viên!");
                     loadMonks();
+                } catch (err) {
+                    showToast("Lỗi khi xóa: " + err.message, true);
+                }
+            }
+        }
+
+        // MENU MANAGEMENT
+        async function loadMenu() {
+            try {
+                const snapshot = await database.ref('menus').once('value');
+                menuData = snapshot.val() || {};
+                
+                // Seed default menu items if empty
+                if (Object.keys(menuData).length === 0) {
+                    const defaultMenus = [
+                        { title: 'Trang Chủ', url: 'index.html', order: 1 },
+                        { title: 'Giới Thiệu', url: 'gioi-thieu.html', order: 2 },
+                        { title: 'Tin Tức & Khóa Tu', url: 'tin-tuc.html', order: 3 },
+                        { title: 'Giảng Pháp', url: 'video.html', order: 4 },
+                        { title: 'Liên Hệ', url: 'lien-he.html', order: 5 }
+                    ];
+                    for (const m of defaultMenus) {
+                        await database.ref('menus').push(m);
+                    }
+                    const snap2 = await database.ref('menus').once('value');
+                    menuData = snap2.val() || {};
+                }
+                renderMenuTable();
+            } catch (err) { console.error("Lỗi tải menu:", err); }
+        }
+
+        function renderMenuTable() {
+            const tbody = document.getElementById('menu-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có mục menu nào.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            keys.forEach((key, index) => {
+                const item = menuData[key];
+                let buttons = '';
+                if (currentAdminRole === 'viewer') {
+                    buttons = `<span class="text-xs text-slate-400 italic">Chỉ xem</span>`;
+                } else {
+                    let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteMenu('${key}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa"><i class="fa-solid fa-trash"></i></button>` : '';
+                    buttons = `
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="editMenu('${key}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+                            ${delBtn}
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${index + 1}</td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
+                        <td class="py-3.5 px-4 font-mono text-xs text-blue-600 font-semibold">${item.url || ''}</td>
+                        <td class="py-3.5 px-4 text-center font-mono font-bold text-slate-700">${item.order || 0}</td>
+                        <td class="py-3.5 px-4 text-center">${buttons}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function openMenuModal() {
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền thêm menu!", true); return; }
+            document.getElementById('menu-modal-title').textContent = "Thêm Mục Menu Mới";
+            document.getElementById('menu-key').value = '';
+            document.getElementById('menu-title').value = '';
+            document.getElementById('menu-url').value = '';
+            document.getElementById('menu-order').value = Object.keys(menuData).length + 1;
+            document.getElementById('modal-menu').classList.remove('hidden');
+        }
+
+        function closeMenuModal() {
+            document.getElementById('modal-menu').classList.add('hidden');
+        }
+
+        function editMenu(key) {
+            const item = menuData[key];
+            if (!item) return;
+            document.getElementById('menu-modal-title').textContent = "Chỉnh Sửa Mục Menu";
+            document.getElementById('menu-key').value = key;
+            document.getElementById('menu-title').value = item.title || '';
+            document.getElementById('menu-url').value = item.url || '';
+            document.getElementById('menu-order').value = item.order || 1;
+            document.getElementById('modal-menu').classList.remove('hidden');
+        }
+
+        async function saveMenu(e) {
+            e.preventDefault();
+            if (currentAdminRole === 'viewer') { showToast("Bạn không có quyền lưu menu!", true); return; }
+            const key = document.getElementById('menu-key').value;
+            const title = document.getElementById('menu-title').value.trim();
+            const url = document.getElementById('menu-url').value.trim();
+            const order = parseInt(document.getElementById('menu-order').value) || 1;
+
+            const payload = { title, url, order };
+            try {
+                if (key) {
+                    await database.ref(`menus/${key}`).update(payload);
+                    showToast("Cập nhật menu thành công!");
+                } else {
+                    await database.ref('menus').push(payload);
+                    showToast("Đã thêm mục menu mới!");
+                }
+                closeMenuModal();
+                loadMenu();
+            } catch (err) {
+                showToast("Lỗi khi lưu menu: " + err.message, true);
+            }
+        }
+
+        async function deleteMenu(key) {
+            if (currentAdminRole !== 'super') { showToast("Chỉ tài khoản Tối Cao mới có quyền xóa menu!", true); return; }
+            const confirmDel = await promptConfirm("Bạn có chắc chắn muốn xóa mục menu này?");
+            if (confirmDel) {
+                try {
+                    await database.ref(`menus/${key}`).remove();
+                    showToast("Đã xóa mục menu!");
+                    loadMenu();
                 } catch (err) {
                     showToast("Lỗi khi xóa: " + err.message, true);
                 }
