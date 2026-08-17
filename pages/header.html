@@ -22,7 +22,7 @@
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-200 hover:text-white focus:outline-none p-2">
+                <button id="mobile-menu-btn" class="text-gray-200 hover:text-white focus:outline-none p-2">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -55,13 +55,6 @@
         loadDynamicMenus();
     });
 
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobile-menu');
-        if (menu) {
-            menu.classList.toggle('hidden');
-        }
-    }
-
     async function loadDynamicMenus() {
         try {
             const snapshot = await firebase.database().ref('menus').once('value');
@@ -88,6 +81,11 @@
 
                 desktopNav.innerHTML = desktopHtml;
                 mobileContainer.innerHTML = mobileHtml;
+
+                // Sau khi nội dung menu động đã được đổ xong vào DOM, gọi lại sự kiện Active để đánh dấu menu
+                if (typeof setActiveNavLink === 'function') {
+                    setActiveNavLink();
+                }
             }
         } catch (err) {
             console.error("Lỗi tải menu động cho header:", err);

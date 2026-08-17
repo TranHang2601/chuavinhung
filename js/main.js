@@ -40,25 +40,32 @@ function initHeaderEvents() {
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
     const header = document.getElementById('header');
-    const navLinks = document.querySelectorAll('.nav-link');
     const logoText = document.querySelector('.logo-text');
 
-    // Xử lý bật/tắt Mobile Menu
+    // Xử lý bật/tắt Mobile Menu an toàn (không bị đụng độ sự kiện inline onclick cũ)
     if (btn && menu) {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
             menu.classList.toggle('hidden');
+        });
+
+        // Click ra ngoài thì tự động đóng menu mobile
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
         });
     }
 
     // Xử lý hiệu ứng khi cuộn trang (Sticky Header)
     if (header) {
         window.addEventListener('scroll', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
             if (window.scrollY > 50) {
                 header.classList.add('bg-white', 'shadow-md', 'py-1');
                 header.classList.remove('bg-black', 'bg-opacity-40');
                 
                 navLinks.forEach(link => {
-                    // CHỈ ĐỔI MÀU NẾU KHÔNG PHẢI MỤC ACTIVE
                     if (!link.classList.contains('text-buddhist-gold')) {
                         link.classList.add('text-gray-800');
                         link.classList.remove('text-white');
@@ -78,7 +85,6 @@ function initHeaderEvents() {
                 header.classList.add('bg-black', 'bg-opacity-40');
 
                 navLinks.forEach(link => {
-                    // MỤC ACTIVE VẪN GIỮ MÀU VÀNG, CÁC MỤC KHÁC CHUYỂN TRẮNG
                     if (!link.classList.contains('text-buddhist-gold')) {
                         link.classList.add('text-white');
                         link.classList.remove('text-gray-800');
@@ -98,7 +104,7 @@ function initHeaderEvents() {
     }
 }
 
-// === BỔ SUNG ĐOẠN NÀY VÀO CUỐI FILE MAIN.JS ===
+// Khởi chạy khi DOM sẵn sàng
 document.addEventListener('DOMContentLoaded', async () => {
     // Tải Header và Footer
     await Promise.all([
@@ -106,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         includeHTML('footer-container', 'pages/footer.html')
     ]);
 
-    // Kích hoạt sự kiện Header & Active Link sau khi đã tải xong HTML
+    // Kích hoạt sự kiện Header & Active Link
     initHeaderEvents();
     setActiveNavLink();
 });
