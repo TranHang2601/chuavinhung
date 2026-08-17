@@ -93,7 +93,7 @@
             </div>
             
             <div class="flex items-center space-x-3">
-                <a href="../index.html" target="_blank" class="px-3.5 py-2 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold transition flex items-center border border-amber-300/40 shadow-sm">
+                <a href="../tin-tuc.html" target="_blank" class="px-3.5 py-2 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold transition flex items-center border border-amber-300/40 shadow-sm">
                     <i class="fa-solid fa-globe mr-1.5 text-amber-300"></i> <span class="hidden sm:inline">Xem Trực Tuyến</span>
                 </a>
                 <button onclick="logoutAdmin()" class="px-3.5 py-2 bg-rose-950/80 hover:bg-rose-950 text-amber-200 rounded-xl text-xs font-bold transition flex items-center border border-rose-800 shadow-sm">
@@ -142,7 +142,7 @@
         </div>
 
         <div class="space-y-4 pt-3 border-t border-slate-100">
-            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN ..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-4 py-3.5 text-center text-base tracking-widest font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none bg-slate-50/50 shadow-inner">
+            <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN ..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-5 py-4 text-center text-base tracking-widest font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none bg-slate-50/50 shadow-inner">
             <button onclick="unlockAdmin()" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold rounded-2xl shadow-lg shadow-rose-600/25 transition text-sm uppercase tracking-wider">
                 Đăng Nhập Hệ Thống
             </button>
@@ -193,7 +193,7 @@
             </div>
         </nav>
 
-        <!-- Main Content Sections -->
+        <!-- Content Sections -->
         <div class="flex-1 w-full space-y-6">
                 
             <!-- TAB 1: OVERVIEW -->
@@ -235,7 +235,7 @@
                         </div>
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ImgBB Cloud</p>
-                            <h3 class="text-xs font-bold text-blue-700 mt-1">Sẵn sàng (Nén WebP)</h3>
+                            <h3 class="text-xs font-bold text-blue-700 mt-1">Sẵn sàng (Nén)</h3>
                         </div>
                     </div>
                 </div>
@@ -252,12 +252,13 @@
                 </div>
             </section>
 
+            <!-- TAB 2: NEWS MANAGEMENT -->
             <section id="tab-sec-news" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Bài Viết Tin Tức & Khóa Tu</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Quản lý bài viết, chèn bài Facebook và tối ưu hóa hình ảnh WebP</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Quản lý bài viết, phân loại chuyên mục, tag, ẩn/hiện & tối ưu ảnh WebP</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200 w-full sm:w-64 shadow-inner">
@@ -270,7 +271,6 @@
                         </div>
                     </div>
 
-                    <!-- News Controls & Limit Selector -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                         <div class="flex items-center space-x-2 text-xs font-bold text-slate-700">
                             <span>Hiển thị:</span>
@@ -290,23 +290,24 @@
                                 <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
                                     <th class="py-3.5 px-4 w-12 text-center">STT</th>
                                     <th class="py-3.5 px-4 w-28 text-center">Ảnh Bài Viết</th>
-                                    <th class="py-3.5 px-4">Tiêu đề & Đường dẫn</th>
+                                    <th class="py-3.5 px-4">Tiêu đề & Chuyên mục</th>
                                     <th class="py-3.5 px-4 w-32">Ngày đăng</th>
-                                    <th class="py-3.5 px-4 w-44">Người đăng</th>
-                                    <th class="py-3.5 px-4 w-44 text-center news-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-36">Người đăng</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
+                                    <th class="py-3.5 px-4 w-24 text-center news-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="news-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-                                <tr><td colspan="6" class="py-8 text-center text-slate-400">Đang tải danh sách bài viết...</td></tr>
+                                <tr><td colspan="7" class="py-8 text-center text-slate-400">Đang tải danh sách bài viết...</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- News Pagination Controls -->
                     <div id="news-pagination-container" class="flex items-center justify-between pt-4 border-t border-slate-100"></div>
                 </div>
             </section>
 
+            <!-- TAB 3: VIDEOS MANAGEMENT -->
             <section id="tab-sec-videos" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -319,7 +320,6 @@
                         </button>
                     </div>
 
-                    <!-- Video Controls & Limit Selector -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                         <div class="flex items-center space-x-2 text-xs font-bold text-slate-700">
                             <span>Hiển thị:</span>
@@ -340,10 +340,10 @@
                                     <th class="py-3.5 px-4 w-16 text-center">STT</th>
                                     <th class="py-3.5 px-4 w-28 text-center">Ảnh Video</th>
                                     <th class="py-3.5 px-4">Tiêu đề Video</th>
-                                    <th class="py-3.5 px-4 w-52">Link YouTube</th>
-                                    <th class="py-3.5 px-4 w-36">Ngày đăng</th>
-                                    <th class="py-3.5 px-4 w-44">Người đăng</th>
-                                    <th class="py-3.5 px-4 w-44 text-center video-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-44">Link YouTube</th>
+                                    <th class="py-3.5 px-4 w-32">Người đăng</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
+                                    <th class="py-3.5 px-4 w-24 text-center video-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="video-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -352,11 +352,11 @@
                         </table>
                     </div>
 
-                    <!-- Video Pagination Controls -->
                     <div id="video-pagination-container" class="flex items-center justify-between pt-4 border-t border-slate-100"></div>
                 </div>
             </section>
 
+            <!-- TAB 4: MONKS -->
             <section id="tab-sec-monks" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -375,7 +375,7 @@
                 </div>
             </section>
 
-            <!-- TAB: MENU MANAGEMENT -->
+            <!-- TAB 5: MENU MANAGEMENT -->
             <section id="tab-sec-menu" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -396,7 +396,7 @@
                                     <th class="py-3.5 px-4">Tên Menu</th>
                                     <th class="py-3.5 px-4">Đường Dẫn (URL)</th>
                                     <th class="py-3.5 px-4 w-24 text-center">Thứ Tự</th>
-                                    <th class="py-3.5 px-4 w-44 text-center">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="menu-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -407,7 +407,7 @@
                 </div>
             </section>
 
-            <!-- TAB 5: PERMISSIONS MANAGEMENT -->
+            <!-- TAB 6: PERMISSIONS -->
             <section id="tab-sec-permissions" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-100 pb-5 gap-3">
@@ -441,7 +441,7 @@
                 </div>
             </section>
 
-            <!-- TAB 6: SETTINGS -->
+            <!-- TAB 7: SETTINGS -->
             <section id="tab-sec-settings" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <h2 class="text-xl font-serif font-bold text-slate-900 uppercase border-b border-slate-100 pb-4">Cấu Hình Kết Nối & Tối Ưu Hình Ảnh</h2>
@@ -469,8 +469,9 @@
         </div>
     </main>
 
+    <!-- NEWS MODAL -->
     <div id="modal-news" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
-        <div class="bg-white rounded-3xl max-w-6xl w-full h-[90vh] max-h-[92vh] flex flex-col p-6 sm:p-10 shadow-2xl border border-slate-200">
+        <div class="bg-white rounded-3xl max-w-6xl w-full h-[95vh] max-h-[95vh] flex flex-col p-6 sm:p-10 shadow-2xl border border-slate-200">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                 <h3 id="news-modal-title" class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm Bài Viết Mới</h3>
                 <button onclick="closeNewsModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-rose-100 hover:text-rose-600 text-slate-500 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -482,14 +483,34 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Tiêu đề bài viết <span class="text-rose-600">*</span></label>
-                        <input type="text" id="news-title" required oninput="autoGenerateSlug()" placeholder="Nhập tiêu đề tin tức, sự kiện..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none text-base font-semibold text-slate-800 bg-slate-50/50 shadow-inner">
+                        <input type="text" id="news-title" required oninput="autoGenerateSlug()" placeholder="Nhập tiêu đề tin tức, sự kiện..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none text-base font-semibold text-slate-800 bg-slate-50/50 shadow-inner">
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
                             <label class="font-bold text-slate-700 text-sm uppercase">Đường dẫn tĩnh (Slug) <span class="text-rose-600">*</span></label>
                             <span class="text-xs text-slate-400 font-medium">Tự động tạo từ tiêu đề</span>
                         </div>
-                        <input type="text" id="news-slug" required placeholder="duong-dan-bai-viet" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl bg-slate-100 font-mono text-sm focus:ring-2 focus:ring-rose-500 outline-none text-slate-700 shadow-inner">
+                        <input type="text" id="news-slug" required placeholder="duong-dan-bai-viet" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-slate-100 font-mono text-sm focus:ring-2 focus:ring-rose-500 outline-none text-slate-700 shadow-inner">
+                    </div>
+                </div>
+
+                <!-- CATEGORY & TAG SELECTION -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-amber-50/40 p-6 rounded-3xl border border-amber-200/80 shadow-sm">
+                    <div>
+                        <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Chọn Chuyên Mục Chính <span class="text-rose-600">*</span></label>
+                        <select id="news-category" onchange="onCategoryChange(this.value)" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
+                            <option value="tin-tuc">Tin Tức (Chung)</option>
+                            <option value="thong-bao">Thông Báo (Khóa tu & Sự kiện)</option>
+                        </select>
+                    </div>
+                    <div id="news-tag-group">
+                        <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
+                        <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
+                            <option value="bat-quan-trai">Khóa tu Bát Quan Trai</option>
+                            <option value="tuoi-tre-quy-y">Khóa tu Tuổi trẻ Quy Y</option>
+                            <option value="quy-y">Quy y Tam Bảo</option>
+                            <option value="ngay-le">Lễ khác / Ngày lễ chùa</option>
+                        </select>
                     </div>
                 </div>
 
@@ -521,8 +542,8 @@
                         </div>
 
                         <div class="flex items-center gap-3">
-                            <input type="text" id="news-input-image" placeholder="Hoặc dán URL ảnh trực tiếp tại đây..." class="flex-1 px-4.5 py-3.5 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-rose-500 outline-none bg-slate-50/50 shadow-inner" oninput="previewDirectUrl(this.value)">
-                            <button type="button" onclick="clearNewsImage()" class="px-5 py-3.5 bg-slate-100 hover:bg-rose-100 hover:text-rose-600 rounded-2xl text-xs font-bold transition shadow-sm">Xóa ảnh</button>
+                            <input type="text" id="news-input-image" placeholder="Hoặc dán URL ảnh trực tiếp tại đây..." class="flex-1 px-5 py-4 rounded-2xl border border-slate-300 text-sm focus:ring-2 focus:ring-rose-500 outline-none bg-slate-50/50 shadow-inner" oninput="previewDirectUrl(this.value)">
+                            <button type="button" onclick="clearNewsImage()" class="px-5 py-4 bg-slate-100 hover:bg-rose-100 hover:text-rose-600 rounded-2xl text-xs font-bold transition shadow-sm">Xóa ảnh</button>
                         </div>
 
                         <div id="news-preview-container" class="hidden mt-2 relative w-56 h-36 rounded-2xl overflow-hidden border-2 border-rose-200 bg-slate-50 shadow-md">
@@ -634,11 +655,11 @@
                     <span class="bg-white px-3 text-slate-400 font-bold text-xs uppercase">Hoặc Dán URL Ảnh Có Sẵn</span>
                 </div>
                 <div>
-                    <input type="text" id="inline-image-url" placeholder="https://domain.com/image.webp" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 font-medium">
+                    <input type="text" id="inline-image-url" placeholder="https://domain.com/image.webp" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 font-medium">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Căn Vị Trí Ảnh Trong Bài</label>
-                    <select id="inline-image-align" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-white font-medium">
+                    <select id="inline-image-align" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-white font-medium">
                         <option value="center">Căn Giữa (Khuyên Dùng)</option>
                         <option value="left">Căn Trái (Nổi Khối)</option>
                         <option value="right">Căn Phải (Nổi Khối)</option>
@@ -646,7 +667,7 @@
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Chú Thích Ảnh (Caption)</label>
-                    <input type="text" id="inline-image-caption" placeholder="Ví dụ: Quang cảnh khóa tu Chùa Vĩnh Hưng..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 font-medium">
+                    <input type="text" id="inline-image-caption" placeholder="Ví dụ: Quang cảnh khóa tu Chùa Vĩnh Hưng..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 font-medium">
                 </div>
                 <div id="inline-status" class="text-xs font-bold text-emerald-600 hidden"></div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
@@ -668,12 +689,12 @@
             <div class="space-y-4 text-xs sm:text-sm">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Dán Link Bài Viết hoặc Video Facebook <span class="text-rose-600">*</span></label>
-                    <input type="url" id="fb-post-url" placeholder="https://www.facebook.com/permalink.php?story_fbid=..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-slate-50 font-medium">
-                    <p class="text-xs text-slate-400 mt-2 font-medium">Sao chép liên kết trực tiếp từ bài viết trên Fanpage hoặc Trang cá nhân Facebook.</p>
+                    <input type="url" id="fb-post-url" placeholder="https://www.facebook.com/permalink.php?story_fbid=..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none focus:ring-2 focus:ring-indigo-500 bg-slate-50 font-medium">
+                    <p class="text-xs text-slate-400 mt-2 font-medium">Sao chép liên kết trực tiếp từ bài viết hoặc video trên Facebook.</p>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Hoặc Dán Mã Nhúng Iframe Facebook</label>
-                    <textarea id="fb-iframe-code" rows="4" placeholder='<iframe src="https://www.facebook.com/plugins/post.php?..." ...></iframe>' class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl font-mono text-xs outline-none bg-slate-50"></textarea>
+                    <textarea id="fb-iframe-code" rows="4" placeholder='<iframe src="https://www.facebook.com/plugins/post.php?..." ...></iframe>' class="w-full px-5 py-4 border border-slate-300 rounded-2xl font-mono text-xs outline-none bg-slate-50"></textarea>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
                     <button type="button" onclick="closeFacebookEmbedModal()" class="px-6 py-3 bg-slate-100 rounded-2xl font-bold uppercase text-xs">Hủy</button>
@@ -694,24 +715,23 @@
                 <input type="hidden" id="video-key">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Tiêu đề video pháp thoại</label>
-                    <input type="text" id="video-title" required placeholder="Nội dung bài giảng..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+                    <input type="text" id="video-title" required placeholder="Nội dung bài giảng..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Đường dẫn YouTube (URL)</label>
-                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." oninput="onVideoUrlChange(this.value)" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
+                    <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." oninput="onVideoUrlChange(this.value)" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Ảnh thu nhỏ (Thumbnail URL)</label>
                     <div class="flex gap-3">
-                        <input type="url" id="video-thumbnail" placeholder="Tự động lấy từ YouTube hoặc dán URL ảnh..." class="flex-1 px-4.5 py-3.5 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 shadow-inner" oninput="previewVideoThumb(this.value)">
-                        <button type="button" onclick="autoExtractYoutubeThumb()" class="px-5 py-3.5 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-2xl font-bold transition text-xs whitespace-nowrap shadow-sm">Lấy từ YouTube</button>
+                        <input type="url" id="video-thumbnail" placeholder="Tự động lấy từ YouTube hoặc dán URL ảnh..." class="flex-1 px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 shadow-inner" oninput="previewVideoThumb(this.value)">
+                        <button type="button" onclick="autoExtractYoutubeThumb()" class="px-5 py-4 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-2xl font-bold transition text-xs whitespace-nowrap shadow-sm">Lấy từ YouTube</button>
                     </div>
                 </div>
-                <!-- Thumbnail Preview Box -->
                 <div id="video-thumb-preview-wrap" class="hidden">
                     <span class="block font-bold text-slate-500 uppercase text-xs mb-2">Xem trước ảnh video:</span>
                     <div class="w-full h-48 rounded-2xl overflow-hidden border-2 border-amber-200 bg-slate-50 shadow-md relative">
-                        <img id="video-thumb-preview-img" src="" alt="Thumbnail preview" class="w-full h-full object-cover">
+                        <img id="video-thumb-preview-img" alt="Thumbnail preview" class="w-full h-full object-cover">
                     </div>
                 </div>
 
@@ -734,15 +754,15 @@
                 <input type="hidden" id="monk-key">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Pháp danh / Họ tên</label>
-                    <input type="text" id="monk-name" required placeholder="Đại Đức Thích..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+                    <input type="text" id="monk-name" required placeholder="Đại Đức Thích..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Chức vụ / Vị trí</label>
-                    <input type="text" id="monk-role" required placeholder="Trụ trì bổn tự..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-medium text-slate-800 shadow-inner">
+                    <input type="text" id="monk-role" required placeholder="Trụ trì bổn tự..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-medium text-slate-800 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Ảnh đại diện (URL)</label>
-                    <input type="text" id="monk-avatar" placeholder="https://..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
+                    <input type="text" id="monk-avatar" placeholder="https://..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
                     <button type="button" onclick="closeMonkModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
@@ -763,15 +783,15 @@
                 <input type="hidden" id="menu-key">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Tên hiển thị Menu <span class="text-rose-600">*</span></label>
-                    <input type="text" id="menu-title" required placeholder="Ví dụ: Trang Chủ, Tin Tức..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+                    <input type="text" id="menu-title" required placeholder="Ví dụ: Trang Chủ, Tin Tức..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Đường dẫn (URL) <span class="text-rose-600">*</span></label>
-                    <input type="text" id="menu-url" required placeholder="index.html hoặc #section..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
+                    <input type="text" id="menu-url" required placeholder="tin-tuc.html hoặc #section..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Thứ tự hiển thị</label>
-                    <input type="number" id="menu-order" value="1" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-bold text-slate-700 shadow-inner">
+                    <input type="number" id="menu-order" value="1" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-bold text-slate-700 shadow-inner">
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
                     <button type="button" onclick="closeMenuModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
@@ -791,11 +811,11 @@
             <form id="admin-account-form" onsubmit="saveAdminAccount(event)" class="space-y-5 text-xs sm:text-sm">
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Tên Người Dùng / Quản Trị Viên <span class="text-rose-600">*</span></label>
-                    <input type="text" id="admin-acc-name" required placeholder="Nhập họ tên hoặc pháp danh..." class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+                    <input type="text" id="admin-acc-name" required placeholder="Nhập họ tên hoặc pháp danh..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Vai Trò Phân Quyền <span class="text-rose-600">*</span></label>
-                    <select id="admin-acc-role" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base outline-none bg-white font-medium shadow-inner">
+                    <select id="admin-acc-role" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-white font-medium shadow-inner">
                         <option value="super">Tối Cao (Super Admin)</option>
                         <option value="editor">Biên Tập Viên (Editor)</option>
                         <option value="viewer">Theo Dõi (Viewer)</option>
@@ -803,7 +823,7 @@
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Mã PIN Đăng Nhập (4-8 ký tự) <span class="text-rose-600">*</span></label>
-                    <input type="text" id="admin-acc-pin" required placeholder="Ví dụ: 9999" maxlength="8" class="w-full px-4.5 py-3.5 border border-slate-300 rounded-2xl text-base font-bold tracking-widest outline-none bg-slate-50 font-mono shadow-inner">
+                    <input type="text" id="admin-acc-pin" required placeholder="Ví dụ: 9999" maxlength="8" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base font-bold tracking-widest outline-none bg-slate-50 font-mono shadow-inner">
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
                     <button type="button" onclick="closeAddAdminModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
@@ -1056,6 +1076,15 @@
             }
         }
 
+        function onCategoryChange(val) {
+            const tagGroup = document.getElementById('news-tag-group');
+            if (val === 'thong-bao') {
+                tagGroup.style.display = 'block';
+            } else {
+                tagGroup.style.display = 'none';
+            }
+        }
+
         function formatText(type) {
             const textarea = document.getElementById('news-content');
             if (!textarea) return;
@@ -1072,8 +1101,8 @@
                 case 'align-center': replacement = `\n<div class="text-center">\n${selectedText || 'Nội dung căn giữa...'}\n</div>\n`; break;
                 case 'align-right': replacement = `\n<div class="text-right">\n${selectedText || 'Nội dung căn lề phải...'}\n</div>\n`; break;
                 case 'align-justify': replacement = `\n<div class="text-justify">\n${selectedText || 'Nội dung căn đều hai bên...'}\n</div>\n`; break;
-                case 'heading': replacement = `\n## ${selectedText || 'Tiêu đề phần chính (H2)'}\n`; break;
-                case 'subheading': replacement = `\n### ${selectedText || 'Tiêu đề phụ (H3)'}\n`; break;
+                case 'heading': replacement = `\n\n## ${selectedText || 'Tiêu đề phần chính (H2)'}\n\n`; break;
+                case 'subheading': replacement = `\n\n### ${selectedText || 'Tiêu đề phụ (H3)'}\n\n`; break;
                 case 'quote': replacement = `\n> ${selectedText || 'Trích dẫn lời Phật dạy hoặc thông điệp quan trọng...'}\n`; break;
                 case 'highlight': replacement = `\n:::highlight\n${selectedText || 'Nội dung thông báo hoặc điểm lưu ý quan trọng đóng khung nổi bật...'}\n:::\n`; break;
             }
@@ -1185,11 +1214,20 @@
             let embedHtml = '';
 
             if (iframeCode && iframeCode.includes('<iframe')) {
-                embedHtml = `\n<div class="my-6 max-w-xl mx-auto shadow-md border border-slate-200 rounded-2xl overflow-hidden bg-white p-3 text-center">\n  ${iframeCode}\n</div>\n`;
+                // Tự động chỉnh lại chiều rộng 100% và chiều cao lớn hơn để không bị cắt
+                let responsiveIframe = iframeCode.replace(/width="[^"]*"/, 'width="100%"').replace(/height="[^"]*"/, 'height="800"');
+                if(!responsiveIframe.includes('height=')) responsiveIframe = responsiveIframe.replace('<iframe ', '<iframe height="800" ');
+                
+                embedHtml = `\n<div class="my-6 w-full max-w-4xl mx-auto shadow-md border border-slate-200 rounded-2xl overflow-hidden bg-white flex justify-center">\n  ${responsiveIframe}\n</div>\n`;
             } else if (url && url.includes('facebook.com')) {
                 const encodedUrl = encodeURIComponent(url);
-                const fbPluginUrl = `https://www.facebook.com/plugins/post.php?href=${encodedUrl}&show_text=true&width=500`;
-                embedHtml = `\n<div class="my-6 max-w-xl mx-auto shadow-md border border-slate-200 rounded-2xl overflow-hidden bg-white p-3">\n  <iframe src="${fbPluginUrl}" width="100%" height="480" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>\n</div>\n`;
+                // Xác định nếu là video thì dùng plugin video, ngược lại dùng post
+                const isVideo = url.includes('/videos/') || url.includes('/watch');
+                const pluginType = isVideo ? 'video.php' : 'post.php';
+                
+                const fbPluginUrl = `https://www.facebook.com/plugins/${pluginType}?href=${encodedUrl}&show_text=true&width=auto`;
+                
+                embedHtml = `\n<div class="my-6 w-full shadow-md border border-slate-200 rounded-2xl overflow-hidden bg-white">\n  <iframe src="${fbPluginUrl}" width="100%" height="800" style="border:none;overflow:hidden; width:100%; min-height:800px;" scrolling="yes" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>\n</div>\n`;
             } else {
                 showToast("Vui lòng dán liên kết Facebook hoặc mã Iframe hợp lệ!", true);
                 return;
@@ -1202,7 +1240,7 @@
             textarea.value = textarea.value.substring(0, start) + embedHtml + textarea.value.substring(end);
             textarea.focus();
             closeFacebookEmbedModal();
-            showToast("Đã chèn bài viết Facebook vào nội dung!");
+            showToast("Đã chèn liên kết Facebook vào bài viết!");
             updateLivePreview();
         }
 
@@ -1236,9 +1274,9 @@
             if (!rawContent) return '<p class="text-slate-400 italic">Chưa có nội dung...</p>';
             let html = rawContent
                 .replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4.5 my-4 bg-amber-50/90 border-l-4 border-amber-500 rounded-r-2xl text-slate-800 shadow-sm font-medium">$1</div>')
-                .replace(/^##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-rose-700 mt-6 mb-3 border-b border-rose-100 pb-1.5">$1</h2>')
-                .replace(/^###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-slate-900 mt-4 mb-2">$1</h3>')
-                .replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-rose-500 pl-4 py-3 my-4 italic text-slate-700 bg-rose-50/50 rounded-r-2xl shadow-sm">$1</blockquote>')
+                .replace(/^\s*##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-rose-700 mt-6 mb-3 border-b border-rose-100 pb-1.5">$1</h2>')
+                .replace(/^\s*###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-slate-900 mt-4 mb-2">$1</h3>')
+                .replace(/^\s*>\s+(.*)$/gm, '<blockquote class="border-l-4 border-rose-500 pl-4 py-3 my-4 italic text-slate-700 bg-rose-50/50 rounded-r-2xl shadow-sm">$1</blockquote>')
                 .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
                 .replace(/(^|[^*])\*(?!(?:\*))(.*?)\*(?!\*)/g, '$1<em class="italic">$2</em>')
                 .replace(/<u>(.*?)<\/u>/g, '<u class="underline decoration-rose-500 font-semibold">$1</u>');
@@ -1529,7 +1567,7 @@
             }
         }
 
-        // NEWS MANAGEMENT (WITH IMAGE COLUMN RIGHT AFTER STT)
+        // NEWS MANAGEMENT
         async function loadNews() {
             try {
                 const snapshot = await database.ref('news').once('value');
@@ -1561,7 +1599,7 @@
             const keys = Object.keys(newsData).sort((a, b) => {
                 const timeA = newsData[a].created_at || 0;
                 const timeB = newsData[b].created_at || 0;
-                return timeB - timeA; // Mới nhất lên đầu
+                return timeB - timeA;
             });
             
             let filteredKeys = keys.filter(key => {
@@ -1573,7 +1611,7 @@
 
             const totalNews = filteredKeys.length;
             if (totalNews === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Không tìm thấy bài viết nào phù hợp.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">Không tìm thấy bài viết nào phù hợp.</td></tr>`;
                 if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 bài viết";
                 if (paginationContainer) paginationContainer.innerHTML = '';
                 return;
@@ -1598,20 +1636,25 @@
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const authorName = item.author || 'Quản Trị Viên';
                 const isHidden = item.hidden === true;
-                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-bold rounded-lg ml-2">ĐÃ ẨN</span>' : '';
                 
+                const catBadge = item.category === 'thong-bao' 
+                    ? `<span class="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-md text-[10px] font-bold">Thông Báo</span>` 
+                    : `<span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-md text-[10px] font-bold">Tin Tức</span>`;
+                const tagBadge = item.tag ? `<span class="text-[10px] text-rose-600 font-semibold ml-1"><i class="fa-solid fa-tag mr-0.5"></i>${item.tag}</span>` : '';
+
+                const statusBadge = isHidden 
+                    ? `<span onclick="toggleHideNews('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
+                    : `<span onclick="toggleHideNews('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
+
                 let actionButtons = '';
                 if (currentAdminRole === 'viewer') {
                     actionButtons = `<span class="text-xs text-slate-400 italic">Chỉ xem</span>`;
                 } else {
-                    const hideToggleText = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện' : '<i class="fa-solid fa-eye-slash"></i> Ẩn';
-                    const hideToggleClass = isHidden ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100';
-                    let deleteBtnHtml = currentAdminRole === 'super' ? `<button onclick="deleteNews('${key}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa bài viết"><i class="fa-solid fa-trash"></i></button>` : '';
+                    let deleteBtnHtml = currentAdminRole === 'super' ? `<button onclick="deleteNews('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa bài viết"><i class="fa-solid fa-trash"></i></button>` : '';
 
                     actionButtons = `
                         <div class="flex items-center justify-center gap-1.5">
-                            <button onclick="editNews('${key}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="toggleHideNews('${key}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${hideToggleClass}">${hideToggleText}</button>
+                            <button onclick="editNews('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
                             ${deleteBtnHtml}
                         </div>
                     `;
@@ -1626,18 +1669,21 @@
                             </div>
                         </td>
                         <td class="py-3.5 px-4">
-                            <div class="font-bold text-slate-900 line-clamp-1">${item.title || 'Không tiêu đề'} ${hiddenBadge}</div>
-                            <div class="text-[11px] text-slate-400 font-mono">/${item.slug || ''}</div>
+                            <div class="font-bold text-slate-900 line-clamp-1">${item.title || 'Không tiêu đề'}</div>
+                            <div class="flex items-center gap-1.5 mt-1">
+                                ${catBadge}
+                                ${tagBadge}
+                            </div>
                         </td>
                         <td class="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap font-medium">${dateStr}</td>
                         <td class="py-3.5 px-4 text-xs text-slate-700 font-semibold"><i class="fa-solid fa-user-shield text-rose-600 mr-1"></i>${authorName}</td>
+                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">${actionButtons}</td>
                     </tr>
                 `;
             });
             tbody.innerHTML = html;
 
-            // Render Pagination
             if (paginationContainer) {
                 if (totalPages <= 1) {
                     paginationContainer.innerHTML = '';
@@ -1668,6 +1714,9 @@
             document.getElementById('news-key').value = '';
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
+            document.getElementById('news-category').value = 'tin-tuc';
+            document.getElementById('news-tag').value = 'bat-quan-trai';
+            document.getElementById('news-tag-group').style.display = 'none';
             document.getElementById('news-input-image').value = '';
             document.getElementById('news-file-input').value = '';
             document.getElementById('news-preview-container').classList.add('hidden');
@@ -1687,6 +1736,16 @@
             document.getElementById('news-key').value = key;
             document.getElementById('news-title').value = item.title || '';
             document.getElementById('news-slug').value = item.slug || '';
+            document.getElementById('news-category').value = item.category || 'tin-tuc';
+            
+            const tagGroup = document.getElementById('news-tag-group');
+            if (item.category === 'thong-bao') {
+                tagGroup.style.display = 'block';
+                document.getElementById('news-tag').value = item.tag || 'bat-quan-trai';
+            } else {
+                tagGroup.style.display = 'none';
+            }
+
             document.getElementById('news-input-image').value = item.image || '';
             if (item.image) {
                 document.getElementById('news-preview-img').src = item.image;
@@ -1712,6 +1771,8 @@
             const key = document.getElementById('news-key').value;
             const title = document.getElementById('news-title').value.trim();
             const slug = document.getElementById('news-slug').value.trim() || generateSlug(title);
+            const category = document.getElementById('news-category').value;
+            const tag = category === 'thong-bao' ? document.getElementById('news-tag').value : '';
             const image = document.getElementById('news-input-image').value.trim();
             const content = document.getElementById('news-content').value.trim();
             const currentAuthor = sessionStorage.getItem('vinhhung_admin_name') || 'Quản Trị Viên';
@@ -1725,6 +1786,8 @@
             const newsPayload = {
                 title,
                 slug,
+                category,
+                tag,
                 image,
                 content,
                 author: currentAuthor,
@@ -1833,23 +1896,21 @@
             paginatedKeys.forEach((key, index) => {
                 const item = videosData[key];
                 const actualIndex = startIndex + index + 1;
-                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const authorName = item.author || 'Quản Trị Viên';
                 const isHidden = item.hidden === true;
-                const hiddenBadge = isHidden ? '<span class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[10px] font-bold rounded-lg ml-2">ĐÃ ẨN</span>' : '';
+                
+                const statusBadge = isHidden 
+                    ? `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
+                    : `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
 
                 let actionButtons = '';
                 if (currentAdminRole === 'viewer') {
                     actionButtons = `<span class="text-xs text-slate-400 italic">Chỉ xem</span>`;
                 } else {
-                    const hideToggleText = isHidden ? '<i class="fa-solid fa-eye"></i> Hiện' : '<i class="fa-solid fa-eye-slash"></i> Ẩn';
-                    const hideToggleClass = isHidden ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-amber-50 text-amber-700 hover:bg-amber-100';
-                    let deleteBtnHtml = currentAdminRole === 'super' ? `<button onclick="deleteVideo('${key}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa video"><i class="fa-solid fa-trash"></i></button>` : '';
-
+                    let deleteBtnHtml = currentAdminRole === 'super' ? `<button onclick="deleteVideo('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa video"><i class="fa-solid fa-trash"></i></button>` : '';
                     actionButtons = `
                         <div class="flex items-center justify-center gap-1.5">
-                            <button onclick="editVideo('${key}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="toggleHideVideo('${key}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${hideToggleClass}">${hideToggleText}</button>
+                            <button onclick="editVideo('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
                             ${deleteBtnHtml}
                         </div>
                     `;
@@ -1863,10 +1924,10 @@
                                 <img src="${item.thumbnail || 'https://placehold.co/150x100/f1f5f9/64748b?text=Video'}" alt="Thumb" class="w-full h-full object-cover">
                             </div>
                         </td>
-                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''} ${hiddenBadge}</td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
                         <td class="py-3.5 px-4"><a href="${item.url || '#'}" target="_blank" class="text-blue-600 hover:underline text-xs font-mono truncate max-w-[200px] block font-semibold"><i class="fa-brands fa-youtube mr-1"></i>${item.url || ''}</a></td>
-                        <td class="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap font-medium">${dateStr}</td>
                         <td class="py-3.5 px-4 text-xs text-slate-700 font-semibold"><i class="fa-solid fa-user-shield text-amber-600 mr-1"></i>${authorName}</td>
+                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">${actionButtons}</td>
                     </tr>
                 `;
@@ -2135,7 +2196,6 @@
                 const snapshot = await database.ref('menus').once('value');
                 menuData = snapshot.val() || {};
                 
-                // Seed default menu items if empty
                 if (Object.keys(menuData).length === 0) {
                     const defaultMenus = [
                         { title: 'Trang Chủ', url: 'index.html', order: 1 },
@@ -2172,10 +2232,10 @@
                 if (currentAdminRole === 'viewer') {
                     buttons = `<span class="text-xs text-slate-400 italic">Chỉ xem</span>`;
                 } else {
-                    let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteMenu('${key}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa"><i class="fa-solid fa-trash"></i></button>` : '';
+                    let delBtn = currentAdminRole === 'super' ? `<button onclick="deleteMenu('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa"><i class="fa-solid fa-trash"></i></button>` : '';
                     buttons = `
                         <div class="flex items-center justify-center gap-1.5">
-                            <button onclick="editMenu('${key}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="editMenu('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa"><i class="fa-solid fa-pen"></i></button>
                             ${delBtn}
                         </div>
                     `;
