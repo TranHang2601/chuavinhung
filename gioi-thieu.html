@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giới Thiệu | Chùa Vĩnh Hưng</title>
+    <title>Giới Thiệu | Chùa Vĩnh Hưng - Tông Ấm Áp Sang Trọng</title>
     
-    <!-- Cài đặt Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Cài đặt Font Awesome cho các Icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Cài đặt Tailwind CSS -->
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        buddhist: {
-                            gold: '#d4af37',
-                            lightgold: '#f3e5ab',
-                            maroon: '#6b2024',
-                            dark: '#3d1c1d'
+                        zenwarm: {
+                            bg: '#fcfbfa',
+                            card: '#ffffff',
+                            primary: '#b45309', // Màu vàng hổ phách/cam ấm (Amber)
+                            secondary: '#78350f', // Màu nâu gỗ sang trọng
+                            accent: '#d97706',
+                            text: '#292524', // Đá trầm ấm
+                            muted: '#78716c',
+                            border: '#e7e5e4'
                         }
                     },
                     fontFamily: {
-                        heading: ['Lora', 'serif'],
-                        body: ['Nunito Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
                     }
                 }
             }
@@ -37,92 +37,188 @@
     </script>
 
     <style>
-        .hero-sub {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/ngoichua7.jpg');
+        .hero-warm-gradient {
+            background: linear-gradient(135deg, rgba(120, 53, 15, 0.92) 0%, rgba(180, 83, 9, 0.88) 100%), url('https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
+        .card-shadow {
+            box-shadow: 0 12px 32px -6px rgba(120, 53, 15, 0.08), 0 0 1px 1px rgba(120, 53, 15, 0.05);
+        }
+        .tab-transition {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
-    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="text-gray-800 antialiased">
+<body class="bg-zenwarm-bg text-zenwarm-text font-sans antialiased">
 
-    <!-- Thẻ header -->
+    <!-- HEADER -->
     <div id="header-container"></div>
 
-    <section class="hero-sub h-[40vh] mt-0 flex items-center justify-center relative">
-        <div class="text-center px-4 z-10 text-white mt-10">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Giới Thiệu Chùa Vĩnh Hưng</h1>
-            <p class="text-lg text-gray-200 font-light">Nơi hội tụ tinh hoa Phật pháp, gieo mầm từ bi và trí tuệ.</p>
+    <!-- HERO SECTION -->
+    <section class="hero-warm-gradient text-white py-24 px-6 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-amber-100 border border-white/30 text-xs font-semibold uppercase tracking-widest mb-6 shadow-sm">
+                <i class="fa-solid fa-sun mr-2 text-amber-300"></i> Ánh Sáng Từ Bi & Trí Tuệ
+            </span>
+            <h1 class="font-serif text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
+                Hành Trình Về Miền Tịnh Lạc
+            </h1>
+            <p class="text-amber-50 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                Nơi tâm hồn lắng đọng giữa không gian ấm áp, thanh tịnh và đậm đà bản sắc truyền thống.
+            </p>
         </div>
     </section>
 
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4 max-w-20xl">
-            <div class="flex flex-col lg:flex-row gap-12">
-                
-                <!-- CỘT TRÁI: CÁC Ô DANH MỤC -->
-                <div class="lg:w-1/4 space-y-4">
-                    <button onclick="showTab('lich-su')" id="btn-lich-su" class="w-full text-left p-5 border-2 border-buddhist-gold rounded-xl font-bold text-buddhist-maroon bg-buddhist-lightgold/30 transition shadow-sm">
-                        <i class="fa-solid fa-scroll mr-2"></i> Lịch Sử Hình Thành
-                    </button>
-                    <button onclick="showTab('thanh-vien')" id="btn-thanh-vien" class="w-full text-left p-5 border-2 border-gray-200 rounded-xl font-bold text-gray-700 hover:bg-gray-50 transition shadow-sm">
-                        <i class="fa-solid fa-users mr-2"></i> Danh Sách Thành Viên
-                    </button>
-                </div>
+    <!-- MAIN CONTENT VỚI TAB THIẾT KẾ ĐẸP MẮT -->
+    <main class="max-w-6xl mx-auto px-6 -mt-12 relative z-20 pb-24">
+        
+        <!-- THANH CHUYỂN TAB ĐẸP MẮT & SANG TRỌNG -->
+        <div class="bg-white p-2 rounded-2xl card-shadow border border-zenwarm-border flex flex-col md:flex-row gap-2 mb-12">
+            <button onclick="switchTab('lich-su')" id="btn-lich-su" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 bg-zenwarm-primary text-white shadow-md shadow-amber-600/20 tab-transition">
+                <i class="fa-solid fa-book-open text-base"></i>
+                <span>Lịch Sử Hình Thành</span>
+            </button>
+            <button onclick="switchTab('kien-truc')" id="btn-kien-truc" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 text-zenwarm-muted hover:bg-amber-50/50 hover:text-zenwarm-text tab-transition">
+                <i class="fa-solid fa-landmark text-base"></i>
+                <span>Kiến Trúc & Không Gian</span>
+            </button>
+            <button onclick="switchTab('nhan-su')" id="btn-nhan-su" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 text-zenwarm-muted hover:bg-amber-50/50 hover:text-zenwarm-text tab-transition">
+                <i class="fa-solid fa-user-tie text-base"></i>
+                <span>Chư Tăng & Trị Sự</span>
+            </button>
+        </div>
 
-                <!-- CỘT PHẢI: NỘI DUNG THAY ĐỔI -->
-                <div class="lg:w-3/4">
-                    <!-- Nội dung Lịch sử -->
-                    <div id="tab-lich-su" class="tab-content">
-                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6">Lịch Sử Hình Thành</h2>
-                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
-                        <p class="text-gray-700 leading-loose mb-6 text-lg">
-                            Chùa Vĩnh Hưng được thành lập vào năm 1995 (Phật lịch 2539) bởi Cố Hòa Thượng Thích Thiện Tâm. Ban đầu, chùa chỉ là một am tranh nhỏ đơn sơ nằm giữa vùng đồi núi thanh vắng, nơi ngài dừng chân tu tập sau nhiều năm vân du hóa đạo. Với đức độ và đạo hạnh của Ngài, ánh sáng Phật pháp dần lan tỏa, thu hút đông đảo thiện nam tín nữ gần xa tìm về nương tựa.
+        <!-- KHUNG CHỨA NỘI DUNG TAB -->
+        <div class="bg-white rounded-3xl p-8 md:p-14 card-shadow border border-zenwarm-border">
+            
+            <!-- TAB 1: LỊCH SỬ -->
+            <div id="content-lich-su" class="tab-pane space-y-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                        <span class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Khởi Nguyên 1995</span>
+                        <h2 class="font-serif text-3xl md:text-4xl font-bold text-zenwarm-text leading-snug">
+                            Từ Ngôi Am Nhỏ Đến Đạo Tràng Trang Nghiêm
+                        </h2>
+                        <p class="text-zenwarm-muted leading-relaxed text-base md:text-lg font-light">
+                            Chùa Vĩnh Hưng được thành lập năm 1995 bởi Cố Hòa Thượng Thích Thiện Tâm. Trải qua gần ba thập kỷ gieo mầm phật pháp, nơi đây đã trở thành điểm tựa tâm linh thanh bình cho hàng vạn phật tử gần xa.
                         </p>
-                        <p class="text-gray-700 leading-loose mb-6 text-lg">
-                            Trải qua gần 3 thập kỷ, dưới sự dìu dắt của chư Tôn đức tiền bối và sự phát tâm dõng mãnh của hàng phật tử tại gia, Chùa Bát Nhã đã trải qua 3 đợt đại trùng tu. Tới nay, bổn tự đã khoác lên mình diện mạo khang trang, bề thế nhưng vẫn giữ được nét cổ kính, trang nghiêm của kiến trúc Phật giáo Á Đông.
+                        <p class="text-zenwarm-muted leading-relaxed text-base font-light">
+                            Với phương châm "Phật pháp giữa dòng đời", bổn tự không ngừng phát triển các hoạt động tu học cộng đồng, hướng con người về lối sống tỉnh thức và từ bi.
                         </p>
-                        
-                        <img src="images/chuaxua1.jpg" class="w-full rounded-lg shadow-lg my-10" alt="Lịch sử chùa">
-
-                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6 mt-12">Kiến Trúc & Cảnh Quan</h2>
-                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
-                        <p class="text-gray-700 leading-loose mb-6 text-lg">
-                            Quần thể kiến trúc Chùa Bát Nhã được thiết kế theo lối chữ "Công" (工), bao gồm: Cổng Tam Quan, Sân Đại AvL, Ngôi Chánh Điện, Nhà Hậu Tổ, Giảng Đường và Khuôn viên Tượng Phật Quan Âm lộ thiên. 
-                        </p>
-                        <p class="text-gray-700 leading-loose mb-6 text-lg">
-                            Điểm nhấn đặc biệt của chùa là không gian xanh mát với những hàng cây cổ thụ hàng chục năm tuổi, những hồ sen tĩnh lặng và các lối đi lát đá tự nhiên. Tất cả tạo nên một khung cảnh thanh tịnh, giúp bất cứ ai bước chân qua Cổng Tam Quan đều cảm thấy bỏ lại được những bộn bề, lo toan của cuộc sống thế tục.
-                        </p>
-
-                        <div class="bg-[#faf8f5] p-8 border-l-4 border-buddhist-gold my-10 rounded-r-lg">
-                            <p class="text-xl font-heading text-gray-800 italic">
-                                "Mục đích lớn nhất của Bổn tự không phải là xây dựng cơ sở vật chất to lớn, mà là xây dựng một đạo tràng thanh tịnh, nơi mỗi người có thể tìm thấy con đường tu tập giải thoát và lan tỏa tình yêu thương đến muôn loài."
-                            </p>
-                            <p class="mt-4 text-buddhist-maroon font-bold">— Trụ trì Thích Tâm An</p>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-amber-50">
+                            <img src="https://images.unsplash.com/photo-1609137144881-542e3b74e12c?auto=format&fit=crop&w=800&q=80" alt="Chùa Vĩnh Hưng" class="w-full h-80 object-cover hover:scale-105 transition duration-500">
                         </div>
                     </div>
-                    <!-- Nội dung Thành viên -->
-                    <div id="tab-thanh-vien" class="tab-content hidden">
-                        <h2 class="text-3xl font-heading font-bold text-buddhist-maroon mb-6">Chư Tăng & Ban Quản Trị</h2>
-                        <div class="w-20 h-1 bg-buddhist-gold mb-8"></div>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <!-- Ví dụ 1 thành viên -->
-                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                                <img src="images/tru-tri.jpg" class="w-full h-64 object-cover rounded-xl mb-4" alt="Trụ trì">
-                                <h3 class="text-xl font-bold text-buddhist-dark">Đại Đức Thích Tâm An</h3>
-                                <p class="text-gray-600 mt-2">Trụ trì bổn tự, người dẫn dắt Phật tử tu tập...</p>
-                            </div>
+                </div>
+
+                <!-- TRÍCH DẪN ẤN TƯỢNG -->
+                <div class="bg-gradient-to-r from-amber-50/80 to-orange-50/50 p-8 md:p-10 rounded-2xl border border-amber-200/60 relative overflow-hidden shadow-sm">
+                    <div class="absolute right-4 bottom-2 text-8xl text-amber-600/10 font-serif">“</div>
+                    <p class="font-serif text-xl md:text-2xl text-zenwarm-text italic font-medium leading-relaxed relative z-10">
+                        "Bình yên không nằm ở việc trốn chạy khỏi thế gian, mà ở việc giữ được tâm hồn thanh tịnh ngay giữa những bộn bề."
+                    </p>
+                    <p class="mt-4 font-bold text-zenwarm-primary text-sm uppercase tracking-wider">— Trụ Trì Thích Tâm An</p>
+                </div>
+            </div>
+
+            <!-- TAB 2: KIẾN TRÚC -->
+            <div id="content-kien-truc" class="tab-pane hidden space-y-10">
+                <div class="max-w-2xl">
+                    <span class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Không Gian Ấm Áp</span>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-zenwarm-text mt-3">Kiến Trúc Á Đông & Cảnh Quan Truyền Thống</h2>
+                    <p class="text-zenwarm-muted mt-2">Sự kết hợp tinh tế giữa nghệ thuật kiến trúc gỗ truyền thống và không gian thiên nhiên thanh tịnh.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 hover:shadow-md transition">
+                        <div class="h-48 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-105 transition" alt="Chánh điện">
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-zenwarm-text mb-2">Chánh Điện Trang Nghiêm</h3>
+                        <p class="text-sm text-zenwarm-muted font-light leading-relaxed">Tôn trí tôn tượng Tam Bảo uy nghiêm, ánh sáng vàng ấm áp tạo cảm giác an lạc.</p>
+                    </div>
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 hover:shadow-md transition">
+                        <div class="h-48 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-105 transition" alt="Hồ sen">
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-zenwarm-text mb-2">Hồ Sen Tịnh Lặng</h3>
+                        <p class="text-sm text-zenwarm-muted font-light leading-relaxed">Hồ sen tỏa hương thanh khiết, mang lại sự thư thái, tĩnh tâm cho khách thập phương.</p>
+                    </div>
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 hover:shadow-md transition">
+                        <div class="h-48 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-105 transition" alt="Khu vườn">
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-zenwarm-text mb-2">Khu Vườn Thiền Định</h3>
+                        <p class="text-sm text-zenwarm-muted font-light leading-relaxed">Đường đi lát đá sạch sẽ dưới tán cây cổ thụ, thích hợp tản bộ thực hành chánh niệm.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: NHÂN SỰ -->
+            <div id="content-nhan-su" class="tab-pane hidden space-y-10">
+                <div class="max-w-2xl">
+                    <span class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Ban Hướng Dẫn</span>
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-zenwarm-text mt-3">Chư Tăng & Ban Trị Sự Bổn Tự</h2>
+                    <p class="text-zenwarm-muted mt-2">Những bậc chân tu tận tụy phụng sự đạo pháp và dìu dắt phật tử tu học.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 flex gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-full object-cover border-2 border-zenwarm-primary shadow-sm flex-shrink-0" alt="Trụ trì">
+                        <div>
+                            <span class="text-[10px] bg-zenwarm-primary text-white px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Trụ Trì</span>
+                            <h3 class="font-serif font-bold text-xl text-zenwarm-text mt-2">Đại Đức Thích Tâm An</h3>
+                            <p class="text-xs text-zenwarm-muted mt-1">Trưởng Ban Trị Sự Bổn Tự</p>
+                            <p class="text-sm text-zenwarm-muted mt-2 font-light">Trực tiếp dẫn dắt đạo tràng tu học Phật pháp.</p>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 flex gap-6 items-center">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" class="w-24 h-24 rounded-full object-cover border-2 border-zenwarm-primary shadow-sm flex-shrink-0" alt="Tri sự">
+                        <div>
+                            <span class="text-[10px] bg-stone-200 text-zenwarm-text px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Tri Sự</span>
+                            <h3 class="font-serif font-bold text-xl text-zenwarm-text mt-2">Đại Đức Thích Nguyên Minh</h3>
+                            <p class="text-xs text-zenwarm-muted mt-1">Phó Ban Trị Sự</p>
+                            <p class="text-sm text-zenwarm-muted mt-2 font-light">Phụ trách công tác sinh hoạt cộng đồng và từ thiện.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-    </section>
+    </main>
 
+    <!-- FOOTER -->
     <div id="footer-container"></div>
-
     <script src="js/main.js"></script>
-    <script src="js/gioi-thieu.js"></script>
+    <!-- SCRIPT CHUYỂN TAB -->
+    <script>
+        function switchTab(tabName) {
+            // Ẩn tất cả nội dung tab
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+            });
+
+            // Reset tất cả các nút tab về trạng thái mặc định
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 text-zenwarm-muted hover:bg-amber-50/50 hover:text-zenwarm-text tab-transition";
+            });
+
+            // Hiển thị nội dung được chọn
+            const targetPane = document.getElementById('content-' + tabName);
+            if (targetPane) {
+                targetPane.classList.remove('hidden');
+            }
+
+            // Làm nổi bật nút được chọn với hiệu ứng màu ấm áp
+            const targetBtn = document.getElementById('btn-' + tabName);
+            if (targetBtn) {
+                targetBtn.className = "tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 bg-zenwarm-primary text-white shadow-md shadow-amber-600/20 tab-transition";
+            }
+        }
+    </script>
+    
 </body>
 </html>
