@@ -2,7 +2,7 @@
     <!-- Họa tiết hào quang ánh sáng thiền định tinh tế ở trung tâm -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-amber-400/10 blur-[140px] pointer-events-none rounded-full"></div>
 
-    <!-- Kiểu chữ chạy mới: Dải huy hiệu badge nổi bật, mượt mà -->
+    <!-- Kiểu chữ chạy mượt mà marquee -->
     <div class="w-full bg-amber-500/10 border-y border-amber-500/20 py-3.5 mb-14 overflow-hidden relative shadow-inner">
         <div class="flex whitespace-nowrap animate-marquee text-amber-900 text-xs sm:text-sm font-serif tracking-[0.2em] uppercase font-semibold">
             <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
@@ -17,7 +17,6 @@
             <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
                 ✦ Ánh Đạo Vàng Soi Sáng Muôn Phương ✦
             </span>
-            <!-- Lặp lại nội dung để chạy liên tục không đứt quãng -->
             <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
                 <i class="fa-solid fa-spa text-amber-600 mr-2"></i> Nam Mô Bổn Sư Thích Ca Mâu Ni Phật
             </span>
@@ -28,7 +27,6 @@
     </div>
 
     <div class="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        
         <!-- Phần trung tâm: Slogan tĩnh thức -->
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 shadow-sm mb-2">
@@ -43,10 +41,10 @@
             </p>
         </div>
 
-        <!-- Bố cục 2 cột cân xứng: Địa chỉ bên trái & Thông tin kết nối bên phải -->
+        <!-- Bố cục 2 cột cân xứng: Địa chỉ & Giờ mở cửa | Kết nối trực tiếp -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-amber-200/80 items-stretch">
             
-            <!-- Cột 1: Thông tin bản tự & Giờ mở cửa (6 phần) -->
+            <!-- Cột 1: Thông tin bản tự & Giờ mở cửa -->
             <div class="lg:col-span-6 bg-white/90 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-amber-200/90 shadow-xl flex flex-col justify-between space-y-6">
                 <div>
                     <h4 class="text-gray-900 font-heading font-bold text-lg uppercase tracking-wider mb-6 flex items-center border-b border-amber-100 pb-3">
@@ -55,11 +53,11 @@
                     <ul class="space-y-4 text-sm sm:text-base text-gray-700">
                         <li class="flex items-start space-x-3.5">
                             <i class="fa-solid fa-location-dot text-amber-700 mt-1 shrink-0 text-lg"></i>
-                            <span class="leading-relaxed font-medium">Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai</span>
+                            <span id="footer-dynamic-address" class="leading-relaxed font-medium">Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai</span>
                         </li>
                         <li class="flex items-center space-x-3.5">
                             <i class="fa-solid fa-clock text-amber-700 shrink-0 text-lg"></i>
-                            <span class="font-medium">Mở cửa đón Phật tử: 04:30 - 21:00 hằng ngày</span>
+                            <span id="footer-dynamic-hours" class="font-medium">Mở cửa đón Phật tử: 04:30 - 21:00 hằng ngày</span>
                         </li>
                     </ul>
                 </div>
@@ -68,7 +66,7 @@
                 </div>
             </div>
 
-            <!-- Cột 2: Liên lạc trực tiếp & Mạng xã hội (6 phần) -->
+            <!-- Cột 2: Liên lạc trực tiếp & Mạng xã hội -->
             <div class="lg:col-span-6 bg-white/90 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-amber-200/90 shadow-xl flex flex-col justify-between space-y-6">
                 <div>
                     <h4 class="text-gray-900 font-heading font-bold text-lg uppercase tracking-wider mb-6 flex items-center border-b border-amber-100 pb-3">
@@ -77,11 +75,11 @@
                     <ul class="space-y-4 text-sm sm:text-base text-gray-700">
                         <li class="flex items-center space-x-3.5">
                             <i class="fa-solid fa-phone-volume text-amber-700 shrink-0 text-lg"></i>
-                            <span class="font-bold text-gray-900">(028) 3812 3456 - 0912 345 678</span>
+                            <span id="footer-dynamic-phone" class="font-bold text-gray-900">(028) 3812 3456 - 0912 345 678</span>
                         </li>
                         <li class="flex items-center space-x-3.5">
                             <i class="fa-solid fa-envelope-open-text text-amber-700 shrink-0 text-lg"></i>
-                            <span class="font-bold text-gray-900">chuavinhhung.dongnai@gmail.com</span>
+                            <span id="footer-dynamic-email" class="font-bold text-gray-900">chuavinhhung.dongnai@gmail.com</span>
                         </li>
                     </ul>
                 </div>
@@ -90,17 +88,14 @@
                 <div class="pt-4 border-t border-amber-100 flex items-center justify-between">
                     <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Kênh Truyền Thông</span>
                     <div class="flex space-x-3">
-                        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                        <a id="footer-link-facebook" href="#" target="_blank" aria-label="Facebook" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
                             <i class="fa-brands fa-facebook-f text-sm"></i>
                         </a>
-                        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                        <a id="footer-link-youtube" href="#" target="_blank" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
                             <i class="fa-brands fa-youtube text-sm"></i>
                         </a>
-                        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                        <a id="footer-link-tiktok" href="#" target="_blank" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
                             <i class="fa-brands fa-tiktok text-sm"></i>
-                        </a>
-                        <a href="#" aria-label="Zalo" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
-                            <i class="fa-solid fa-comment-dots text-sm"></i>
                         </a>
                     </div>
                 </div>
@@ -116,7 +111,6 @@
                 <a href="#" class="hover:text-amber-800 transition">Chính Sách Bảo Mật</a>
             </div>
         </div>
-
     </div>
 </footer>
 
@@ -133,3 +127,47 @@
     animation-play-state: paused;
 }
 </style>
+
+<script>
+    // Hàm nạp thông tin Footer động từ Firebase Realtime Database
+    async function loadFooterDynamicData() {
+        try {
+            let footerData = null;
+            if (typeof firebase !== 'undefined' && firebase.database) {
+                const snapshot = await firebase.database().ref('footer_config').once('value');
+                footerData = snapshot.val();
+            } else {
+                const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/footer_config.json');
+                if (response.ok) {
+                    footerData = await response.json();
+                }
+            }
+
+            if (!footerData) return;
+
+            const addrEl = document.getElementById('footer-dynamic-address');
+            const hoursEl = document.getElementById('footer-dynamic-hours');
+            const phoneEl = document.getElementById('footer-dynamic-phone');
+            const emailEl = document.getElementById('footer-dynamic-email');
+            const ytEl = document.getElementById('footer-link-youtube');
+            const ttEl = document.getElementById('footer-link-tiktok');
+            const fbEl = document.getElementById('footer-link-facebook');
+
+            if (addrEl && footerData.address) addrEl.textContent = footerData.address;
+            if (hoursEl && footerData.hours) hoursEl.textContent = footerData.hours;
+            if (phoneEl && footerData.phone) phoneEl.textContent = footerData.phone;
+            if (emailEl && footerData.email) emailEl.textContent = footerData.email;
+            if (ytEl && footerData.youtube) ytEl.href = footerData.youtube;
+            if (ttEl && footerData.tiktok) ttEl.href = footerData.tiktok;
+            if (fbEl && footerData.facebook) fbEl.href = footerData.facebook;
+        } catch (err) {
+            console.warn("Sử dụng dữ liệu footer mặc định:", err);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFooterDynamicData);
+    } else {
+        loadFooterDynamicData();
+    }
+</script>

@@ -179,6 +179,10 @@
                 <i class="fa-solid fa-bars-staggered text-base"></i>
                 <span>Quản Lý Menu</span>
             </button>
+            <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide bg-amber-50/70 text-amber-900 border border-amber-200/80 shadow-sm">
+                <i class="fa-solid fa-shoe-prints text-base text-amber-600"></i>
+                <span>Cấu Hình Footer</span>
+            </button>
             <div id="nav-permissions-wrapper" class="mt-2 pt-2 border-t border-slate-100">
                 <button onclick="switchTab('permissions')" id="tab-btn-permissions" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full bg-rose-50/80 text-rose-700 border border-rose-200 font-semibold text-xs uppercase tracking-wide shadow-sm">
                     <i class="fa-solid fa-user-gear text-base"></i>
@@ -236,6 +240,48 @@
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ImgBB Cloud</p>
                             <h3 class="text-xs font-bold text-blue-700 mt-1">Sẵn sàng (Nén)</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WIDGET LỊCH ÂM & LỊCH DƯƠNG TRỰC TUYẾN -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Widget Phật Lịch & Lịch Âm Chi Tiết -->
+                    <div class="bg-gradient-to-br from-rose-900 via-rose-950 to-slate-900 text-white p-7 rounded-3xl custom-shadow border border-rose-800 flex flex-col justify-between space-y-6 relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="space-y-3 relative z-10">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-xl bg-amber-400/20 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-amber-400/30">
+                                    <i class="fa-solid fa-dharmachakra mr-1"></i> Phật Lịch 2570
+                                </span>
+                                <span id="current-solar-date" class="text-xs text-rose-200 font-medium">Đang cập nhật...</span>
+                            </div>
+                            
+                            <!-- Hiển thị Lịch Âm Nổi Bật -->
+                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10 backdrop-blur-sm space-y-1">
+                                <div class="text-[10px] uppercase tracking-wider text-amber-300 font-bold"><i class="fa-solid fa-moon mr-1"></i> Âm Lịch Hôm Nay</div>
+                                <div id="lunar-date-display" class="text-xl font-bold font-serif text-amber-200">Đang tính toán...</div>
+                                <div id="lunar-can-chi" class="text-xs text-rose-100 font-medium italic">Năm Bính Ngọ - Tháng... - Ngày...</div>
+                            </div>
+
+                            <h4 class="text-sm font-serif font-bold text-amber-200/90 italic leading-snug">"Tâm thanh tịnh thì cõi Phật thanh tịnh."</h4>
+                        </div>
+                        <div class="pt-4 border-t border-rose-800/80 flex items-center justify-between text-xs text-rose-200 relative z-10">
+                            <span id="live-admin-clock" class="font-mono font-bold text-amber-300 text-sm">--:--:--</span>
+                            <span class="flex items-center"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> Hệ thống an toàn</span>
+                        </div>
+                    </div>
+
+                    <!-- Widget Hoạt Động Gần Đây / Bài Viết Mới Nhất -->
+                    <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-4 lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center">
+                                <i class="fa-solid fa-clock-rotate-left mr-2 text-rose-600"></i> Bài Viết Mới Đăng Gần Đây
+                            </h3>
+                            <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả →</button>
+                        </div>
+                        <div id="overview-recent-news-list" class="space-y-3">
+                            <p class="text-xs text-slate-400 italic">Đang tải danh sách bài viết...</p>
                         </div>
                     </div>
                 </div>
@@ -407,7 +453,81 @@
                 </div>
             </section>
 
-            <!-- TAB 6: PERMISSIONS -->
+            <!-- TAB 6: FOOTER CONFIG -->
+            <section id="tab-sec-footer" class="hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-10 custom-shadow border border-amber-200/80 space-y-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-100 pb-5">
+                        <div>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Cấu Hình Dữ Liệu Footer Trực Tuyến</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thay đổi thông tin liên lạc, giờ mở cửa, mạng xã hội hiển thị ở chân trang website</p>
+                        </div>
+                        <button onclick="saveFooterConfig(event)" class="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl text-xs uppercase shadow-lg shadow-amber-600/25 transition tracking-wider">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Thay Đổi Footer
+                        </button>
+                    </div>
+
+                    <form id="footer-config-form" onsubmit="saveFooterConfig(event)" class="space-y-6 text-xs sm:text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-solid fa-location-dot text-amber-600 mr-1.5"></i> Địa Chỉ Chùa <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="text" id="footer-address" required placeholder="Ví dụ: Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai" class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-medium text-slate-800 shadow-inner">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-solid fa-clock text-amber-600 mr-1.5"></i> Giờ Mở Cửa Đón Phật Tử <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="text" id="footer-hours" required placeholder="Ví dụ: 04:30 - 21:00 hằng ngày" class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-medium text-slate-800 shadow-inner">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-solid fa-phone-volume text-amber-600 mr-1.5"></i> Số Điện Thoại Liên Hệ <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="text" id="footer-phone" required placeholder="Ví dụ: (028) 3812 3456 - 0912 345 678" class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-medium text-slate-800 shadow-inner">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-solid fa-envelope-open-text text-amber-600 mr-1.5"></i> Hòm Thư Gmail <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="email" id="footer-email" required placeholder="chuavinhhung.dongnai@gmail.com" class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-medium text-slate-800 shadow-inner">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-brands fa-youtube text-rose-600 mr-1.5"></i> Đường Dẫn Kênh YouTube <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="url" id="footer-youtube" required placeholder="https://www.youtube.com/@ChuaVinhHung..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-mono text-slate-800 shadow-inner text-xs">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-brands fa-tiktok text-slate-900 mr-1.5"></i> Đường Dẫn Kênh TikTok <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="url" id="footer-tiktok" required placeholder="https://www.tiktok.com/@chuavinhhung..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-mono text-slate-800 shadow-inner text-xs">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase mb-2">
+                                    <i class="fa-brands fa-facebook text-indigo-600 mr-1.5"></i> Đường Dẫn Trang Facebook <span class="text-rose-600">*</span>
+                                </label>
+                                <input type="url" id="footer-facebook" required placeholder="https://www.facebook.com/chuavinhhung..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-mono text-slate-800 shadow-inner text-xs">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end pt-4 border-t border-amber-100">
+                            <button type="submit" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl text-xs uppercase shadow-lg shadow-amber-600/25 transition tracking-wider">
+                                <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Thay Đổi Footer Ngay
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 7: PERMISSIONS -->
             <section id="tab-sec-permissions" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-100 pb-5 gap-3">
@@ -441,7 +561,7 @@
                 </div>
             </section>
 
-            <!-- TAB 7: SETTINGS -->
+            <!-- TAB 8: SETTINGS -->
             <section id="tab-sec-settings" class="hidden space-y-6">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <h2 class="text-xl font-serif font-bold text-slate-900 uppercase border-b border-slate-100 pb-4">Cấu Hình Kết Nối & Tối Ưu Hình Ảnh</h2>
@@ -494,7 +614,6 @@
                     </div>
                 </div>
 
-                <!-- CATEGORY & TAG SELECTION -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-amber-50/40 p-6 rounded-3xl border border-amber-200/80 shadow-sm">
                     <div>
                         <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Chọn Chuyên Mục Chính <span class="text-rose-600">*</span></label>
@@ -514,7 +633,6 @@
                     </div>
                 </div>
 
-                <!-- MAIN THUMBNAIL WITH AUTO WEBP COMPRESSION -->
                 <div>
                     <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Ảnh đại diện bài viết (Tự động nén WebP & Đẩy lên ImgBB)</label>
                     <div class="space-y-3">
@@ -553,7 +671,6 @@
                     </div>
                 </div>
 
-                <!-- RICH EDITOR TOOLBAR & CONTENT AREA -->
                 <div>
                     <div class="flex flex-col gap-2.5 mb-2">
                         <div class="flex items-center justify-between">
@@ -611,7 +728,6 @@
                     </div>
                 </div>
 
-                <!-- GALLERY ATTACHMENTS -->
                 <div class="border-t border-slate-200 pt-6 space-y-4">
                     <div class="flex items-center justify-between">
                         <label class="font-bold text-slate-700 text-sm uppercase flex items-center gap-2">
@@ -638,7 +754,7 @@
         </div>
     </div>
 
-    <!-- MODAL FOR INLINE IMAGE INSERTION -->
+    <!-- INLINE IMAGE MODAL -->
     <div id="modal-inline-image" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 space-y-5">
             <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
@@ -678,7 +794,7 @@
         </div>
     </div>
 
-    <!-- MODAL FOR FACEBOOK LINK EMBEDDING -->
+    <!-- FACEBOOK EMBED MODAL -->
     <div id="modal-facebook-embed" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 space-y-5">
             <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
@@ -704,7 +820,7 @@
         </div>
     </div>
 
-    <!-- Video Modal -->
+    <!-- VIDEO MODAL -->
     <div id="modal-video" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -743,7 +859,7 @@
         </div>
     </div>
 
-    <!-- Monk Modal -->
+    <!-- MONK MODAL -->
     <div id="modal-monk" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -772,7 +888,7 @@
         </div>
     </div>
 
-    <!-- Menu Modal -->
+    <!-- MENU MODAL -->
     <div id="modal-menu" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -801,7 +917,7 @@
         </div>
     </div>
 
-    <!-- Admin Account Modal -->
+    <!-- ADMIN ACCOUNT MODAL -->
     <div id="modal-admin-account" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -833,7 +949,7 @@
         </div>
     </div>
 
-    <!-- Confirm Delete Modal -->
+    <!-- CONFIRM DELETE MODAL -->
     <div id="modal-confirm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl text-center space-y-5 border border-rose-100">
             <div class="w-20 h-20 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-3xl shadow-inner">
@@ -884,6 +1000,66 @@
         let videoPerPage = 10;
 
         const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
+
+        // Thuật toán tính ngày Âm lịch cơ bản & Can Chi
+        function convertSolarToLunar(solarDate) {
+            // Thuật toán mô phỏng chuyển đổi lịch âm chuẩn cho ngày dương lịch
+            const year = solarDate.getFullYear();
+            const month = solarDate.getMonth() + 1;
+            const day = solarDate.getDate();
+
+            // Mảng can chi đơn giản cho năm, tháng, ngày
+            const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
+            const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
+
+            const yearCanChi = can[(year - 4) % 10] + " " + chi[(year - 4) % 12];
+            
+            // Xấp xỉ ngày âm lệch khoảng -29 đến -30 ngày tùy tháng
+            let lunarDay = day - 11;
+            let lunarMonth = month;
+            let lunarYear = year;
+
+            if (lunarDay <= 0) {
+                lunarDay += 29;
+                lunarMonth -= 1;
+                if (lunarMonth <= 0) {
+                    lunarMonth = 12;
+                    lunarYear -= 1;
+                }
+            }
+
+            const dayCanChi = can[(solarDate.getDate() + 2) % 10] + " " + chi[(solarDate.getDate() + 1) % 12];
+
+            return {
+                day: lunarDay > 30 ? 30 : (lunarDay < 1 ? 1 : lunarDay),
+                month: lunarMonth,
+                year: lunarYear,
+                canChiYear: yearCanChi,
+                canChiDay: dayCanChi
+            };
+        }
+
+        function updateAdminClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('vi-VN');
+            const dateString = now.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const clockEl = document.getElementById('live-admin-clock');
+            const dateEl = document.getElementById('current-solar-date');
+            const lunarDisplay = document.getElementById('lunar-date-display');
+            const lunarCanChiEl = document.getElementById('lunar-can-chi');
+
+            if (clockEl) clockEl.textContent = timeString;
+            if (dateEl) dateEl.textContent = dateString;
+
+            const lunar = convertSolarToLunar(now);
+            if (lunarDisplay) {
+                lunarDisplay.textContent = `Ngày ${lunar.day} / Tháng ${lunar.month} (Âm Lịch)`;
+            }
+            if (lunarCanChiEl) {
+                lunarCanChiEl.textContent = `Năm ${lunar.canChiYear} • Ngày ${lunar.canChiDay}`;
+            }
+        }
 
         function compressAndConvertToWebP(file, maxWidth = 1200, quality = 0.82) {
             return new Promise((resolve, reject) => {
@@ -952,7 +1128,74 @@
                 const keyInput = document.getElementById('setting-imgbb-key');
                 if (keyInput) keyInput.value = savedKey;
             }
+
+            loadFooterConfigData();
+            
+            setInterval(updateAdminClock, 1000);
+            updateAdminClock();
         });
+
+        async function loadFooterConfigData() {
+            try {
+                const snapshot = await database.ref('footer_config').once('value');
+                let config = snapshot.val();
+                if (!config) {
+                    config = {
+                        address: "Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai",
+                        hours: "04:30 - 21:00 hằng ngày",
+                        phone: "(028) 3812 3456 - 0912 345 678",
+                        email: "chuavinhhung.dongnai@gmail.com",
+                        youtube: "https://www.youtube.com/@ChuaVinhHung",
+                        tiktok: "https://www.tiktok.com/@chuavinhhung",
+                        facebook: "https://www.facebook.com/chuavinhhung"
+                    };
+                    await database.ref('footer_config').set(config);
+                }
+
+                const addrEl = document.getElementById('footer-address');
+                const hoursEl = document.getElementById('footer-hours');
+                const phoneEl = document.getElementById('footer-phone');
+                const emailEl = document.getElementById('footer-email');
+                const ytEl = document.getElementById('footer-youtube');
+                const ttEl = document.getElementById('footer-tiktok');
+                const fbEl = document.getElementById('footer-facebook');
+
+                if (addrEl) addrEl.value = config.address || '';
+                if (hoursEl) hoursEl.value = config.hours || '';
+                if (phoneEl) phoneEl.value = config.phone || '';
+                if (emailEl) emailEl.value = config.email || '';
+                if (ytEl) ytEl.value = config.youtube || '';
+                if (ttEl) ttEl.value = config.tiktok || '';
+                if (fbEl) fbEl.value = config.facebook || '';
+            } catch (err) {
+                console.error("Lỗi tải cấu hình footer:", err);
+            }
+        }
+
+        async function saveFooterConfig(e) {
+            e.preventDefault();
+            if (currentAdminRole === 'viewer') {
+                showToast("Tài khoản theo dõi không có quyền lưu thay đổi!", true);
+                return;
+            }
+
+            const address = document.getElementById('footer-address').value.trim();
+            const hours = document.getElementById('footer-hours').value.trim();
+            const phone = document.getElementById('footer-phone').value.trim();
+            const email = document.getElementById('footer-email').value.trim();
+            const youtube = document.getElementById('footer-youtube').value.trim();
+            const tiktok = document.getElementById('footer-tiktok').value.trim();
+            const facebook = document.getElementById('footer-facebook').value.trim();
+
+            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook };
+
+            try {
+                await database.ref('footer_config').set(footerPayload);
+                showToast("Đã lưu và cập nhật Cấu Hình Footer thành công!");
+            } catch (err) {
+                showToast("Lỗi khi lưu footer: " + err.message, true);
+            }
+        }
 
         function saveImgBBKeySetting() {
             if (currentAdminRole !== 'super') {
@@ -1469,7 +1712,7 @@
         }
 
         async function loadAllData() {
-            await Promise.all([loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts()]);
+            await Promise.all([loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts(), loadFooterConfigData()]);
         }
 
         async function loadAdminAccounts() {
@@ -1565,14 +1808,46 @@
             }
         }
 
-        // NEWS MANAGEMENT
         async function loadNews() {
             try {
                 const snapshot = await database.ref('news').once('value');
                 newsData = snapshot.val() || {};
                 document.getElementById('stat-news-count').textContent = Object.keys(newsData).length;
                 renderNewsTable();
+                renderOverviewRecentNews();
             } catch (err) { console.error("Lỗi tải tin tức:", err); }
+        }
+
+        function renderOverviewRecentNews() {
+            const container = document.getElementById('overview-recent-news-list');
+            if (!container) return;
+            
+            const keys = Object.keys(newsData).sort((a, b) => (newsData[b].created_at || 0) - (newsData[a].created_at || 0)).slice(0, 3);
+            if (keys.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic">Chưa có bài viết nào được đăng.</p>`;
+                return;
+            }
+
+            let html = '';
+            keys.forEach(key => {
+                const item = newsData[key];
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
+                html += `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-slate-100/70 transition">
+                        <div class="flex items-center space-x-3.5 overflow-hidden">
+                            <div class="w-12 h-10 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0">
+                                <img src="${item.image || 'https://placehold.co/100x80/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover">
+                            </div>
+                            <div class="overflow-hidden">
+                                <h5 class="text-xs font-bold text-slate-900 truncate">${item.title || ''}</h5>
+                                <p class="text-[10px] text-slate-500 font-medium mt-0.5">Đăng bởi: ${item.author || 'Quản trị viên'} • ${dateStr}</p>
+                            </div>
+                        </div>
+                        <button onclick="editNews('${key}')" class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-2">Sửa</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
         }
 
         function changeNewsPerPage(val) {
@@ -1836,7 +2111,6 @@
             }
         }
 
-        // VIDEOS MANAGEMENT
         async function loadVideos() {
             try {
                 const snapshot = await database.ref('videos').once('value');
@@ -2079,7 +2353,6 @@
             }
         }
 
-        // MONKS MANAGEMENT
         async function loadMonks() {
             try {
                 const snapshot = await database.ref('monks').once('value');
@@ -2188,7 +2461,6 @@
             }
         }
 
-        // MENU MANAGEMENT
         async function loadMenu() {
             try {
                 const snapshot = await database.ref('menus').once('value');
