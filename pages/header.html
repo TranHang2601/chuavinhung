@@ -11,7 +11,7 @@
                 </span>
             </div>
             
-            <!-- Desktop Menu (Mặc định + Tải động Firebase) -->
+            <!-- Desktop Menu (Mặc định + Tải động Firebase có lọc mục ẩn) -->
             <nav id="desktop-menu-nav" class="hidden md:flex space-x-6 lg:space-x-8 items-center">
                 <a href="index.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-bold pb-1 border-b-2 text-amber-400 border-amber-400">Trang Chủ</a>
                 <a href="pages/gioi-thieu.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-semibold text-white hover:text-amber-300">Giới Thiệu</a>
@@ -83,6 +83,10 @@
 
             sortedKeys.forEach(key => {
                 const item = menuData[key];
+                
+                // BỎ QUA NẾU MỤC MENU ĐANG ĐƯỢC ĐẶT TRẠNG THÁI ẨN TỪ TRANG ADMIN
+                if (item.hidden === true) return;
+
                 const title = item.title || '';
                 const url = item.url || '#';
                 const isActive = currentPath === url || (currentPath === '' && url === 'index.html');

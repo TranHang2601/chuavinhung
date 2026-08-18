@@ -179,8 +179,8 @@
                 <i class="fa-solid fa-bars-staggered text-base"></i>
                 <span>Quản Lý Menu</span>
             </button>
-            <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide bg-amber-50/70 text-amber-900 border border-amber-200/80 shadow-sm">
-                <i class="fa-solid fa-shoe-prints text-base text-amber-600"></i>
+            <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
+                <i class="fa-solid fa-shoe-prints text-base"></i>
                 <span>Cấu Hình Footer</span>
             </button>
             <div id="nav-permissions-wrapper" class="mt-2 pt-2 border-t border-slate-100">
@@ -427,7 +427,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Menu Điều Hướng Website</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Tùy chỉnh các liên kết menu trên thanh tiêu đề website công khai</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Tùy chỉnh các liên kết menu, ẩn/hiện trên thanh tiêu đề website công khai</p>
                         </div>
                         <button id="btn-add-menu" onclick="openMenuModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
                             <i class="fa-solid fa-plus mr-1.5"></i> Thêm Mục Menu
@@ -442,11 +442,12 @@
                                     <th class="py-3.5 px-4">Tên Menu</th>
                                     <th class="py-3.5 px-4">Đường Dẫn (URL)</th>
                                     <th class="py-3.5 px-4 w-24 text-center">Thứ Tự</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="menu-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-                                <tr><td colspan="5" class="py-8 text-center text-slate-400">Đang tải danh sách menu...</td></tr>
+                                <tr><td colspan="6" class="py-8 text-center text-slate-400">Đang tải danh sách menu...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -459,7 +460,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Cấu Hình Dữ Liệu Footer Trực Tuyến</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thay đổi thông tin liên lạc, giờ mở cửa, mạng xã hội hiển thị ở chân trang website</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thay đổi thông tin liên lạc, giờ mở cửa và mạng xã hội của chân trang</p>
                         </div>
                         <button onclick="saveFooterConfig(event)" class="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl text-xs uppercase shadow-lg shadow-amber-600/25 transition tracking-wider">
                             <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Thay Đổi Footer
@@ -516,12 +517,6 @@
                                 </label>
                                 <input type="url" id="footer-facebook" required placeholder="https://www.facebook.com/chuavinhhung..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 font-mono text-slate-800 shadow-inner text-xs">
                             </div>
-                        </div>
-
-                        <div class="flex justify-end pt-4 border-t border-amber-100">
-                            <button type="submit" class="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl text-xs uppercase shadow-lg shadow-amber-600/25 transition tracking-wider">
-                                <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Thay Đổi Footer Ngay
-                            </button>
                         </div>
                     </form>
                 </div>
@@ -1001,20 +996,16 @@
 
         const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
 
-        // Thuật toán tính ngày Âm lịch cơ bản & Can Chi
         function convertSolarToLunar(solarDate) {
-            // Thuật toán mô phỏng chuyển đổi lịch âm chuẩn cho ngày dương lịch
             const year = solarDate.getFullYear();
             const month = solarDate.getMonth() + 1;
             const day = solarDate.getDate();
 
-            // Mảng can chi đơn giản cho năm, tháng, ngày
             const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
             const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
 
             const yearCanChi = can[(year - 4) % 10] + " " + chi[(year - 4) % 12];
             
-            // Xấp xỉ ngày âm lệch khoảng -29 đến -30 ngày tùy tháng
             let lunarDay = day - 11;
             let lunarMonth = month;
             let lunarYear = year;
@@ -1147,26 +1138,19 @@
                         email: "chuavinhhung.dongnai@gmail.com",
                         youtube: "https://www.youtube.com/@ChuaVinhHung",
                         tiktok: "https://www.tiktok.com/@chuavinhhung",
-                        facebook: "https://www.facebook.com/chuavinhhung"
+                        facebook: "https://www.facebook.com/chuavinhhung",
+                        hidden: false
                     };
                     await database.ref('footer_config').set(config);
                 }
 
-                const addrEl = document.getElementById('footer-address');
-                const hoursEl = document.getElementById('footer-hours');
-                const phoneEl = document.getElementById('footer-phone');
-                const emailEl = document.getElementById('footer-email');
-                const ytEl = document.getElementById('footer-youtube');
-                const ttEl = document.getElementById('footer-tiktok');
-                const fbEl = document.getElementById('footer-facebook');
-
-                if (addrEl) addrEl.value = config.address || '';
-                if (hoursEl) hoursEl.value = config.hours || '';
-                if (phoneEl) phoneEl.value = config.phone || '';
-                if (emailEl) emailEl.value = config.email || '';
-                if (ytEl) ytEl.value = config.youtube || '';
-                if (ttEl) ttEl.value = config.tiktok || '';
-                if (fbEl) fbEl.value = config.facebook || '';
+                document.getElementById('footer-address').value = config.address || '';
+                document.getElementById('footer-hours').value = config.hours || '';
+                document.getElementById('footer-phone').value = config.phone || '';
+                document.getElementById('footer-email').value = config.email || '';
+                document.getElementById('footer-youtube').value = config.youtube || '';
+                document.getElementById('footer-tiktok').value = config.tiktok || '';
+                document.getElementById('footer-facebook').value = config.facebook || '';
             } catch (err) {
                 console.error("Lỗi tải cấu hình footer:", err);
             }
@@ -1186,8 +1170,15 @@
             const youtube = document.getElementById('footer-youtube').value.trim();
             const tiktok = document.getElementById('footer-tiktok').value.trim();
             const facebook = document.getElementById('footer-facebook').value.trim();
+            
+            // Keep existing hidden value if present in database
+            let hiddenVal = false;
+            try {
+                const snap = await database.ref('footer_config/hidden').once('value');
+                if (snap.exists()) hiddenVal = snap.val();
+            } catch(e){}
 
-            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook };
+            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook, hidden: hiddenVal };
 
             try {
                 await database.ref('footer_config').set(footerPayload);
@@ -1649,7 +1640,7 @@
                 if (permTabWrapper) permTabWrapper.style.display = 'block';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'block';
                 if (quickButtons) quickButtons.style.display = 'grid';
-                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk', 'btn-add-menu'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'inline-flex';
                 });
@@ -1660,7 +1651,7 @@
                 if (permTabWrapper) permTabWrapper.style.display = 'none';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'grid';
-                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk', 'btn-add-menu'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'inline-flex';
                 });
@@ -1671,7 +1662,7 @@
                 if (permTabWrapper) permTabWrapper.style.display = 'none';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'none';
-                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk', 'btn-add-menu'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'none';
                 });
@@ -2468,11 +2459,11 @@
                 
                 if (Object.keys(menuData).length === 0) {
                     const defaultMenus = [
-                        { title: 'Trang Chủ', url: 'index.html', order: 1 },
-                        { title: 'Giới Thiệu', url: 'gioi-thieu.html', order: 2 },
-                        { title: 'Tin Tức & Khóa Tu', url: 'tin-tuc.html', order: 3 },
-                        { title: 'Giảng Pháp', url: 'video.html', order: 4 },
-                        { title: 'Liên Hệ', url: 'lien-he.html', order: 5 }
+                        { title: 'Trang Chủ', url: 'index.html', order: 1, hidden: false },
+                        { title: 'Giới Thiệu', url: 'gioi-thieu.html', order: 2, hidden: false },
+                        { title: 'Tin Tức & Khóa Tu', url: 'tin-tuc.html', order: 3, hidden: false },
+                        { title: 'Giảng Pháp', url: 'video.html', order: 4, hidden: false },
+                        { title: 'Liên Hệ', url: 'lien-he.html', order: 5, hidden: false }
                     ];
                     for (const m of defaultMenus) {
                         await database.ref('menus').push(m);
@@ -2491,13 +2482,19 @@
 
             const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có mục menu nào.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Chưa có mục menu nào.</td></tr>`;
                 return;
             }
 
             let html = '';
             keys.forEach((key, index) => {
                 const item = menuData[key];
+                const isHidden = item.hidden === true;
+                
+                const statusBadge = isHidden 
+                    ? `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
+                    : `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
+
                 let buttons = '';
                 if (currentAdminRole === 'viewer') {
                     buttons = `<span class="text-xs text-slate-400 italic">Chỉ xem</span>`;
@@ -2517,6 +2514,7 @@
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
                         <td class="py-3.5 px-4 font-mono text-xs text-blue-600 font-semibold">${item.url || ''}</td>
                         <td class="py-3.5 px-4 text-center font-mono font-bold text-slate-700">${item.order || 0}</td>
+                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">${buttons}</td>
                     </tr>
                 `;
@@ -2557,7 +2555,13 @@
             const url = document.getElementById('menu-url').value.trim();
             const order = parseInt(document.getElementById('menu-order').value) || 1;
 
-            const payload = { title, url, order };
+            const payload = {
+                title,
+                url,
+                order,
+                hidden: key && menuData[key] ? (menuData[key].hidden || false) : false
+            };
+
             try {
                 if (key) {
                     await database.ref(`menus/${key}`).update(payload);
@@ -2570,6 +2574,19 @@
                 loadMenu();
             } catch (err) {
                 showToast("Lỗi khi lưu menu: " + err.message, true);
+            }
+        }
+
+        async function toggleHideMenu(key) {
+            const item = menuData[key];
+            if (!item) return;
+            const newHiddenState = !(item.hidden === true);
+            try {
+                await database.ref(`menus/${key}`).update({ hidden: newHiddenState });
+                showToast(newHiddenState ? "Đã ẩn mục menu!" : "Đã hiện mục menu!");
+                loadMenu();
+            } catch (err) {
+                showToast("Lỗi cập nhật trạng thái menu: " + err.message, true);
             }
         }
 
