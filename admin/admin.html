@@ -175,14 +175,18 @@
                 <i class="fa-solid fa-users text-base"></i>
                 <span>Chư Tăng & BQT</span>
             </button>
-            <button onclick="switchTab('menu')" id="tab-btn-menu" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
-                <i class="fa-solid fa-bars-staggered text-base"></i>
-                <span>Quản Lý Menu</span>
-            </button>
-            <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
-                <i class="fa-solid fa-shoe-prints text-base"></i>
-                <span>Cấu Hình Footer</span>
-            </button>
+            <div id="nav-menu-wrapper">
+                <button onclick="switchTab('menu')" id="tab-btn-menu" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full font-semibold text-xs uppercase tracking-wide">
+                    <i class="fa-solid fa-bars-staggered text-base"></i>
+                    <span>Quản Lý Menu</span>
+                </button>
+            </div>
+            <div id="nav-footer-wrapper">
+                <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full font-semibold text-xs uppercase tracking-wide">
+                    <i class="fa-solid fa-shoe-prints text-base"></i>
+                    <span>Cấu Hình Footer</span>
+                </button>
+            </div>
             <div id="nav-permissions-wrapper" class="mt-2 pt-2 border-t border-slate-100">
                 <button onclick="switchTab('permissions')" id="tab-btn-permissions" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full bg-rose-50/80 text-rose-700 border border-rose-200 font-semibold text-xs uppercase tracking-wide shadow-sm">
                     <i class="fa-solid fa-user-gear text-base"></i>
@@ -202,99 +206,120 @@
                 
             <!-- TAB 1: OVERVIEW -->
             <section id="tab-sec-overview" class="space-y-6">
+                <!-- Thẻ Thống Kê Tổng Hợp -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <div class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4">
-                        <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl font-bold shadow-inner">
+                    <div onclick="switchTab('news')" class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4 cursor-pointer hover:border-rose-400 transition group">
+                        <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl font-bold shadow-inner group-hover:scale-110 transition">
                             <i class="fa-solid fa-newspaper"></i>
                         </div>
                         <div>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bài Viết</p>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tổng Bài Viết</p>
                             <h3 id="stat-news-count" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</h3>
+                            <span class="text-[10px] text-rose-600 font-bold">Xem danh sách →</span>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4">
-                        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold shadow-inner">
+                    <div onclick="switchTab('videos')" class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4 cursor-pointer hover:border-amber-400 transition group">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold shadow-inner group-hover:scale-110 transition">
                             <i class="fa-solid fa-play"></i>
                         </div>
                         <div>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Video</p>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Video Pháp Thoại</p>
                             <h3 id="stat-video-count" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</h3>
+                            <span class="text-[10px] text-amber-700 font-bold">Xem video →</span>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4">
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold shadow-inner">
-                            <i class="fa-solid fa-file-image"></i>
+                    <div onclick="switchTab('settings')" class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4 cursor-pointer hover:border-emerald-400 transition group">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold shadow-inner group-hover:scale-110 transition">
+                            <i class="fa-solid fa-bolt"></i>
                         </div>
                         <div>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Chuẩn Ảnh</p>
-                            <h3 class="text-xs font-bold text-emerald-700 mt-1 flex items-center"><i class="fa-solid fa-bolt mr-1"></i>WebP Tự Động</h3>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tối Ưu Ảnh</p>
+                            <h3 class="text-xs font-bold text-emerald-700 mt-1 flex items-center">WebP Tự Động</h3>
+                            <span class="text-[10px] text-slate-500 font-semibold">Giảm 70-90% dung lượng</span>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4">
-                        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl font-bold shadow-inner">
+                    <div onclick="switchTab('settings')" class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 flex items-center space-x-4 cursor-pointer hover:border-blue-400 transition group">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl font-bold shadow-inner group-hover:scale-110 transition">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
                         <div>
-                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">ImgBB Cloud</p>
-                            <h3 class="text-xs font-bold text-blue-700 mt-1">Sẵn sàng (Nén)</h3>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Hệ Thống Cloud</p>
+                            <h3 class="text-xs font-bold text-blue-700 mt-1">ImgBB + Realtime</h3>
+                            <span class="text-[10px] text-slate-500 font-semibold">Trực tuyến 24/7</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- WIDGET LỊCH ÂM & LỊCH DƯƠNG TRỰC TUYẾN -->
+                <!-- LỊCH ÂM & LỊCH DƯƠNG TRỰC TUYẾN KẾT HỢP HOẠT ĐỘNG GẦN ĐÂY -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Widget Phật Lịch & Lịch Âm Chi Tiết -->
-                    <div class="bg-gradient-to-br from-rose-900 via-rose-950 to-slate-900 text-white p-7 rounded-3xl custom-shadow border border-rose-800 flex flex-col justify-between space-y-6 relative overflow-hidden">
-                        <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-                        <div class="space-y-3 relative z-10">
+                    <!-- Widget Phật Lịch & Lịch Âm Chi Tiết Sinh Động (Đã đổi sang tông sáng, trang nhã) -->
+                    <div class="bg-gradient-to-br from-amber-50 via-white to-rose-50/60 text-slate-800 p-7 rounded-3xl custom-shadow border border-amber-200/80 flex flex-col justify-between space-y-6 relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-amber-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="space-y-4 relative z-10">
                             <div class="flex items-center justify-between">
-                                <span class="px-3 py-1 rounded-xl bg-amber-400/20 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-amber-400/30">
-                                    <i class="fa-solid fa-dharmachakra mr-1"></i> Phật Lịch 2570
+                                <span class="px-3 py-1.5 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider border border-amber-300 flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-dharmachakra text-amber-600"></i> Phật Lịch 2570
                                 </span>
-                                <span id="current-solar-date" class="text-xs text-rose-200 font-medium">Đang cập nhật...</span>
+                                <span id="current-solar-date" class="text-xs text-slate-500 font-medium">Hôm nay</span>
                             </div>
                             
-                            <!-- Hiển thị Lịch Âm Nổi Bật -->
-                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10 backdrop-blur-sm space-y-1">
-                                <div class="text-[10px] uppercase tracking-wider text-amber-300 font-bold"><i class="fa-solid fa-moon mr-1"></i> Âm Lịch Hôm Nay</div>
-                                <div id="lunar-date-display" class="text-xl font-bold font-serif text-amber-200">Đang tính toán...</div>
-                                <div id="lunar-can-chi" class="text-xs text-rose-100 font-medium italic">Năm Bính Ngọ - Tháng... - Ngày...</div>
+                            <div class="bg-white p-5 rounded-2xl border border-amber-200/60 shadow-sm space-y-2">
+                                <div class="text-[11px] uppercase tracking-wider text-amber-700 font-bold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-moon text-amber-600"></i> Âm Lịch Hôm Nay
+                                </div>
+                                <div id="lunar-date-display" class="text-2xl font-bold font-serif text-rose-700">Đang tính toán...</div>
+                                <div id="lunar-can-chi" class="text-xs text-slate-600 font-medium italic">Năm Bính Ngọ • Ngày...</div>
                             </div>
 
-                            <h4 class="text-sm font-serif font-bold text-amber-200/90 italic leading-snug">"Tâm thanh tịnh thì cõi Phật thanh tịnh."</h4>
+                            <div class="p-4 rounded-2xl bg-amber-100/50 border border-amber-200/60 text-center shadow-inner">
+                                <h4 class="text-xs font-serif font-bold text-amber-900 italic leading-snug">"Tâm thanh tịnh thì cõi Phật thanh tịnh, vạn vật hanh thông."</h4>
+                            </div>
                         </div>
-                        <div class="pt-4 border-t border-rose-800/80 flex items-center justify-between text-xs text-rose-200 relative z-10">
-                            <span id="live-admin-clock" class="font-mono font-bold text-amber-300 text-sm">--:--:--</span>
-                            <span class="flex items-center"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i> Hệ thống an toàn</span>
+
+                        <div class="pt-4 border-t border-amber-200/60 flex items-center justify-between text-xs text-slate-600 relative z-10">
+                            <span id="live-admin-clock" class="font-mono font-bold text-rose-700 text-sm">--:--:--</span>
+                            <span class="flex items-center font-medium"><i class="fa-solid fa-shield-halved text-emerald-600 mr-1.5"></i> An toàn tuyệt đối</span>
                         </div>
                     </div>
 
-                    <!-- Widget Hoạt Động Gần Đây / Bài Viết Mới Nhất -->
+                    <!-- Danh Sách Bài Viết Mới Nhất -->
                     <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-4 lg:col-span-2">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center">
                                 <i class="fa-solid fa-clock-rotate-left mr-2 text-rose-600"></i> Bài Viết Mới Đăng Gần Đây
                             </h3>
-                            <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả →</button>
+                            <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả bài viết →</button>
                         </div>
-                        <div id="overview-recent-news-list" class="space-y-3">
-                            <p class="text-xs text-slate-400 italic">Đang tải danh sách bài viết...</p>
+                        <div id="overview-recent-news-list" class="space-y-3 flex-grow flex flex-col justify-center">
+                            <p class="text-xs text-slate-400 italic text-center py-6">Đang tải danh sách bài viết...</p>
                         </div>
                     </div>
                 </div>
 
-                <div id="quick-action-buttons" class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
-                    <button onclick="openNewsModal()" class="w-full py-5 px-8 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold rounded-2xl shadow-lg shadow-rose-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
-                        <i class="fa-solid fa-pen-to-square text-xl"></i>
-                        <span>Thêm Bài Viết Tin Tức Mới</span>
-                    </button>
-                    <button onclick="openVideoModal()" class="w-full py-5 px-8 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl shadow-lg shadow-amber-600/25 transition flex items-center justify-center space-x-3 text-sm uppercase tracking-wider">
-                        <i class="fa-solid fa-video text-xl"></i>
-                        <span>Thêm Video Pháp Thoại</span>
-                    </button>
+                <!-- Lối tắt tác vụ nhanh -->
+                <div class="bg-white p-6 rounded-3xl custom-shadow border border-slate-200/80 space-y-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tác Vụ Quản Trị Nhanh</h3>
+                    <div id="quick-action-buttons" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <button onclick="openNewsModal()" class="py-4 px-5 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition flex items-center justify-center space-x-2.5 text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-pen-to-square text-base"></i>
+                            <span>Thêm Bài Viết</span>
+                        </button>
+                        <button onclick="openVideoModal()" class="py-4 px-5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl shadow-md shadow-amber-600/20 transition flex items-center justify-center space-x-2.5 text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-video text-base"></i>
+                            <span>Thêm Video</span>
+                        </button>
+                        <button onclick="switchTab('menu')" class="py-4 px-5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-2xl transition flex items-center justify-center space-x-2.5 text-xs uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-bars-staggered text-base text-rose-600"></i>
+                            <span>Quản Lý Menu</span>
+                        </button>
+                        <button onclick="switchTab('footer')" class="py-4 px-5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-2xl transition flex items-center justify-center space-x-2.5 text-xs uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-shoe-prints text-base text-amber-600"></i>
+                            <span>Cấu Hình Footer</span>
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -1138,8 +1163,7 @@
                         email: "chuavinhhung.dongnai@gmail.com",
                         youtube: "https://www.youtube.com/@ChuaVinhHung",
                         tiktok: "https://www.tiktok.com/@chuavinhhung",
-                        facebook: "https://www.facebook.com/chuavinhhung",
-                        hidden: false
+                        facebook: "https://www.facebook.com/chuavinhhung"
                     };
                     await database.ref('footer_config').set(config);
                 }
@@ -1170,15 +1194,8 @@
             const youtube = document.getElementById('footer-youtube').value.trim();
             const tiktok = document.getElementById('footer-tiktok').value.trim();
             const facebook = document.getElementById('footer-facebook').value.trim();
-            
-            // Keep existing hidden value if present in database
-            let hiddenVal = false;
-            try {
-                const snap = await database.ref('footer_config/hidden').once('value');
-                if (snap.exists()) hiddenVal = snap.val();
-            } catch(e){}
 
-            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook, hidden: hiddenVal };
+            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook };
 
             try {
                 await database.ref('footer_config').set(footerPayload);
@@ -1628,6 +1645,8 @@
         function applyRolePermissions() {
             const badge = document.getElementById('sidebar-role-badge');
             const nameDisplay = document.getElementById('admin-display-name');
+            const menuTabWrapper = document.getElementById('nav-menu-wrapper');
+            const footerTabWrapper = document.getElementById('nav-footer-wrapper');
             const permTabWrapper = document.getElementById('nav-permissions-wrapper');
             const settingsTabWrapper = document.getElementById('nav-settings-wrapper');
             const quickButtons = document.getElementById('quick-action-buttons');
@@ -1637,6 +1656,8 @@
                 badge.textContent = "Quyền: Tối Cao (Super)";
                 badge.className = "inline-block mt-1 px-2.5 py-1 rounded-lg text-[10px] bg-rose-100 text-rose-700 font-bold uppercase shadow-sm";
                 nameDisplay.textContent = savedName;
+                if (menuTabWrapper) menuTabWrapper.style.display = 'block';
+                if (footerTabWrapper) footerTabWrapper.style.display = 'block';
                 if (permTabWrapper) permTabWrapper.style.display = 'block';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'block';
                 if (quickButtons) quickButtons.style.display = 'grid';
@@ -1648,10 +1669,12 @@
                 badge.textContent = "Quyền: Biên Tập";
                 badge.className = "inline-block mt-1 px-2.5 py-1 rounded-lg text-[10px] bg-blue-100 text-blue-700 font-bold uppercase shadow-sm";
                 nameDisplay.textContent = savedName;
+                if (menuTabWrapper) menuTabWrapper.style.display = 'none';
+                if (footerTabWrapper) footerTabWrapper.style.display = 'none';
                 if (permTabWrapper) permTabWrapper.style.display = 'none';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'grid';
-                ['btn-add-news', 'btn-add-video', 'btn-add-monk', 'btn-add-menu'].forEach(id => {
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'inline-flex';
                 });
@@ -1659,10 +1682,12 @@
                 badge.textContent = "Quyền: Theo Dõi";
                 badge.className = "inline-block mt-1 px-2.5 py-1 rounded-lg text-[10px] bg-emerald-100 text-emerald-700 font-bold uppercase shadow-sm";
                 nameDisplay.textContent = savedName;
-                if (permTabWrapper) permTabWrapper.style.display = 'none';
+                if (menuTabWrapper) menuTabWrapper.style.display = 'none';
+                if (footerTabWrapper) footerTabWrapper.style.display = 'none';
+                if (permTabWrapper) menuTabWrapper.style.display = 'none';
                 if (settingsTabWrapper) settingsTabWrapper.style.display = 'none';
                 if (quickButtons) quickButtons.style.display = 'none';
-                ['btn-add-news', 'btn-add-video', 'btn-add-monk', 'btn-add-menu'].forEach(id => {
+                ['btn-add-news', 'btn-add-video', 'btn-add-monk'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'none';
                 });
