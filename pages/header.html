@@ -1,94 +1,42 @@
-<header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 text-white bg-black bg-opacity-40">
+<header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 text-white bg-black/50 backdrop-blur-sm border-b border-white/10">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
-            <!-- Logo -->
+            <!-- Logo và Tên Chùa -->
             <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
-                <div class="w-16 h-16 sm:w-14 sm:h-14 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-amber-400 overflow-hidden flex items-center justify-center">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white p-1 shadow-md flex-shrink-0 border-2 border-amber-400 overflow-hidden flex items-center justify-center">
                     <img src="images/logo.png" alt="Logo Chùa Vĩnh Hưng" onerror="this.src='https://placehold.co/100x100/e11d48/ffffff?text=VH'">
                 </div>
-                <span class="logo-text text-2xl font-heading font-bold tracking-wider transition-colors duration-300" style="margin-left: 5mm;">
+                <span id="logo-text" class="logo-text text-lg sm:text-2xl font-serif font-bold tracking-wider transition-colors duration-300 ml-3 text-amber-200">
                     CHÙA VĨNH HƯNG
                 </span>
             </div>
             
-            <!-- Desktop Menu (Động từ Firebase) -->
-            <nav id="desktop-menu-nav" class="hidden md:flex space-x-8">
-                <a href="index.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">Trang Chủ</a>
-                <a href="gioi-thieu.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">Giới Thiệu</a>
-                <a href="tin-tuc.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">Tin Tức & Khóa Tu</a>
-                <a href="video.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">Giảng Pháp</a>
-                <a href="lien-he.html" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">Liên Hệ</a>
+            <!-- Desktop Menu -->
+            <nav id="desktop-menu-nav" class="hidden md:flex space-x-6 lg:space-x-8 items-center">
+                <a href="index.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-bold pb-1 border-b-2 text-amber-400 border-amber-400">Trang Chủ</a>
+                <a href="gioi-thieu.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-semibold text-white hover:text-amber-300">Giới Thiệu</a>
+                <a href="tin-tuc.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-semibold text-white hover:text-amber-300">Tin Tức & Khóa Tu</a>
+                <a href="video.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-semibold text-white hover:text-amber-300">Giảng Pháp</a>
+                <a href="lien-he.html" class="nav-link text-xs lg:text-sm uppercase tracking-wider transition-colors font-semibold text-white hover:text-amber-300">Liên Hệ</a>
             </nav>
 
-            <!-- Mobile Menu Button -->
+            <!-- Nút Bật/Tắt Mobile Menu -->
             <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" class="text-gray-200 hover:text-white focus:outline-none p-2">
-                    <i class="fa-solid fa-bars text-2xl"></i>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-amber-200 hover:text-white focus:outline-none p-2 rounded-xl bg-white/10 border border-amber-400/30 transition-colors">
+                    <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Mobile Menu (Động từ Firebase) -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl absolute w-full left-0 top-20 border-t border-gray-100 text-slate-800">
-        <div id="mobile-menu-container" class="px-3 pt-2 pb-4 space-y-1">
-            <a href="index.html" class="block px-3 py-2 text-base font-semibold text-rose-800 hover:bg-rose-50 rounded-xl">Trang Chủ</a>
-            <a href="gioi-thieu.html" class="block px-3 py-2 text-base font-semibold text-slate-700 hover:bg-rose-50 rounded-xl">Giới Thiệu</a>
-            <a href="tin-tuc.html" class="block px-3 py-2 text-base font-semibold text-slate-700 hover:bg-rose-50 rounded-xl">Tin Tức & Khóa Tu</a>
-            <a href="video.html" class="block px-3 py-2 text-base font-semibold text-slate-700 hover:bg-rose-50 rounded-xl">Giảng Pháp</a>
-            <a href="lien-he.html" class="block px-3 py-2 text-base font-semibold text-slate-700 hover:bg-rose-50 rounded-xl">Liên Hệ</a>
+    <!-- Container Menu trên Thiết Bị Di Động -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md shadow-2xl absolute w-full left-0 top-20 border-t border-amber-200 text-slate-800">
+        <div id="mobile-menu-container" class="px-4 py-4 space-y-2">
+            <a href="index.html" class="block px-4 py-2.5 text-sm rounded-xl transition bg-amber-50 text-amber-800 font-bold">Trang Chủ</a>
+            <a href="gioi-thieu.html" class="block px-4 py-2.5 text-sm rounded-xl transition text-slate-700 hover:bg-amber-50 hover:text-amber-700 font-semibold">Giới Thiệu</a>
+            <a href="tin-tuc.html" class="block px-4 py-2.5 text-sm rounded-xl transition text-slate-700 hover:bg-amber-50 hover:text-amber-700 font-semibold">Tin Tức & Khóa Tu</a>
+            <a href="video.html" class="block px-4 py-2.5 text-sm rounded-xl transition text-slate-700 hover:bg-amber-50 hover:text-amber-700 font-semibold">Giảng Pháp</a>
+            <a href="lien-he.html" class="block px-4 py-2.5 text-sm rounded-xl transition text-slate-700 hover:bg-amber-50 hover:text-amber-700 font-semibold">Liên Hệ</a>
         </div>
     </div>
 </header>
-
-<!-- Firebase Script & Dynamic Menu Loader for Public Header -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-<script>
-    if (!firebase.apps.length) {
-        firebase.initializeApp({
-            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        loadDynamicMenus();
-    });
-
-    async function loadDynamicMenus() {
-        try {
-            const snapshot = await firebase.database().ref('menus').once('value');
-            const menuData = snapshot.val();
-            if (!menuData) return;
-
-            const sortedKeys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
-            
-            const desktopNav = document.getElementById('desktop-menu-nav');
-            const mobileContainer = document.getElementById('mobile-menu-container');
-
-            if (desktopNav && mobileContainer) {
-                let desktopHtml = '';
-                let mobileHtml = '';
-
-                sortedKeys.forEach(key => {
-                    const item = menuData[key];
-                    const title = item.title || '';
-                    const url = item.url || '#';
-
-                    desktopHtml += `<a href="${url}" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-amber-300 transition-colors">${title}</a>`;
-                    mobileHtml += `<a href="${url}" class="block px-3 py-2.5 text-base font-semibold text-slate-700 hover:bg-rose-50 hover:text-rose-700 rounded-xl transition">${title}</a>`;
-                });
-
-                desktopNav.innerHTML = desktopHtml;
-                mobileContainer.innerHTML = mobileHtml;
-
-                // Sau khi nội dung menu động đã được đổ xong vào DOM, gọi lại sự kiện Active để đánh dấu menu
-                if (typeof setActiveNavLink === 'function') {
-                    setActiveNavLink();
-                }
-            }
-        } catch (err) {
-            console.error("Lỗi tải menu động cho header:", err);
-        }
-    }
-</script>

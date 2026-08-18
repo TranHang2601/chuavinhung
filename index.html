@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chùa Vĩnh Hưng | Trang Chủ</title>
     
-    <!-- Cài đặt Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Cài đặt Font Awesome cho các Icon -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <!-- Cài đặt Tailwind CSS -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -30,54 +34,46 @@
                     fontFamily: {
                         heading: ['Lora', 'serif'],
                         body: ['Nunito Sans', 'sans-serif'],
+                        serif: ['Lora', 'serif']
                     }
                 }
             }
         }
     </script>
 
-    <!-- Hiệu ứng chuyển động khi cuộn chuột -->
     <style>
         .hero-bg {
             background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('images/ngoichua3.jpg');
             background-size: cover;
             background-position: center;
         }
-        
-        /* Hiệu ứng ẩn ban đầu để chuẩn bị cho cuộn chuột */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-
         .reveal-left {
             opacity: 0;
             transform: translateX(-50px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .reveal-left.active {
             opacity: 1;
             transform: translateX(0);
         }
-
         .reveal-right {
             opacity: 0;
             transform: translateX(50px);
             transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .reveal-right.active {
             opacity: 1;
             transform: translateX(0);
         }
-
         @keyframes floatLotus {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -88,9 +84,11 @@
     </style>
 </head>
 <body class="text-gray-800 antialiased bg-[#faf8f5]">
-    <!-- Thẻ header -->
+
+    <!-- Header được nạp tự động từ file header.html hoặc qua main.js fallback -->
     <div id="header-container"></div>
     
+    <!-- Hero Section -->
     <section class="hero-bg h-screen relative flex items-center justify-center">
         <div class="text-center px-4 z-10 text-white mt-16 max-w-4xl mx-auto">
             <h2 class="text-xl md:text-2xl font-body font-light mb-4 text-buddhist-lightgold tracking-widest uppercase animate-pulse">
@@ -112,7 +110,6 @@
             </div>
         </div>
         
-        <!-- Mũi tên scroll xuống có hiệu ứng nhún nhảy -->
         <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
             <a href="#gioi-thieu" class="text-white opacity-80 hover:opacity-100 transition">
                 <i class="fa-solid fa-chevron-down text-3xl"></i>
@@ -120,6 +117,7 @@
         </div>
     </section>
 
+    <!-- Section: Lịch Sử & Kiến Trúc -->
     <section id="gioi-thieu" class="py-24 bg-white overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -132,7 +130,7 @@
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="w-full lg:w-1/2 reveal-left">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
-                        <img src="images/ngoichua6.jpg" alt="Kiến trúc chùa" class="w-full h-auto object-cover group-hover:scale-110 transition duration-700">
+                        <img src="images/ngoichua6.jpg" alt="Kiến trúc chùa" class="w-full h-auto object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/600x400?text=ChuaVinhHung'">
                         <div class="absolute bottom-0 left-0 bg-buddhist-gold text-buddhist-dark py-2.5 px-5 rounded-tr-2xl font-semibold shadow-md">
                             Cù Lao Tân Triều
                         </div>
@@ -143,23 +141,6 @@
                     <p class="text-gray-600 mb-6 leading-relaxed">
                         Chùa Vĩnh Hưng được kiến tạo với ước nguyện mang lại một không gian tĩnh lặng, thanh bình cho quý thiện nam tín nữ Phật tử xa gần. Trải qua nhiều năm trùng tu và xây dựng, chốn tổ nay đã khoác lên mình nét kiến trúc truyền thống đặc trưng của Phật giáo Việt Nam.
                     </p>
-                    <p class="text-gray-600 mb-8 leading-relaxed">
-                        Không chỉ là nơi chiêm bái, cầu an, Chùa Vĩnh Hưng còn là đạo tràng tu học uy tín, thường xuyên tổ chức các khóa tu Bát Quan Trai, tu học tuổi trẻ và các hoạt động an sinh xã hội.
-                    </p>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start transition hover:translate-x-2 duration-300">
-                            <i class="fa-solid fa-check text-buddhist-gold mt-1 mr-3"></i>
-                            <span class="text-gray-700">Kiến trúc trang nghiêm, không gian xanh mát, tĩnh tại.</span>
-                        </li>
-                        <li class="flex items-start transition hover:translate-x-2 duration-300">
-                            <i class="fa-solid fa-check text-buddhist-gold mt-1 mr-3"></i>
-                            <span class="text-gray-700">Đạo tràng tu học hướng dẫn tận tâm bởi chư Tôn đức Tăng Ni.</span>
-                        </li>
-                        <li class="flex items-start transition hover:translate-x-2 duration-300">
-                            <i class="fa-solid fa-check text-buddhist-gold mt-1 mr-3"></i>
-                            <span class="text-gray-700">Lan tỏa tình thương qua các hoạt động từ thiện cộng đồng.</span>
-                        </li>
-                    </ul>
                     <a href="gioi-thieu.html" class="inline-flex items-center text-buddhist-maroon font-semibold hover:text-buddhist-gold transition group">
                         Đọc toàn bộ lịch sử <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition"></i>
                     </a>
@@ -168,6 +149,7 @@
         </div>
     </section>
 
+    <!-- Section: Tin Tức & Phật Sự -->
     <section id="tin-tuc" class="py-24 bg-[#faf8f5] overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -178,7 +160,6 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Cập nhật những thông tin mới nhất về các hoạt động tu học, từ thiện và sự kiện Phật giáo diễn ra tại chùa.</p>
             </div>
 
-            <!-- CONTAINER CHỨA DỮ LIỆU TIN TỨC TỰ ĐỘNG -->
             <div id="tin-tuc-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
                 <div class="col-span-full text-center py-10">
                     <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
@@ -194,9 +175,8 @@
         </div>
     </section>
 
+    <!-- Section: Lời Phật Dạy & Pháp Thoại -->
     <section id="phat-phap" class="py-24 bg-gray-900 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#d4af37\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-        
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
                 <div>
@@ -216,6 +196,7 @@
         </div>
     </section>
 
+    <!-- Section: Cúng Dường -->
     <section class="py-20 bg-buddhist-maroon text-white overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
             <h2 class="text-3xl font-heading font-bold mb-6 text-buddhist-lightgold">Góp Phần Xây Dựng Tam Bảo & Quỹ Từ Thiện</h2>
@@ -230,64 +211,68 @@
         </div>
     </section>
 
-    <!-- Container cho Footer -->
+    <!-- Footer Container -->
     <div id="footer-container"></div>
 
+    <!-- Script nạp Header tự động & xử lý dữ liệu -->
     <script src="js/main.js"></script>
+
+    <!-- Script xử lý dữ liệu trang chủ -->
     <script>
-        // Hiệu ứng cuộn chuột xuất hiện mượt mà (Scroll Animation)
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadLatestNews();
+            loadHomeVideos();
+            revealOnScroll();
+        });
+
+        window.addEventListener('scroll', revealOnScroll);
+
         function revealOnScroll() {
             var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add('active');
                 }
             }
         }
 
-        window.addEventListener('scroll', revealOnScroll);
-
-        // Hàm tải tin tức và lọc bỏ bài viết bị ẩn
         async function loadLatestNews() {
             try {
                 const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json');
                 const data = await response.json();
-                
                 const container = document.getElementById('tin-tuc-container');
-                
                 if (data) {
-                    const newsList = Object.keys(data)
-                        .map(key => ({
-                            id: key,
-                            ...data[key]
-                        }))
+                    const newsList = Object.keys(data).map(key => ({ id: key, ...data[key] }))
                         .filter(item => item.hidden !== true && item.hidden !== 'true')
-                        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+                        .sort((a, b) => (b.created_at || 0) - (a.created_at || 0)).slice(0, 3);
                     
                     if (newsList.length === 0) {
-                        container.innerHTML = "<p class='text-center col-span-full text-gray-500 py-8'>Hiện chưa có bài viết nào được hiển thị.</p>";
+                        container.innerHTML = "<p class='text-center col-span-full text-gray-500 py-8'>Hiện chưa có bài viết nào.</p>";
                         return;
                     }
-
-                    const latestThree = newsList.slice(0, 3);
-                    
-                    container.innerHTML = latestThree.map(item => `
-                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-amber-100 transform hover:-translate-y-2">
-                            <div class="relative overflow-hidden group h-60 bg-gray-100">
-                                <img src="${item.image || 'https://placehold.co/600x400?text=ChuaVinhHung'}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=ChuaVinhHung'">
+                    container.innerHTML = newsList.map(item => `
+                        <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-amber-100">
+                            <div class="h-60 bg-gray-100 overflow-hidden">
+                                <img src="${item.image || 'https://placehold.co/600x400?text=ChuaVinhHung'}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=ChuaVinhHung'">
                             </div>
                             <div class="p-6 flex-1 flex flex-col justify-between">
                                 <div>
-                                    <div class="text-xs font-semibold text-buddhist-gold uppercase tracking-wider mb-2">
-                                        <i class="fa-regular fa-calendar mr-1.5"></i> ${item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Đang cập nhật'}
+                                    <div class="text-xs font-semibold text-buddhist-gold uppercase mb-2">
+                                        <i class="fa-regular fa-calendar mr-1.5"></i> ${item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : ''}
                                     </div>
-                                    <h3 class="text-xl font-heading font-bold mb-3 hover:text-buddhist-maroon transition cursor-pointer line-clamp-2">${item.title}</h3>
-                                    <p class="text-gray-600 mb-4 line-clamp-3 text-sm">${item.content ? item.content.replace(/<[^>]*>/g, '').substring(0, 150) : ''}...</p>
+                                    <h3 class="text-xl font-heading font-bold mb-3 line-clamp-2">${item.title}</h3>
+                                    <p class="text-gray-600 text-sm line-clamp-3">${item.content ? item.content.replace(/<[^>]*>/g, '').substring(0, 140) : ''}...</p>
                                 </div>
-                                <div class="pt-4 border-t border-gray-100">
+                                <div class="pt-4 border-t border-gray-100 mt-4">
                                     <a href="chi-tiet-tin-tuc.html?slug=${item.slug || item.id}" class="text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
                                         Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                     </a>
@@ -296,94 +281,72 @@
                         </article>
                     `).join('');
                 } else {
-                    container.innerHTML = "<p class='text-center col-span-full text-gray-500 py-8'>Hiện chưa có bài viết nào.</p>";
+                    container.innerHTML = "<p class='text-center col-span-full text-gray-500 py-8'>Chưa có tin tức.</p>";
                 }
-            } catch (error) {
+            } catch (err) {
                 document.getElementById('tin-tuc-container').innerHTML = "<p class='text-center col-span-full text-red-500 py-8'>Không thể tải tin tức.</p>";
             }
         }
 
-        const DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos.json';
-
         function getYouTubeID(url) {
             if (!url) return null;
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
+            const match = url.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        // Hàm tải video trang chủ và lọc bỏ video bị ẩn
         async function loadHomeVideos() {
             const container = document.getElementById('home-video-container');
             try {
-                const response = await fetch(DB_URL);
+                const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/videos.json');
                 const data = await response.json();
                 if (!data) {
-                    container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Hiện chưa có video nào được đăng.</p>';
+                    container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Chưa có video.</p>';
                     return;
                 }
-
-                const activeVideos = Object.keys(data)
-                    .map(key => ({ id: key, ...data[key] }))
+                const videos = Object.keys(data).map(key => ({ id: key, ...data[key] }))
                     .filter(v => v.hidden !== true && v.hidden !== 'true')
-                    .sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
-
-                if (activeVideos.length === 0) {
-                    container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Hiện chưa có video nào được hiển thị.</p>';
+                    .sort((a, b) => (b.created_at || 0) - (a.created_at || 0)).slice(0, 4);
+                
+                if (videos.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Chưa có video.</p>';
                     return;
                 }
 
-                const videos = activeVideos.slice(0, 4);
                 const main = videos[0];
                 const others = videos.slice(1);
-
                 let html = `
                     <a href="${main.url}" target="_blank" class="lg:col-span-2 relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl block">
-                        <img src="https://img.youtube.com/vi/${getYouTubeID(main.url)}/maxresdefault.jpg" alt="Thumbnail video" class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition duration-300"></div>
+                        <img src="https://img.youtube.com/vi/${getYouTubeID(main.url)}/maxresdefault.jpg" class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-opacity-20 transition"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 bg-buddhist-gold rounded-full flex items-center justify-center text-buddhist-dark text-2xl group-hover:bg-white transition duration-300 shadow-[0_0_20px_rgba(212,175,55,0.8)] transform group-hover:scale-110">
+                            <div class="w-16 h-16 bg-buddhist-gold rounded-full flex items-center justify-center text-buddhist-dark text-2xl shadow-lg">
                                 <i class="fa-solid fa-play ml-1"></i>
                             </div>
                         </div>
                         <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
                             <span class="bg-buddhist-maroon text-xs px-2.5 py-1 rounded-lg text-white mb-2 inline-block font-semibold">Mới nhất</span>
-                            <h3 class="text-xl font-heading font-bold text-white group-hover:text-buddhist-lightgold transition line-clamp-2">${main.title}</h3>
+                            <h3 class="text-xl font-heading font-bold text-white line-clamp-2">${main.title}</h3>
                         </div>
                     </a>
                 `;
-
                 if (others.length > 0) {
-                    html += `
-                        <div class="flex flex-col gap-6 lg:col-span-2 justify-between">
-                            ${others.map(v => `
-                            <a href="${v.url}" target="_blank" class="flex gap-4 group cursor-pointer bg-gray-800/60 p-3 rounded-2xl border border-gray-700/50 hover:border-buddhist-gold/50 transition shadow-md">
-                                <div class="relative w-36 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-gray-900">
-                                    <img src="https://img.youtube.com/vi/${getYouTubeID(v.url)}/hqdefault.jpg" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
-                                        <i class="fa-solid fa-play text-white opacity-90 group-hover:text-buddhist-gold transition text-xl"></i>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col justify-center flex-1">
-                                    <h4 class="font-heading font-bold text-sm md:text-base text-gray-100 group-hover:text-buddhist-lightgold transition line-clamp-2">${v.title}</h4>
-                                </div>
-                            </a>
-                            `).join('')}
-                        </div>
-                    `;
+                    html += `<div class="flex flex-col gap-6 lg:col-span-2 justify-between">` + others.map(v => `
+                        <a href="${v.url}" target="_blank" class="flex gap-4 group cursor-pointer bg-gray-800/60 p-3 rounded-2xl border border-gray-700/50 hover:border-buddhist-gold/50 transition">
+                            <div class="relative w-36 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-gray-900">
+                                <img src="https://img.youtube.com/vi/${getYouTubeID(v.url)}/hqdefault.jpg" class="w-full h-full object-cover group-hover:scale-110 transition">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/30"><i class="fa-solid fa-play text-white"></i></div>
+                            </div>
+                            <div class="flex flex-col justify-center flex-1">
+                                <h4 class="font-heading font-bold text-sm text-gray-100 group-hover:text-buddhist-lightgold line-clamp-2">${v.title}</h4>
+                            </div>
+                        </a>
+                    `).join('') + `</div>`;
                 }
-
                 container.innerHTML = html;
             } catch (err) {
                 container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Không thể tải video.</p>';
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadLatestNews();
-            loadHomeVideos();
-            revealOnScroll(); // Kích hoạt kiểm tra hiển thị khi tải trang xong
-        });
     </script>
 </body>
 </html>
