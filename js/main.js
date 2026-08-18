@@ -50,99 +50,141 @@ const DEFAULT_HEADER_HTML = `
 // FOOTER DEFAULTS & LOGIC
 // ==========================================
 const DEFAULT_FOOTER_HTML = `
-<footer id="lien-he" class="bg-buddhist-dark text-gray-300 pt-16 pb-8 border-t-[6px] border-buddhist-gold">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-            <!-- Cột 1 -->
-            <div>
-                <div class="flex items-center mb-6">
-                    <i class="fa-solid fa-dharmachakra text-3xl text-buddhist-gold mr-3"></i>
-                    <span class="text-2xl font-heading font-bold tracking-wider text-white">
-                        CHÙA VĨNH HƯNG
-                    </span>
-                </div>
-                <p class="text-sm leading-relaxed mb-6">
-                    Ngôi chùa thanh tịnh, nơi lan tỏa ánh sáng Phật pháp, giúp mọi người tìm thấy sự bình an trong tâm hồn và hướng tới nếp sống chân - thiện - mỹ.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-buddhist-gold hover:text-buddhist-dark transition">
-                        <i class="fa-brands fa-tiktok"></i>
-                    </a>
-                </div>
-            </div>
+<footer id="lien-he" class="bg-gradient-to-b from-[#ffffff] via-[#fcfaf7] to-[#f4efe6] text-gray-800 pt-16 pb-12 relative overflow-hidden border-t border-amber-200/60 shadow-inner">
+    <!-- Họa tiết hào quang ánh sáng thiền định tinh tế ở trung tâm -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-amber-400/10 blur-[140px] pointer-events-none rounded-full"></div>
 
-            <!-- Cột 2 -->
-            <div>
-                <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                    Liên Kết Nhanh
-                    <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                </h4>
-                <ul class="space-y-3 text-sm">
-                    <li><a href="gioi-thieu.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giới thiệu Chùa</a></li>
-                    <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Lịch hoạt động & Khóa tu</a></li>
-                    <li><a href="video.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Thư viện Video Bài Giảng</a></li>
-                    <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Hoạt động Từ Thiện</a></li>
-                    <li><a href="lien-he.html" class="hover:text-buddhist-gold transition"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Quỹ Cúng Dường</a></li>
-                </ul>
-            </div>
-
-            <!-- Cột 3 -->
-            <div>
-                <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                    Thông Tin Liên Hệ
-                    <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                </h4>
-                <ul class="space-y-4 text-sm">
-                    <li class="flex items-start">
-                        <i class="fa-solid fa-location-dot mt-1 text-buddhist-gold mr-3"></i>
-                        <span>Khu Phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai</span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fa-solid fa-phone text-buddhist-gold mr-3"></i>
-                        <span>(028) 3812 3456</span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fa-solid fa-envelope text-buddhist-gold mr-3"></i>
-                        <span>chuavinhhung@gmail.com</span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fa-regular fa-clock text-buddhist-gold mr-3"></i>
-                        <span>Mở cửa: 04:30 - 21:00 mỗi ngày</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Cột 4 -->
-            <div>
-                <h4 class="text-white font-heading font-bold text-lg mb-6 uppercase tracking-wider relative inline-block">
-                    Đăng Ký Nhận Tin
-                    <span class="absolute bottom-[-8px] left-0 w-1/2 h-1 bg-buddhist-gold"></span>
-                </h4>
-                <p class="text-sm mb-4">Để lại email để nhận thông báo về các khóa tu và bản tin Phật sự mới nhất.</p>
-                <form class="flex flex-col space-y-3" onsubmit="event.preventDefault();">
-                    <input type="email" placeholder="Nhập địa chỉ email..." class="bg-gray-800 text-white border border-gray-700 px-4 py-2 rounded focus:outline-none focus:border-buddhist-gold">
-                    <button type="submit" class="bg-buddhist-gold text-buddhist-dark font-bold py-2 rounded hover:bg-yellow-500 transition">
-                        Đăng Ký
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-            <p>&copy; 2026 Chùa Vĩnh Hưng. Tất cả các quyền được bảo lưu.</p>
-            <div class="mt-4 md:mt-0 space-x-4">
-                <a href="#" class="hover:text-white transition">Chính sách bảo mật</a>
-                <a href="#" class="hover:text-white transition">Điều khoản sử dụng</a>
-            </div>
+    <!-- Kiểu chữ chạy mới: Dải huy hiệu badge nổi bật, mượt mà -->
+    <div class="w-full bg-amber-500/10 border-y border-amber-500/20 py-3.5 mb-14 overflow-hidden relative shadow-inner">
+        <div class="flex whitespace-nowrap animate-marquee text-amber-900 text-xs sm:text-sm font-serif tracking-[0.2em] uppercase font-semibold">
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                <i class="fa-solid fa-spa text-amber-600 mr-2"></i> Nam Mô Bổn Sư Thích Ca Mâu Ni Phật
+            </span>
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                ✦ Tâm Tịnh Thế Giới Bình ✦
+            </span>
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                <i class="fa-solid fa-leaf text-amber-600 mr-2"></i> Sống Tỉnh Thức Trong Hơi Thở Trở Về
+            </span>
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                ✦ Ánh Đạo Vàng Soi Sáng Muôn Phương ✦
+            </span>
+            <!-- Lặp lại nội dung để chạy liên tục không đứt quãng -->
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                <i class="fa-solid fa-spa text-amber-600 mr-2"></i> Nam Mô Bổn Sư Thích Ca Mâu Ni Phật
+            </span>
+            <span class="mx-4 flex items-center bg-white/80 px-4 py-1.5 rounded-full border border-amber-200 shadow-xs">
+                ✦ Tâm Tịnh Thế Giới Bình ✦
+            </span>
         </div>
     </div>
+
+    <div class="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        
+        <!-- Phần trung tâm: Slogan tĩnh thức -->
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 shadow-sm mb-2">
+                <i class="fa-solid fa-dharmachakra text-3xl"></i>
+            </div>
+            <h3 class="text-3xl font-heading font-bold text-gray-900 tracking-wider">CHÙA VĨNH HƯNG</h3>
+            <p class="text-xs sm:text-sm text-amber-800 tracking-[0.3em] uppercase font-semibold">
+                ✦ Nơi Trở Về Của Tâm Hồn An Lạc ✦
+            </p>
+            <p class="text-gray-600 font-serif italic text-base mt-3">
+                "Gửi lại giông bão ngoài kia, giữ trọn tâm an giữa cửa thiền."
+            </p>
+        </div>
+
+        <!-- Bố cục 2 cột cân xứng: Địa chỉ bên trái & Thông tin kết nối bên phải -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-amber-200/80 items-stretch">
+            
+            <!-- Cột 1: Thông tin bản tự & Giờ mở cửa (6 phần) -->
+            <div class="lg:col-span-6 bg-white/90 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-amber-200/90 shadow-xl flex flex-col justify-between space-y-6">
+                <div>
+                    <h4 class="text-gray-900 font-heading font-bold text-lg uppercase tracking-wider mb-6 flex items-center border-b border-amber-100 pb-3">
+                        <span class="w-3 h-3 rounded-full bg-amber-600 mr-3"></span> Địa Chỉ Bổn Tự
+                    </h4>
+                    <ul class="space-y-4 text-sm sm:text-base text-gray-700">
+                        <li class="flex items-start space-x-3.5">
+                            <i class="fa-solid fa-location-dot text-amber-700 mt-1 shrink-0 text-lg"></i>
+                            <span class="leading-relaxed font-medium">Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai</span>
+                        </li>
+                        <li class="flex items-center space-x-3.5">
+                            <i class="fa-solid fa-clock text-amber-700 shrink-0 text-lg"></i>
+                            <span class="font-medium">Mở cửa đón Phật tử: 04:30 - 21:00 hằng ngày</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pt-4 border-t border-amber-100 text-xs text-amber-900 font-medium italic">
+                    Hoan hỷ đón tiếp quý Phật tử gần xa phát tâm chiêm bái, tu học.
+                </div>
+            </div>
+
+            <!-- Cột 2: Liên lạc trực tiếp & Mạng xã hội (6 phần) -->
+            <div class="lg:col-span-6 bg-white/90 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-amber-200/90 shadow-xl flex flex-col justify-between space-y-6">
+                <div>
+                    <h4 class="text-gray-900 font-heading font-bold text-lg uppercase tracking-wider mb-6 flex items-center border-b border-amber-100 pb-3">
+                        <span class="w-3 h-3 rounded-full bg-amber-600 mr-3"></span> Kết Nối Trực Tiếp
+                    </h4>
+                    <ul class="space-y-4 text-sm sm:text-base text-gray-700">
+                        <li class="flex items-center space-x-3.5">
+                            <i class="fa-solid fa-phone-volume text-amber-700 shrink-0 text-lg"></i>
+                            <span class="font-bold text-gray-900">(028) 3812 3456 - 0912 345 678</span>
+                        </li>
+                        <li class="flex items-center space-x-3.5">
+                            <i class="fa-solid fa-envelope-open-text text-amber-700 shrink-0 text-lg"></i>
+                            <span class="font-bold text-gray-900">chuavinhhung.dongnai@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kênh mạng xã hội tinh tế -->
+                <div class="pt-4 border-t border-amber-100 flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Kênh Truyền Thông</span>
+                    <div class="flex space-x-3">
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                            <i class="fa-brands fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                            <i class="fa-brands fa-youtube text-sm"></i>
+                        </a>
+                        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                            <i class="fa-brands fa-tiktok text-sm"></i>
+                        </a>
+                        <a href="#" aria-label="Zalo" class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-600 hover:text-white hover:border-amber-600 flex items-center justify-center text-gray-700 transition shadow-xs">
+                            <i class="fa-solid fa-comment-dots text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Phần dưới cùng: Bản quyền & Liên kết -->
+        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-600 font-medium">
+            <p>&copy; 2026 Chùa Vĩnh Hưng. Trang thông tin Phật sự chính thức.</p>
+            <div class="mt-4 sm:mt-0 space-x-8">
+                <a href="#" class="hover:text-amber-800 transition">Quy Định Đạo Tràng</a>
+                <a href="#" class="hover:text-amber-800 transition">Chính Sách Bảo Mật</a>
+            </div>
+        </div>
+
+    </div>
 </footer>
+
+<style>
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    display: inline-flex;
+    animation: marquee 35s linear infinite;
+}
+.animate-marquee:hover {
+    animation-play-state: paused;
+}
+</style>
 `;
 
 // Mobile Menu Toggle Function
