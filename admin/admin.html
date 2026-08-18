@@ -93,7 +93,7 @@
             </div>
             
             <div class="flex items-center space-x-3">
-                <a href="index.html" target="_blank" class="px-3.5 py-2 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold transition flex items-center border border-amber-300/40 shadow-sm">
+                <a href="../index.html" target="_blank" class="px-3.5 py-2 bg-white/15 hover:bg-white/25 text-white rounded-xl text-xs font-bold transition flex items-center border border-amber-300/40 shadow-sm">
                     <i class="fa-solid fa-globe mr-1.5 text-amber-300"></i> <span class="hidden sm:inline">Xem Trực Tuyến</span>
                 </a>
                 <button onclick="logoutAdmin()" class="px-3.5 py-2 bg-rose-950/80 hover:bg-rose-950 text-amber-200 rounded-xl text-xs font-bold transition flex items-center border border-rose-800 shadow-sm">
@@ -112,11 +112,11 @@
         </div>
         <div>
             <h3 class="text-xl font-bold font-serif text-slate-900 uppercase tracking-wide">Hệ Thống Phân Quyền & Đăng Nhập</h3>
-            <p class="text-xs text-slate-500 mt-1.5 font-medium">Chọn vai trò đăng nhập hoặc nhập mã PIN bảo mật tương ứng</p>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Nhập mã PIN bảo mật tương ứng</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
-            <div onclick="selectRole('super')" id="role-card-super" class="role-card border-2 border-rose-500 bg-rose-50/70 p-3.5 rounded-2xl cursor-pointer hover:border-rose-600 transition shadow-sm">
+        <!-- <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+            <div id="role-card-super" class="role-card border-2 border-rose-500 bg-rose-50/70 p-3.5 rounded-2xl cursor-pointer hover:border-rose-600 transition shadow-sm">
                 <div class="flex items-center justify-between mb-1.5">
                     <span class="font-bold text-xs text-rose-700 uppercase">Tối Cao</span>
                     <i class="fa-solid fa-crown text-amber-500"></i>
@@ -124,7 +124,7 @@
                 <p class="text-[11px] text-slate-600 font-medium leading-tight">Toàn quyền hệ thống, cấu hình & xóa dữ liệu</p>
             </div>
             
-            <div onclick="selectRole('editor')" id="role-card-editor" class="role-card border-2 border-slate-200 bg-white p-3.5 rounded-2xl cursor-pointer hover:border-rose-400 transition shadow-sm">
+            <div id="role-card-editor" class="role-card border-2 border-slate-200 bg-white p-3.5 rounded-2xl cursor-pointer hover:border-rose-400 transition shadow-sm">
                 <div class="flex items-center justify-between mb-1.5">
                     <span class="font-bold text-xs text-slate-800 uppercase">Biên Tập</span>
                     <i class="fa-solid fa-pen-nib text-blue-600"></i>
@@ -132,14 +132,14 @@
                 <p class="text-[11px] text-slate-600 font-medium leading-tight">Đăng bài viết, quản lý video pháp thoại</p>
             </div>
 
-            <div onclick="selectRole('viewer')" id="role-card-viewer" class="role-card border-2 border-slate-200 bg-white p-3.5 rounded-2xl cursor-pointer hover:border-rose-400 transition shadow-sm">
+            <div id="role-card-viewer" class="role-card border-2 border-slate-200 bg-white p-3.5 rounded-2xl cursor-pointer hover:border-rose-400 transition shadow-sm">
                 <div class="flex items-center justify-between mb-1.5">
                     <span class="font-bold text-xs text-slate-800 uppercase">Theo Dõi</span>
                     <i class="fa-solid fa-eye text-emerald-600"></i>
                 </div>
                 <p class="text-[11px] text-slate-600 font-medium leading-tight">Chỉ xem thống kê và danh sách nội dung</p>
             </div>
-        </div>
+        </div> -->
 
         <div class="space-y-4 pt-3 border-t border-slate-100">
             <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN ..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-5 py-4 text-center text-base tracking-widest font-bold border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none bg-slate-50/50 shadow-inner">
@@ -1160,10 +1160,10 @@
                         address: "Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai",
                         hours: "04:30 - 21:00 hằng ngày",
                         phone: "(028) 3812 3456 - 0912 345 678",
-                        email: "chuavinhhung.dongnai@gmail.com",
-                        youtube: "https://www.youtube.com/@ChuaVinhHung",
-                        tiktok: "https://www.tiktok.com/@chuavinhhung",
-                        facebook: "https://www.facebook.com/chuavinhhung"
+                        email: "chuavinhhungtantrieu@gmail.com",
+                        youtube: "http://www.youtube.com/@chuavinhhung-tantrieu4686",
+                        tiktok: "https://www.tiktok.com/@chuavinhhung_0107",
+                        facebook: "https://www.facebook.com/chuavinhhungTT?locale=vi_VN"
                     };
                     await database.ref('footer_config').set(config);
                 }
