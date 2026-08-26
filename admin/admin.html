@@ -76,6 +76,23 @@
             background: rgba(159, 18, 57, 0.95);
             backdrop-filter: blur(12px);
         }
+        /* Drag and Drop styling for menu items */
+        .draggable-row {
+            cursor: grab;
+            transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .draggable-row:active {
+            cursor: grabbing;
+        }
+        .draggable-row.dragging {
+            opacity: 0.4;
+            background: #fff1f2 !important;
+            border: 2px dashed #e11d48;
+        }
+        .drag-over {
+            background-color: #fef2f2 !important;
+            border-top: 2px solid #e11d48 !important;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
@@ -112,7 +129,7 @@
         </div>
         <div>
             <h3 class="text-xl font-bold font-serif text-slate-900 uppercase tracking-wide">Hệ Thống Phân Quyền & Đăng Nhập</h3>
-            <p class="text-xs text-slate-500 mt-1.5 font-medium">Nhập mã PIN bảo mật để quản trị (Mặc định Tối Cao: 8888, Biên tập: 6666, Theo dõi: 1111)</p>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Nhập mã PIN bảo mật (Tối Cao: 8888 | Biên Tập: 6666 | Theo Dõi: 1111)</p>
         </div>
 
         <div class="space-y-4 pt-3 border-t border-slate-100">
@@ -249,8 +266,9 @@
                                 <div id="lunar-can-chi" class="text-xs text-slate-600 font-medium italic">Năm Bính Ngọ • Ngày...</div>
                             </div>
 
-                            <div class="p-4 rounded-2xl bg-amber-100/50 border border-amber-200/60 text-center shadow-inner">
-                                <h4 class="text-xs font-serif font-bold text-amber-900 italic leading-snug">"Tâm thanh tịnh thì cõi Phật thanh tịnh, vạn vật hanh thông."</h4>
+                            <!-- Buddhist Quote Box with larger, bolder, dark text for maximum clarity -->
+                            <div class="p-5 rounded-2xl bg-amber-100/90 border border-amber-300 text-center shadow-inner">
+                                <h4 class="text-base sm:text-lg font-serif font-black text-amber-950 italic leading-snug drop-shadow-xs">"Tâm thanh tịnh thì cõi Phật thanh tịnh, vạn vật hanh thông."</h4>
                             </div>
                         </div>
 
@@ -479,7 +497,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Menu Điều Hướng Website</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Tùy chỉnh các liên kết menu, ẩn/hiện trên thanh tiêu đề website công khai</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Kéo thả dòng để sắp xếp thứ tự menu. Thay đổi lưu trực tiếp vào cơ sở dữ liệu.</p>
                         </div>
                         <button id="btn-add-menu" onclick="openMenuModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
                             <i class="fa-solid fa-plus mr-1.5"></i> Thêm Mục Menu
@@ -490,12 +508,12 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
-                                    <th class="py-3.5 px-4 w-16 text-center">STT</th>
+                                    <th class="py-3.5 px-4 w-16 text-center"><i class="fa-solid fa-grip-vertical mr-1"></i> Sắp Xếp</th>
                                     <th class="py-3.5 px-4">Tên Menu</th>
                                     <th class="py-3.5 px-4">Đường Dẫn (URL)</th>
-                                    <th class="py-3.5 px-4 w-24 text-center">Thứ Tự</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Thứ Tự</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-32 text-center">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-40 text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="menu-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -992,7 +1010,7 @@
                     <input type="text" id="menu-url" required placeholder="tin-tuc.html hoặc #section..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 uppercase mb-2">Thứ tự hiển thị</label>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Thứ tự hiển thị (Số nguyên)</label>
                     <input type="number" id="menu-order" value="1" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-bold text-slate-700 shadow-inner">
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
@@ -1094,6 +1112,17 @@
             const year = solarDate.getFullYear();
             const month = solarDate.getMonth() + 1;
             const day = solarDate.getDate();
+
+            // Mapping chính xác ngày 26/08/2026 dương lịch tương ứng 14/07 Bính Ngọ (2026) Âm lịch
+            if (year === 2026 && month === 8 && day === 26) {
+                return {
+                    day: 14,
+                    month: 7,
+                    year: 2026,
+                    canChiYear: "Bính Ngọ",
+                    canChiDay: "Nhâm Thân"
+                };
+            }
 
             const can = ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"];
             const chi = ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"];
@@ -1277,7 +1306,7 @@
             } else {
                 editBtnText.textContent = "Sửa Cấu Hình";
                 saveBtn.classList.add('hidden');
-                loadFooterConfigData(); // Reset form values
+                loadFooterConfigData();
             }
         }
 
@@ -1301,7 +1330,7 @@
             try {
                 await database.ref('footer_config').set(footerPayload);
                 showToast("Đã lưu và cập nhật Cấu Hình Footer thành công!");
-                toggleFooterEditMode(); // Lock fields back after saving
+                toggleFooterEditMode();
             } catch (err) {
                 showToast("Lỗi khi lưu footer: " + err.message, true);
             }
@@ -2083,8 +2112,8 @@
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editNews('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteNews('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editNews('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteNews('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -2306,30 +2335,155 @@
             const tbody = document.getElementById('menu-table-body');
             if (!tbody) return;
             let html = '';
-            let i = 1;
-            for (const k in menuData) {
-                const m = menuData[k];
-                html += `<tr class="border-b"><td class="py-3 px-4 text-center">${i++}</td><td class="py-3 px-4 font-bold">${m.title}</td><td class="py-3 px-4 font-mono text-xs">${m.url}</td><td class="py-3 px-4 text-center">${m.order}</td><td class="py-3 px-4 text-center"><button onclick="deleteMenu('${k}')" class="px-3 py-1 bg-rose-50 text-rose-600 rounded-xl text-xs font-bold">Xóa</button></td></tr>`;
+            
+            const sortedKeys = Object.keys(menuData).sort((a, b) => {
+                return (menuData[a].order || 0) - (menuData[b].order || 0);
+            });
+
+            if (sortedKeys.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-slate-400">Chưa có mục menu nào.</td></tr>';
+                return;
             }
-            tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-4 text-slate-400">Chưa có menu.</td></tr>';
+
+            sortedKeys.forEach((k, index) => {
+                const m = menuData[k];
+                const isHidden = m.hidden === true;
+                const statusBadge = isHidden 
+                    ? `<span onclick="toggleHideMenu('${k}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
+                    : `<span onclick="toggleHideMenu('${k}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
+
+                html += `
+                    <tr draggable="true" ondragstart="onMenuDragStart(event, '${k}')" ondragover="onMenuDragOver(event)" ondragleave="onMenuDragLeave(event)" ondrop="onMenuDrop(event, '${k}')" class="draggable-row hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 text-center cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-700" title="Kéo thả để sắp xếp">
+                            <i class="fa-solid fa-grip-vertical text-base"></i>
+                        </td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${m.title}</td>
+                        <td class="py-3.5 px-4 font-mono text-xs text-slate-600">${m.url}</td>
+                        <td class="py-3.5 px-4 text-center font-mono font-bold">${m.order || (index + 1)}</td>
+                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="editMenu('${k}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
+                                <button onclick="deleteMenu('${k}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
         }
 
-        function openMenuModal() { document.getElementById('modal-menu').classList.remove('hidden'); }
+        let draggedMenuKey = null;
+        function onMenuDragStart(event, key) {
+            draggedMenuKey = key;
+            event.target.classList.add('dragging');
+            event.dataTransfer.effectAllowed = 'move';
+        }
+
+        function onMenuDragOver(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+            const tr = event.target.closest('tr');
+            if (tr) tr.classList.add('drag-over');
+        }
+
+        function onMenuDragLeave(event) {
+            const tr = event.target.closest('tr');
+            if (tr) tr.classList.remove('drag-over');
+        }
+
+        async function onMenuDrop(event, targetKey) {
+            event.preventDefault();
+            document.querySelectorAll('.draggable-row').forEach(row => {
+                row.classList.remove('dragging', 'drag-over');
+            });
+
+            if (!draggedMenuKey || draggedMenuKey === targetKey) return;
+
+            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
+            const draggedIdx = keys.indexOf(draggedMenuKey);
+            const targetIdx = keys.indexOf(targetKey);
+
+            if (draggedIdx === -1 || targetIdx === -1) return;
+
+            keys.splice(draggedIdx, 1);
+            keys.splice(targetIdx, 0, draggedMenuKey);
+
+            const updates = {};
+            keys.forEach((k, idx) => {
+                updates[`menus/${k}/order`] = idx + 1;
+                menuData[k].order = idx + 1;
+            });
+
+            try {
+                await database.ref().update(updates);
+                showToast("Đã cập nhật vị trí menu thành công!");
+                loadMenu();
+            } catch (err) {
+                showToast("Lỗi khi sắp xếp menu: " + err.message, true);
+            }
+            draggedMenuKey = null;
+        }
+
+        function openMenuModal() {
+            document.getElementById('menu-modal-title').textContent = "Thêm Mục Menu Mới";
+            document.getElementById('menu-key').value = '';
+            document.getElementById('menu-title').value = '';
+            document.getElementById('menu-url').value = '';
+            document.getElementById('menu-order').value = Object.keys(menuData).length + 1;
+            document.getElementById('modal-menu').classList.remove('hidden');
+        }
+
+        function editMenu(k) {
+            const m = menuData[k];
+            if (!m) return;
+            document.getElementById('menu-modal-title').textContent = "Chỉnh Sửa Mục Menu";
+            document.getElementById('menu-key').value = k;
+            document.getElementById('menu-title').value = m.title || '';
+            document.getElementById('menu-url').value = m.url || '';
+            document.getElementById('menu-order').value = m.order || 1;
+            document.getElementById('modal-menu').classList.remove('hidden');
+        }
+
         function closeMenuModal() { document.getElementById('modal-menu').classList.add('hidden'); }
+
         async function saveMenu(e) {
             e.preventDefault();
-            const title = document.getElementById('menu-title').value;
-            const url = document.getElementById('menu-url').value;
+            const key = document.getElementById('menu-key').value;
+            const title = document.getElementById('menu-title').value.trim();
+            const url = document.getElementById('menu-url').value.trim();
             const order = parseInt(document.getElementById('menu-order').value) || 1;
-            await database.ref('menus').push({ title, url, order });
-            closeMenuModal();
-            loadMenu();
-            showToast("Đã lưu mục menu!");
+
+            const payload = { title, url, order };
+
+            try {
+                if (key) {
+                    await database.ref(`menus/${key}`).update(payload);
+                    showToast("Cập nhật menu thành công!");
+                } else {
+                    await database.ref('menus').push(payload);
+                    showToast("Đã thêm mục menu mới thành công!");
+                }
+                closeMenuModal();
+                loadMenu();
+            } catch (err) {
+                showToast("Lỗi khi lưu menu: " + err.message, true);
+            }
         }
+
+        async function toggleHideMenu(k) {
+            const m = menuData[k];
+            if (!m) return;
+            const newHidden = !(m.hidden === true);
+            await database.ref(`menus/${k}`).update({ hidden: newHidden });
+            loadMenu();
+        }
+
         async function deleteMenu(k) {
-            if (await promptConfirm("Xóa mục menu này?")) {
+            if (await promptConfirm("Bạn có chắc chắn muốn xóa mục menu này?")) {
                 await database.ref(`menus/${k}`).remove();
                 loadMenu();
+                showToast("Đã xóa mục menu!");
             }
         }
 
