@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chùa Vĩnh Hưng | Hỏi Đáp Phật Pháp</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        buddhist: {
+                            gold: '#d4af37',      
+                            lightgold: '#fdf6e2', 
+                            maroon: '#7a2227',    
+                            dark: '#3d1c1d'       
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Lora', 'serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #faf7f2 !important;
+            background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            min-height: 100vh;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.expanded {
+            max-height: 1800px;
+        }
+
+        .soft-shadow {
+            box-shadow: 0 15px 35px -10px rgba(122, 34, 39, 0.06);
+        }
+    </style>
+</head>
+<body class="text-gray-800 text-lg antialiased bg-[#faf7f2]">
+
+    <div id="header-container"></div>
+
+    <section class="pt-40 pb-12 px-6 sm:px-10 lg:px-16 relative overflow-hidden w-full">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#fdf6e2]/60 to-transparent pointer-events-none"></div>
+        <div class="w-full max-w-[1600px] mx-auto text-center relative z-10">
+            <span class="inline-flex items-center gap-3 px-7 py-3 rounded-full bg-amber-100/70 text-buddhist-maroon text-base font-bold tracking-widest uppercase mb-5 shadow-sm border border-amber-200/55">
+                <i class="fa-solid fa-dharmachakra text-buddhist-gold text-lg"></i> Vấn Đáp Tu Học Phật Pháp
+            </span>
+            <h1 class="font-heading text-5xl md:text-6xl font-bold text-buddhist-maroon mb-4 tracking-tight leading-tight">
+                Hỏi Đáp Phật Pháp
+            </h1>
+            <p class="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
+                Nơi tháo gỡ những vướng mắc trên con đường tu tập, nuôi dưỡng tâm từ bi và trí tuệ.
+            </p>
+        </div>
+    </section>
+
+    <main class="pb-28 px-6 sm:px-10 lg:px-16 w-full">
+        <div class="w-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+            <!-- CỘT TRÁI (32%): Góc Tỉnh Thức Hằng Ngày ở trên, Thống Kê Phật Pháp ở dưới -->
+            <aside class="lg:col-span-4 space-y-8 lg:sticky lg:top-32">
+                
+                <!-- Góc Tỉnh Thức Hằng Ngày -->
+                <div class="bg-gradient-to-br from-amber-500/10 via-amber-100/30 to-rose-500/5 rounded-3xl p-8 border border-amber-200/70 shadow-md">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-buddhist-maroon bg-white px-3 py-1.5 rounded-full border border-amber-200 shadow-xs">Tỉnh Thức Mỗi Ngày</span>
+                    </div>
+                    <blockquote id="daily-quote" class="font-heading italic text-base text-gray-800 mb-4 leading-relaxed">
+                        "Tâm bình thế giới bình. Khi buông bỏ được phiền não, an lạc tự khắc hiện tiền."
+                    </blockquote>
+                    <p id="daily-author" class="text-sm font-semibold text-buddhist-maroon mb-5">— Lời Phật Dạy</p>
+                    <button onclick="nextDailyWisdom()" class="w-full py-3 rounded-xl bg-white hover:bg-amber-50 text-buddhist-maroon border border-amber-200 font-semibold text-sm shadow-xs transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate text-buddhist-gold"></i> Đổi Câu Khuyên Khác
+                    </button>
+                </div>
+
+                <!-- Widget Thống Kê Phật Pháp -->
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-md border border-amber-100/90">
+                    <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-gray-100">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-buddhist-maroon flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-chart-pie text-buddhist-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-lg text-buddhist-maroon">Thống Kê Phật Pháp</h3>
+                            <p class="text-sm text-gray-500">Dữ liệu vấn đáp tu học</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4.5 text-base">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                            <span class="text-gray-600 font-medium">Tổng câu hỏi đã giải đáp:</span>
+                            <span id="stat-total" class="font-heading font-bold text-buddhist-maroon text-lg">0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                            <span class="text-gray-600 font-medium">Phật tử tham gia hỏi:</span>
+                            <span id="stat-users" class="font-heading font-bold text-gray-900 text-lg">0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-gray-600 font-medium">Chuyên mục phổ biến:</span>
+                            <span id="stat-category" class="font-heading font-bold text-buddhist-gold text-lg">Đang cập nhật...</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- CỘT PHẢI (68%): Danh sách câu hỏi và bộ lọc -->
+            <section class="lg:col-span-8 space-y-6">
+                <!-- Thanh Tìm Kiếm & Nút Gửi Câu Hỏi -->
+                <div class="bg-white/95 backdrop-blur-md p-5 rounded-3xl soft-shadow border border-amber-100/90 flex flex-col sm:flex-row gap-4">
+                    <div class="flex items-center flex-1 px-5 py-4 bg-gray-50/90 rounded-2xl border border-gray-100 focus-within:border-buddhist-maroon transition">
+                        <i class="fa-solid fa-magnifying-glass text-buddhist-gold text-lg mr-4"></i>
+                        <input type="text" id="live-search" oninput="filterQuestions()" placeholder="Tìm kiếm câu hỏi, từ khóa..." class="w-full bg-transparent placeholder-gray-400 focus:outline-none text-base text-gray-800 font-medium">
+                    </div>
+                    <button onclick="openQuestionModal()" class="bg-buddhist-maroon hover:bg-red-950 text-white font-bold px-8 py-4 rounded-2xl transition duration-300 flex items-center justify-center gap-3 shadow-md flex-shrink-0 text-base">
+                        <i class="fa-solid fa-pen-to-square text-buddhist-gold text-lg"></i> Gửi Câu Hỏi
+                    </button>
+                </div>
+
+                <!-- Danh Mục Lọc (Tabs) -->
+                <div class="flex items-center gap-3 overflow-x-auto pb-3 scrollbar-none">
+                    <button onclick="selectCategory('all', this)" class="cat-btn px-6 py-3 rounded-2xl text-sm font-bold bg-buddhist-maroon text-white shadow-sm transition whitespace-nowrap flex items-center gap-2.5">
+                        <i class="fa-solid fa-layer-group"></i> Tất Cả
+                    </button>
+                    <button onclick="selectCategory('Giáo lý Phật Pháp', this)" class="cat-btn px-5 py-3 rounded-2xl text-sm font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Giáo Lý
+                    </button>
+                    <button onclick="selectCategory('Nghi thức & Tu tập', this)" class="cat-btn px-5 py-3 rounded-2xl text-sm font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Tu Tập
+                    </button>
+                    <button onclick="selectCategory('Nhân quả & Đạo đức', this)" class="cat-btn px-5 py-3 rounded-2xl text-sm font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Nhân Quả
+                    </button>
+                    <button onclick="selectCategory('Đời sống & Gia đình', this)" class="cat-btn px-5 py-3 rounded-2xl text-sm font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Gia Đình
+                    </button>
+                </div>
+
+                <!-- Thanh Điều Hướng Số Lượng Hiển Thị (10 - 20 - 50) -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white/95 backdrop-blur-sm p-4 rounded-2xl border border-amber-100/90 shadow-xs">
+                    <div id="qa-count-info" class="text-sm font-semibold text-gray-500">Đang hiển thị...</div>
+                    <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                        <span>Hiển thị:</span>
+                        <select id="qa-per-page-select" onchange="changeQAPerPage(this.value)" class="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-gray-800 cursor-pointer">
+                            <option value="10" selected>10 câu</option>
+                            <option value="20">20 câu</option>
+                            <option value="50">50 câu</option>
+                        </select>
+                        <span>câu hỏi trên mỗi trang</span>
+                    </div>
+                </div>
+
+                <!-- KHUNG BẢNG TO TỔNG THỂ CHỨA CÁC CÂU HỎI ACCORDION -->
+                <div id="public-questions-container" class="space-y-4">
+                    <div class="text-center py-24 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100">
+                        <i class="fa-solid fa-spinner fa-spin text-4xl text-buddhist-gold mb-4"></i>
+                        <p class="text-gray-500 font-medium text-base">Đang tải danh sách hỏi đáp Phật pháp...</p>
+                    </div>
+                </div>
+
+                <!-- THANH PHÂN TRANG (Pagination) -->
+                <div id="qa-pagination-container" class="flex flex-col sm:flex-row items-center justify-between pt-4 gap-3 bg-white/95 backdrop-blur-sm p-5 rounded-3xl border border-amber-100/90 shadow-sm"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modal Gửi Câu Hỏi -->
+    <div id="question-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-8 md:p-10 shadow-2xl relative border border-amber-100/60">
+            <button onclick="closeQuestionModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-xl w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+                    <i class="fa-solid fa-hands-praying"></i>
+                </div>
+                <h3 class="font-heading font-bold text-2xl md:text-3xl text-buddhist-maroon">Gửi Thắc Mắc Đến Chùa</h3>
+                <p class="text-sm text-gray-500 mt-2">Câu hỏi sẽ được gửi về ban trị sự để xem xét giải đáp.</p>
+            </div>
+            <form id="question-form" onsubmit="submitUserQuestion(event)" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Họ tên Phật tử <span class="text-red-500">*</span></label>
+                    <input type="text" id="q-name" required placeholder="Ví dụ: Diệu Tâm..." class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Chuyên mục</label>
+                    <select id="q-category" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800">
+                        <option value="Giáo lý Phật Pháp">Giáo lý Phật Pháp</option>
+                        <option value="Nghi thức & Tu tập">Nghi thức & Tu tập</option>
+                        <option value="Nhân quả & Đạo đức">Nhân quả & Đạo đức</option>
+                        <option value="Đời sống & Gia đình">Đời sống & Gia đình</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Nội dung câu hỏi <span class="text-red-500">*</span></label>
+                    <textarea id="q-content" rows="5" required placeholder="Nhập chi tiết thắc mắc của bạn..." class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800"></textarea>
+                </div>
+                <div class="pt-3">
+                    <button type="submit" id="submit-btn" class="w-full bg-buddhist-maroon text-white font-bold py-4 rounded-2xl hover:bg-red-950 transition shadow-md text-base flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-paper-plane text-buddhist-gold"></i> Gửi Câu Hỏi Lên Chùa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Thông Báo -->
+    <div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-white text-gray-800 px-7 py-5 rounded-2xl shadow-2xl flex items-center gap-4 border border-gray-100">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-green-600 text-2xl"></i>
+        <div>
+            <h4 id="toast-title" class="font-bold text-base">Thông báo</h4>
+            <p id="toast-msg" class="text-sm text-gray-500">Nội dung hệ thống.</p>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
+        let questionsData = [];
+        let currentCategory = 'all';
+
+        let currentQAPage = 1;
+        let qaPerPage = 10;
+
+        const dailyQuotes = [
+            { quote: "Tâm bình thế giới bình. Khi buông bỏ được phiền não, an lạc tự khắc hiện tiền.", author: "Lời Phật Dạy" },
+            { quote: "Quá khứ không còn, tương lai chưa tới, hiện tại là khoảnh khắc duy nhất để chúng ta sống tỉnh thức.", author: "Kinh Trung Bộ" },
+            { quote: "Hận thù không thể diệt hận thù, chỉ có tình thương mới diệt được hận thù. Đó là định luật ngàn thu.", author: "Kinh Pháp Cú" },
+            { quote: "Thắng vạn quân không bằng thắng chính mình. Thắng chính mình là chiến công oanh liệt nhất.", author: "Kinh Pháp Cú" }
+        ];
+        let quoteIndex = 0;
+
+        function nextDailyWisdom() {
+            quoteIndex = (quoteIndex + 1) % dailyQuotes.length;
+            const qBox = document.getElementById('daily-quote');
+            const aBox = document.getElementById('daily-author');
+            qBox.style.opacity = '0';
+            aBox.style.opacity = '0';
+            setTimeout(() => {
+                qBox.innerText = `"${dailyQuotes[quoteIndex].quote}"`;
+                aBox.innerText = `— ${dailyQuotes[quoteIndex].author}`;
+                qBox.style.opacity = '1';
+                aBox.style.opacity = '1';
+            }, 200);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchQuestionsFromFirebase();
+        });
+
+        function fetchQuestionsFromFirebase() {
+            db.ref('questions').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    questionsData = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    })).sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+                } else {
+                    questionsData = [];
+                }
+                updateStatistics();
+                renderPublicList();
+            }, (error) => {
+                console.error("Lỗi tải cơ sở dữ liệu:", error);
+            });
+        }
+
+        function updateStatistics() {
+            const approvedQuestions = questionsData.filter(q => (q.approved === true || q.approved === 'true') && q.answer && q.answer.trim() !== '');
+            document.getElementById('stat-total').innerText = approvedQuestions.length;
+
+            const uniqueUsers = new Set(questionsData.map(q => (q.name || '').trim().toLowerCase()).filter(name => name !== '')).size;
+            document.getElementById('stat-users').innerText = uniqueUsers.toLocaleString('vi-VN');
+
+            if (questionsData.length > 0) {
+                const counts = {};
+                questionsData.forEach(q => {
+                    if (q.category) {
+                        counts[q.category] = (counts[q.category] || 0) + 1;
+                    }
+                });
+                let topCat = 'Giáo Lý';
+                let maxCount = -1;
+                for (let cat in counts) {
+                    if (counts[cat] > maxCount) {
+                        maxCount = counts[cat];
+                        topCat = cat;
+                    }
+                }
+                if (topCat.includes('Giáo lý')) topCat = 'Giáo Lý';
+                else if (topCat.includes('Nghi thức')) topCat = 'Tu Tập';
+                else if (topCat.includes('Nhân quả')) topCat = 'Nhân Quả';
+                else if (topCat.includes('Đời sống')) topCat = 'Gia Đình';
+                document.getElementById('stat-category').innerText = topCat;
+            } else {
+                document.getElementById('stat-category').innerText = 'Chưa có';
+            }
+        }
+
+        function changeQAPerPage(val) {
+            qaPerPage = parseInt(val);
+            currentQAPage = 1;
+            renderPublicList();
+        }
+
+        function changeQAPage(page) {
+            currentQAPage = page;
+            renderPublicList();
+        }
+
+        function renderPublicList() {
+            const container = document.getElementById('public-questions-container');
+            const countInfo = document.getElementById('qa-count-info');
+            const paginationContainer = document.getElementById('qa-pagination-container');
+            const searchVal = document.getElementById('live-search').value.toLowerCase().trim();
+
+            const filtered = questionsData.filter(q => {
+                const isApproved = q.approved === true || q.approved === 'true';
+                const hasAnswer = q.answer && q.answer.trim() !== '';
+                const matchCat = currentCategory === 'all' || q.category === currentCategory;
+                const matchSearch = !searchVal || 
+                    q.question.toLowerCase().includes(searchVal) || 
+                    q.name.toLowerCase().includes(searchVal) ||
+                    (q.answer && q.answer.toLowerCase().includes(searchVal));
+                return isApproved && hasAnswer && matchCat && matchSearch;
+            });
+
+            const total = filtered.length;
+            if (total === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-20 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100 p-8">
+                        <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                            <i class="fa-solid fa-seedling text-buddhist-gold"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-gray-800">Chưa có câu hỏi phù hợp</h4>
+                        <p class="text-gray-500 text-sm mt-1 mb-6">Bạn có thể gửi câu hỏi mới đến Ban Trị Sự.</p>
+                        <button onclick="openQuestionModal()" class="bg-buddhist-maroon text-white px-8 py-3.5 rounded-2xl text-sm font-semibold hover:bg-red-950 transition shadow-sm">Gửi câu hỏi ngay</button>
+                    </div>
+                `;
+                if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 câu hỏi";
+                if (paginationContainer) paginationContainer.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(total / qaPerPage);
+            if (currentQAPage > totalPages) currentQAPage = totalPages;
+            if (currentQAPage < 1) currentQAPage = 1;
+
+            const startIndex = (currentQAPage - 1) * qaPerPage;
+            const endIndex = Math.min(startIndex + qaPerPage, total);
+            const paginatedItems = filtered.slice(startIndex, endIndex);
+
+            if (countInfo) {
+                countInfo.textContent = `Hiển thị từ ${startIndex + 1} đến ${endIndex} trong tổng số ${total} câu hỏi`;
+            }
+
+            // Đã loại bỏ số thứ tự câu hỏi theo yêu cầu
+            let tableContentHtml = paginatedItems.map((q, index) => {
+                const uniqueId = startIndex + index;
+                return `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-amber-200/60 hover:border-buddhist-gold group">
+                        <button onclick="toggleAccordionItem(${uniqueId})" class="w-full text-left p-6 md:p-8 flex justify-between items-start gap-5 focus:outline-none bg-gradient-to-r from-amber-50/20 via-white to-white group-hover:from-amber-50/60 transition">
+                            <div class="flex items-start gap-4 flex-1">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-3 flex-wrap">
+                                        <span class="bg-amber-100/90 text-buddhist-maroon text-xs px-4 py-1.5 rounded-full font-bold border border-amber-300/60 shadow-xs flex items-center gap-1.5">
+                                            <i class="fa-solid fa-bookmark text-buddhist-gold"></i> ${q.category || 'Phật pháp'}
+                                        </span>
+                                        <span class="text-sm text-gray-700 font-bold bg-gray-100/80 px-3 py-1 rounded-lg"><i class="fa-regular fa-user mr-1.5 text-buddhist-gold"></i> ${escapeHtml(q.name)}</span>
+                                        <span class="text-sm text-gray-500 font-medium"><i class="fa-regular fa-calendar mr-1.5 text-buddhist-gold"></i> ${q.created_at ? new Date(q.created_at).toLocaleDateString('vi-VN') : ''}</span>
+                                    </div>
+                                    <h3 class="font-heading font-bold text-xl md:text-2xl text-buddhist-dark group-hover:text-buddhist-maroon transition leading-snug tracking-tight">${escapeHtml(q.question)}</h3>
+                                </div>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-amber-100/80 text-buddhist-maroon flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-buddhist-maroon group-hover:text-amber-200 border border-amber-300 shadow-sm mt-0.5" id="icon-${uniqueId}">
+                                <i class="fa-solid fa-chevron-down text-base font-bold"></i>
+                            </div>
+                        </button>
+                        <div id="panel-${uniqueId}" class="accordion-content px-6 md:px-8 bg-amber-50/50 border-t border-amber-200/50">
+                            <div class="py-6 md:py-8">
+                                <div class="flex items-start gap-5 bg-white p-6 md:p-8 rounded-2xl border-2 border-amber-200/60 shadow-md relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-200/10 rounded-bl-full pointer-events-none"></div>
+                                    <div class="w-14 h-14 rounded-2xl bg-buddhist-maroon text-amber-200 flex items-center justify-center flex-shrink-0 font-heading font-bold text-base shadow-md border border-amber-400/40">
+                                        Thầy
+                                    </div>
+                                    <div class="flex-1 relative z-10">
+                                        <h4 class="font-heading font-bold text-lg text-buddhist-maroon mb-3 flex items-center gap-2.5">
+                                            <i class="fa-solid fa-feather text-buddhist-gold text-base"></i> Ban Trị Sự Giải Đáp:
+                                        </h4>
+                                        <p class="text-gray-800 text-base md:text-lg whitespace-pre-line leading-relaxed font-normal">${escapeHtml(q.answer || '')}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 soft-shadow border border-amber-200/80 space-y-6">
+                    <div class="flex items-center justify-between pb-4 border-b-2 border-amber-100 mb-2">
+                        <h3 class="font-heading font-bold text-2xl text-buddhist-maroon flex items-center gap-3">
+                            <i class="fa-solid fa-list-check text-buddhist-gold text-xl"></i> Danh Sách Câu Hỏi & Giải Đáp Phật Pháp
+                        </h3>
+                        <span class="text-xs font-bold uppercase tracking-wider text-buddhist-maroon bg-amber-100/80 px-4 py-1.5 rounded-full border border-amber-300/60 shadow-xs">Chùa Vĩnh Hưng</span>
+                    </div>
+                    <div class="space-y-5">
+                        ${tableContentHtml}
+                    </div>
+                </div>
+            `;
+
+            let paginationHtml = `<span class="text-xs text-gray-500 font-semibold">Trang ${currentQAPage} / ${totalPages}</span>`;
+            paginationHtml += `<div class="flex items-center gap-1.5">`;
+            
+            paginationHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3.5 py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentQAPage - 1 && i <= currentQAPage + 1)) {
+                    const activeClass = i === currentQAPage 
+                        ? 'bg-buddhist-maroon text-white shadow-sm' 
+                        : 'bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 shadow-xs';
+                    paginationHtml += `<button onclick="changeQAPage(${i})" class="w-9 h-9 rounded-xl text-xs font-bold transition flex items-center justify-center ${activeClass}">${i}</button>`;
+                } else if (i === currentQAPage - 2 || i === currentQAPage + 2) {
+                    paginationHtml += `<span class="px-1 text-gray-400">...</span>`;
+                }
+            }
+
+            paginationHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3.5 py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Sau</button>`;
+            paginationHtml += `</div>`;
+
+            if (paginationContainer) paginationContainer.innerHTML = paginationHtml;
+        }
+
+        function toggleAccordionItem(index) {
+            const panel = document.getElementById(`panel-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            if (panel.classList.contains('expanded')) {
+                panel.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                panel.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectCategory(cat, btn) {
+            currentCategory = cat;
+            currentQAPage = 1;
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-buddhist-maroon', 'text-white', 'shadow-sm');
+                b.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200/70', 'shadow-xs');
+            });
+            btn.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200/70', 'shadow-xs');
+            btn.classList.add('bg-buddhist-maroon', 'text-white', 'shadow-sm');
+            renderPublicList();
+        }
+
+        function filterQuestions() {
+            currentQAPage = 1;
+            renderPublicList();
+        }
+
+        function openQuestionModal() {
+            document.getElementById('question-modal').classList.remove('hidden');
+        }
+
+        function closeQuestionModal() {
+            document.getElementById('question-modal').classList.add('hidden');
+            document.getElementById('question-form').reset();
+        }
+
+        function submitUserQuestion(e) {
+            e.preventDefault();
+            const name = document.getElementById('q-name').value.trim();
+            const category = document.getElementById('q-category').value;
+            const content = document.getElementById('q-content').value.trim();
+            const submitBtn = document.getElementById('submit-btn');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang gửi...';
+
+            const newQ = {
+                name, category,
+                question: content,
+                answer: '',
+                approved: false,
+                created_at: Date.now()
+            };
+
+            db.ref('questions').push().set(newQ)
+                .then(() => {
+                    closeQuestionModal();
+                    showToast('Gửi câu hỏi thành công!', 'Hệ thống đã lưu câu hỏi và chuyển về Ban Trị Sự.', 'success');
+                })
+                .catch(err => {
+                    console.error(err);
+                    showToast('Lỗi', 'Không thể gửi câu hỏi.', 'error');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane text-buddhist-gold"></i> Gửi Câu Hỏi Lên Chùa';
+                });
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function showToast(title, msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = msg;
+            const icon = document.getElementById('toast-icon');
+
+            if (type === 'success') {
+                icon.className = 'fa-solid fa-circle-check text-green-600 text-2xl';
+            } else if (type === 'error') {
+                icon.className = 'fa-solid fa-circle-xmark text-red-500 text-2xl';
+            } else {
+                icon.className = 'fa-solid fa-circle-info text-blue-500 text-2xl';
+            }
+
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 4500);
+        }
+    </script>
+</body>
+</html>

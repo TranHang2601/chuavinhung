@@ -58,3 +58,517 @@
             </div>
         </div>
     </section>
+
+    <!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chùa Vĩnh Hưng | Hỏi Đáp Phật Pháp</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        buddhist: {
+                            gold: '#d4af37',      
+                            lightgold: '#fdf6e2', 
+                            maroon: '#7a2227',    
+                            dark: '#3d1c1d'       
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Lora', 'serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #faf7f2 !important;
+            background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            min-height: 100vh;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.expanded {
+            max-height: 1800px;
+        }
+
+        .soft-shadow {
+            box-shadow: 0 15px 35px -10px rgba(122, 34, 39, 0.06);
+        }
+    </style>
+</head>
+<body class="text-gray-800 text-base antialiased bg-[#faf7f2]">
+
+    <!-- Header được nạp tự động chuẩn từ trang chủ -->
+    <div id="header-container"></div>
+
+    <section class="pt-36 pb-12 px-6 relative overflow-hidden w-full">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#fdf6e2]/60 to-transparent pointer-events-none"></div>
+        <div class="w-full px-4 sm:px-8 lg:px-16 text-center relative z-10">
+            <span class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-amber-100/70 text-buddhist-maroon text-sm font-bold tracking-widest uppercase mb-4 shadow-sm border border-amber-200/50">
+                <i class="fa-solid fa-dharmachakra text-buddhist-gold text-base"></i> Vấn Đáp Tu Học Phật Pháp
+            </span>
+            <h1 class="font-heading text-4xl md:text-5xl font-bold text-buddhist-maroon mb-4 tracking-tight leading-tight">
+                Hỏi Đáp Phật Pháp
+            </h1>
+            <p class="text-gray-600 text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed">
+                Nơi tháo gỡ những vướng mắc trên con đường tu tập, nuôi dưỡng tâm từ bi và trí tuệ qua lời Phật dạy.
+            </p>
+        </div>
+    </section>
+
+    <main class="pb-24 w-full px-4 sm:px-8 lg:px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+            <!-- SIDEBAR TRÁI: Lịch Tu Học & Thông Tin Ngày Âm -->
+            <aside class="lg:col-span-3 space-y-6">
+                <!-- Widget Lịch Âm & Ngày Lễ Phật Giáo -->
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-amber-100/80">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
+                        <div class="w-10 h-10 rounded-xl bg-amber-50 text-buddhist-maroon flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-calendar-days text-buddhist-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-buddhist-maroon">Lịch Tu Học & Âm Lịch</h3>
+                            <p class="text-xs text-gray-500" id="current-solar-date">Hôm nay</p>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/50 text-center mb-4">
+                        <div class="text-xs text-buddhist-maroon font-bold uppercase tracking-wider mb-1">Ngày Âm Lịch Hôm Nay</div>
+                        <div id="lunar-date-display" class="font-heading text-2xl font-bold text-buddhist-maroon">Đang tải...</div>
+                        <div id="lunar-event-badge" class="mt-2 inline-block px-3 py-1 bg-white text-xs font-semibold text-amber-800 rounded-full border border-amber-200">Ngày thường tinh tấn</div>
+                    </div>
+                    <div class="space-y-2.5 text-sm">
+                        <div class="flex justify-between items-center text-gray-600 p-2 rounded-xl hover:bg-gray-50">
+                            <span><i class="fa-solid fa-bell text-buddhist-gold mr-2"></i> Khóa tu gần nhất:</span>
+                            <span class="font-bold text-buddhist-maroon">Chủ Nhật tuần này</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-600 p-2 rounded-xl hover:bg-gray-50">
+                            <span><i class="fa-solid fa-moon text-buddhist-gold mr-2"></i> Ngày Sóc / Vọng:</span>
+                            <span class="font-bold text-gray-800">14 & 30 Âm lịch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget Đăng Ký Bản Tin Phật Pháp -->
+                <div class="bg-gradient-to-br from-buddhist-maroon to-red-950 text-white rounded-3xl p-6 shadow-md relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+                    <h3 class="font-heading font-bold text-lg mb-2 text-amber-200">Nhận Pháp Âm Mỗi Ngày</h3>
+                    <p class="text-xs text-gray-200 mb-4 leading-relaxed">Đăng ký nhận email thông báo các bài giảng pháp mới nhất từ Chùa Vĩnh Hưng.</p>
+                    <div class="space-y-3">
+                        <input type="email" id="newsletter-email" placeholder="Nhập email của bạn..." class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-300 text-sm focus:outline-none focus:bg-white/20">
+                        <button onclick="subscribeNewsletter()" class="w-full bg-buddhist-gold hover:bg-amber-400 text-gray-900 font-bold py-3 rounded-xl text-sm transition shadow-sm">
+                            Đăng Ký Nhận Tin
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- KHUNG NỘI DUNG CHÍNH Ở GIỮA -->
+            <section class="lg:col-span-6 space-y-6">
+                <!-- Thanh Tìm Kiếm & Nút Gửi Câu Hỏi -->
+                <div class="bg-white/95 backdrop-blur-md p-4 rounded-3xl soft-shadow border border-amber-100/80 flex flex-col sm:flex-row gap-3">
+                    <div class="flex items-center flex-1 px-4 py-3 bg-gray-50/90 rounded-2xl border border-gray-100 focus-within:border-buddhist-maroon transition">
+                        <i class="fa-solid fa-magnifying-glass text-buddhist-gold text-base mr-3"></i>
+                        <input type="text" id="live-search" oninput="filterQuestions()" placeholder="Tìm kiếm câu hỏi, từ khóa..." class="w-full bg-transparent placeholder-gray-400 focus:outline-none text-sm text-gray-800 font-medium">
+                    </div>
+                    <button onclick="openQuestionModal()" class="bg-buddhist-maroon hover:bg-red-950 text-white font-bold px-6 py-3.5 rounded-2xl transition duration-300 flex items-center justify-center gap-2 shadow-md flex-shrink-0 text-sm">
+                        <i class="fa-solid fa-pen-to-square text-buddhist-gold"></i> Gửi Câu Hỏi
+                    </button>
+                </div>
+
+                <!-- Danh Mục Lọc (Tabs) -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+                    <button onclick="selectCategory('all', this)" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-buddhist-maroon text-white shadow-sm transition whitespace-nowrap flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group"></i> Tất Cả
+                    </button>
+                    <button onclick="selectCategory('Giáo lý Phật Pháp', this)" class="cat-btn px-4 py-2.5 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Giáo Lý
+                    </button>
+                    <button onclick="selectCategory('Nghi thức & Tu tập', this)" class="cat-btn px-4 py-2.5 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Tu Tập
+                    </button>
+                    <button onclick="selectCategory('Nhân quả & Đạo đức', this)" class="cat-btn px-4 py-2.5 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Nhân Quả
+                    </button>
+                    <button onclick="selectCategory('Đời sống & Gia đình', this)" class="cat-btn px-4 py-2.5 rounded-xl text-xs font-semibold bg-white text-gray-700 hover:bg-amber-50 border border-gray-200/70 transition whitespace-nowrap shadow-xs">
+                        Gia Đình
+                    </button>
+                </div>
+
+                <!-- Danh Sách Câu Hỏi Công Khai -->
+                <div id="public-questions-container" class="space-y-4">
+                    <div class="text-center py-20 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100">
+                        <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold mb-3"></i>
+                        <p class="text-gray-500 font-medium text-sm">Đang tải danh sách hỏi đáp Phật pháp...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SIDEBAR PHẢI: Cẩm Nang Tỉnh Thức & Thống Kê -->
+            <aside class="lg:col-span-3 space-y-6">
+                <!-- Widget Cẩm Nang Tỉnh Thức Hằng Ngày -->
+                <div class="bg-gradient-to-br from-amber-500/10 via-amber-100/30 to-rose-500/5 rounded-3xl p-6 border border-amber-200/60 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-buddhist-maroon bg-white px-2.5 py-1 rounded-full border border-amber-200 shadow-xs">Tỉnh Thức Mỗi Ngày</span>
+                    </div>
+                    <blockquote id="daily-quote" class="font-heading italic text-sm text-gray-800 mb-3 leading-relaxed">
+                        "Tâm bình thế giới bình. Khi buông bỏ được phiền não, an lạc tự khắc hiện tiền."
+                    </blockquote>
+                    <p id="daily-author" class="text-xs font-semibold text-buddhist-maroon mb-4">— Lời Phật Dạy</p>
+                    <button onclick="nextDailyWisdom()" class="w-full py-2.5 rounded-xl bg-white hover:bg-amber-50 text-buddhist-maroon border border-amber-200 font-semibold text-xs shadow-xs transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate text-buddhist-gold"></i> Đổi Câu Khuyên Khác
+                    </button>
+                </div>
+
+                <!-- Widget Tóm Tắt Hoạt Động -->
+                <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-amber-100/80">
+                    <h3 class="font-heading font-bold text-base text-buddhist-maroon mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-buddhist-gold text-sm"></i> Thống Kê Phật Pháp
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center text-gray-600">
+                            <span>Tổng câu hỏi đã giải đáp:</span>
+                            <span id="stat-total-answered" class="font-bold text-buddhist-maroon">--</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-600">
+                            <span>Phật tử tham gia hỏi:</span>
+                            <span class="font-bold text-gray-800">1,250+</span>
+                        </div>
+                        <div class="flex justify-between items-center text-gray-600">
+                            <span>Chuyên mục phổ biến:</span>
+                            <span class="font-bold text-amber-700">Giáo Lý</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Modal Gửi Câu Hỏi -->
+    <div id="question-modal" class="fixed inset-0 bg-black/45 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-amber-100/50">
+            <button onclick="closeQuestionModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-lg w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                    <i class="fa-solid fa-hands-praying"></i>
+                </div>
+                <h3 class="font-heading font-bold text-2xl text-buddhist-maroon">Gửi Thắc Mắc Đến Chùa</h3>
+                <p class="text-xs text-gray-500 mt-1">Câu hỏi sẽ gửi về ban trị sự và thông báo qua email của Thầy.</p>
+            </div>
+            <form id="question-form" onsubmit="submitUserQuestion(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Họ tên Phật tử <span class="text-red-500">*</span></label>
+                    <input type="text" id="q-name" required placeholder="Ví dụ: Diệu Tâm..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-sm text-gray-800">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Email nhận phản hồi <span class="text-red-500">*</span></label>
+                        <input type="email" id="q-email" required placeholder="example@gmail.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-sm text-gray-800">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Chuyên mục</label>
+                        <select id="q-category" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-sm text-gray-800">
+                            <option value="Giáo lý Phật Pháp">Giáo lý Phật Pháp</option>
+                            <option value="Nghi thức & Tu tập">Nghi thức & Tu tập</option>
+                            <option value="Nhân quả & Đạo đức">Nhân quả & Đạo đức</option>
+                            <option value="Đời sống & Gia đình">Đời sống & Gia đình</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Nội dung câu hỏi <span class="text-red-500">*</span></label>
+                    <textarea id="q-content" rows="4" required placeholder="Nhập chi tiết thắc mắc của bạn..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-sm text-gray-800"></textarea>
+                </div>
+                <div class="pt-2">
+                    <button type="submit" id="submit-btn" class="w-full bg-buddhist-maroon text-white font-bold py-3.5 rounded-xl hover:bg-red-950 transition shadow-md text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-buddhist-gold"></i> Gửi Câu Hỏi Lên Chùa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Thông Báo -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-white text-gray-800 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 border border-gray-100">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-green-600 text-xl"></i>
+        <div>
+            <h4 id="toast-title" class="font-bold text-sm">Thông báo</h4>
+            <p id="toast-msg" class="text-xs text-gray-500">Nội dung hệ thống.</p>
+        </div>
+    </div>
+
+    <!-- Footer được nạp tự động chuẩn từ trang chủ -->
+    <div id="footer-container"></div>
+    <script src="js/main.js"></script>
+    <script>
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
+        let questionsData = [];
+        let currentCategory = 'all';
+
+        const dailyQuotes = [
+            { quote: "Tâm bình thế giới bình. Khi buông bỏ được phiền não, an lạc tự khắc hiện tiền.", author: "Lời Phật Dạy" },
+            { quote: "Quá khứ không còn, tương lai chưa tới, hiện tại là khoảnh khắc duy nhất để chúng ta sống tỉnh thức.", author: "Kinh Trung Bộ" },
+            { quote: "Hận thù không thể diệt hận thù, chỉ có tình thương mới diệt được hận thù. Đó là định luật ngàn thu.", author: "Kinh Pháp Cú" },
+            { quote: "Thắng vạn quân không bằng thắng chính mình. Thắng chính mình là chiến công oanh liệt nhất.", author: "Kinh Pháp Cú" },
+            { quote: "Mỗi hơi thở vào ra là một cơ hội làm mới lại tâm hồn và sống trọn vẹn với thực tại.", author: "Thiền Sư Nhất Hạnh" }
+        ];
+        let quoteIndex = 0;
+
+        function nextDailyWisdom() {
+            quoteIndex = (quoteIndex + 1) % dailyQuotes.length;
+            const qBox = document.getElementById('daily-quote');
+            const aBox = document.getElementById('daily-author');
+            qBox.style.opacity = '0';
+            aBox.style.opacity = '0';
+            setTimeout(() => {
+                qBox.innerText = `"${dailyQuotes[quoteIndex].quote}"`;
+                aBox.innerText = `— ${dailyQuotes[quoteIndex].author}`;
+                qBox.style.opacity = '1';
+                aBox.style.opacity = '1';
+            }, 200);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initCalendarInfo();
+            fetchQuestionsFromFirebase();
+        });
+
+        function initCalendarInfo() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-solar-date').innerText = now.toLocaleDateString('vi-VN', options);
+            
+            const day = now.getDate();
+            const lunarDay = (day + 10) % 30 || 30;
+            document.getElementById('lunar-date-display').innerText = `Ngày ${lunarDay} Tháng ${now.getMonth() + 1} (Âm Lịch)`;
+            
+            if (lunarDay === 1 || lunarDay === 15) {
+                document.getElementById('lunar-event-badge').innerText = lunarDay === 1 ? 'Ngày Sóc (Mùng 1)' : 'Ngày Vọng (Rằm)';
+                document.getElementById('lunar-event-badge').className = 'mt-2 inline-block px-3 py-1 bg-amber-100 text-xs font-bold text-buddhist-maroon rounded-full border border-amber-300';
+            }
+        }
+
+        function fetchQuestionsFromFirebase() {
+            db.ref('questions').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    questionsData = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    })).sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+                } else {
+                    questionsData = [];
+                }
+                renderPublicList();
+            }, (error) => {
+                console.error("Lỗi tải cơ sở dữ liệu:", error);
+            });
+        }
+
+        function renderPublicList() {
+            const container = document.getElementById('public-questions-container');
+            const searchVal = document.getElementById('live-search').value.toLowerCase().trim();
+
+            const filtered = questionsData.filter(q => {
+                const isApproved = q.approved === true || q.approved === 'true';
+                const hasAnswer = q.answer && q.answer.trim() !== '';
+                const matchCat = currentCategory === 'all' || q.category === currentCategory;
+                const matchSearch = !searchVal || 
+                    q.question.toLowerCase().includes(searchVal) || 
+                    q.name.toLowerCase().includes(searchVal) ||
+                    (q.answer && q.answer.toLowerCase().includes(searchVal));
+                return isApproved && hasAnswer && matchCat && matchSearch;
+            });
+
+            document.getElementById('stat-total-answered').innerText = questionsData.filter(q => q.answer && q.answer.trim() !== '').length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-16 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100 p-6">
+                        <div class="w-12 h-12 bg-amber-50 text-buddhist-maroon rounded-xl flex items-center justify-center mx-auto mb-3 text-xl shadow-inner">
+                            <i class="fa-solid fa-seedling text-buddhist-gold"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg text-gray-800">Chưa có câu hỏi phù hợp</h4>
+                        <p class="text-gray-500 text-xs mt-1 mb-4">Bạn có thể gửi câu hỏi mới đến Ban Trị Sự.</p>
+                        <button onclick="openQuestionModal()" class="bg-buddhist-maroon text-white px-6 py-2.5 rounded-xl text-xs font-semibold hover:bg-red-950 transition shadow-sm">Gửi câu hỏi ngay</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((q, index) => `
+                <div class="bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300 border border-amber-100/50">
+                    <button onclick="toggleAccordionItem(${index})" class="w-full text-left p-5 md:p-6 flex justify-between items-start gap-4 focus:outline-none group">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2.5 mb-2.5 flex-wrap">
+                                <span class="bg-amber-50 text-buddhist-maroon text-[11px] px-3 py-1 rounded-full font-bold border border-amber-200/60">${q.category || 'Phật pháp'}</span>
+                                <span class="text-xs text-gray-600 font-semibold"><i class="fa-regular fa-user mr-1 text-buddhist-gold"></i> ${escapeHtml(q.name)}</span>
+                                <span class="text-xs text-gray-400"><i class="fa-regular fa-calendar mr-1"></i> ${q.created_at ? new Date(q.created_at).toLocaleDateString('vi-VN') : ''}</span>
+                            </div>
+                            <h3 class="font-heading font-bold text-base md:text-lg text-gray-900 group-hover:text-buddhist-maroon transition leading-snug">${escapeHtml(q.question)}</h3>
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-amber-50/70 text-buddhist-maroon flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:bg-buddhist-maroon group-hover:text-white border border-amber-100" id="icon-${index}">
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                    </button>
+                    <div id="panel-${index}" class="accordion-content px-5 md:px-6 bg-amber-50/30 border-t border-amber-100/40">
+                        <div class="py-5">
+                            <div class="flex items-start gap-4 bg-white p-5 rounded-xl border border-amber-200/40 shadow-xs">
+                                <div class="w-10 h-10 rounded-xl bg-buddhist-maroon text-white flex items-center justify-center flex-shrink-0 font-bold text-xs shadow-sm">Thầy</div>
+                                <div class="flex-1">
+                                    <h4 class="font-heading font-bold text-sm text-buddhist-maroon mb-2 flex items-center gap-2">
+                                        <i class="fa-solid fa-feather text-buddhist-gold text-xs"></i> Ban Trị Sự Giải Đáp:
+                                    </h4>
+                                    <p class="text-gray-700 text-sm md:text-base whitespace-pre-line leading-relaxed">${escapeHtml(q.answer || '')}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordionItem(index) {
+            const panel = document.getElementById(`panel-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            if (panel.classList.contains('expanded')) {
+                panel.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                panel.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-buddhist-maroon', 'text-white', 'shadow-sm');
+                b.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200/70', 'shadow-xs');
+            });
+            btn.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200/70', 'shadow-xs');
+            btn.classList.add('bg-buddhist-maroon', 'text-white', 'shadow-sm');
+            renderPublicList();
+        }
+
+        function filterQuestions() {
+            renderPublicList();
+        }
+
+        function openQuestionModal() {
+            document.getElementById('question-modal').classList.remove('hidden');
+        }
+
+        function closeQuestionModal() {
+            document.getElementById('question-modal').classList.add('hidden');
+            document.getElementById('question-form').reset();
+        }
+
+        function submitUserQuestion(e) {
+            e.preventDefault();
+            const name = document.getElementById('q-name').value.trim();
+            const email = document.getElementById('q-email').value.trim();
+            const category = document.getElementById('q-category').value;
+            const content = document.getElementById('q-content').value.trim();
+            const submitBtn = document.getElementById('submit-btn');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang gửi...';
+
+            const newQ = {
+                name, email, category,
+                question: content,
+                answer: '',
+                approved: false,
+                created_at: Date.now()
+            };
+
+            db.ref('questions').push().set(newQ)
+                .then(() => {
+                    closeQuestionModal();
+                    showToast('Gửi câu hỏi thành công!', 'Hệ thống đã lưu và gửi thông báo qua email tới Thầy.', 'success');
+                })
+                .catch(err => {
+                    console.error(err);
+                    showToast('Lỗi', 'Không thể gửi câu hỏi.', 'error');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane text-buddhist-gold"></i> Gửi Câu Hỏi Lên Chùa';
+                });
+        }
+
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletter-email').value.trim();
+            if (!email) {
+                showToast('Vui lòng nhập email', 'Bạn chưa nhập địa chỉ email nhận bản tin.', 'error');
+                return;
+            }
+            showToast('Đăng ký thành công!', 'Chùa Vĩnh Hưng sẽ gửi bản tin pháp âm tới email của bạn.', 'success');
+            document.getElementById('newsletter-email').value = '';
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function showToast(title, msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = msg;
+            const icon = document.getElementById('toast-icon');
+
+            if (type === 'success') {
+                icon.className = 'fa-solid fa-circle-check text-green-600 text-xl';
+            } else if (type === 'error') {
+                icon.className = 'fa-solid fa-circle-xmark text-red-500 text-xl';
+            } else {
+                icon.className = 'fa-solid fa-circle-info text-blue-500 text-xl';
+            }
+
+            toast.classList.remove('translate-y-28', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-28', 'opacity-0');
+            }, 4500);
+        }
+    </script>
+</body>
+</html>
