@@ -36,12 +36,29 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/quanam.jpg');
             background-size: cover; background-position: center;
         }
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        /* Cố định chính xác chiều cao và số dòng tuyệt đối cho tiêu đề (luôn đúng 2 dòng) */
+        .post-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 3.5rem; /* Cố định chính xác 2 dòng (line-height 1.75rem * 2) */
+            line-height: 1.75rem;
+        }
+        /* Cố định chính xác chiều cao và số dòng tuyệt đối cho mô tả (chuẩn 3 dòng tuyệt đối trên mọi màn hình) */
+        .post-desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            max-height: 3.9rem; /* Giới hạn tối đa đúng 3 dòng */
+            line-height: 1.3rem; /* Line-height an toàn chống lẹm dòng 4 */
+            font-size: 0.875rem; /* text-sm tương đương 14px */
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased">
 
-    <!-- Thẻ header động -->
     <div id="header-container"></div>
 
     <section class="hero-sub h-[40vh] mt-0 flex items-center justify-center relative">
@@ -51,41 +68,28 @@
         </div>
     </section>
 
-    <!-- THANH ĐIỀU HƯỚNG TAB & MENU XỔ XUỐNG THÔNG BÁO -->
     <section class="bg-white border-b border-gray-200 shadow-sm sticky top-20 z-40">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-                <!-- Tab Tất Cả Tin Tức -->
-                <button onclick="filterCategory('all')" id="tab-all" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md">
-                    <i class="fa-solid fa-newspaper mr-1.5"></i> Tất Cả Tin Tức
-                </button>
-
-                <!-- Nhóm Tab Thông Báo có menu xổ xuống -->
-                <div class="relative group pb-2 -mb-2">
-                    <button id="dropdown-toggle-btn" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center gap-2 shadow-sm">
-                        <i class="fa-solid fa-bell text-buddhist-gold"></i> Thông Báo & Khóa Tu <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <!-- Tabs danh mục chính -->
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <button onclick="filterCategory('all')" id="tab-all" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md">
+                        <i class="fa-solid fa-globe mr-1.5"></i> Tất Cả
                     </button>
-                    
-                    <!-- Menu xổ xuống (Dropdown) -->
-                    <div id="notification-dropdown" class="absolute left-0 top-full pt-1 w-72 hidden group-hover:block z-50">
-                        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 py-2">
-                            <button onclick="filterCategory('thong-bao')" class="w-full text-left px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-rose-50 hover:text-buddhist-maroon transition flex items-center gap-2.5">
-                                <i class="fa-solid fa-bullhorn text-buddhist-gold"></i> Tất Cả Thông Báo
-                            </button>
-                            <button onclick="filterCategory('bat-quan-trai')" class="w-full text-left px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-rose-50 hover:text-buddhist-maroon transition flex items-center gap-2.5">
-                                <i class="fa-solid fa-spa text-buddhist-gold"></i> Khóa tu Bát Quan Trai
-                            </button>
-                            <button onclick="filterCategory('tuoi-tre-quy-y')" class="w-full text-left px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-rose-50 hover:text-buddhist-maroon transition flex items-center gap-2.5">
-                                <i class="fa-solid fa-child-reaching text-buddhist-gold"></i> Khóa tu Tuổi trẻ Quy Y
-                            </button>
-                            <button onclick="filterCategory('quy-y')" class="w-full text-left px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-rose-50 hover:text-buddhist-maroon transition flex items-center gap-2.5">
-                                <i class="fa-solid fa-hands-praying text-buddhist-gold"></i> Quy y Tam Bảo
-                            </button>
-                            <button onclick="filterCategory('ngay-le')" class="w-full text-left px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-rose-50 hover:text-buddhist-maroon transition flex items-center gap-2.5">
-                                <i class="fa-solid fa-calendar-star text-buddhist-gold"></i> Lễ khác / Ngày lễ chùa
-                            </button>
-                        </div>
-                    </div>
+                    <button onclick="filterCategory('tin-tuc')" id="tab-tin-tuc" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm">
+                        <i class="fa-solid fa-newspaper mr-1.5"></i> Tin Tức
+                    </button>
+                    <button onclick="filterCategory('thong-bao')" id="tab-thong-bao" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bell text-buddhist-gold"></i> Thông Báo & Khóa Tu
+                    </button>
+                </div>
+
+                <!-- Thanh tìm kiếm bài viết -->
+                <div class="relative w-full md:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="search-input" oninput="onSearchInput()" placeholder="Tìm kiếm tiêu đề bài viết..." class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-buddhist-maroon shadow-inner">
                 </div>
             </div>
         </div>
@@ -93,8 +97,34 @@
 
     <section class="py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Sub-tags với kích thước lớn hơn và màu sắc đồng bộ đặc trưng -->
+            <div id="sub-tags-container" class="hidden flex flex-wrap items-center justify-center gap-3 mb-8 p-5 bg-amber-50/90 border border-amber-200 rounded-2xl shadow-sm">
+                <span class="text-sm font-bold text-amber-900 uppercase tracking-wide mr-2"><i class="fa-solid fa-filter mr-1.5"></i> Lọc tag:</span>
+                
+                <button onclick="filterCategory('thong-bao')" id="subtag-thong-bao" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 transition shadow-xs">
+                    Tất cả thông báo
+                </button>
+                
+                <button onclick="filterCategory('bat-quan-trai')" id="subtag-bat-quan-trai" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 transition shadow-xs">
+                    Khóa tu Bát Quan Trai
+                </button>
+                
+                <button onclick="filterCategory('tuoi-tre')" id="subtag-tuoi-tre" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-emerald-100 text-emerald-700 border border-emerald-300 transition shadow-xs">
+                    Khóa tu Tuổi trẻ
+                </button>
+                
+                <button onclick="filterCategory('quy-y')" id="subtag-quy-y" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-blue-100 text-blue-700 border border-blue-300 transition shadow-xs">
+                    Quy y Tam Bảo
+                </button>
+                
+                <button onclick="filterCategory('ngay-le')" id="subtag-ngay-le" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-purple-100 text-purple-700 border border-purple-300 transition shadow-xs">
+                    Lễ khác / Ngày lễ chùa
+                </button>
+            </div>
+
             <div id="active-category-title" class="mb-8 text-xl font-heading font-bold text-buddhist-maroon border-l-4 border-buddhist-gold pl-3">
-                Hiển thị: Tất cả tin tức chung
+                Hiển thị: Tất cả bài viết
             </div>
             
             <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -103,12 +133,13 @@
                     <p class="mt-4 text-gray-500">Đang tải tin tức...</p>
                 </div>
             </div>
+
+            <div id="pagination-container" class="mt-12 flex justify-center items-center gap-2"></div>
         </div>
     </section>
     
     <div id="footer-container"></div>
     
-    <!-- Script xử lý tải dữ liệu và phân tách chuẩn danh mục / tag -->
     <script>
         const firebaseConfig = {
             databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -120,6 +151,9 @@
 
         let allNewsCache = {};
         let currentCategory = 'all';
+        let currentPage = 1;
+        let searchQuery = '';
+        const postsPerPage = 15; // Đặt 15 bài mỗi trang
 
         document.addEventListener("DOMContentLoaded", () => {
             fetchNewsData();
@@ -149,7 +183,7 @@
                 }
 
                 allNewsCache = data;
-                renderNewsList(currentCategory);
+                renderNewsList(currentCategory, 1);
 
             } catch (error) {
                 console.error("Lỗi tải tin tức:", error);
@@ -157,54 +191,119 @@
             }
         }
 
+        function onSearchInput() {
+            searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+            currentPage = 1;
+            renderNewsList(currentCategory, currentPage);
+        }
+
         function filterCategory(category) {
             currentCategory = category;
+            currentPage = 1;
             
-            // Cập nhật trạng thái active cho nút Tất Cả Tin Tức
-            const tabAll = document.getElementById('tab-all');
-            if (tabAll) {
-                tabAll.className = category === 'all' 
-                    ? "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md"
-                    : "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm";
+            ['all', 'tin-tuc', 'thong-bao'].forEach(cat => {
+                const btn = document.getElementById(`tab-${cat}`);
+                if (btn) {
+                    if (cat === category || (category !== 'all' && category !== 'tin-tuc' && cat === 'thong-bao')) {
+                        btn.className = "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md";
+                    } else {
+                        btn.className = "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm";
+                    }
+                }
+            });
+
+            const subTagsContainer = document.getElementById('sub-tags-container');
+            const isNotificationRelated = ['thong-bao', 'bat-quan-trai', 'tuoi-tre', 'quy-y', 'ngay-le'].includes(category);
+            
+            if (isNotificationRelated) {
+                subTagsContainer.classList.remove('hidden');
+                
+                const tagKeys = ['thong-bao', 'bat-quan-trai', 'tuoi-tre', 'quy-y', 'ngay-le'];
+                tagKeys.forEach(tagKey => {
+                    const tagBtn = document.getElementById(`subtag-${tagKey}`);
+                    if (!tagBtn) return;
+                    
+                    if (tagKey === category) {
+                        if (tagKey === 'bat-quan-trai') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-rose-700 text-white transition shadow-md";
+                        else if (tagKey === 'tuoi-tre') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-emerald-700 text-white transition shadow-md";
+                        else if (tagKey === 'quy-y') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-blue-700 text-white transition shadow-md";
+                        else if (tagKey === 'ngay-le') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-purple-700 text-white transition shadow-md";
+                        else tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-amber-700 text-white transition shadow-md";
+                    } else {
+                        if (tagKey === 'bat-quan-trai') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-rose-100 text-rose-700 border border-rose-300 transition shadow-xs";
+                        else if (tagKey === 'tuoi-tre') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-emerald-100 text-emerald-700 border border-emerald-300 transition shadow-xs";
+                        else if (tagKey === 'quy-y') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-blue-100 text-blue-700 border border-blue-300 transition shadow-xs";
+                        else if (tagKey === 'ngay-le') tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-purple-100 text-purple-700 border border-purple-300 transition shadow-xs";
+                        else tagBtn.className = "px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 transition shadow-xs";
+                    }
+                });
+            } else {
+                subTagsContainer.classList.add('hidden');
             }
 
             const titleEl = document.getElementById('active-category-title');
-            if (category === 'all') titleEl.textContent = "Hiển thị: Tất cả tin tức chung";
-            else if (category === 'thong-bao') titleEl.textContent = "Hiển thị: Tất cả Thông Báo";
+            if (category === 'all') titleEl.textContent = "Hiển thị: Tất cả bài viết";
+            else if (category === 'tin-tuc') titleEl.textContent = "Hiển thị: Tin tức";
+            else if (category === 'thong-bao') titleEl.textContent = "Hiển thị: Tất cả Thông Báo & Khóa Tu";
             else if (category === 'bat-quan-trai') titleEl.textContent = "Hiển thị: Khóa tu Bát Quan Trai";
-            else if (category === 'tuoi-tre-quy-y') titleEl.textContent = "Hiển thị: Khóa tu Tuổi trẻ Quy Y";
+            else if (category === 'tuoi-tre') titleEl.textContent = "Hiển thị: Khóa tu Tuổi trẻ";
             else if (category === 'quy-y') titleEl.textContent = "Hiển thị: Quy y Tam Bảo";
             else if (category === 'ngay-le') titleEl.textContent = "Hiển thị: Lễ khác / Ngày lễ chùa";
 
-            renderNewsList(category);
+            renderNewsList(category, currentPage);
         }
 
-        function renderNewsList(category) {
+        function renderNewsList(category, page = 1) {
+            currentPage = page;
             const grid = document.getElementById('news-grid');
+            const paginationEl = document.getElementById('pagination-container');
             grid.innerHTML = '';
+            paginationEl.innerHTML = '';
 
             const keys = Object.keys(allNewsCache).reverse();
-            let visibleCount = 0;
+            let matchedPosts = [];
 
             keys.forEach(key => {
                 const post = allNewsCache[key];
-                
-                // Bỏ qua bài viết đang bị ẩn
                 if (post.hidden === true) return; 
 
-                // Lọc phân tách chính xác theo category và tag từ cơ sở dữ liệu
+                let postTag = post.tag || '';
+                if (postTag === 'tuoi-tre-quy-y') postTag = 'tuoi-tre';
+
                 if (category === 'all') {
-                    // Tab "Tất Cả Tin Tức" chỉ hiển thị các bài thuộc danh mục 'tin-tuc' (loại bỏ thông báo)
-                    if (post.category === 'thong-bao') return;
+                    // Tất cả
+                } else if (category === 'tin-tuc') {
+                    if (post.category !== 'tin-tuc') return;
                 } else if (category === 'thong-bao') {
-                    // Tab "Tất Cả Thông Báo" hiển thị tất cả các bài có category là thông báo
                     if (post.category !== 'thong-bao') return;
                 } else {
-                    // Các tab tag cụ thể (bat-quan-trai, tuoi-tre-quy-y, quy-y, ngay-le)
-                    if (post.category !== 'thong-bao' || post.tag !== category) return;
+                    if (post.category !== 'thong-bao' || postTag !== category) return;
                 }
 
-                visibleCount++;
+                if (searchQuery) {
+                    const titleMatch = (post.title || '').toLowerCase().includes(searchQuery);
+                    const contentMatch = (post.content || '').toLowerCase().includes(searchQuery);
+                    if (!titleMatch && !contentMatch) return;
+                }
+
+                matchedPosts.push({ key, post });
+            });
+
+            const totalPosts = matchedPosts.length;
+            if (totalPosts === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">Không tìm thấy bài viết phù hợp.</div>';
+                return;
+            }
+
+            const totalPages = Math.ceil(totalPosts / postsPerPage);
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = Math.min(startIndex + postsPerPage, totalPosts);
+            const currentPosts = matchedPosts.slice(startIndex, endIndex);
+
+            currentPosts.forEach(({ key, post }) => {
                 const dateStr = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : '';
                 const imgSrc = post.image || 'https://placehold.co/600x400/3d1c1d/d4af37?text=Chua+Vinh+Hung';
                 
@@ -215,24 +314,51 @@
                 rawContent = rawContent.replace(/[#*`_>]/g, '').trim();
 
                 const postSlug = post.slug ? post.slug : (post.title ? createSlug(post.title) : key);
-                const tagBadge = post.tag ? `<span class="inline-block px-2.5 py-0.5 bg-rose-50 text-rose-700 rounded-md text-[10px] font-bold mb-2 uppercase"><i class="fa-solid fa-tag mr-1"></i>${post.tag}</span>` : '';
+                
+                let displayTagName = '';
+                let tagColorClass = 'bg-gray-100 text-gray-700 border border-gray-300';
+
+                let postTag = post.tag || '';
+                if (postTag === 'tuoi-tre-quy-y') postTag = 'tuoi-tre';
+
+                if (post.category === 'tin-tuc') {
+                    displayTagName = 'Tin tức';
+                    tagColorClass = 'bg-amber-100 text-amber-800 border border-amber-300';
+                } else if (postTag === 'tuoi-tre') {
+                    displayTagName = 'Khóa tu Tuổi trẻ';
+                    tagColorClass = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+                } else if (postTag === 'bat-quan-trai') {
+                    displayTagName = 'Khóa tu Bát Quan Trai';
+                    tagColorClass = 'bg-rose-100 text-rose-800 border border-rose-300';
+                } else if (postTag === 'quy-y') {
+                    displayTagName = 'Quy y Tam Bảo';
+                    tagColorClass = 'bg-blue-100 text-blue-800 border border-blue-300';
+                } else if (postTag === 'ngay-le') {
+                    displayTagName = 'Ngày lễ chùa';
+                    tagColorClass = 'bg-purple-100 text-purple-800 border border-purple-300';
+                } else if (post.category === 'thong-bao') {
+                    displayTagName = 'Thông báo chung';
+                    tagColorClass = 'bg-orange-100 text-orange-800 border border-orange-300';
+                }
+
+                const tagBadge = displayTagName ? `<span class="inline-block px-3 py-1 rounded-md text-[11px] font-bold uppercase shadow-xs ${tagColorClass}"><i class="fa-solid fa-tag mr-1"></i>${displayTagName}</span>` : '';
 
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl overflow-hidden shadow-md border border-amber-100 flex flex-col hover:shadow-xl transition duration-300";
+                card.className = "bg-white rounded-2xl overflow-hidden shadow-md border border-amber-100 flex flex-col justify-between hover:shadow-xl transition duration-300 h-full";
                 card.innerHTML = `
-                    <div class="h-48 overflow-hidden relative">
+                    <div class="h-48 overflow-hidden relative flex-shrink-0">
                         <img src="${imgSrc}" alt="${post.title || ''}" class="w-full h-full object-cover hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/3d1c1d/d4af37?text=Chua+Vinh+Hung'">
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
                         <div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-semibold text-buddhist-gold uppercase tracking-wider"><i class="fa-regular fa-calendar-days mr-1"></i> ${dateStr}</span>
-                                ${tagBadge}
+                            <div class="flex items-center justify-between mb-3 h-7">
+                                <span class="text-xs font-semibold text-buddhist-gold uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-1.5"></i> ${dateStr}</span>
+                                <div>${tagBadge}</div>
                             </div>
-                            <h3 class="text-xl font-heading font-bold text-gray-900 mt-2 hover:text-buddhist-maroon transition">
+                            <h3 class="text-xl font-heading font-bold text-gray-900 hover:text-buddhist-maroon transition post-title mb-2">
                                 <a href="chi-tiet-tin-tuc.html?slug=${postSlug}">${post.title || ''}</a>
                             </h3>
-                            <p class="text-gray-600 text-sm mt-2 line-clamp-3">${rawContent}</p>
+                            <p class="text-gray-600 post-desc">${rawContent}</p>
                         </div>
                         <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
                             <a href="chi-tiet-tin-tuc.html?slug=${postSlug}" class="text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
@@ -244,8 +370,34 @@
                 grid.appendChild(card);
             });
 
-            if (visibleCount === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center py-12 text-gray-500">Chưa có bài viết nào thuộc danh mục này.</div>';
+            if (totalPages > 1) {
+                let paginationHtml = '';
+                
+                if (currentPage > 1) {
+                    paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage - 1})" class="px-4 py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-buddhist-maroon hover:text-white transition shadow-sm"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
+                } else {
+                    paginationHtml += `<button disabled class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold cursor-not-allowed"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
+                }
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                        if (i === currentPage) {
+                            paginationHtml += `<button class="w-10 h-10 rounded-xl bg-buddhist-maroon text-white font-bold shadow-md">${i}</button>`;
+                        } else {
+                            paginationHtml += `<button onclick="renderNewsList('${category}', ${i})" class="w-10 h-10 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-gray-100 transition shadow-sm">${i}</button>`;
+                        }
+                    } else if (i === currentPage - 2 || i === currentPage + 2) {
+                        paginationHtml += `<span class="px-2 text-gray-400 font-bold">...</span>`;
+                    }
+                }
+
+                if (currentPage < totalPages) {
+                    paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage + 1})" class="px-4 py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-buddhist-maroon hover:text-white transition shadow-sm">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
+                } else {
+                    paginationHtml += `<button disabled class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold cursor-not-allowed">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
+                }
+
+                paginationEl.innerHTML = paginationHtml;
             }
         }
     </script>

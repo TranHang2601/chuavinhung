@@ -54,90 +54,179 @@
         .article-content h3 { font-size: 1.5rem; font-weight: 700; color: #6b2024; margin-top: 2rem; margin-bottom: 1rem; }
         .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
         .article-content li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+        /* Tùy chỉnh thanh cuộn nhỏ cho danh sách tin liên quan cuộn/xoay dọc */
+        .related-scroll-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .related-scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .related-scroll-container::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
+        }
     </style>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="text-gray-800 antialiased">
+<body class="text-gray-800 antialiased bg-[#faf8f5]">
 
     <div id="header-container"></div>
 
     <!-- Banner tiêu đề phụ -->
     <section class="hero-sub h-[35vh] mt-0 flex items-center justify-center relative">
         <div class="text-center px-4 z-10 text-white mt-10">
-            <span class="bg-buddhist-gold text-buddhist-dark px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 inline-block">Phật Sự Tông Môn</span>
+            <span class="bg-buddhist-gold text-buddhist-dark px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 inline-block shadow-sm">Phật Sự Tông Môn</span>
             <h1 class="text-3xl md:text-4xl font-heading font-bold max-w-4xl mx-auto leading-tight" id="news-banner-title">Chi Tiết Tin Tức</h1>
         </div>
     </section>
 
     <section class="py-12 md:py-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden p-6 md:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 
-                <!-- Nút quay lại danh sách & Công cụ chia sẻ -->
-                <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-                    <a href="tin-tuc.html" class="inline-flex items-center gap-2 text-buddhist-maroon hover:text-buddhist-gold font-semibold transition">
-                        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách tin tức
-                    </a>
-                    <div id="share-tools-container" class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500 font-medium">Chia sẻ:</span>
-                        <button onclick="shareArticle('facebook')" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition" title="Chia sẻ Facebook">
-                            <i class="fa-brands fa-facebook-f text-xs"></i>
-                        </button>
-                        <button onclick="shareArticle('zalo')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition font-bold text-xs" title="Chia sẻ Zalo">
-                            Z
-                        </button>
-                        <button onclick="copyLink()" class="w-8 h-8 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition" title="Sao chép liên kết">
-                            <i class="fa-solid fa-link text-xs"></i>
-                        </button>
+                <!-- Cột Trái / Chính: Chi tiết bài viết (Chiếm 2 cột) -->
+                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden p-6 sm:p-10">
+                    
+                    <!-- Nút quay lại danh sách & Công cụ chia sẻ -->
+                    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+                        <a href="tin-tuc.html" class="inline-flex items-center gap-2 text-buddhist-maroon hover:text-buddhist-gold font-semibold transition">
+                            <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách tin tức
+                        </a>
+                        <div id="share-tools-container" class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 font-medium">Chia sẻ:</span>
+                            <button onclick="shareArticle('facebook')" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition" title="Chia sẻ Facebook">
+                                <i class="fa-brands fa-facebook-f text-xs"></i>
+                            </button>
+                            <button onclick="shareArticle('zalo')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition font-bold text-xs" title="Chia sẻ Zalo">
+                                Z
+                            </button>
+                            <button onclick="copyLink()" class="w-8 h-8 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition" title="Sao chép liên kết">
+                                <i class="fa-solid fa-link text-xs"></i>
+                            </button>
+                        </div>
                     </div>
+
+                    <!-- Thông báo sao chép thành công -->
+                    <div id="copy-alert" class="hidden mb-6 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i> Đã sao chép liên kết bài viết vào bộ nhớ tạm!
+                    </div>
+
+                    <!-- Thông tin meta bài viết -->
+                    <div id="article-meta-info" class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-buddhist-gold"></i> <span id="news-date">Đang cập nhật...</span></span>
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-buddhist-gold"></i> <span>Ban Biên Tập Chùa Vĩnh Hưng</span></span>
+                    </div>
+
+                    <!-- Tiêu đề chính -->
+                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-buddhist-dark mb-6 leading-snug" id="news-title">Đang tải tiêu đề...</h2>
+
+                    <!-- Ảnh đại diện bài viết -->
+                    <div id="news-image-wrapper" class="mb-8 rounded-xl overflow-hidden shadow-md cursor-pointer group relative">
+                        <img id="news-image" src="https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-auto object-cover max-h-[450px] group-hover:scale-105 transition duration-500" onclick="openImageLightbox(this.src)" onerror="this.src='https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung'">
+                        <div class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-lg text-xs font-semibold opacity-0 group-hover:opacity-100 transition duration-300 flex items-center gap-1.5 pointer-events-none">
+                            <i class="fa-solid fa-expand"></i> Phóng to ảnh
+                        </div>
+                    </div>
+
+                    <!-- Nội dung chi tiết -->
+                    <div class="article-content text-base md:text-lg" id="news-body">
+                        <div class="text-center py-12">
+                            <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
+                            <p class="mt-3 text-gray-500">Đang tải nội dung bài viết từ hệ thống...</p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Thông báo sao chép thành công -->
-                <div id="copy-alert" class="hidden mb-6 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Đã sao chép liên kết bài viết vào bộ nhớ tạm!
-                </div>
+                <!-- Cột Phải: Danh sách bài viết liên quan nằm dọc (Sticky Sidebar với nút bấm mũi tên xoay vòng) -->
+                <div class="lg:col-span-1 space-y-6 lg:sticky lg:top-24">
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                            <h3 class="font-heading font-bold text-lg text-buddhist-dark flex items-center gap-2">
+                                <i class="fa-solid fa-newspaper text-buddhist-gold"></i> Bài Viết Liên Quan
+                            </h3>
+                            <!-- Nút điều hướng mũi tên lên / xuống cho danh sách dọc -->
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="rotateArticles(-1)" class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-buddhist-maroon hover:text-white text-gray-700 flex items-center justify-center transition shadow-sm" title="Bài trước">
+                                    <i class="fa-solid fa-chevron-up text-xs"></i>
+                                </button>
+                                <button onclick="rotateArticles(1)" class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-buddhist-maroon hover:text-white text-gray-700 flex items-center justify-center transition shadow-sm" title="Bài tiếp theo">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
 
-                <!-- Thông tin meta bài viết -->
-                <div id="article-meta-info" class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
-                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-buddhist-gold"></i> <span id="news-date">Đang cập nhật...</span></span>
-                    <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-buddhist-gold"></i> <span>Ban Biên Tập Chùa Vĩnh Hưng</span></span>
-                </div>
+                        <!-- Container danh sách bài liên quan dọc (Hỗ trợ xoay vòng tự động và thủ công bằng mũi tên) -->
+                        <div id="related-news-container" class="space-y-4 pr-1">
+                            <!-- Nạp động qua JS -->
+                            <div class="text-center py-8 text-gray-400 text-sm">
+                                <i class="fa-solid fa-spinner fa-spin text-xl mb-2"></i>
+                                <p>Đang tải bài viết liên quan...</p>
+                            </div>
+                        </div>
 
-                <!-- Tiêu đề chính -->
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-buddhist-dark mb-6 leading-snug" id="news-title">Đang tải tiêu đề...</h2>
+                        <!-- Chú thích hỗ trợ xoay vòng -->
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-center flex items-center justify-between text-[11px] text-gray-400">
+                            <span class="italic flex items-center gap-1">
+                                <i class="fa-solid fa-rotate text-buddhist-gold"></i> Xoay vòng tự động & thủ công
+                            </span>
+                            <span id="rotation-counter" class="font-semibold text-buddhist-maroon">0/0</span>
+                        </div>
+                    </div>
 
-                <!-- Ảnh đại diện bài viết -->
-                <div id="news-image-wrapper" class="mb-8 rounded-xl overflow-hidden shadow-md">
-                    <img id="news-image" src="https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-auto object-cover max-h-[450px]" onerror="this.src='https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung'">
-                </div>
-
-                <!-- Nội dung chi tiết -->
-                <div class="article-content text-lg" id="news-body">
-                    <div class="text-center py-12">
-                        <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
-                        <p class="mt-3 text-gray-500">Đang tải nội dung bài viết từ hệ thống...</p>
+                    <!-- Widget bổ trợ: Thông tin Khóa tu -->
+                    <div class="bg-gradient-to-br from-buddhist-dark to-[#5a282a] text-white rounded-2xl shadow-sm p-6 relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-heading pointer-events-none">
+                            <i class="fa-solid fa-om"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-lg mb-2 text-buddhist-gold">Pháp Thoại Và Video</h4>
+                        <p class="text-sm text-gray-200 mb-4 leading-relaxed">Cập nhật những bài giảng và video về các ngày lễ của Chùa Vĩnh Hưng</p>
+                        <a href="video.html" class="inline-block bg-buddhist-gold text-buddhist-dark px-4 py-2 rounded-xl text-xs font-bold hover:bg-white transition shadow">
+                            Xem Video <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
 
             </div>
-
-            <!-- Bài viết liên quan -->
-            <div id="related-section" class="max-w-4xl mx-auto mt-16">
-                <h3 class="text-2xl font-heading font-bold text-buddhist-dark mb-6">Tin Tức Khác</h3>
-                <div id="related-news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Nạp động qua JS -->
-                </div>
-            </div>
-
         </div>
     </section>
+
+    <!-- Modal Phóng To / Thu Nhỏ Ảnh (Lightbox) -->
+    <div id="image-lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden" onclick="closeImageLightbox()">
+        <!-- Thanh công cụ điều khiển Zoom -->
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-black/70 px-4 py-2 rounded-full border border-white/20 z-50" onclick="event.stopPropagation()">
+            <button onclick="zoomImage(-0.25)" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition" title="Thu nhỏ (-)">
+                <i class="fa-solid fa-magnifying-glass-minus"></i>
+            </button>
+            <span id="zoom-level-indicator" class="text-white text-xs font-mono font-bold w-12 text-center">100%</span>
+            <button onclick="zoomImage(0.25)" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition" title="Phóng to (+)">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </button>
+            <button onclick="resetZoom()" class="px-3 py-1 rounded-lg bg-white/20 hover:bg-white/40 text-white text-xs font-semibold transition" title="Đặt lại kích thước">
+                Mặc định
+            </button>
+        </div>
+
+        <button class="absolute top-6 right-6 text-white text-3xl w-12 h-12 rounded-full bg-black/50 hover:bg-black flex items-center justify-center transition z-50" onclick="closeImageLightbox()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="relative max-w-full max-h-[90vh] overflow-auto flex items-center justify-center w-full h-full" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Ảnh phóng to" class="transition-transform duration-200 select-none object-contain max-h-[85vh]" style="transform: scale(1);">
+        </div>
+    </div>
     
     <div id="footer-container"></div>
+
     <script src="js/main.js"></script>
     <script>
         const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+        let allRelatedArticles = [];
+        let rotationIndex = 0;
+        let rotationTimer = null;
 
-        // Hàm tạo slug tự động từ tiêu đề
         function createSlug(str) {
             if (!str) return '';
             str = str.toLowerCase();
@@ -150,7 +239,6 @@
             return str;
         }
 
-        // Hàm chuẩn hóa tiếng Việt
         function normalizeVietnamese(str) {
             if (!str) return '';
             let normalized = str.normalize('NFC');
@@ -184,7 +272,6 @@
 
                 let post = null;
                 
-                // Tìm kiếm theo ID hoặc Slug
                 if (newsId && data[newsId]) {
                     post = data[newsId];
                 } else if (newsSlug) {
@@ -193,39 +280,32 @@
                         return itemSlug === newsSlug.replace(/^\//, '');
                     });
                 } else if (newsArray.length > 0) {
-                    // Lấy bài viết công khai mới nhất nếu không có tham số
                     const visibleList = newsArray.filter(item => !item.hidden);
                     if (visibleList.length > 0) {
                         post = visibleList[0];
                     }
                 }
 
-                // Kiểm tra xem bài viết có tồn tại và KHÔNG BỊ ẨN (hidden !== true)
                 if (!post || post.hidden === true) {
                     showNotFoundError("Bài viết này không tồn tại hoặc đã bị ẩn bởi ban quản trị.");
                     return;
                 }
                 
-                // Chuẩn hóa tiêu đề bài viết
                 const postTitle = normalizeVietnamese(post.title || '');
                 
-                const bannerTitleEl = document.getElementById('news-banner-title');
-                if (bannerTitleEl) bannerTitleEl.textContent = postTitle;
-                
-                const titleEl = document.getElementById('news-title');
-                if (titleEl) titleEl.textContent = postTitle;
-                
-                const dateEl = document.getElementById('news-date');
-                if (dateEl) dateEl.textContent = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
+                document.getElementById('meta-title').textContent = `${postTitle} | Chùa Vĩnh Hưng`;
+                document.getElementById('og-title').setAttribute('content', `${postTitle} | Chùa Vĩnh Hưng`);
+                document.getElementById('news-banner-title').textContent = postTitle;
+                document.getElementById('news-title').textContent = postTitle;
+                document.getElementById('news-date').textContent = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
                 
                 let articleImg = 'https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung';
                 if (post.image && post.image.trim() !== '') {
                     articleImg = post.image;
-                    const imgEl = document.getElementById('news-image');
-                    if (imgEl) imgEl.src = articleImg;
+                    document.getElementById('news-image').src = articleImg;
+                    document.getElementById('og-image').setAttribute('content', articleImg);
                 } else {
-                    const imgWrapper = document.getElementById('news-image-wrapper');
-                    if (imgWrapper) imgWrapper.style.display = 'none';
+                    document.getElementById('news-image-wrapper').style.display = 'none';
                 }
 
                 let contentHtml = '';
@@ -248,7 +328,7 @@
                     if (post.gallery && Array.isArray(post.gallery) && post.gallery.length > 0) {
                         contentHtml += '<div class="mt-8 pt-6 border-t border-gray-200"><h4 class="font-serif font-bold text-chua-red uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
                         post.gallery.forEach(imgUrl => {
-                            contentHtml += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover"></div>`;
+                            contentHtml += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm cursor-pointer" onclick="openImageLightbox('${imgUrl}')"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div>`;
                         });
                         contentHtml += '</div></div>';
                     }
@@ -256,67 +336,27 @@
                     contentHtml = '<p>Đang cập nhật nội dung...</p>';
                 }
 
-                const bodyEl = document.getElementById('news-body');
-                if (bodyEl) bodyEl.innerHTML = contentHtml;
+                document.getElementById('news-body').innerHTML = contentHtml;
                 
-                const pageTitle = postTitle + " | Chùa Vĩnh Hưng";
-                const plainSummary = post.content ? normalizeVietnamese(post.content).replace(/<[^>]*>?/gm, '').substring(0, 150) + '...' : 'Cập nhật tin tức phật sự tại Chùa Vĩnh Hưng.';
-                const currentUrl = window.location.href;
-
-                document.title = pageTitle;
-                const metaTitleEl = document.getElementById('meta-title');
-                if (metaTitleEl) metaTitleEl.textContent = pageTitle;
+                document.querySelectorAll('.article-content img').forEach(img => {
+                    img.style.cursor = 'pointer';
+                    img.onclick = () => openImageLightbox(img.src);
+                });
                 
-                const metaDescEl = document.getElementById('meta-desc');
-                if (metaDescEl) metaDescEl.setAttribute('content', plainSummary);
+                // Lọc tin tức hiển thị dọc bên phải
+                const currentTag = post.tag || '';
+                const otherArticles = newsArray.filter(item => item.id !== post.id && !item.hidden);
+                const sameTagArticles = otherArticles.filter(item => (item.tag || '') === currentTag);
+                const diffTagArticles = otherArticles.filter(item => (item.tag || '') !== currentTag);
                 
-                const ogTitleEl = document.getElementById('og-title');
-                if (ogTitleEl) ogTitleEl.setAttribute('content', pageTitle);
+                allRelatedArticles = [...sameTagArticles, ...diffTagArticles];
                 
-                const ogDescEl = document.getElementById('og-description');
-                if (ogDescEl) ogDescEl.setAttribute('content', plainSummary);
-                
-                const ogImageEl = document.getElementById('og-image');
-                if (ogImageEl) ogImageEl.setAttribute('content', articleImg);
-                
-                const ogUrlEl = document.getElementById('og-url');
-                if (ogUrlEl) ogUrlEl.setAttribute('content', currentUrl);
-
-                // Lọc các bài viết liên quan CHỈ HIỂN THỊ (bỏ qua bài ẩn và bài hiện tại)
-                const relatedArticles = newsArray.filter(item => item.id !== post.id && !item.hidden).slice(0, 2);
-                const relatedContainer = document.getElementById('related-news-grid');
-                const relatedSection = document.getElementById('related-section');
-                
-                if (relatedContainer && relatedSection) {
-                    if (relatedArticles.length > 0) {
-                        relatedContainer.innerHTML = relatedArticles.map(article => {
-                            const imgSrc = (article.image && article.image.trim() !== "") ? article.image : 'https://placehold.co/600x400/3d1c1d/d4af37?text=ChuaVinhHung';
-                            const articleTitle = normalizeVietnamese(article.title || '');
-                            const summaryText = article.content ? normalizeVietnamese(article.content).replace(/<[^>]*>?/gm, '').substring(0, 100) + '...' : '';
-                            const dateStr = article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN') : '';
-                            const articleSlug = article.slug ? article.slug : createSlug(article.title);
-                            
-                            return `
-                                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md transition">
-                                    <div>
-                                        <img src="${imgSrc}" alt="${articleTitle}" class="w-full h-48 object-cover" onerror="this.src='https://placehold.co/600x400/3d1c1d/d4af37?text=ChuaVinhHung'">
-                                        <div class="p-5">
-                                            <h4 class="font-heading font-bold text-lg text-buddhist-dark mt-1 line-clamp-2 hover:text-buddhist-maroon transition">
-                                                <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}">${articleTitle}</a>
-                                            </h4>
-                                            <p class="text-gray-600 text-sm mt-2 line-clamp-2">${summaryText}</p>
-                                        </div>
-                                    </div>
-                                    <div class="p-5 pt-0 flex items-center justify-between text-xs text-gray-400 border-t border-gray-50 mt-2">
-                                        <span><i class="fa-regular fa-calendar"></i> ${dateStr}</span>
-                                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="text-buddhist-maroon font-semibold hover:underline">Đọc tiếp <i class="fa-solid fa-arrow-right ml-1"></i></a>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('');
-                    } else {
-                        relatedSection.style.display = 'none';
-                    }
+                if (allRelatedArticles.length > 0) {
+                    renderRotatedArticles();
+                    startArticleRotation();
+                } else {
+                    document.getElementById('related-news-container').innerHTML = '<p class="text-sm text-gray-500 text-center py-4">Chưa có bài viết liên quan khác.</p>';
+                    document.getElementById('rotation-counter').textContent = '0/0';
                 }
 
             } catch (err) {
@@ -325,41 +365,134 @@
             }
         }
 
-        function showNotFoundError(message) {
-            const bannerTitleEl = document.getElementById('news-banner-title');
-            if (bannerTitleEl) bannerTitleEl.textContent = "Thông Báo";
+        // Hàm render 4 bài viết liên quan và cập nhật bộ đếm
+        function renderRotatedArticles() {
+            const relatedContainer = document.getElementById('related-news-container');
+            const counterIndicator = document.getElementById('rotation-counter');
+            if (!relatedContainer || allRelatedArticles.length === 0) return;
 
-            const titleEl = document.getElementById('news-title');
-            if (titleEl) titleEl.textContent = "Bài Viết Không Khả Dụng";
+            const displayCount = 4;
+            let htmlContent = '';
 
-            const metaInfo = document.getElementById('article-meta-info');
-            if (metaInfo) metaInfo.style.display = 'none';
+            for (let i = 0; i < Math.min(displayCount, allRelatedArticles.length); i++) {
+                const index = (rotationIndex + i) % allRelatedArticles.length;
+                const article = allRelatedArticles[index];
+                
+                const imgSrc = (article.image && article.image.trim() !== "") ? article.image : 'https://placehold.co/400x300/3d1c1d/d4af37?text=ChuaVinhHung';
+                const articleTitle = normalizeVietnamese(article.title || '');
+                const dateStr = article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN') : '';
+                const articleSlug = article.slug ? article.slug : createSlug(article.title);
 
-            const imgWrapper = document.getElementById('news-image-wrapper');
-            if (imgWrapper) imgWrapper.style.display = 'none';
-
-            const shareTools = document.getElementById('share-tools-container');
-            if (shareTools) shareTools.style.display = 'none';
-
-            const bodyEl = document.getElementById('news-body');
-            if (bodyEl) {
-                bodyEl.innerHTML = `
-                    <div class="text-center py-10 space-y-4">
-                        <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </div>
-                        <p class="text-gray-600 font-medium text-lg">${message}</p>
-                        <div class="pt-4">
-                            <a href="tin-tuc.html" class="inline-block bg-buddhist-maroon text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-opacity-90 transition">
-                                <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại trang Tin Tức
-                            </a>
+                htmlContent += `
+                    <div class="flex items-start gap-3 group pb-3 border-b border-gray-100 last:border-0 last:pb-0 transition-all duration-300">
+                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-gray-100">
+                            <img src="${imgSrc}" alt="${articleTitle}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/3d1c1d/d4af37?text=ChuaVinhHung'">
+                        </a>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 text-xs text-gray-400 mb-1">
+                                <span><i class="fa-regular fa-calendar text-buddhist-gold"></i> ${dateStr}</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-sm text-buddhist-dark line-clamp-2 group-hover:text-buddhist-maroon transition leading-snug">
+                                <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}">${articleTitle}</a>
+                            </h4>
                         </div>
                     </div>
                 `;
             }
 
-            const relatedSection = document.getElementById('related-section');
-            if (relatedSection) relatedSection.style.display = 'none';
+            relatedContainer.innerHTML = htmlContent;
+            if (counterIndicator) {
+                counterIndicator.textContent = `${rotationIndex + 1}/${allRelatedArticles.length}`;
+            }
+        }
+
+        // Hàm điều hướng xoay vòng thủ công khi bấm nút mũi tên lên / xuống
+        window.rotateArticles = function(direction) {
+            if (allRelatedArticles.length === 0) return;
+            rotationIndex = (rotationIndex + direction + allRelatedArticles.length) % allRelatedArticles.length;
+            renderRotatedArticles();
+            
+            // Đặt lại thời gian tự động xoay khi người dùng vừa bấm nút
+            if (rotationTimer) {
+                clearInterval(rotationTimer);
+                startArticleRotation();
+            }
+        };
+
+        // Tự động xoay vòng tin liên quan mỗi 5 giây
+        function startArticleRotation() {
+            if (allRelatedArticles.length <= 4) return;
+            if (rotationTimer) clearInterval(rotationTimer);
+
+            rotationTimer = setInterval(() => {
+                rotationIndex = (rotationIndex + 1) % allRelatedArticles.length;
+                renderRotatedArticles();
+            }, 5000);
+        }
+
+        function showNotFoundError(message) {
+            document.getElementById('news-banner-title').textContent = "Thông Báo";
+            document.getElementById('news-title').textContent = "Bài Viết Không Khả Dụng";
+            document.getElementById('article-meta-info').style.display = 'none';
+            document.getElementById('news-image-wrapper').style.display = 'none';
+            document.getElementById('share-tools-container').style.display = 'none';
+            document.getElementById('news-body').innerHTML = `
+                <div class="text-center py-10 space-y-4">
+                    <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <p class="text-gray-600 font-medium text-lg">${message}</p>
+                    <div class="pt-4">
+                        <a href="tin-tuc.html" class="inline-block bg-buddhist-maroon text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-opacity-90 transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại trang Tin Tức
+                        </a>
+                    </div>
+                </div>
+            `;
+            document.getElementById('related-news-container').innerHTML = '<p class="text-sm text-gray-400 text-center">Không có bài viết.</p>';
+        }
+
+        let currentZoom = 1;
+
+        window.openImageLightbox = function(src) {
+            const modal = document.getElementById('image-lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            if (modal && img) {
+                img.src = src;
+                currentZoom = 1;
+                updateImageZoom();
+                modal.classList.remove('hidden');
+            }
+        };
+
+        window.closeImageLightbox = function() {
+            const modal = document.getElementById('image-lightbox-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        };
+
+        window.zoomImage = function(delta) {
+            currentZoom += delta;
+            if (currentZoom < 0.5) currentZoom = 0.5;
+            if (currentZoom > 3) currentZoom = 3;
+            updateImageZoom();
+        };
+
+        window.resetZoom = function() {
+            currentZoom = 1;
+            updateImageZoom();
+        };
+
+        function updateImageZoom() {
+            const img = document.getElementById('lightbox-img');
+            const indicator = document.getElementById('zoom-level-indicator');
+            if (img) {
+                img.style.transform = `scale(${currentZoom})`;
+            }
+            if (indicator) {
+                indicator.textContent = `${Math.round(currentZoom * 100)}%`;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', fetchArticleDetail);

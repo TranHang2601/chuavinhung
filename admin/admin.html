@@ -272,14 +272,15 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-4 lg:col-span-2">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <!-- RECENT NEWS SECTION WITH LARGER, SPACIOUS, WELL-ALIGNED CARDS -->
+                    <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-5 lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center">
                                 <i class="fa-solid fa-clock-rotate-left mr-2 text-rose-600"></i> Bài Viết Mới Đăng Gần Đây
                             </h3>
                             <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả bài viết →</button>
                         </div>
-                        <div id="overview-recent-news-list" class="space-y-3 flex-grow flex flex-col justify-center">
+                        <div id="overview-recent-news-list" class="space-y-3.5 flex-grow">
                             <p class="text-xs text-slate-400 italic text-center py-6">Đang tải danh sách bài viết...</p>
                         </div>
                     </div>
@@ -1168,7 +1169,7 @@
             }
         }
 
-        function compressAndConvertToWebP(file, maxWidth = 1200, quality = 0.82) {
+        function compressAndConvertToWebP(file, maxWidth = 1920, quality = 0.92) {
             return new Promise((resolve, reject) => {
                 if (!file || !file.type.startsWith('image/')) {
                     reject(new Error("Tệp chọn không phải là hình ảnh hợp lệ!"));
@@ -1190,6 +1191,8 @@
                         canvas.width = width;
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
                         ctx.drawImage(img, 0, 0, width, height);
 
                         canvas.toBlob((blob) => {
@@ -1822,7 +1825,7 @@
                 pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
                 
                 for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQage + 1)) {
+                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQAPage + 1)) {
                         pagHtml += `<button onclick="changeQAPage(${p})" class="px-3 py-1.5 ${p === currentQAPage ? 'bg-amber-600 text-white shadow-md' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50'} rounded-xl text-xs font-bold transition shadow-xs">${p}</button>`;
                     } else if (p === currentQAPage - 2 || p === currentQAPage + 2) {
                         pagHtml += `<span class="px-2 text-slate-400">...</span>`;
@@ -2003,13 +2006,14 @@
             } catch (err) { console.error("Lỗi tải tin tức:", err); }
         }
 
+        // ENHANCED RECENT NEWS RENDERING WITH LARGER, SPACIOUS, WELL-ALIGNED CARDS
         function renderOverviewRecentNews() {
             const container = document.getElementById('overview-recent-news-list');
             if (!container) return;
             
             const keys = Object.keys(newsData).sort((a, b) => (newsData[b].created_at || 0) - (newsData[a].created_at || 0)).slice(0, 3);
             if (keys.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 italic">Chưa có bài viết nào được đăng.</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-6">Chưa có bài viết nào được đăng.</p>`;
                 return;
             }
 
@@ -2017,18 +2021,30 @@
             keys.forEach(key => {
                 const item = newsData[key];
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
+                
+                let tagLabel = 'Tin Tức';
+                let tagBg = 'bg-amber-100 text-amber-800';
+                if (item.category === 'thong-bao') {
+                    tagLabel = 'Thông Báo';
+                    tagBg = 'bg-rose-100 text-rose-700';
+                }
+
                 html += `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-slate-100/70 transition">
-                        <div class="flex items-center space-x-3.5 overflow-hidden">
-                            <div class="w-12 h-10 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0">
-                                <img src="${item.image || 'https://placehold.co/100x80/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover">
+                    <div class="flex items-center justify-between p-4 bg-slate-50/80 rounded-2xl border border-slate-100 hover:bg-slate-100/90 transition shadow-xs group">
+                        <div class="flex items-center space-x-4 overflow-hidden">
+                            <div class="w-20 h-16 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0 border border-slate-200 shadow-xs">
+                                <img src="${item.image || 'https://placehold.co/150x100/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                             </div>
-                            <div class="overflow-hidden">
-                                <h5 class="text-xs font-bold text-slate-900 truncate">${item.title || ''}</h5>
-                                <p class="text-[10px] text-slate-500 font-medium mt-0.5">Đăng bởi: ${item.author || 'Quản trị viên'} • ${dateStr}</p>
+                            <div class="overflow-hidden space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${tagBg}">${tagLabel}</span>
+                                    <span class="text-[11px] text-slate-400 font-medium"><i class="fa-regular fa-calendar mr-1"></i>${dateStr}</span>
+                                </div>
+                                <h5 class="text-sm font-bold text-slate-900 truncate group-hover:text-rose-600 transition">${item.title || ''}</h5>
+                                <p class="text-xs text-slate-500 font-medium">Đăng bởi: <strong>${item.author || 'Quản Trị Viên'}</strong></p>
                             </div>
                         </div>
-                        <button onclick="editNews('${key}')" class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-2">Sửa</button>
+                        <button onclick="editNews('${key}')" class="px-4 py-2.5 bg-white border border-slate-200 hover:bg-rose-600 hover:text-white rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-3">Sửa bài</button>
                     </div>
                 `;
             });
@@ -2086,7 +2102,6 @@
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const isHidden = item.hidden === true;
                 
-                // Cải thiện logic xác định và hiển thị đúng tag/chuyên mục
                 let tagLabel = 'Tin Tức Chung';
                 let tagBg = 'bg-amber-100 text-amber-800';
                 
