@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảng Điều Khiển Quản Trị Tổng Hợp | Chùa Vĩnh Hưng</title>
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
@@ -137,7 +133,6 @@
 
     <main id="admin-content" class="hidden w-full px-4 sm:px-8 py-6 flex-grow flex flex-col md:flex-row gap-6">
 
-        <!-- Sidebar Navigation -->
         <nav id="admin-sidebar" class="bg-white/90 backdrop-blur-md p-4.5 rounded-3xl custom-shadow border border-slate-200/80 md:w-72 flex flex-col gap-2.5 text-sm font-semibold text-slate-600 flex-shrink-0">
             <div class="px-3 py-3 border-b border-slate-100 mb-1 flex items-center justify-between">
                 <div>
@@ -191,7 +186,6 @@
             </div>
         </nav>
 
-        <!-- Content Sections -->
         <div class="flex-1 w-full space-y-6">
                 
             <!-- TAB 1: OVERVIEW -->
@@ -272,15 +266,14 @@
                         </div>
                     </div>
 
-                    <!-- RECENT NEWS SECTION WITH LARGER, SPACIOUS, WELL-ALIGNED CARDS -->
-                    <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-5 lg:col-span-2">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="bg-white p-7 rounded-3xl custom-shadow border border-slate-200/80 flex flex-col justify-between space-y-4 lg:col-span-2">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center">
                                 <i class="fa-solid fa-clock-rotate-left mr-2 text-rose-600"></i> Bài Viết Mới Đăng Gần Đây
                             </h3>
                             <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả bài viết →</button>
                         </div>
-                        <div id="overview-recent-news-list" class="space-y-3.5 flex-grow">
+                        <div id="overview-recent-news-list" class="space-y-3 flex-grow flex flex-col justify-center">
                             <p class="text-xs text-slate-400 italic text-center py-6">Đang tải danh sách bài viết...</p>
                         </div>
                     </div>
@@ -371,14 +364,24 @@
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Bài Viết Tin Tức & Khóa Tu</h2>
                             <p class="text-xs text-slate-500 font-medium mt-0.5">Quản lý bài viết, phân loại chuyên mục, tag, ẩn/hiện & tối ưu ảnh WebP</p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200 w-full sm:w-64 shadow-inner">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200 w-full sm:w-60 shadow-inner">
                                 <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2 text-xs"></i>
                                 <input type="text" id="news-search" oninput="renderNewsTable()" placeholder="Tìm kiếm tiêu đề..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
                             </div>
-                            <button id="btn-add-news" onclick="openNewsModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition whitespace-nowrap tracking-wider">
-                                <i class="fa-solid fa-plus mr-1.5"></i> Bài Viết Mới
+                            <button onclick="openTagManagerModal()" class="px-4 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-amber-600/20 transition tracking-wider flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fa-solid fa-tags"></i> Quản Lý Thẻ Tag
                             </button>
+                            <button id="btn-add-news" onclick="openNewsModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition whitespace-nowrap tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Bài Viết Mới
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="news-tag-summary-bar" class="bg-gradient-to-r from-amber-50 via-rose-50/40 to-amber-50 p-4 rounded-2xl border border-amber-200/80 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-700 shadow-sm">
+                        <span class="font-bold text-amber-900 uppercase flex items-center gap-1.5 mr-1"><i class="fa-solid fa-chart-bar text-amber-600"></i> Thống kê bài viết theo thẻ tag:</span>
+                        <div id="news-tag-summary-badges" class="flex flex-wrap items-center gap-2">
+                            <span class="text-slate-400 italic">Đang tải thống kê tag...</span>
                         </div>
                     </div>
 
@@ -654,6 +657,68 @@
         </div>
     </main>
 
+    <div id="modal-tag-manager" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl border border-slate-200 space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 class="text-xl font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-tags mr-2 text-amber-600"></i> Quản Lý Danh Sách Thẻ Tag</h3>
+                <button onclick="closeTagManagerModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <p class="text-xs text-slate-500 font-medium">Thêm thẻ tag mới, hệ thống tự động sinh màu sắc trực quan khác biệt hoàn toàn cho từng tag.</p>
+                    <button onclick="openTagAddSubModal()" class="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs uppercase shadow-sm transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> Thêm Tag Mới
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm max-h-[350px]">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-amber-50/70 text-amber-900 text-xs uppercase font-bold border-b border-amber-100">
+                                <th class="py-3 px-4 w-12 text-center">STT</th>
+                                <th class="py-3 px-4">Tên Thẻ Tag</th>
+                                <th class="py-3 px-4 text-center">Màu Hiển Thị</th>
+                                <th class="py-3 px-4 w-32 text-center">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tag-manager-tbody" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+                            <tr><td colspan="4" class="py-6 text-center text-slate-400">Đang tải thẻ tag...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2 border-t border-slate-100">
+                <button type="button" onclick="closeTagManagerModal()" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT SINGLE TAG MODAL -->
+    <div id="modal-tag-single" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-200 space-y-5">
+            <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                <h3 id="tag-single-modal-title" class="text-base font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-tag mr-2 text-rose-600"></i> Thêm Thẻ Tag Mới</h3>
+                <button onclick="closeTagSingleModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="tag-single-form" onsubmit="saveSingleTag(event)" class="space-y-4 text-xs sm:text-sm">
+                <input type="hidden" id="tag-single-original-value">
+                <div>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Tên hiển thị Thẻ Tag <span class="text-rose-600">*</span></label>
+                    <input type="text" id="tag-single-name" required placeholder="Ví dụ: Phật sự miền Nam, Từ thiện..." class="w-full px-4 py-3.5 border border-slate-300 rounded-2xl outline-none bg-slate-50 font-medium text-slate-800 focus:ring-2 focus:ring-rose-500 shadow-inner">
+                </div>
+                <div class="p-4 bg-amber-50/70 rounded-2xl border border-amber-200 text-xs text-amber-900 font-medium">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-600 mr-1.5"></i> Hệ thống tự động phân bổ màu sắc tươi sáng, độc lập và không bao giờ trùng lặp cho mỗi thẻ tag.
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeTagSingleModal()" class="px-6 py-3 bg-slate-100 rounded-2xl font-bold uppercase text-xs">Hủy</button>
+                    <button type="submit" class="px-7 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs">Lưu Thẻ Tag</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- ANSWER QA MODAL -->
     <div id="modal-answer-qa" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
@@ -722,12 +787,12 @@
                         </select>
                     </div>
                     <div id="news-tag-group">
-                        <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-bold text-slate-700 text-sm uppercase">Thẻ Tag Thông Báo / Khóa Tu</label>
+                            <button type="button" onclick="openTagManagerModal()" class="text-xs text-rose-600 hover:text-rose-700 font-bold underline"><i class="fa-solid fa-plus mr-1"></i>Thêm Tag Mới</button>
+                        </div>
                         <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
-                            <option value="bat-quan-trai">Khóa tu Bát Quan Trai</option>
-                            <option value="tuoi-tre-quy-y">Khóa tu Tuổi trẻ</option>
-                            <option value="quy-y">Quy y Tam Bảo</option>
-                            <option value="ngay-le">Lễ khác / Ngày lễ chùa</option>
+                            <!-- Nạp động qua JS -->
                         </select>
                     </div>
                 </div>
@@ -1103,6 +1168,250 @@
 
         const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
 
+        let customTagsList = [
+            { value: 'bat-quan-trai', label: 'Khóa tu Bát Quan Trai', color: 'bg-rose-100 text-rose-700 border border-rose-200' },
+            { value: 'tuoi-tre-quy-y', label: 'Khóa tu Tuổi trẻ', color: 'bg-emerald-100 text-emerald-700 border border-emerald-200' },
+            { value: 'quy-y', label: 'Quy y Tam Bảo', color: 'bg-blue-100 text-blue-700 border border-blue-200' },
+            { value: 'ngay-le', label: 'Lễ khác / Ngày lễ chùa', color: 'bg-purple-100 text-purple-700 border border-purple-200' },
+            { value: 'vu-lan-bao-hieu', label: 'Vu Lan Báo Hiếu', color: 'bg-amber-100 text-amber-800 border border-amber-200' }
+        ];
+
+        function generateUniqueColorClass() {
+            const colorPalette = [
+                'bg-rose-100 text-rose-700 border border-rose-200',
+                'bg-amber-100 text-amber-800 border border-amber-200',
+                'bg-emerald-100 text-emerald-700 border border-emerald-200',
+                'bg-blue-100 text-blue-700 border border-blue-200',
+                'bg-purple-100 text-purple-700 border border-purple-200',
+                'bg-indigo-100 text-indigo-700 border border-indigo-200',
+                'bg-teal-100 text-teal-800 border border-teal-200',
+                'bg-cyan-100 text-cyan-800 border border-cyan-200',
+                'bg-orange-100 text-orange-800 border border-orange-200',
+                'bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200',
+                'bg-pink-100 text-pink-700 border border-pink-200',
+                'bg-sky-100 text-sky-800 border border-sky-200',
+                'bg-lime-100 text-lime-800 border border-lime-200',
+                'bg-violet-100 text-violet-700 border border-violet-200'
+            ];
+            const usedColors = customTagsList.map(t => t.color);
+            const availableColors = colorPalette.filter(c => !usedColors.includes(c));
+            if (availableColors.length > 0) {
+                return availableColors[Math.floor(Math.random() * availableColors.length)];
+            }
+            return colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        }
+
+        async function loadCustomTags() {
+            try {
+                const snap = await database.ref('custom_tags').once('value');
+                const data = snap.val();
+                if (data) {
+                    customTagsList = Object.values(data);
+                } else {
+                    for (const t of customTagsList) {
+                        await database.ref('custom_tags').push(t);
+                    }
+                }
+                renderTagSelectOptions();
+                renderTagManagerTable();
+                renderNewsTagSummaryBar();
+            } catch (err) {
+                console.error("Lỗi tải thẻ tag:", err);
+            }
+        }
+
+        function renderNewsTagSummaryBar() {
+            const container = document.getElementById('news-tag-summary-badges');
+            if (!container) return;
+
+            // Calculate tag counts from newsData
+            const tagCounts = {};
+            customTagsList.forEach(t => tagCounts[t.value] = 0);
+            let untaggedCount = 0;
+
+            Object.values(newsData).forEach(item => {
+                if (item.category === 'thong-bao' && item.tag) {
+                    if (tagCounts[item.tag] !== undefined) {
+                        tagCounts[item.tag]++;
+                    } else {
+                        tagCounts[item.tag] = 1;
+                    }
+                } else {
+                    untaggedCount++;
+                }
+            });
+
+            let html = '';
+            customTagsList.forEach(tag => {
+                const count = tagCounts[tag.value] || 0;
+                html += `
+                    <span class="px-3 py-1 rounded-xl text-xs font-bold ${tag.color || 'bg-slate-100 text-slate-700 border border-slate-200'} shadow-2xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-tag text-[9px]"></i> ${tag.label}: <strong class="underline font-mono">${count}</strong> bài
+                    </span>
+                `;
+            });
+
+            html += `
+                <span class="px-3 py-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-newspaper text-[9px] text-slate-500"></i> Tin tức chung: <strong class="underline font-mono">${untaggedCount}</strong> bài
+                </span>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function renderTagSelectOptions(selectedVal = '') {
+            const selectEl = document.getElementById('news-tag');
+            if (!selectEl) return;
+            let html = '';
+            customTagsList.forEach(tag => {
+                const isSelected = tag.value === selectedVal ? 'selected' : '';
+                html += `<option value="${tag.value}" ${isSelected}>${tag.label}</option>`;
+            });
+            selectEl.innerHTML = html;
+        }
+
+        function renderTagManagerTable() {
+            const tbody = document.getElementById('tag-manager-tbody');
+            if (!tbody) return;
+            if (customTagsList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-slate-400">Chưa có thẻ tag nào.</td></tr>`;
+                return;
+            }
+            let html = '';
+            customTagsList.forEach((tag, idx) => {
+                html += `
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="py-3 px-4 text-center font-mono text-xs text-slate-400">${idx + 1}</td>
+                        <td class="py-3 px-4 font-bold text-slate-900">${tag.label}</td>
+                        <td class="py-3 px-4 text-center">
+                            <span class="px-3 py-1.5 rounded-xl text-xs font-bold uppercase ${tag.color || 'bg-amber-100 text-amber-800'} inline-block shadow-xs">${tag.label}</span>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="editSingleTag('${tag.value}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm transition"><i class="fa-solid fa-pen"></i> Sửa</button>
+                                <button onclick="deleteSingleTag('${tag.value}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm transition"><i class="fa-solid fa-trash"></i> Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function openTagManagerModal() {
+            renderTagManagerTable();
+            document.getElementById('modal-tag-manager').classList.remove('hidden');
+        }
+
+        function closeTagManagerModal() {
+            document.getElementById('modal-tag-manager').classList.add('hidden');
+        }
+
+        function openTagAddSubModal(tagValue = null) {
+            const modal = document.getElementById('modal-tag-single');
+            const titleEl = document.getElementById('tag-single-modal-title');
+            const nameInput = document.getElementById('tag-single-name');
+            const origInput = document.getElementById('tag-single-original-value');
+
+            if (tagValue) {
+                const found = customTagsList.find(t => t.value === tagValue);
+                if (found) {
+                    titleEl.innerHTML = `<i class="fa-solid fa-tag mr-2 text-rose-600"></i> Chỉnh Sửa Thẻ Tag`;
+                    nameInput.value = found.label;
+                    origInput.value = found.value;
+                }
+            } else {
+                titleEl.innerHTML = `<i class="fa-solid fa-tag mr-2 text-rose-600"></i> Thêm Thẻ Tag Mới`;
+                nameInput.value = '';
+                origInput.value = '';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeTagSingleModal() {
+            document.getElementById('modal-tag-single').classList.add('hidden');
+        }
+
+        function editSingleTag(val) {
+            openTagAddSubModal(val);
+        }
+
+        async function saveSingleTag(e) {
+            e.preventDefault();
+            const name = document.getElementById('tag-single-name').value.trim();
+            const slug = generateSlug(name);
+            const origVal = document.getElementById('tag-single-original-value').value;
+
+            if (!name) {
+                showToast("Vui lòng nhập tên thẻ tag!", true);
+                return;
+            }
+
+            let chosenColor = generateUniqueColorClass();
+            if (origVal) {
+                const existing = customTagsList.find(t => t.value === origVal);
+                if (existing && existing.color) {
+                    chosenColor = existing.color;
+                }
+            }
+
+            const updatedTag = { value: slug, label: name, color: chosenColor };
+
+            try {
+                const snap = await database.ref('custom_tags').once('value');
+                const data = snap.val() || {};
+                let dbKeyToUpdate = null;
+
+                for (const k in data) {
+                    if (data[k].value === origVal) {
+                        dbKeyToUpdate = k;
+                        break;
+                    }
+                }
+
+                if (origVal && dbKeyToUpdate) {
+                    await database.ref(`custom_tags/${dbKeyToUpdate}`).set(updatedTag);
+                    showToast("Cập nhật thẻ tag thành công!");
+                } else {
+                    if (customTagsList.some(t => t.value === slug)) {
+                        showToast("Mã định danh (slug) thẻ tag này đã tồn tại!", true);
+                        return;
+                    }
+                    await database.ref('custom_tags').push(updatedTag);
+                    showToast("Đã thêm thẻ tag mới thành công!");
+                }
+
+                closeTagSingleModal();
+                loadCustomTags();
+            } catch (err) {
+                showToast("Lỗi khi lưu thẻ tag: " + err.message, true);
+            }
+        }
+
+        async function deleteSingleTag(slugVal) {
+            if (customTagsList.length <= 1) {
+                showToast("Cần giữ lại ít nhất một thẻ tag!", true);
+                return;
+            }
+            if (await promptConfirm("Bạn có chắc chắn muốn xóa thẻ tag này?")) {
+                try {
+                    const snap = await database.ref('custom_tags').once('value');
+                    const data = snap.val() || {};
+                    for (const k in data) {
+                        if (data[k].value === slugVal) {
+                            await database.ref(`custom_tags/${k}`).remove();
+                            break;
+                        }
+                    }
+                    showToast("Đã xóa thẻ tag thành công!");
+                    loadCustomTags();
+                } catch (err) {
+                    showToast("Lỗi khi xóa thẻ tag: " + err.message, true);
+                }
+            }
+        }
+
         function convertSolarToLunar(solarDate) {
             const year = solarDate.getFullYear();
             const month = solarDate.getMonth() + 1;
@@ -1240,6 +1549,7 @@
             }
 
             loadFooterConfigData();
+            loadCustomTags();
             
             setInterval(updateAdminClock, 1000);
             updateAdminClock();
@@ -1690,7 +2000,7 @@
         }
 
         async function loadAllData() {
-            await Promise.all([loadQA(), loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts(), loadFooterConfigData()]);
+            await Promise.all([loadQA(), loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts(), loadFooterConfigData(), loadCustomTags()]);
         }
 
         // ================= QA MANAGEMENT FUNCTIONS =================
@@ -1825,7 +2135,7 @@
                 pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
                 
                 for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQAPage + 1)) {
+                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQage + 1)) {
                         pagHtml += `<button onclick="changeQAPage(${p})" class="px-3 py-1.5 ${p === currentQAPage ? 'bg-amber-600 text-white shadow-md' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50'} rounded-xl text-xs font-bold transition shadow-xs">${p}</button>`;
                     } else if (p === currentQAPage - 2 || p === currentQAPage + 2) {
                         pagHtml += `<span class="px-2 text-slate-400">...</span>`;
@@ -2003,10 +2313,10 @@
                 document.getElementById('stat-news-count').textContent = Object.keys(newsData).length;
                 renderNewsTable();
                 renderOverviewRecentNews();
+                renderNewsTagSummaryBar();
             } catch (err) { console.error("Lỗi tải tin tức:", err); }
         }
 
-        // ENHANCED RECENT NEWS RENDERING WITH LARGER, SPACIOUS, WELL-ALIGNED CARDS
         function renderOverviewRecentNews() {
             const container = document.getElementById('overview-recent-news-list');
             if (!container) return;
@@ -2022,29 +2332,37 @@
                 const item = newsData[key];
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 
-                let tagLabel = 'Tin Tức';
-                let tagBg = 'bg-amber-100 text-amber-800';
+                let tagLabel = 'TIN TỨC';
+                let tagBg = 'bg-amber-100 text-amber-800 border border-amber-200';
                 if (item.category === 'thong-bao') {
-                    tagLabel = 'Thông Báo';
-                    tagBg = 'bg-rose-100 text-rose-700';
+                    const foundTag = customTagsList.find(t => t.value === item.tag);
+                    if (foundTag) {
+                        tagLabel = foundTag.label.toUpperCase();
+                        tagBg = foundTag.color || 'bg-rose-100 text-rose-700 border border-rose-200';
+                    } else {
+                        tagLabel = 'THÔNG BÁO';
+                        tagBg = 'bg-rose-100 text-rose-700 border border-rose-200';
+                    }
                 }
 
                 html += `
-                    <div class="flex items-center justify-between p-4 bg-slate-50/80 rounded-2xl border border-slate-100 hover:bg-slate-100/90 transition shadow-xs group">
+                    <div class="flex items-center justify-between p-4 bg-slate-50/90 rounded-2xl border border-slate-200/70 hover:bg-slate-100/80 transition shadow-xs">
                         <div class="flex items-center space-x-4 overflow-hidden">
-                            <div class="w-20 h-16 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0 border border-slate-200 shadow-xs">
-                                <img src="${item.image || 'https://placehold.co/150x100/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="w-20 h-14 rounded-xl overflow-hidden bg-slate-200 flex-shrink-0 shadow-sm border border-slate-200">
+                                <img src="${item.image || 'https://placehold.co/120x90/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover">
                             </div>
                             <div class="overflow-hidden space-y-1">
                                 <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${tagBg}">${tagLabel}</span>
-                                    <span class="text-[11px] text-slate-400 font-medium"><i class="fa-regular fa-calendar mr-1"></i>${dateStr}</span>
+                                    <span class="px-2.5 py-0.5 rounded-md text-[9px] font-extrabold uppercase ${tagBg}">
+                                        <i class="fa-solid fa-tag text-[8px] mr-1"></i> ${tagLabel}
+                                    </span>
+                                    <span class="text-[10px] text-slate-400 font-medium"><i class="fa-regular fa-calendar text-slate-400 mr-1"></i>${dateStr}</span>
                                 </div>
-                                <h5 class="text-sm font-bold text-slate-900 truncate group-hover:text-rose-600 transition">${item.title || ''}</h5>
-                                <p class="text-xs text-slate-500 font-medium">Đăng bởi: <strong>${item.author || 'Quản Trị Viên'}</strong></p>
+                                <h5 class="text-xs sm:text-sm font-bold text-slate-900 truncate font-sans">${item.title || ''}</h5>
+                                <p class="text-[11px] text-slate-500 font-medium">Đăng bởi: ${item.author || 'Thầy Trụ Trì (Super Admin)'}</p>
                             </div>
                         </div>
-                        <button onclick="editNews('${key}')" class="px-4 py-2.5 bg-white border border-slate-200 hover:bg-rose-600 hover:text-white rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-3">Sửa bài</button>
+                        <button onclick="editNews('${key}')" class="px-4 py-2 bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-3">Sửa bài</button>
                     </div>
                 `;
             });
@@ -2102,29 +2420,18 @@
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const isHidden = item.hidden === true;
                 
-                let tagLabel = 'Tin Tức Chung';
-                let tagBg = 'bg-amber-100 text-amber-800';
+                let tagLabel = 'Tin Tức';
+                let tagBg = 'bg-amber-100 text-amber-800 border border-amber-200';
                 
                 if (item.category === 'thong-bao') {
-                    if (item.tag === 'bat-quan-trai') { 
-                        tagLabel = 'Khóa tu Bát Quan Trai'; 
-                        tagBg = 'bg-rose-100 text-rose-700'; 
-                    } else if (item.tag === 'tuoi-tre-quy-y') { 
-                        tagLabel = 'Khóa tu Tuổi trẻ'; 
-                        tagBg = 'bg-emerald-100 text-emerald-700'; 
-                    } else if (item.tag === 'quy-y') { 
-                        tagLabel = 'Quy y Tam Bảo'; 
-                        tagBg = 'bg-blue-100 text-blue-700'; 
-                    } else if (item.tag === 'ngay-le') { 
-                        tagLabel = 'Lễ khác / Ngày lễ chùa'; 
-                        tagBg = 'bg-purple-100 text-purple-700'; 
+                    const foundTag = customTagsList.find(t => t.value === item.tag);
+                    if (foundTag) {
+                        tagLabel = foundTag.label;
+                        tagBg = foundTag.color || 'bg-rose-100 text-rose-700 border border-rose-200';
                     } else {
-                        tagLabel = 'Thông Báo / Sự Kiện'; 
-                        tagBg = 'bg-purple-100 text-purple-700';
+                        tagLabel = item.tag ? item.tag.toUpperCase() : 'Thông Báo';
+                        tagBg = 'bg-rose-100 text-rose-700 border border-rose-200';
                     }
-                } else {
-                    tagLabel = 'Tin Tức';
-                    tagBg = 'bg-amber-100 text-amber-800';
                 }
 
                 const statusBadge = isHidden 
@@ -2153,7 +2460,7 @@
                         <td class="py-3.5 px-4 text-center align-middle">
                             <div class="flex items-center justify-center gap-1.5">
                                 <button onclick="editNews('${key}')" class="px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm transition" title="Sửa bài"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteNews('${key}')" class="px-3 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm transition" title="Xóa bài"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="deleteNews('${key}')" class="px-3 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition" title="Xóa bài"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -2190,7 +2497,7 @@
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
             document.getElementById('news-category').value = 'tin-tuc';
-            document.getElementById('news-tag').value = 'bat-quan-trai';
+            renderTagSelectOptions(customTagsList[0]?.value || '');
             onCategoryChange('tin-tuc');
             document.getElementById('news-input-image').value = '';
             document.getElementById('news-preview-container').classList.add('hidden');
@@ -2212,7 +2519,7 @@
             document.getElementById('news-category').value = item.category || 'tin-tuc';
             onCategoryChange(item.category || 'tin-tuc');
             if (item.tag) {
-                document.getElementById('news-tag').value = item.tag;
+                renderTagSelectOptions(item.tag);
             }
             document.getElementById('news-input-image').value = item.image || '';
             if (item.image) {
