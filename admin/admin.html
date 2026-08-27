@@ -68,15 +68,10 @@
             color: #ffffff;
             box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3);
         }
-        .dropzone-active {
-            border-color: #e11d48 !important;
-            background-color: #fff1f2 !important;
-        }
         .glass-header {
             background: rgba(159, 18, 57, 0.95);
             backdrop-filter: blur(12px);
         }
-        /* Drag and Drop styling for menu items */
         .draggable-row {
             cursor: grab;
             transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
@@ -266,7 +261,6 @@
                                 <div id="lunar-can-chi" class="text-xs text-slate-600 font-medium italic">Năm Bính Ngọ • Ngày...</div>
                             </div>
 
-                            <!-- Buddhist Quote Box with larger, bolder, dark text for maximum clarity -->
                             <div class="p-5 rounded-2xl bg-amber-100/90 border border-amber-300 text-center shadow-inner">
                                 <h4 class="text-base sm:text-lg font-serif font-black text-amber-950 italic leading-snug drop-shadow-xs">"Tâm thanh tịnh thì cõi Phật thanh tịnh, vạn vật hanh thông."</h4>
                             </div>
@@ -401,16 +395,16 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-                        <table class="w-full text-left border-collapse min-w-[750px]">
+                        <table class="w-full text-left border-collapse min-w-[850px]">
                             <thead>
                                 <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
-                                    <th class="py-3.5 px-4 w-12 text-center">STT</th>
-                                    <th class="py-3.5 px-4 w-28 text-center">Ảnh Bài Viết</th>
-                                    <th class="py-3.5 px-4">Tiêu đề & Chuyên mục</th>
-                                    <th class="py-3.5 px-4 w-32">Ngày đăng</th>
-                                    <th class="py-3.5 px-4 w-36">Người đăng</th>
+                                    <th class="py-3.5 px-4 w-14 text-center">STT</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Ảnh Bài Viết</th>
+                                    <th class="py-3.5 px-4 w-2/5">Tiêu đề & Chuyên mục</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Ngày đăng</th>
+                                    <th class="py-3.5 px-4 w-40">Người đăng</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-24 text-center news-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-28 text-center news-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="news-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -459,7 +453,7 @@
                                     <th class="py-3.5 px-4 w-44">Link YouTube</th>
                                     <th class="py-3.5 px-4 w-32">Người đăng</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-24 text-center video-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-36 text-center video-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="video-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -730,7 +724,7 @@
                         <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
                         <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
                             <option value="bat-quan-trai">Khóa tu Bát Quan Trai</option>
-                            <option value="tuoi-tre-quy-y">Khóa tu Tuổi trẻ Quy Y</option>
+                            <option value="tuoi-tre-quy-y">Khóa tu Tuổi trẻ</option>
                             <option value="quy-y">Quy y Tam Bảo</option>
                             <option value="ngay-le">Lễ khác / Ngày lễ chùa</option>
                         </select>
@@ -928,7 +922,7 @@
     <div id="modal-video" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                <h3 class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm / Sửa Video</h3>
+                <h3 id="video-modal-title" class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm / Sửa Video</h3>
                 <button onclick="closeVideoModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="video-form" onsubmit="saveVideo(event)" class="space-y-5 text-xs sm:text-sm">
@@ -1113,7 +1107,6 @@
             const month = solarDate.getMonth() + 1;
             const day = solarDate.getDate();
 
-            // Mapping chính xác ngày 26/08/2026 dương lịch tương ứng 14/07 Bính Ngọ (2026) Âm lịch
             if (year === 2026 && month === 8 && day === 26) {
                 return {
                     day: 14,
@@ -1389,7 +1382,7 @@
             const statusText = document.getElementById('dropzone-status-text');
 
             loadingBox.classList.remove('hidden');
-            statusText.textContent = `Đang nén ảnh "${file.name}" sang WebP...`;
+            statusText.textContent = `Nén ảnh "${file.name}" sang WebP...`;
 
             try {
                 const webpResult = await compressAndConvertToWebP(file, 1200, 0.82);
@@ -1561,7 +1554,7 @@
             const files = event.target.files;
             if (!files || files.length === 0) return;
             const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
-            showToast(`Đang nén WebP và tải lên ${files.length} ảnh...`);
+            showToast(`Nén WebP và tải lên ${files.length} ảnh...`);
 
             for (let i = 0; i < files.length; i++) {
                 try {
@@ -1829,7 +1822,7 @@
                 pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
                 
                 for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQAPage + 1)) {
+                    if (p === 1 || p === totalPages || (p >= currentQAPage - 1 && p <= currentQage + 1)) {
                         pagHtml += `<button onclick="changeQAPage(${p})" class="px-3 py-1.5 ${p === currentQAPage ? 'bg-amber-600 text-white shadow-md' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50'} rounded-xl text-xs font-bold transition shadow-xs">${p}</button>`;
                     } else if (p === currentQAPage - 2 || p === currentQAPage + 2) {
                         pagHtml += `<span class="px-2 text-slate-400">...</span>`;
@@ -1868,7 +1861,6 @@
                 return;
             }
 
-            const item = qaData[key];
             const payload = {
                 answer: answerText,
                 approved: isApproved,
@@ -2094,26 +2086,59 @@
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const isHidden = item.hidden === true;
                 
+                // Cải thiện logic xác định và hiển thị đúng tag/chuyên mục
+                let tagLabel = 'Tin Tức Chung';
+                let tagBg = 'bg-amber-100 text-amber-800';
+                
+                if (item.category === 'thong-bao') {
+                    if (item.tag === 'bat-quan-trai') { 
+                        tagLabel = 'Khóa tu Bát Quan Trai'; 
+                        tagBg = 'bg-rose-100 text-rose-700'; 
+                    } else if (item.tag === 'tuoi-tre-quy-y') { 
+                        tagLabel = 'Khóa tu Tuổi trẻ'; 
+                        tagBg = 'bg-emerald-100 text-emerald-700'; 
+                    } else if (item.tag === 'quy-y') { 
+                        tagLabel = 'Quy y Tam Bảo'; 
+                        tagBg = 'bg-blue-100 text-blue-700'; 
+                    } else if (item.tag === 'ngay-le') { 
+                        tagLabel = 'Lễ khác / Ngày lễ chùa'; 
+                        tagBg = 'bg-purple-100 text-purple-700'; 
+                    } else {
+                        tagLabel = 'Thông Báo / Sự Kiện'; 
+                        tagBg = 'bg-purple-100 text-purple-700';
+                    }
+                } else {
+                    tagLabel = 'Tin Tức';
+                    tagBg = 'bg-amber-100 text-amber-800';
+                }
+
                 const statusBadge = isHidden 
                     ? `<span onclick="toggleHideNews('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
                     : `<span onclick="toggleHideNews('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
 
                 html += `
                     <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${actualIndex}</td>
-                        <td class="py-3.5 px-4 text-center">
-                            <div class="w-16 h-12 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 mx-auto shadow-sm">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs align-middle">${actualIndex}</td>
+                        <td class="py-3.5 px-4 text-center align-middle">
+                            <div class="w-20 h-14 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 mx-auto shadow-sm">
                                 <img src="${item.image || 'https://placehold.co/150x100/f1f5f9/64748b?text=News'}" alt="Ảnh" class="w-full h-full object-cover">
                             </div>
                         </td>
-                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
-                        <td class="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap font-medium">${dateStr}</td>
-                        <td class="py-3.5 px-4 text-xs text-slate-700 font-semibold">${item.author || 'Quản Trị Viên'}</td>
-                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
-                        <td class="py-3.5 px-4 text-center">
+                        <td class="py-3.5 px-4 align-middle">
+                            <div class="font-bold text-slate-900 text-sm leading-snug mb-1.5">${item.title || ''}</div>
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold uppercase ${tagBg} inline-flex items-center gap-1 shadow-xs">
+                                    <i class="fa-solid fa-tag text-[9px]"></i> ${tagLabel}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="py-3.5 px-4 text-xs text-slate-600 text-center whitespace-nowrap font-medium align-middle">${dateStr}</td>
+                        <td class="py-3.5 px-4 text-xs text-slate-700 font-semibold align-middle">${item.author || 'Quản Trị Viên'}</td>
+                        <td class="py-3.5 px-4 text-center align-middle">${statusBadge}</td>
+                        <td class="py-3.5 px-4 text-center align-middle">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editNews('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteNews('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editNews('${key}')" class="px-3 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm transition" title="Sửa bài"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteNews('${key}')" class="px-3 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm transition" title="Xóa bài"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -2150,6 +2175,8 @@
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
             document.getElementById('news-category').value = 'tin-tuc';
+            document.getElementById('news-tag').value = 'bat-quan-trai';
+            onCategoryChange('tin-tuc');
             document.getElementById('news-input-image').value = '';
             document.getElementById('news-preview-container').classList.add('hidden');
             document.getElementById('news-content').value = '';
@@ -2168,6 +2195,10 @@
             document.getElementById('news-title').value = item.title || '';
             document.getElementById('news-slug').value = item.slug || '';
             document.getElementById('news-category').value = item.category || 'tin-tuc';
+            onCategoryChange(item.category || 'tin-tuc');
+            if (item.tag) {
+                document.getElementById('news-tag').value = item.tag;
+            }
             document.getElementById('news-input-image').value = item.image || '';
             if (item.image) {
                 document.getElementById('news-preview-img').src = item.image;
@@ -2183,12 +2214,13 @@
             const title = document.getElementById('news-title').value.trim();
             const slug = document.getElementById('news-slug').value.trim() || generateSlug(title);
             const category = document.getElementById('news-category').value;
+            const tag = category === 'thong-bao' ? document.getElementById('news-tag').value : '';
             const image = document.getElementById('news-input-image').value.trim();
             const content = document.getElementById('news-content').value.trim();
             const currentAuthor = sessionStorage.getItem('vinhhung_admin_name') || 'Quản Trị Viên';
 
             const newsPayload = {
-                title, slug, category, image, content,
+                title, slug, category, tag, image, content,
                 author: currentAuthor,
                 created_at: key && newsData[key] ? newsData[key].created_at : Date.now(),
                 hidden: key && newsData[key] ? (newsData[key].hidden || false) : false
@@ -2226,6 +2258,7 @@
             }
         }
 
+        // ================= VIDEO MANAGEMENT FUNCTIONS =================
         async function loadVideos() {
             try {
                 const snapshot = await database.ref('videos').once('value');
@@ -2247,15 +2280,25 @@
             let html = '';
             keys.forEach((key, index) => {
                 const item = videosData[key];
+                const isHidden = item.hidden === true;
+                const statusBadge = isHidden 
+                    ? `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
+                    : `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
+
                 html += `
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
                         <td class="py-3.5 px-4 text-center font-mono text-xs">${index + 1}</td>
                         <td class="py-3.5 px-4 text-center"><img src="${item.thumbnail || ''}" class="w-16 h-10 object-cover rounded-lg mx-auto"></td>
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
-                        <td class="py-3.5 px-4"><a href="${item.url}" target="_blank" class="text-blue-600 text-xs font-mono">Xem YouTube</a></td>
-                        <td class="py-3.5 px-4 text-xs">${item.author || 'Thầy'}</td>
-                        <td class="py-3.5 px-4 text-center"><span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-lg font-bold">Hiển thị</span></td>
-                        <td class="py-3.5 px-4 text-center"><button onclick="deleteVideo('${key}')" class="px-3 py-1.5 bg-rose-50 text-rose-600 rounded-xl text-xs font-bold">Xóa</button></td>
+                        <td class="py-3.5 px-4"><a href="${item.url}" target="_blank" class="text-blue-600 text-xs font-mono font-bold"><i class="fa-brands fa-youtube text-rose-600 mr-1"></i>Xem YouTube</a></td>
+                        <td class="py-3.5 px-4 text-xs font-semibold">${item.author || 'Thầy'}</td>
+                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="editVideo('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm" title="Sửa video"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="deleteVideo('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm" title="Xóa video"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
                     </tr>
                 `;
             });
@@ -2267,6 +2310,23 @@
             document.getElementById('video-title').value = '';
             document.getElementById('video-url').value = '';
             document.getElementById('video-thumbnail').value = '';
+            document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
+            document.getElementById('modal-video').classList.remove('hidden');
+        }
+
+        function editVideo(key) {
+            const item = videosData[key];
+            if (!item) return;
+            document.getElementById('video-key').value = key;
+            document.getElementById('video-title').value = item.title || '';
+            document.getElementById('video-url').value = item.url || '';
+            document.getElementById('video-thumbnail').value = item.thumbnail || '';
+            if (item.thumbnail) {
+                document.getElementById('video-thumb-preview-img').src = item.thumbnail;
+                document.getElementById('video-thumb-preview-wrap').classList.remove('hidden');
+            } else {
+                document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
+            }
             document.getElementById('modal-video').classList.remove('hidden');
         }
 
@@ -2274,32 +2334,78 @@
             document.getElementById('modal-video').classList.add('hidden');
         }
 
-        function autoExtractYoutubeThumb() {
-            const url = document.getElementById('video-url').value.trim();
+        function onVideoUrlChange(url) {
             let videoId = '';
             if (url.includes('youtu.be/')) videoId = url.split('youtu.be/')[1]?.split('?')[0];
             else if (url.includes('watch?v=')) videoId = url.split('watch?v=')[1]?.split('&')[0];
             if (videoId) {
-                document.getElementById('video-thumbnail').value = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                showToast("Đã lấy ảnh thu nhỏ từ YouTube!");
+                const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                document.getElementById('video-thumbnail').value = thumbUrl;
+                previewVideoThumb(thumbUrl);
             }
+        }
+
+        function previewVideoThumb(url) {
+            const wrap = document.getElementById('video-thumb-preview-wrap');
+            const img = document.getElementById('video-thumb-preview-img');
+            if (url && url.startsWith('http')) {
+                img.src = url;
+                wrap.classList.remove('hidden');
+            } else {
+                wrap.classList.add('hidden');
+            }
+        }
+
+        function autoExtractYoutubeThumb() {
+            const url = document.getElementById('video-url').value.trim();
+            onVideoUrlChange(url);
+            showToast("Đã lấy ảnh thu nhỏ từ YouTube!");
         }
 
         async function saveVideo(e) {
             e.preventDefault();
+            const key = document.getElementById('video-key').value;
             const title = document.getElementById('video-title').value.trim();
             const url = document.getElementById('video-url').value.trim();
             const thumbnail = document.getElementById('video-thumbnail').value.trim();
-            await database.ref('videos').push({ title, url, thumbnail, created_at: Date.now() });
-            closeVideoModal();
-            showToast("Đã thêm video thành công!");
+            const currentAuthor = sessionStorage.getItem('vinhhung_admin_name') || 'Quản Trị Viên';
+
+            const videoPayload = {
+                title, url, thumbnail,
+                author: currentAuthor,
+                created_at: key && videosData[key] ? videosData[key].created_at : Date.now(),
+                hidden: key && videosData[key] ? (videosData[key].hidden || false) : false
+            };
+
+            try {
+                if (key) {
+                    await database.ref(`videos/${key}`).update(videoPayload);
+                    showToast("Cập nhật video thành công!");
+                } else {
+                    await database.ref('videos').push(videoPayload);
+                    showToast("Đã thêm video thành công!");
+                }
+                closeVideoModal();
+                loadVideos();
+            } catch (err) {
+                showToast("Lỗi khi lưu video: " + err.message, true);
+            }
+        }
+
+        async function toggleHideVideo(key) {
+            const item = videosData[key];
+            if (!item) return;
+            const newHidden = !(item.hidden === true);
+            await database.ref(`videos/${key}`).update({ hidden: newHidden });
             loadVideos();
+            showToast(newHidden ? "Đã ẩn video khỏi trang chủ!" : "Đã hiển thị video lên trang chủ!");
         }
 
         async function deleteVideo(key) {
             if (await promptConfirm("Xóa video này?")) {
                 await database.ref(`videos/${key}`).remove();
                 loadVideos();
+                showToast("Đã xóa video!");
             }
         }
 
@@ -2505,7 +2611,7 @@
 
         async function testCloudConnection() {
             const statusEl = document.getElementById('connection-status');
-            statusEl.textContent = "Đang kiểm tra kết nối tới Firebase Realtime Database...";
+            statusEl.textContent = "Kiểm tra kết nối Firebase Realtime Database...";
             try {
                 const snapshot = await database.ref('.info/connected').once('value');
                 if (snapshot.val()) {
