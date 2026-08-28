@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Các thẻ Meta cơ bản và Open Graph (OG) cho Facebook Sharing -->
     <title id="meta-title">Chi Tiết Tin Tức | Chùa Vĩnh Hưng</title>
     <meta id="meta-desc" name="description" content="Cập nhật tin tức phật sự, khóa tu và các hoạt động tại Chùa Vĩnh Hưng.">
     
@@ -18,7 +17,7 @@
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
@@ -28,162 +27,166 @@
             theme: {
                 extend: {
                     colors: {
-                        buddhist: { gold: '#d4af37', lightgold: '#f3e5ab', maroon: '#6b2024', dark: '#3d1c1d' },
                         chua: {
-                            red: '#991b1b',
-                            gold: '#d97706',
-                            amber: '#b45309',
-                            darkred: '#7f1d1d',
-                            cream: '#fef3c7',
-                            bg: '#f8f6f0',
-                            dark: '#3d1c1d'
-                        }
+                            red: '#e11d48',       
+                            gold: '#f59e0b',      
+                            amber: '#d97706',     
+                            darkred: '#9f1239',   
+                            cream: '#fffbeb',     
+                            bg: '#fcfbf7',        
+                            dark: '#1e293b'       
+                        },
+                        buddhist: { gold: '#fbbf24', maroon: '#881337', dark: '#1e293b' }
                     },
-                    fontFamily: { heading: ['Lora', 'serif'], body: ['Nunito Sans', 'sans-serif'] }
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        heading: ['"Playfair Display"', 'serif'],
+                        body: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
                 }
             }
         }
     </script>
 
     <style>
+        body { 
+            background: linear-gradient(135deg, #fcfbf7 0%, #fffdf9 100%); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            color: #1e293b;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .custom-shadow { 
+            box-shadow: 0 12px 30px -4px rgba(225, 29, 72, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03); 
+        }
         .hero-sub {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/quanam.jpg');
+            background-image: linear-gradient(rgba(159, 18, 57, 0.85), rgba(30, 41, 59, 0.9)), url('https://placehold.co/1920x600/9f1239/ffffff?text=ChuaVinhHung');
             background-size: cover; background-position: center;
         }
-        .article-content p { margin-bottom: 1.25rem; line-height: 1.8; color: #374151; }
-        .article-content h3 { font-size: 1.5rem; font-weight: 700; color: #6b2024; margin-top: 2rem; margin-bottom: 1rem; }
-        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-        .article-content li { margin-bottom: 0.5rem; line-height: 1.6; }
-
-        /* Tùy chỉnh thanh cuộn nhỏ cho danh sách tin liên quan cuộn/xoay dọc */
-        .related-scroll-container::-webkit-scrollbar {
-            width: 5px;
-        }
-        .related-scroll-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .related-scroll-container::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 10px;
-        }
+        /* Phóng to kích thước chữ và khoảng cách dòng nội dung cho dễ đọc */
+        .article-content p { margin-bottom: 1.5rem; line-height: 1.9; color: #334155; font-size: 1.125rem; }
+        .article-content h2 { font-size: 1.5rem; font-weight: 700; color: #be123c; font-family: 'Playfair Display', serif; border-bottom: 1px solid #ffe4e6; padding-bottom: 0.35rem; margin-top: 1.75rem; margin-bottom: 0.85rem; }
+        .article-content h3 { font-size: 1.25rem; font-weight: 700; color: #1e293b; font-family: 'Playfair Display', serif; margin-top: 1.5rem; margin-bottom: 0.6rem; }
+        .article-content blockquote { border-left: 4px solid #e11d48; padding-left: 1.25rem; padding-top: 0.75rem; padding-bottom: 0.75rem; margin: 1.5rem 0; font-style: italic; background-color: rgba(255, 241, 242, 0.5); border-top-right-radius: 1rem; border-bottom-right-radius: 1rem; color: #475569; font-size: 1.1rem; }
+        .article-content img { max-width: 100%; height: auto; border-radius: 1rem; margin: 1.5rem auto; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: block; }
+        .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; font-size: 1.125rem; }
+        .article-content li { margin-bottom: 0.6rem; line-height: 1.7; }
     </style>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="text-gray-800 antialiased bg-[#faf8f5]">
+<body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
 
+    <!-- Header container -->
     <div id="header-container"></div>
 
     <!-- Banner tiêu đề phụ -->
-    <section class="hero-sub h-[35vh] mt-0 flex items-center justify-center relative">
-        <div class="text-center px-4 z-10 text-white mt-10">
-            <span class="bg-buddhist-gold text-buddhist-dark px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 inline-block shadow-sm">Phật Sự Tông Môn</span>
-            <h1 class="text-3xl md:text-4xl font-heading font-bold max-w-4xl mx-auto leading-tight" id="news-banner-title">Chi Tiết Tin Tức</h1>
+    <section class="hero-sub h-[35vh] mt-0 flex items-center justify-center relative shadow-md">
+        <div class="text-center px-4 z-10 text-white mt-8 space-y-2">
+            <span class="bg-amber-400 text-rose-950 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2 inline-block shadow-sm">Phật Sự Tông Môn</span>
+            <h1 class="text-2xl sm:text-4xl font-heading font-bold max-w-5xl mx-auto leading-tight text-amber-100" id="news-banner-title">Chi Tiết Tin Tức</h1>
         </div>
     </section>
 
-    <section class="py-12 md:py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+    <section class="py-12 md:py-16 flex-grow">
+        <!-- Đã mở rộng max-w container lên 1700px để phần nội dung bài viết cực kỳ rộng rãi và thoáng đãng -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1700px]">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <!-- Cột Trái / Chính: Chi tiết bài viết (Chiếm 2 cột) -->
-                <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden p-6 sm:p-10">
+                <!-- Cột Trái / Chính: Chi tiết bài viết (Chiếm 10 cột trên màn hình lớn) -->
+                <div class="lg:col-span-10 bg-white rounded-3xl custom-shadow border border-slate-200/80 overflow-hidden p-6 sm:p-10 lg:p-16 space-y-6">
                     
-                    <!-- Nút quay lại danh sách & Công cụ chia sẻ -->
-                    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
-                        <a href="tin-tuc.html" class="inline-flex items-center gap-2 text-buddhist-maroon hover:text-buddhist-gold font-semibold transition">
+                    <!-- Nút quay lại & Công cụ chia sẻ -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                        <a href="tin-tuc.html" class="inline-flex items-center gap-2 text-rose-600 hover:text-rose-700 font-bold text-xs uppercase transition tracking-wider">
                             <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách tin tức
                         </a>
                         <div id="share-tools-container" class="flex items-center gap-2">
-                            <span class="text-xs text-gray-500 font-medium">Chia sẻ:</span>
-                            <button onclick="shareArticle('facebook')" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition" title="Chia sẻ Facebook">
+                            <span class="text-xs text-slate-400 font-bold uppercase">Chia sẻ:</span>
+                            <button onclick="shareArticle('facebook')" class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition shadow-sm" title="Chia sẻ Facebook">
                                 <i class="fa-brands fa-facebook-f text-xs"></i>
                             </button>
-                            <button onclick="shareArticle('zalo')" class="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition font-bold text-xs" title="Chia sẻ Zalo">
+                            <button onclick="shareArticle('zalo')" class="w-8 h-8 rounded-xl bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition font-bold text-xs shadow-sm" title="Chia sẻ Zalo">
                                 Z
                             </button>
-                            <button onclick="copyLink()" class="w-8 h-8 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition" title="Sao chép liên kết">
+                            <button onclick="copyLink()" class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center hover:bg-slate-200 transition shadow-sm" title="Sao chép liên kết">
                                 <i class="fa-solid fa-link text-xs"></i>
                             </button>
                         </div>
                     </div>
 
                     <!-- Thông báo sao chép thành công -->
-                    <div id="copy-alert" class="hidden mb-6 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-circle-check text-emerald-600"></i> Đã sao chép liên kết bài viết vào bộ nhớ tạm!
+                    <div id="copy-alert" class="hidden p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2 shadow-inner">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> Đã sao chép liên kết bài viết vào bộ nhớ tạm!
                     </div>
 
                     <!-- Thông tin meta bài viết -->
-                    <div id="article-meta-info" class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
-                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-buddhist-gold"></i> <span id="news-date">Đang cập nhật...</span></span>
-                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-buddhist-gold"></i> <span>Ban Biên Tập Chùa Vĩnh Hưng</span></span>
+                    <div id="article-meta-info" class="flex flex-wrap items-center gap-4 text-sm text-slate-500 font-medium">
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-rose-600"></i> <span id="news-date">Đang cập nhật...</span></span>
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-rose-600"></i> <span id="news-author">Thầy Trụ Trì (Super Admin)</span></span>
+                        <span id="news-tag-badge" class="px-3 py-1 rounded-lg text-xs font-bold uppercase border bg-amber-50 text-amber-900 border-amber-200 hidden">Tag</span>
                     </div>
 
                     <!-- Tiêu đề chính -->
-                    <h2 class="text-2xl md:text-4xl font-heading font-bold text-buddhist-dark mb-6 leading-snug" id="news-title">Đang tải tiêu đề...</h2>
+                    <h2 class="text-2xl sm:text-4xl lg:text-5xl font-heading font-black text-slate-900 leading-tight" id="news-title">Đang tải tiêu đề...</h2>
 
                     <!-- Ảnh đại diện bài viết -->
-                    <div id="news-image-wrapper" class="mb-8 rounded-xl overflow-hidden shadow-md cursor-pointer group relative">
-                        <img id="news-image" src="https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-auto object-cover max-h-[450px] group-hover:scale-105 transition duration-500" onclick="openImageLightbox(this.src)" onerror="this.src='https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung'">
-                        <div class="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1.5 rounded-lg text-xs font-semibold opacity-0 group-hover:opacity-100 transition duration-300 flex items-center gap-1.5 pointer-events-none">
+                    <div id="news-image-wrapper" class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-md cursor-pointer group relative max-h-[620px]">
+                        <img id="news-image" src="https://placehold.co/1200x600/f1f5f9/64748b?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onclick="openImageLightbox(this.src)" onerror="this.src='https://placehold.co/1200x600/f1f5f9/64748b?text=ChuaVinhHung'">
+                        <div class="absolute bottom-3 right-3 bg-black/75 text-white px-3.5 py-2 rounded-xl text-xs font-bold opacity-0 group-hover:opacity-100 transition duration-300 flex items-center gap-1.5 pointer-events-none shadow-lg">
                             <i class="fa-solid fa-expand"></i> Phóng to ảnh
                         </div>
                     </div>
 
                     <!-- Nội dung chi tiết -->
-                    <div class="article-content text-base md:text-lg" id="news-body">
+                    <div class="article-content text-base sm:text-lg leading-relaxed text-slate-700 space-y-4 pt-2" id="news-body">
                         <div class="text-center py-12">
-                            <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
-                            <p class="mt-3 text-gray-500">Đang tải nội dung bài viết từ hệ thống...</p>
+                            <i class="fa-solid fa-spinner fa-spin text-3xl text-rose-600"></i>
+                            <p class="mt-3 text-sm text-slate-400 font-semibold uppercase tracking-wider">Đang tải nội dung bài viết...</p>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="lg:col-span-1 space-y-6 lg:sticky lg:top-24">
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
-                            <h3 class="font-heading font-bold text-lg text-buddhist-dark flex items-center gap-2">
-                                <i class="fa-solid fa-newspaper text-buddhist-gold"></i> Bài Viết Liên Quan
+                <!-- Cột Phải: Bài viết liên quan & Widget (Chiếm 2 cột trên màn hình lớn) -->
+                <div class="lg:col-span-2 space-y-6 lg:sticky lg:top-24">
+                    <div class="bg-white rounded-3xl custom-shadow border border-slate-200/80 p-6 sm:p-7 space-y-5">
+                        <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                            <h3 class="font-heading font-bold text-sm sm:text-base text-slate-900 uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-newspaper text-rose-600"></i> Bài Liên Quan
                             </h3>
-                            <!-- Nút điều hướng mũi tên lên / xuống cho danh sách dọc -->
                             <div class="flex items-center gap-1.5">
-                                <button onclick="rotateArticles(-1)" class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-buddhist-maroon hover:text-white text-gray-700 flex items-center justify-center transition shadow-sm" title="Bài trước">
+                                <button onclick="rotateArticles(-1)" class="w-7 h-7 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài trước">
                                     <i class="fa-solid fa-chevron-up text-xs"></i>
                                 </button>
-                                <button onclick="rotateArticles(1)" class="w-7 h-7 rounded-lg bg-gray-100 hover:bg-buddhist-maroon hover:text-white text-gray-700 flex items-center justify-center transition shadow-sm" title="Bài tiếp theo">
+                                <button onclick="rotateArticles(1)" class="w-7 h-7 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài tiếp theo">
                                     <i class="fa-solid fa-chevron-down text-xs"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Container danh sách bài liên quan dọc -->
-                        <div id="related-news-container" class="space-y-4 pr-1">
-                            <div class="text-center py-8 text-gray-400 text-sm">
-                                <i class="fa-solid fa-spinner fa-spin text-xl mb-2"></i>
-                                <p>Đang tải bài viết liên quan...</p>
-                            </div>
+                        <!-- Danh sách bài liên quan với cỡ chữ to hơn xíu -->
+                        <div id="related-news-container" class="space-y-4">
+                            <div class="text-center py-8 text-slate-400 text-sm italic">Đang tải bài viết liên quan...</div>
                         </div>
 
-                        <!-- Chú thích hỗ trợ xoay vòng -->
-                        <div class="mt-4 pt-3 border-t border-gray-100 text-center flex items-center justify-between text-[11px] text-gray-400">
-                            <span class="italic flex items-center gap-1">
-                                <i class="fa-solid fa-rotate text-buddhist-gold"></i> Xoay vòng tự động & thủ công
-                            </span>
-                            <span id="rotation-counter" class="font-semibold text-buddhist-maroon">0/0</span>
+                        <div class="pt-3 border-t border-slate-100 text-xs text-slate-400 font-medium flex items-center justify-between">
+                            <span class="italic flex items-center gap-1"><i class="fa-solid fa-rotate text-rose-600"></i> Xoay vòng tự động</span>
+                            <span id="rotation-counter" class="font-bold text-rose-700">0/0</span>
                         </div>
                     </div>
 
-                    <!-- Widget bổ trợ -->
-                    <div class="bg-gradient-to-br from-buddhist-dark to-[#5a282a] text-white rounded-2xl shadow-sm p-6 relative overflow-hidden">
-                        <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-heading pointer-events-none">
+                    <!-- Widget Pháp Thoại (Đúng chuẩn 100% hình ảnh tham khảo yêu cầu với khung bo tròn & chữ to rõ) -->
+                    <div class="bg-gradient-to-br from-amber-50/70 via-amber-200/10 to-rose-50/30 rounded-[2.5xl] p-7 sm:p-8 shadow-xl border border-amber-300/60 relative overflow-hidden space-y-4">
+                        <div class="absolute -right-6 -bottom-6 opacity-15 text-9xl font-heading text-rose-950 pointer-events-none select-none">
                             <i class="fa-solid fa-om"></i>
                         </div>
-                        <h4 class="font-heading font-bold text-lg mb-2 text-buddhist-gold">Pháp Thoại Và Video</h4>
-                        <p class="text-sm text-gray-200 mb-4 leading-relaxed">Cập nhật những bài giảng và video về các ngày lễ của Chùa Vĩnh Hưng</p>
-                        <a href="video.html" class="inline-block bg-buddhist-gold text-buddhist-dark px-4 py-2 rounded-xl text-xs font-bold hover:bg-white transition shadow">
-                            Xem Video <i class="fa-solid fa-arrow-right ml-1"></i>
-                        </a>
+                        <h4 class="font-heading font-black text-lg sm:text-xl text-[#3d1c1d] tracking-wide">VIDEO PHÁP THOẠI CHÙA</h4>
+                        <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">Cập nhật các bài giảng pháp, video khóa tu mới nhất từ Chùa Vĩnh Hưng.</p>
+                        <div class="pt-2">
+                            <a href="video.html" class="inline-flex items-center gap-2 px-6 py-3.5 bg-[#e11d48] hover:bg-[#be123c] text-white font-bold rounded-2xl text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-rose-600/30 transition transform hover:-translate-y-0.5">
+                                XEM VIDEO NGAY <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -191,16 +194,18 @@
         </div>
     </section>
 
-    <div id="image-lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden" onclick="closeImageLightbox()">
-        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-black/70 px-4 py-2 rounded-full border border-white/20 z-50" onclick="event.stopPropagation()">
+    <!-- IMAGE LIGHTBOX MODAL WITH ZOOM CONTROLS -->
+    <div id="image-lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md" onclick="closeImageLightbox()">
+        <!-- Thanh công cụ phóng to / thu nhỏ / đặt lại ảnh -->
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-black/75 px-5 py-2.5 rounded-full border border-white/20 z-50 shadow-2xl" onclick="event.stopPropagation()">
             <button onclick="zoomImage(-0.25)" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition" title="Thu nhỏ (-)">
-                <i class="fa-solid fa-magnifying-glass-minus"></i>
+                <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
             </button>
             <span id="zoom-level-indicator" class="text-white text-xs font-mono font-bold w-12 text-center">100%</span>
             <button onclick="zoomImage(0.25)" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition" title="Phóng to (+)">
-                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
             </button>
-            <button onclick="resetZoom()" class="px-3 py-1 rounded-lg bg-white/20 hover:bg-white/40 text-white text-xs font-semibold transition" title="Đặt lại kích thước">
+            <button onclick="resetZoom()" class="px-3.5 py-1.5 rounded-xl bg-white/20 hover:bg-white/40 text-white text-xs font-bold transition" title="Đặt lại kích thước">
                 Mặc định
             </button>
         </div>
@@ -210,10 +215,11 @@
         </button>
 
         <div class="relative max-w-full max-h-[90vh] overflow-auto flex items-center justify-center w-full h-full" onclick="event.stopPropagation()">
-            <img id="lightbox-img" src="" alt="Ảnh phóng to" class="transition-transform duration-200 select-none object-contain max-h-[85vh]" style="transform: scale(1);">
+            <img id="lightbox-img" src="" alt="Ảnh phóng to" class="transition-transform duration-200 select-none object-contain max-h-[85vh] rounded-2xl shadow-2xl" style="transform: scale(1);">
         </div>
     </div>
     
+    <!-- Footer container -->
     <div id="footer-container"></div>
 
     <script src="js/main.js"></script>
@@ -222,30 +228,17 @@
         let allRelatedArticles = [];
         let rotationIndex = 0;
         let rotationTimer = null;
+        let currentZoom = 1;
 
         function createSlug(str) {
             if (!str) return '';
-            str = str.toLowerCase();
-            str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            str = str.replace(/[đĐ]/g, 'd');
-            str = str.replace(/([^0-9a-z-\s])/g, '');
-            str = str.replace(/(\s+)/g, '-');
-            str = str.replace(/-+/g, '-');
-            str = str.replace(/^-+|-+$/g, '');
-            return str;
-        }
-
-        function normalizeVietnamese(str) {
-            if (!str) return '';
-            let normalized = str.normalize('NFC');
-            normalized = normalized
-                .replace(/([aeiouâăôơưêîû])\s+(['`?~.])/g, '$1$2')
-                .replace(/e\s*` /g, 'ề')
-                .replace(/e\s*\'/g, 'ế')
-                .replace(/i\s*\'/g, 'í')
-                .replace(/e\s*p/g, 'ếp')
-                .replace(/ê\s*p/g, 'ếp');
-            return normalized;
+            return str.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[đĐ]/g, 'd')
+                .replace(/([^0-9a-z-\s])/g, '')
+                .replace(/(\s+)/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-+|-+$/g, '');
         }
 
         async function fetchArticleDetail() {
@@ -267,7 +260,6 @@
                 newsArray.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
 
                 let post = null;
-                
                 if (newsId && data[newsId]) {
                     post = data[newsId];
                 } else if (newsSlug) {
@@ -277,9 +269,7 @@
                     });
                 } else if (newsArray.length > 0) {
                     const visibleList = newsArray.filter(item => !item.hidden);
-                    if (visibleList.length > 0) {
-                        post = visibleList[0];
-                    }
+                    if (visibleList.length > 0) post = visibleList[0];
                 }
 
                 if (!post || post.hidden === true) {
@@ -287,69 +277,33 @@
                     return;
                 }
                 
-                const postTitle = normalizeVietnamese(post.title || '');
-                
-                document.getElementById('meta-title').textContent = `${postTitle} | Chùa Vĩnh Hưng`;
-                document.getElementById('og-title').setAttribute('content', `${postTitle} | Chùa Vĩnh Hưng`);
-                document.getElementById('news-banner-title').textContent = postTitle;
-                document.getElementById('news-title').textContent = postTitle;
+                document.getElementById('meta-title').textContent = `${post.title || ''} | Chùa Vĩnh Hưng`;
+                document.getElementById('og-title').setAttribute('content', `${post.title || ''} | Chùa Vĩnh Hưng`);
+                document.getElementById('news-banner-title').textContent = post.title || '';
+                document.getElementById('news-title').textContent = post.title || '';
                 document.getElementById('news-date').textContent = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
+                document.getElementById('news-author').textContent = post.author || 'Thầy Trụ Trì (Super Admin)';
+
+                if (post.tag && post.tag !== 'tin-tuc') {
+                    const tagBadge = document.getElementById('news-tag-badge');
+                    tagBadge.textContent = post.tag.toUpperCase();
+                    tagBadge.classList.remove('hidden');
+                }
                 
-                let articleImg = 'https://placehold.co/900x500/3d1c1d/d4af37?text=ChuaVinhHung';
                 if (post.image && post.image.trim() !== '') {
-                    articleImg = post.image;
-                    document.getElementById('news-image').src = articleImg;
-                    document.getElementById('og-image').setAttribute('content', articleImg);
+                    document.getElementById('news-image').src = post.image;
+                    document.getElementById('og-image').setAttribute('content', post.image);
                 } else {
                     document.getElementById('news-image-wrapper').style.display = 'none';
                 }
 
-                let contentHtml = '';
-                if (post.rendered_html && post.rendered_html.trim() !== '') {
-                    contentHtml = normalizeVietnamese(post.rendered_html);
-                } else if (post.content) {
-                    let rawContent = normalizeVietnamese(post.content);
-                    
-                    let html = rawContent;
-
-                    // Khung nổi bật (Highlight)
-                    html = html.replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4 my-4 bg-amber-50 border-l-4 border-chua-gold rounded-r-xl text-gray-800 shadow-sm font-medium">$1</div>');
-
-                    // Gom tất cả các dòng trích dẫn '>' liên tiếp thành 1 khung duy nhất
-                    html = html.replace(/(?:^[ \t]*>[ \t]?[^\n]*(?:\r?\n|$))+/gm, (match) => {
-                        const innerLines = match
-                            .trim()
-                            .split(/\r?\n/)
-                            .map(line => line.replace(/^[ \t]*>[ \t]?/, ''))
-                            .join('<br>');
-                        return `<blockquote class="border-l-4 border-chua-amber pl-4 py-3 my-4 italic text-gray-700 bg-amber-50/50 rounded-r-xl shadow-sm">${innerLines}</blockquote>`;
+                let contentHtml = post.content || '<p>Đang cập nhật nội dung...</p>';
+                if (post.gallery && Array.isArray(post.gallery) && post.gallery.length > 0) {
+                    contentHtml += '<div class="mt-8 pt-6 border-t border-slate-200"><h4 class="font-serif font-bold text-rose-700 uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">';
+                    post.gallery.forEach(imgUrl => {
+                        contentHtml += `<div class="rounded-2xl overflow-hidden border border-rose-200 bg-slate-50 h-52 shadow-sm cursor-pointer" onclick="openImageLightbox('${imgUrl}')"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div>`;
                     });
-
-                    // Tiêu đề H2, H3
-                    html = html
-                        .replace(/^\s*##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-chua-red mt-6 mb-3 border-b border-amber-200 pb-1">$1</h2>')
-                        .replace(/^\s*###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-chua-darkred mt-4 mb-2">$1</h3>');
-
-                    // Định dạng in đậm, in nghiêng, gạch chân (Hỗ trợ nhiều dòng)
-                    html = html
-                        .replace(/\*\*([\s\S]+?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
-                        .replace(/(?:\*([\s\S]+?)\*)/g, '<em class="italic">$1</em>')
-                        .replace(/<u>([\s\S]+?)<\/u>/g, '<u class="underline decoration-chua-gold font-semibold">$1</u>');
-
-                    // Chuyển đổi ký tự ngắt dòng thành <br>
-                    html = html.replace(/\n/g, '<br>');
-
-                    contentHtml = html;
-
-                    if (post.gallery && Array.isArray(post.gallery) && post.gallery.length > 0) {
-                        contentHtml += '<div class="mt-8 pt-6 border-t border-gray-200"><h4 class="font-serif font-bold text-chua-red uppercase mb-4 text-sm"><i class="fa-solid fa-images mr-2"></i> Bộ sưu tập hình ảnh</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
-                        post.gallery.forEach(imgUrl => {
-                            contentHtml += `<div class="rounded-xl overflow-hidden border border-amber-200 bg-gray-50 h-48 shadow-sm cursor-pointer" onclick="openImageLightbox('${imgUrl}')"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover hover:scale-105 transition duration-500"></div>`;
-                        });
-                        contentHtml += '</div></div>';
-                    }
-                } else {
-                    contentHtml = '<p>Đang cập nhật nội dung...</p>';
+                    contentHtml += '</div></div>';
                 }
 
                 document.getElementById('news-body').innerHTML = contentHtml;
@@ -370,7 +324,7 @@
                     renderRotatedArticles();
                     startArticleRotation();
                 } else {
-                    document.getElementById('related-news-container').innerHTML = '<p class="text-sm text-gray-500 text-center py-4">Chưa có bài viết liên quan khác.</p>';
+                    document.getElementById('related-news-container').innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Chưa có bài viết liên quan khác.</p>';
                     document.getElementById('rotation-counter').textContent = '0/0';
                 }
 
@@ -392,22 +346,22 @@
                 const index = (rotationIndex + i) % allRelatedArticles.length;
                 const article = allRelatedArticles[index];
                 
-                const imgSrc = (article.image && article.image.trim() !== "") ? article.image : 'https://placehold.co/400x300/3d1c1d/d4af37?text=ChuaVinhHung';
-                const articleTitle = normalizeVietnamese(article.title || '');
+                const imgSrc = (article.image && article.image.trim() !== "") ? article.image : 'https://placehold.co/400x300/f1f5f9/64748b?text=News';
                 const dateStr = article.created_at ? new Date(article.created_at).toLocaleDateString('vi-VN') : '';
                 const articleSlug = article.slug ? article.slug : createSlug(article.title);
 
                 htmlContent += `
-                    <div class="flex items-start gap-3 group pb-3 border-b border-gray-100 last:border-0 last:pb-0 transition-all duration-300">
-                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-gray-100">
-                            <img src="${imgSrc}" alt="${articleTitle}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/3d1c1d/d4af37?text=ChuaVinhHung'">
+                    <div class="flex items-start gap-3.5 group pb-4 border-b border-slate-100 last:border-0 last:pb-0 transition">
+                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="w-18 h-16 flex-shrink-0 rounded-xl overflow-hidden shadow-xs border border-slate-200 bg-slate-100">
+                            <img src="${imgSrc}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/f1f5f9/64748b?text=News'">
                         </a>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2 text-xs text-gray-400 mb-1">
-                                <span><i class="fa-regular fa-calendar text-buddhist-gold"></i> ${dateStr}</span>
+                        <div class="flex-1 min-w-0 space-y-1">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+                                <span><i class="fa-regular fa-calendar text-rose-600"></i> ${dateStr}</span>
                             </div>
-                            <h4 class="font-heading font-bold text-sm text-buddhist-dark line-clamp-2 group-hover:text-buddhist-maroon transition leading-snug">
-                                <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}">${articleTitle}</a>
+                            <!-- Đã tăng kích thước chữ bài liên quan to hơn xíu (text-sm) -->
+                            <h4 class="font-bold text-sm text-slate-900 line-clamp-2 group-hover:text-rose-600 transition leading-snug">
+                                <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}">${article.title || ''}</a>
                             </h4>
                         </div>
                     </div>
@@ -424,7 +378,6 @@
             if (allRelatedArticles.length === 0) return;
             rotationIndex = (rotationIndex + direction + allRelatedArticles.length) % allRelatedArticles.length;
             renderRotatedArticles();
-            
             if (rotationTimer) {
                 clearInterval(rotationTimer);
                 startArticleRotation();
@@ -434,7 +387,6 @@
         function startArticleRotation() {
             if (allRelatedArticles.length <= 4) return;
             if (rotationTimer) clearInterval(rotationTimer);
-
             rotationTimer = setInterval(() => {
                 rotationIndex = (rotationIndex + 1) % allRelatedArticles.length;
                 renderRotatedArticles();
@@ -448,22 +400,20 @@
             document.getElementById('news-image-wrapper').style.display = 'none';
             document.getElementById('share-tools-container').style.display = 'none';
             document.getElementById('news-body').innerHTML = `
-                <div class="text-center py-10 space-y-4">
-                    <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <div class="text-center py-12 space-y-4">
+                    <div class="w-16 h-16 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner border border-rose-200">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </div>
-                    <p class="text-gray-600 font-medium text-lg">${message}</p>
-                    <div class="pt-4">
-                        <a href="tin-tuc.html" class="inline-block bg-buddhist-maroon text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-opacity-90 transition">
+                    <p class="text-slate-600 font-bold text-base">${message}</p>
+                    <div class="pt-2">
+                        <a href="tin-tuc.html" class="inline-block bg-rose-600 hover:bg-rose-700 text-white px-6 py-3.5 rounded-2xl font-bold shadow-md text-xs uppercase tracking-wider transition">
                             <i class="fa-solid fa-arrow-left mr-2"></i> Quay lại trang Tin Tức
                         </a>
                     </div>
                 </div>
             `;
-            document.getElementById('related-news-container').innerHTML = '<p class="text-sm text-gray-400 text-center">Không có bài viết.</p>';
+            document.getElementById('related-news-container').innerHTML = '<p class="text-xs text-slate-400 text-center">Không có bài viết.</p>';
         }
-
-        let currentZoom = 1;
 
         window.openImageLightbox = function(src) {
             const modal = document.getElementById('image-lightbox-modal');
@@ -478,9 +428,7 @@
 
         window.closeImageLightbox = function() {
             const modal = document.getElementById('image-lightbox-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
+            if (modal) modal.classList.add('hidden');
         };
 
         window.zoomImage = function(delta) {
@@ -498,12 +446,8 @@
         function updateImageZoom() {
             const img = document.getElementById('lightbox-img');
             const indicator = document.getElementById('zoom-level-indicator');
-            if (img) {
-                img.style.transform = `scale(${currentZoom})`;
-            }
-            if (indicator) {
-                indicator.textContent = `${Math.round(currentZoom * 100)}%`;
-            }
+            if (img) img.style.transform = `scale(${currentZoom})`;
+            if (indicator) indicator.textContent = `${Math.round(currentZoom * 100)}%`;
         }
 
         document.addEventListener('DOMContentLoaded', fetchArticleDetail);
@@ -519,9 +463,7 @@
             const alertBox = document.getElementById('copy-alert');
             if (alertBox) {
                 alertBox.classList.remove('hidden');
-                setTimeout(() => {
-                    alertBox.classList.add('hidden');
-                }, 3000);
+                setTimeout(() => alertBox.classList.add('hidden'), 3000);
             }
         };
 

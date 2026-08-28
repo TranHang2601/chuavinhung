@@ -92,6 +92,48 @@
             background-color: #fef2f2 !important;
             border-top: 2px solid #e11d48 !important;
         }
+        /* WYSIWYG Editor Styling */
+        #wysiwyg-editor {
+            min-height: 380px;
+            outline: none;
+        }
+        #wysiwyg-editor h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #be123c;
+            font-family: 'Playfair Display', serif;
+            border-bottom: 1px solid #ffe4e6;
+            padding-bottom: 0.25rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        #wysiwyg-editor h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            font-family: 'Playfair Display', serif;
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        #wysiwyg-editor blockquote {
+            border-left: 4px solid #e11d48;
+            padding-left: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin: 1rem 0;
+            font-style: italic;
+            background-color: rgba(255, 241, 242, 0.5);
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+        #wysiwyg-editor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            margin: 1rem auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: block;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
@@ -720,7 +762,7 @@
         </div>
     </div>
 
-    <!-- MODAL NEWS -->
+    <!-- MODAL NEWS (WYSIWYG RICH TEXT EDITOR) -->
     <div id="modal-news" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
         <div class="bg-white rounded-3xl max-w-6xl w-full h-[95vh] max-h-[95vh] flex flex-col p-6 sm:p-10 shadow-2xl border border-slate-200">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -802,28 +844,28 @@
                 <div>
                     <div class="flex flex-col gap-2.5 mb-2">
                         <div class="flex items-center justify-between">
-                            <label class="font-bold text-slate-700 text-sm uppercase">Nội dung chi tiết bài viết <span class="text-rose-600">*</span></label>
-                            <span class="text-xs text-slate-500 font-medium">Hỗ trợ Căn Lề, Chèn Ảnh WebP, Gắn Link Facebook</span>
+                            <label class="font-bold text-slate-700 text-sm uppercase">Nội dung chi tiết bài viết (Trình soạn thảo trực quan WYSIWYG) <span class="text-rose-600">*</span></label>
+                            <span class="text-xs text-slate-500 font-medium">Định dạng thay đổi trực tiếp ngay trên văn bản đang gõ</span>
                         </div>
 
+                        <!-- Thanh công cụ WYSIWYG áp dụng trực tiếp lên văn bản -->
                         <div class="flex flex-wrap items-center gap-2 bg-slate-100 p-3 rounded-2xl border border-slate-300 shadow-inner">
-                            <button type="button" onclick="formatText('bold')" title="In đậm" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs"><i class="fa-solid fa-bold"></i></button>
-                            <button type="button" onclick="formatText('italic')" title="In nghiêng" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl italic shadow-sm transition text-xs"><i class="fa-solid fa-italic"></i></button>
-                            <button type="button" onclick="formatText('underline')" title="Gạch chân" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl underline shadow-sm transition text-xs"><i class="fa-solid fa-underline"></i></button>
+                            <button type="button" onclick="execCmd('bold')" title="In đậm" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs"><i class="fa-solid fa-bold"></i></button>
+                            <button type="button" onclick="execCmd('italic')" title="In nghiêng" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl italic shadow-sm transition text-xs"><i class="fa-solid fa-italic"></i></button>
+                            <button type="button" onclick="execCmd('underline')" title="Gạch chân" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl underline shadow-sm transition text-xs"><i class="fa-solid fa-underline"></i></button>
                             
                             <span class="text-slate-300 font-light">|</span>
                             
-                            <button type="button" onclick="formatText('align-left')" title="Căn Trái" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-left"></i></button>
-                            <button type="button" onclick="formatText('align-center')" title="Căn Giữa" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-center"></i></button>
-                            <button type="button" onclick="formatText('align-right')" title="Căn Phải" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-right"></i></button>
-                            <button type="button" onclick="formatText('align-justify')" title="Căn Đều" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-justify"></i></button>
+                            <button type="button" onclick="execCmd('justifyLeft')" title="Căn Trái" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-left"></i></button>
+                            <button type="button" onclick="execCmd('justifyCenter')" title="Căn Giữa" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-center"></i></button>
+                            <button type="button" onclick="execCmd('justifyRight')" title="Căn Phải" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-right"></i></button>
+                            <button type="button" onclick="execCmd('justifyFull')" title="Căn Đều" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl shadow-sm transition text-xs"><i class="fa-solid fa-align-justify"></i></button>
                             
                             <span class="text-slate-300 font-light">|</span>
                             
-                            <button type="button" onclick="formatText('heading')" title="Tiêu đề chính (H2)" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs">H2</button>
-                            <button type="button" onclick="formatText('subheading')" title="Tiêu đề phụ (H3)" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs">H3</button>
-                            <button type="button" onclick="formatText('quote')" title="Trích dẫn" class="px-3.5 py-2 bg-white hover:bg-amber-100 text-amber-800 rounded-xl shadow-sm transition text-xs font-bold"><i class="fa-solid fa-quote-left mr-1"></i>Trích dẫn</button>
-                            <button type="button" onclick="formatText('highlight')" title="Đóng khung nổi bật" class="px-3.5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-xl shadow-sm transition text-xs font-bold"><i class="fa-solid fa-box-archive mr-1"></i>Nổi bật</button>
+                            <button type="button" onclick="formatHeading('H2')" title="Tiêu đề chính (H2)" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs">H2</button>
+                            <button type="button" onclick="formatHeading('H3')" title="Tiêu đề phụ (H3)" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs">H3</button>
+                            <button type="button" onclick="formatQuote()" title="Trích dẫn" class="px-3.5 py-2 bg-white hover:bg-amber-100 text-amber-800 rounded-xl shadow-sm transition text-xs font-bold"><i class="fa-solid fa-quote-left mr-1"></i>Trích dẫn</button>
                             
                             <span class="text-slate-300 font-light">|</span>
 
@@ -834,25 +876,12 @@
                             <button type="button" onclick="openFacebookEmbedModal()" title="Gắn link hoặc khung nhúng bài viết Facebook" class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-bold shadow-sm transition text-xs flex items-center gap-1.5">
                                 <i class="fa-brands fa-facebook text-indigo-600 text-sm"></i> Gắn Bài Facebook
                             </button>
-
-                            <span class="text-slate-300 font-light">|</span>
-
-                            <button type="button" onclick="toggleContentPreview()" id="btn-toggle-preview" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold shadow-sm transition text-xs flex items-center gap-1.5 ml-auto">
-                                <i class="fa-solid fa-eye"></i> Xem Trước Trực Quan
-                            </button>
                         </div>
                     </div>
                     
+                    <!-- VÙNG SOẠN THẢO TRỰC QUAN WYSIWYG -->
                     <div class="relative">
-                        <textarea id="news-content" required rows="16" placeholder="Soạn thảo nội dung chi tiết bài viết..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 outline-none font-sans text-sm sm:text-base leading-relaxed text-slate-800 bg-slate-50/30 shadow-inner" oninput="updateLivePreview()"></textarea>
-                        
-                        <div id="live-content-preview" class="hidden absolute inset-0 bg-white border border-rose-200 rounded-2xl p-6 overflow-y-auto font-sans text-base text-slate-800 shadow-inner">
-                            <div class="flex items-center justify-between border-b border-rose-100 pb-3 mb-5">
-                                <span class="text-sm font-bold text-rose-600 uppercase"><i class="fa-solid fa-eye mr-1.5"></i> Xem trước giao diện hiển thị bài viết thực tế</span>
-                                <button type="button" onclick="toggleContentPreview()" class="text-xs text-slate-600 hover:text-slate-900 font-bold px-3.5 py-1.5 bg-slate-100 rounded-xl shadow-sm">Quay lại chỉnh sửa</button>
-                            </div>
-                            <div id="preview-render-body" class="space-y-4 prose max-w-none"></div>
-                        </div>
+                        <div id="wysiwyg-editor" contenteditable="true" onkeydown="handleWysiwygKeyDown(event)" class="w-full px-6 py-5 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 outline-none font-sans text-sm sm:text-base leading-relaxed text-slate-800 bg-white shadow-inner overflow-y-auto" placeholder="Soạn thảo nội dung chi tiết bài viết tại đây..."></div>
                     </div>
                 </div>
 
@@ -1603,106 +1632,128 @@
             }
         }
 
-        function formatText(type) {
-            const textarea = document.getElementById('news-content');
-            if (!textarea) return;
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            let replacement = '';
+        // WYSIWYG Editor Commands
+        function execCmd(command, value = null) {
+            document.execCommand(command, false, value);
+            document.getElementById('wysiwyg-editor').focus();
+        }
 
-            switch(type) {
-                case 'bold': replacement = `**${selectedText || 'chữ in đậm'}**`; break;
-                case 'italic': replacement = `*${selectedText || 'chữ in nghiêng'}*`; break;
-                case 'underline': replacement = `<u>${selectedText || 'chữ gạch chân'}</u>`; break;
-                case 'align-left': replacement = `\n<div class="text-left">\n${selectedText || 'Nội dung căn lề trái...'}\n</div>\n`; break;
-                case 'align-center': replacement = `\n<div class="text-center">\n${selectedText || 'Nội dung căn giữa...'}\n</div>\n`; break;
-                case 'align-right': replacement = `\n<div class="text-right">\n${selectedText || 'Nội dung căn lề phải...'}\n</div>\n`; break;
-                case 'align-justify': replacement = `\n<div class="text-justify">\n${selectedText || 'Nội dung căn đều hai bên...'}\n</div>\n`; break;
-                case 'heading': replacement = `\n\n## ${selectedText || 'Tiêu đề phần chính (H2)'}\n\n`; break;
-                case 'subheading': replacement = `\n\n### ${selectedText || 'Tiêu đề phụ (H3)'}\n\n`; break;
-                case 'quote': 
-                    if (selectedText) {
-                        replacement = '\n' + selectedText.split('\n').map(line => `> ${line}`).join('\n') + '\n';
-                    } else {
-                        replacement = `\n> Trích dẫn lời Phật dạy hoặc thông điệp quan trọng...\n`;
+        function formatHeading(tag) {
+            execCmd('formatBlock', tag === 'H2' ? '<h2>' : '<h3>');
+        }
+
+        function formatQuote() {
+            execCmd('formatBlock', '<blockquote>');
+        }
+
+        function handleWysiwygKeyDown(event) {
+            if (event.key === 'Enter') {
+                const selection = window.getSelection();
+                if (!selection.rangeCount) return;
+                let node = selection.anchorNode;
+                
+                // Kiểm tra xem con trỏ hiện tại có đang nằm trong blockquote hay không
+                let blockquote = null;
+                while (node && node !== document.getElementById('wysiwyg-editor')) {
+                    if (node.nodeName && node.nodeName.toLowerCase() === 'blockquote') {
+                        blockquote = node;
+                        break;
                     }
-                    break;
-                case 'highlight': replacement = `\n:::highlight\n${selectedText || 'Nội dung thông báo hoặc điểm lưu ý quan trọng đóng khung nổi bật...'}\n:::\n`; break;
-            }
+                    node = node.parentNode;
+                }
 
-            textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
-            textarea.focus();
-            textarea.setSelectionRange(start + replacement.length, start + replacement.length);
-            updateLivePreview();
-        }
-
-        let isPreviewMode = false;
-        function toggleContentPreview() {
-            isPreviewMode = !isPreviewMode;
-            const previewPane = document.getElementById('live-content-preview');
-            const textarea = document.getElementById('news-content');
-            const btn = document.getElementById('btn-toggle-preview');
-
-            if (isPreviewMode) {
-                updateLivePreview();
-                textarea.classList.add('invisible');
-                previewPane.classList.remove('hidden');
-                btn.innerHTML = '<i class="fa-solid fa-pen"></i> Chỉnh Sửa Văn Bản';
-            } else {
-                textarea.classList.remove('invisible');
-                previewPane.classList.add('hidden');
-                btn.innerHTML = '<i class="fa-solid fa-eye"></i> Xem Trước Trực Quan';
+                if (blockquote) {
+                    // Nếu đang ở trong blockquote mà bấm Enter ở cuối dòng trống, thoát khỏi blockquote
+                    const range = selection.getRangeAt(0);
+                    const isAtEnd = range.endOffset === blockquote.textContent.length || (range.endContainer.nodeType === Node.TEXT_NODE && range.endOffset === range.endContainer.length && blockquote.lastChild && range.endContainer.parentNode === blockquote);
+                    
+                    if (blockquote.textContent.trim() === '' || isAtEnd) {
+                        event.preventDefault();
+                        // Tạo một thẻ div mới bên ngoài blockquote để tiếp tục gõ bình thường
+                        const div = document.createElement('div');
+                        div.innerHTML = '<br>';
+                        blockquote.parentNode.insertBefore(div, blockquote.nextSibling);
+                        
+                        const newRange = document.createRange();
+                        newRange.setStart(div, 0);
+                        newRange.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(newRange);
+                    }
+                }
             }
         }
 
-        function updateLivePreview() {
-            const rawContent = document.getElementById('news-content').value;
-            const renderBody = document.getElementById('preview-render-body');
-            if (!renderBody) return;
-            renderBody.innerHTML = renderMarkdownContent(rawContent, []);
+        function openInlineImageModal() {
+            document.getElementById('inline-image-url').value = '';
+            document.getElementById('inline-file-input').value = '';
+            document.getElementById('modal-inline-image').classList.remove('hidden');
         }
 
-        function renderMarkdownContent(rawContent, galleryList = []) {
-            if (!rawContent) return '<p class="text-slate-400 italic">Chưa có nội dung...</p>';
-            
-            let html = rawContent;
+        function closeInlineImageModal() {
+            document.getElementById('modal-inline-image').classList.add('hidden');
+        }
 
-            // Khung nổi bật (Highlight)
-            html = html.replace(/:::highlight([\s\S]*?):::/g, '<div class="p-4.5 my-4 bg-amber-50/90 border-l-4 border-amber-500 rounded-r-2xl text-slate-800 shadow-sm font-medium">$1</div>');
-
-            // Gom tất cả các dòng trích dẫn '>' liên tiếp thành 1 khung duy nhất
-            html = html.replace(/(?:^[ \t]*>[ \t]?[^\n]*(?:\r?\n|$))+/gm, (match) => {
-                const innerLines = match
-                    .trim()
-                    .split(/\r?\n/)
-                    .map(line => line.replace(/^[ \t]*>[ \t]?/, ''))
-                    .join('<br>');
-                return `<blockquote class="border-l-4 border-rose-500 pl-4 py-3 my-4 italic text-slate-700 bg-rose-50/50 rounded-r-2xl shadow-sm">${innerLines}</blockquote>`;
-            });
-
-            // Tiêu đề H2, H3
-            html = html
-                .replace(/^\s*##\s+(.*)$/gm, '<h2 class="text-xl font-serif font-bold text-rose-700 mt-6 mb-3 border-b border-rose-100 pb-1.5">$1</h2>')
-                .replace(/^\s*###\s+(.*)$/gm, '<h3 class="text-lg font-serif font-bold text-slate-900 mt-4 mb-2">$1</h3>');
-
-            // Định dạng in đậm, in nghiêng, gạch chân
-            html = html
-                .replace(/\*\*([\s\S]+?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
-                .replace(/(?:\*([\s\S]+?)\*)/g, '<em class="italic">$1</em>')
-                .replace(/<u>([\s\S]+?)<\/u>/g, '<u class="underline decoration-rose-500 font-semibold">$1</u>');
-
-            // Chuyển dòng trống còn lại thành <br>
-            html = html.replace(/\n/g, '<br>');
-
-            if (galleryList && Array.isArray(galleryList) && galleryList.length > 0) {
-                html += '<div class="mt-8 pt-6 border-t border-slate-200"><h4 class="font-serif font-bold text-slate-900 uppercase mb-4 text-sm flex items-center"><i class="fa-solid fa-images mr-2 text-rose-600"></i> Bộ sưu tập hình ảnh đính kèm</h4><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
-                galleryList.forEach(imgUrl => {
-                    html += `<div class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-48 shadow-sm"><img src="${imgUrl}" alt="Ảnh chi tiết" class="w-full h-full object-cover"></div>`;
+        async function processInlineImageFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+            showToast("Đang nén WebP và tải lên ảnh inline...");
+            try {
+                const webpResult = await compressAndConvertToWebP(file, 1200, 0.82);
+                const formData = new FormData();
+                formData.append('image', webpResult.file);
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                    method: 'POST',
+                    body: formData
                 });
-                html += '</div></div>';
+                const data = await response.json();
+                if (data && data.success) {
+                    document.getElementById('inline-image-url').value = data.data.url;
+                    showToast("Đã tải ảnh lên thành công!");
+                } else {
+                    showToast("Tải ảnh thất bại!", true);
+                }
+            } catch (err) {
+                showToast("Lỗi: " + err.message, true);
             }
-            return html;
+        }
+
+        function confirmInsertInlineImage() {
+            const url = document.getElementById('inline-image-url').value.trim();
+            if (!url) {
+                showToast("Vui lòng chọn hoặc nhập URL ảnh!", true);
+                return;
+            }
+            const editor = document.getElementById('wysiwyg-editor');
+            editor.focus();
+            const imgHtml = `<img src="${url}" alt="Hình ảnh bài viết" />`;
+            document.execCommand('insertHTML', false, imgHtml);
+            closeInlineImageModal();
+            showToast("Đã chèn ảnh vào văn bản thành công!");
+        }
+
+        function openFacebookEmbedModal() {
+            document.getElementById('fb-post-url').value = '';
+            document.getElementById('modal-facebook-embed').classList.remove('hidden');
+        }
+
+        function closeFacebookEmbedModal() {
+            document.getElementById('modal-facebook-embed').classList.add('hidden');
+        }
+
+        function confirmInsertFacebookEmbed() {
+            const fbUrl = document.getElementById('fb-post-url').value.trim();
+            if (!fbUrl) {
+                showToast("Vui lòng nhập đường dẫn Facebook!", true);
+                return;
+            }
+            const editor = document.getElementById('wysiwyg-editor');
+            editor.focus();
+            const embedHtml = `<div class="my-4 p-4 border border-indigo-200 bg-indigo-50/50 rounded-2xl text-center"><p class="text-xs font-bold text-indigo-800 mb-2"><i class="fa-brands fa-facebook mr-1"></i> Bài viết liên kết Facebook</p><a href="${fbUrl}" target="_blank" class="text-xs text-blue-600 font-mono underline break-all">${fbUrl}</a></div>`;
+            document.execCommand('insertHTML', false, embedHtml);
+            closeFacebookEmbedModal();
+            showToast("Đã gắn bài viết Facebook thành công!");
         }
 
         function addGalleryImageInput(urlValue = '') {
@@ -2070,7 +2121,8 @@
             document.getElementById('news-tag').value = '';
             document.getElementById('news-input-image').value = '';
             document.getElementById('news-preview-container').classList.add('hidden');
-            document.getElementById('news-content').value = '';
+            document.getElementById('wysiwyg-editor').innerHTML = '';
+            document.getElementById('gallery-images-container').innerHTML = '';
             document.getElementById('modal-news').classList.remove('hidden');
         }
 
@@ -2092,7 +2144,14 @@
                 document.getElementById('news-preview-img').src = item.image;
                 document.getElementById('news-preview-container').classList.remove('hidden');
             }
-            document.getElementById('news-content').value = item.content || '';
+            document.getElementById('wysiwyg-editor').innerHTML = item.content || '';
+            
+            const galleryContainer = document.getElementById('gallery-images-container');
+            galleryContainer.innerHTML = '';
+            if (item.gallery && Array.isArray(item.gallery)) {
+                item.gallery.forEach(imgUrl => addGalleryImageInput(imgUrl));
+            }
+
             document.getElementById('modal-news').classList.remove('hidden');
         }
 
@@ -2104,13 +2163,19 @@
             const category = document.getElementById('news-category').value;
             const tag = category === 'thong-bao' ? document.getElementById('news-tag').value : 'tin-tuc';
             const image = document.getElementById('news-input-image').value.trim();
-            const content = document.getElementById('news-content').value.trim();
+            const content = document.getElementById('wysiwyg-editor').innerHTML;
             
+            const galleryInputs = document.querySelectorAll('.gallery-url-input');
+            const gallery = [];
+            galleryInputs.forEach(input => {
+                if (input.value.trim()) gallery.push(input.value.trim());
+            });
+
             const currentAdminName = sessionStorage.getItem('vinhhung_admin_name') || 'Thầy Trụ Trì (Super Admin)';
             const newsAuthor = (key && newsData[key] && newsData[key].author) ? newsData[key].author : currentAdminName;
 
             const newsPayload = {
-                title, slug, category, tag, image, content,
+                title, slug, category, tag, image, content, gallery,
                 author: newsAuthor,
                 created_at: key && newsData[key] ? newsData[key].created_at : Date.now(),
                 hidden: key && newsData[key] ? (newsData[key].hidden || false) : false
