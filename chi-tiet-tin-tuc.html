@@ -22,6 +22,11 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Firebase SDKs (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -63,7 +68,6 @@
             background-image: linear-gradient(rgba(159, 18, 57, 0.85), rgba(30, 41, 59, 0.9)), url('https://placehold.co/1920x600/9f1239/ffffff?text=ChuaVinhHung');
             background-size: cover; background-position: center;
         }
-        /* Phóng to kích thước chữ và khoảng cách dòng nội dung cho dễ đọc */
         .article-content p { margin-bottom: 1.5rem; line-height: 1.9; color: #334155; font-size: 1.125rem; }
         .article-content h2 { font-size: 1.5rem; font-weight: 700; color: #be123c; font-family: 'Playfair Display', serif; border-bottom: 1px solid #ffe4e6; padding-bottom: 0.35rem; margin-top: 1.75rem; margin-bottom: 0.85rem; }
         .article-content h3 { font-size: 1.25rem; font-weight: 700; color: #1e293b; font-family: 'Playfair Display', serif; margin-top: 1.5rem; margin-bottom: 0.6rem; }
@@ -72,11 +76,9 @@
         .article-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; font-size: 1.125rem; }
         .article-content li { margin-bottom: 0.6rem; line-height: 1.7; }
     </style>
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
 
-    <!-- Header container -->
     <div id="header-container"></div>
 
     <!-- Banner tiêu đề phụ -->
@@ -88,12 +90,11 @@
     </section>
 
     <section class="py-12 md:py-16 flex-grow">
-        <!-- Đã mở rộng max-w container lên 1700px để phần nội dung bài viết cực kỳ rộng rãi và thoáng đãng -->
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1700px]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1600px]">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <!-- Cột Trái / Chính: Chi tiết bài viết (Chiếm 10 cột trên màn hình lớn) -->
-                <div class="lg:col-span-10 bg-white rounded-3xl custom-shadow border border-slate-200/80 overflow-hidden p-6 sm:p-10 lg:p-16 space-y-6">
+                <!-- Cột Trái / Chính: Chi tiết bài viết (8 cột) -->
+                <div class="lg:col-span-8 bg-white rounded-3xl custom-shadow border border-slate-200/80 overflow-hidden p-6 sm:p-10 lg:p-14 space-y-6">
                     
                     <!-- Nút quay lại & Công cụ chia sẻ -->
                     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
@@ -122,15 +123,15 @@
                     <!-- Thông tin meta bài viết -->
                     <div id="article-meta-info" class="flex flex-wrap items-center gap-4 text-sm text-slate-500 font-medium">
                         <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-rose-600"></i> <span id="news-date">Đang cập nhật...</span></span>
-                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-rose-600"></i> <span id="news-author">Thầy Trụ Trì (Super Admin)</span></span>
-                        <span id="news-tag-badge" class="px-3 py-1 rounded-lg text-xs font-bold uppercase border bg-amber-50 text-amber-900 border-amber-200 hidden">Tag</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-regular fa-user text-rose-600"></i> <span id="news-author">Ban Biên Tập</span></span>
+                        <span id="news-tag-badge" class="hidden">Tag</span>
                     </div>
 
                     <!-- Tiêu đề chính -->
                     <h2 class="text-2xl sm:text-4xl lg:text-5xl font-heading font-black text-slate-900 leading-tight" id="news-title">Đang tải tiêu đề...</h2>
 
                     <!-- Ảnh đại diện bài viết -->
-                    <div id="news-image-wrapper" class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-md cursor-pointer group relative max-h-[620px]">
+                    <div id="news-image-wrapper" class="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-md cursor-pointer group relative max-h-[580px]">
                         <img id="news-image" src="https://placehold.co/1200x600/f1f5f9/64748b?text=ChuaVinhHung" alt="Ảnh bài viết" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onclick="openImageLightbox(this.src)" onerror="this.src='https://placehold.co/1200x600/f1f5f9/64748b?text=ChuaVinhHung'">
                         <div class="absolute bottom-3 right-3 bg-black/75 text-white px-3.5 py-2 rounded-xl text-xs font-bold opacity-0 group-hover:opacity-100 transition duration-300 flex items-center gap-1.5 pointer-events-none shadow-lg">
                             <i class="fa-solid fa-expand"></i> Phóng to ảnh
@@ -147,43 +148,42 @@
 
                 </div>
 
-                <!-- Cột Phải: Bài viết liên quan & Widget (Chiếm 2 cột trên màn hình lớn) -->
-                <div class="lg:col-span-2 space-y-6 lg:sticky lg:top-24">
-                    <div class="bg-white rounded-3xl custom-shadow border border-slate-200/80 p-6 sm:p-7 space-y-5">
-                        <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                            <h3 class="font-heading font-bold text-sm sm:text-base text-slate-900 uppercase flex items-center gap-2">
-                                <i class="fa-solid fa-newspaper text-rose-600"></i> Bài Liên Quan
+                <!-- Cột Phải: Bài viết liên quan & Widget (4 cột) -->
+                <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+                    <div class="bg-white rounded-3xl custom-shadow border border-slate-200/80 p-6 sm:p-8 space-y-6">
+                        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 uppercase flex items-center gap-2.5">
+                                <i class="fa-solid fa-newspaper text-rose-600 text-lg"></i> Bài Liên Quan
                             </h3>
-                            <div class="flex items-center gap-1.5">
-                                <button onclick="rotateArticles(-1)" class="w-7 h-7 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài trước">
+                            <div class="flex items-center gap-2">
+                                <button onclick="rotateArticles(-1)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài trước">
                                     <i class="fa-solid fa-chevron-up text-xs"></i>
                                 </button>
-                                <button onclick="rotateArticles(1)" class="w-7 h-7 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài tiếp theo">
+                                <button onclick="rotateArticles(1)" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-600 hover:text-white text-slate-700 flex items-center justify-center transition shadow-xs" title="Bài tiếp theo">
                                     <i class="fa-solid fa-chevron-down text-xs"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Danh sách bài liên quan với cỡ chữ to hơn xíu -->
-                        <div id="related-news-container" class="space-y-4">
+                        <!-- Danh sách bài liên quan -->
+                        <div id="related-news-container" class="space-y-5">
                             <div class="text-center py-8 text-slate-400 text-sm italic">Đang tải bài viết liên quan...</div>
                         </div>
 
-                        <div class="pt-3 border-t border-slate-100 text-xs text-slate-400 font-medium flex items-center justify-between">
-                            <span class="italic flex items-center gap-1"><i class="fa-solid fa-rotate text-rose-600"></i> Xoay vòng tự động</span>
-                            <span id="rotation-counter" class="font-bold text-rose-700">0/0</span>
+                        <div class="pt-4 border-t border-slate-100 text-xs text-slate-400 font-medium flex items-center justify-end">
+                            <span id="rotation-counter" class="font-bold text-rose-700 text-sm">0/0</span>
                         </div>
                     </div>
 
-                    <!-- Widget Pháp Thoại (Đúng chuẩn 100% hình ảnh tham khảo yêu cầu với khung bo tròn & chữ to rõ) -->
+                    <!-- Widget Pháp Thoại -->
                     <div class="bg-gradient-to-br from-amber-50/70 via-amber-200/10 to-rose-50/30 rounded-[2.5xl] p-7 sm:p-8 shadow-xl border border-amber-300/60 relative overflow-hidden space-y-4">
                         <div class="absolute -right-6 -bottom-6 opacity-15 text-9xl font-heading text-rose-950 pointer-events-none select-none">
                             <i class="fa-solid fa-om"></i>
                         </div>
-                        <h4 class="font-heading font-black text-lg sm:text-xl text-[#3d1c1d] tracking-wide">VIDEO PHÁP THOẠI CHÙA</h4>
-                        <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">Cập nhật các bài giảng pháp, video khóa tu mới nhất từ Chùa Vĩnh Hưng.</p>
+                        <h4 class="font-heading font-black text-xl text-[#3d1c1d] tracking-wide">VIDEO PHÁP THOẠI</h4>
+                        <p class="text-sm text-slate-600 font-medium leading-relaxed">Cập nhật các bài giảng pháp, video khóa tu mới nhất từ Chùa Vĩnh Hưng.</p>
                         <div class="pt-2">
-                            <a href="video.html" class="inline-flex items-center gap-2 px-6 py-3.5 bg-[#e11d48] hover:bg-[#be123c] text-white font-bold rounded-2xl text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-rose-600/30 transition transform hover:-translate-y-0.5">
+                            <a href="video.html" class="inline-flex items-center gap-2 px-6 py-3.5 bg-[#e11d48] hover:bg-[#be123c] text-white font-bold rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-rose-600/30 transition transform hover:-translate-y-0.5">
                                 XEM VIDEO NGAY <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </div>
@@ -196,7 +196,6 @@
 
     <!-- IMAGE LIGHTBOX MODAL WITH ZOOM CONTROLS -->
     <div id="image-lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md" onclick="closeImageLightbox()">
-        <!-- Thanh công cụ phóng to / thu nhỏ / đặt lại ảnh -->
         <div class="absolute top-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-black/75 px-5 py-2.5 rounded-full border border-white/20 z-50 shadow-2xl" onclick="event.stopPropagation()">
             <button onclick="zoomImage(-0.25)" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition" title="Thu nhỏ (-)">
                 <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
@@ -219,16 +218,65 @@
         </div>
     </div>
     
-    <!-- Footer container -->
     <div id="footer-container"></div>
 
-    <script src="js/main.js"></script>
     <script>
-        const FIREBASE_NEWS_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/news.json';
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
         let allRelatedArticles = [];
+        let tagsDataCache = {};
         let rotationIndex = 0;
         let rotationTimer = null;
         let currentZoom = 1;
+
+        // Bảng màu PRESET tag đồng bộ 100% với trang tin-tuc.html
+        const PRESET_TAG_COLORS = [
+            { bg: 'bg-amber-100', text: 'text-amber-900', border: 'border-amber-300' },     // 0: Vàng
+            { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-300' },               // 1: Xanh dương
+            { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-300' }, // 2: Xanh lá
+            { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-300' },           // 3: Hồng đỏ (Bát Quan Trai)
+            { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-300' },           // 4: Hồng sáng (Lễ Phật Đản)
+            { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-300' },   // 5: Tím
+            { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-300' },   // 6: Cam
+            { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-300' }            // 7: Xanh mòng két
+        ];
+
+        function getTagStyle(slug = '', name = '') {
+            const s = (slug || '').toLowerCase().trim();
+            const n = (name || '').toLowerCase().trim();
+
+            if (s.includes('phat-dan') || n.includes('phật đản') || n.includes('phat dan')) {
+                return PRESET_TAG_COLORS[4]; 
+            }
+            if (s === 'bat-quan-trai' || n.includes('bát quan trai') || n.includes('bat quan trai')) {
+                return PRESET_TAG_COLORS[3]; 
+            }
+            if (s === 'tuoi-tre' || n.includes('tuổi trẻ') || n.includes('tuoi tre')) {
+                return PRESET_TAG_COLORS[2]; 
+            }
+            if (s === 'quy-y' || n.includes('quy y')) {
+                return PRESET_TAG_COLORS[1]; 
+            }
+            if (n.includes('lễ') || n.includes('ngày lễ') || s.includes('ngay-le')) {
+                return PRESET_TAG_COLORS[5]; 
+            }
+            if (s === 'thong-bao' || s === 'tin-tuc' || n.includes('thông báo') || n.includes('tin tức')) {
+                return PRESET_TAG_COLORS[0]; 
+            }
+
+            let hash = 0;
+            const str = s || n || '';
+            for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            const idx = Math.abs(hash) % (PRESET_TAG_COLORS.length - 2) + 1;
+            return PRESET_TAG_COLORS[idx];
+        }
 
         function createSlug(str) {
             if (!str) return '';
@@ -241,15 +289,20 @@
                 .replace(/^-+|-+$/g, '');
         }
 
+        // Tối ưu tốc độ: Lấy song song tags và news từ Firebase Realtime Database SDK
         async function fetchArticleDetail() {
             const urlParams = new URLSearchParams(window.location.search);
             let newsId = urlParams.get('id');
             let newsSlug = urlParams.get('slug');
 
             try {
-                const rawRes = await fetch(FIREBASE_NEWS_URL);
-                const textData = await rawRes.text();
-                const data = textData ? JSON.parse(textData) : null;
+                const [tagsSnapshot, newsSnapshot] = await Promise.all([
+                    database.ref('tags').once('value'),
+                    database.ref('news').once('value')
+                ]);
+
+                tagsDataCache = tagsSnapshot.val() || {};
+                const data = newsSnapshot.val();
 
                 if (!data) {
                     showNotFoundError("Hệ thống chưa ghi nhận bài viết nào trên Firebase.");
@@ -282,11 +335,30 @@
                 document.getElementById('news-banner-title').textContent = post.title || '';
                 document.getElementById('news-title').textContent = post.title || '';
                 document.getElementById('news-date').textContent = post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN') : 'Mới cập nhật';
-                document.getElementById('news-author').textContent = post.author || 'Thầy Trụ Trì (Super Admin)';
+                
+                document.getElementById('news-author').textContent = 'Ban Biên Tập';
 
+                // Hiển thị tag với màu sắc đồng điệu chuẩn xác với trang tin-tuc.html
                 if (post.tag && post.tag !== 'tin-tuc') {
                     const tagBadge = document.getElementById('news-tag-badge');
-                    tagBadge.textContent = post.tag.toUpperCase();
+                    let tagSlug = post.tag;
+                    if (tagSlug === 'tuoi-tre-quy-y') tagSlug = 'tuoi-tre';
+
+                    let tagName = tagSlug;
+                    if (tagsDataCache[tagSlug] && tagsDataCache[tagSlug].name) {
+                        tagName = tagsDataCache[tagSlug].name;
+                    } else {
+                        for (const k in tagsDataCache) {
+                            if (tagsDataCache[k].slug === tagSlug || k === tagSlug) {
+                                tagName = tagsDataCache[k].name;
+                                break;
+                            }
+                        }
+                    }
+
+                    const style = getTagStyle(tagSlug, tagName);
+                    tagBadge.className = `inline-block px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase shadow-xs ${style.bg} ${style.text} border ${style.border}`;
+                    tagBadge.innerHTML = `<i class="fa-solid fa-tag mr-1.5"></i>${tagName}`;
                     tagBadge.classList.remove('hidden');
                 }
                 
@@ -324,7 +396,7 @@
                     renderRotatedArticles();
                     startArticleRotation();
                 } else {
-                    document.getElementById('related-news-container').innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Chưa có bài viết liên quan khác.</p>';
+                    document.getElementById('related-news-container').innerHTML = '<p class="text-sm text-slate-400 text-center py-4">Chưa có bài viết liên quan khác.</p>';
                     document.getElementById('rotation-counter').textContent = '0/0';
                 }
 
@@ -351,16 +423,15 @@
                 const articleSlug = article.slug ? article.slug : createSlug(article.title);
 
                 htmlContent += `
-                    <div class="flex items-start gap-3.5 group pb-4 border-b border-slate-100 last:border-0 last:pb-0 transition">
-                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="w-18 h-16 flex-shrink-0 rounded-xl overflow-hidden shadow-xs border border-slate-200 bg-slate-100">
+                    <div class="flex items-start gap-4 group pb-4 border-b border-slate-100 last:border-0 last:pb-0 transition">
+                        <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}" class="w-20 h-16 flex-shrink-0 rounded-xl overflow-hidden shadow-xs border border-slate-200 bg-slate-100">
                             <img src="${imgSrc}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/400x300/f1f5f9/64748b?text=News'">
                         </a>
                         <div class="flex-1 min-w-0 space-y-1">
-                            <div class="flex items-center gap-2 text-[11px] text-slate-400 font-medium">
+                            <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
                                 <span><i class="fa-regular fa-calendar text-rose-600"></i> ${dateStr}</span>
                             </div>
-                            <!-- Đã tăng kích thước chữ bài liên quan to hơn xíu (text-sm) -->
-                            <h4 class="font-bold text-sm text-slate-900 line-clamp-2 group-hover:text-rose-600 transition leading-snug">
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 line-clamp-2 group-hover:text-rose-600 transition leading-snug">
                                 <a href="chi-tiet-tin-tuc.html?slug=${articleSlug}">${article.title || ''}</a>
                             </h4>
                         </div>
@@ -390,7 +461,7 @@
             rotationTimer = setInterval(() => {
                 rotationIndex = (rotationIndex + 1) % allRelatedArticles.length;
                 renderRotatedArticles();
-            }, 5000);
+            }, 6000);
         }
 
         function showNotFoundError(message) {

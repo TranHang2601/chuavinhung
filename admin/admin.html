@@ -325,7 +325,7 @@
                             </h3>
                             <button onclick="switchTab('news')" class="text-xs font-bold text-rose-600 hover:text-rose-700 transition">Xem tất cả bài viết →</button>
                         </div>
-                        <div id="overview-recent-news-list" class="space-y-3 flex-grow flex flex-col justify-center">
+                        <div id="overview-recent-news-list" class="space-y-4 flex-grow flex flex-col justify-center">
                             <p class="text-xs text-slate-400 italic text-center py-6">Đang tải danh sách bài viết...</p>
                         </div>
                     </div>
@@ -360,7 +360,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Hỏi Đáp Phật Pháp & Trả Lời Thắc Mắc</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thầy trả lời câu hỏi, duyệt hiển thị công khai hoặc xóa/ẩn câu hỏi của Phật tử</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thầy trả lời câu hỏi, tick chọn duyệt hiển thị công khai để đồng bộ lên trang Hỏi Đáp</p>
                         </div>
                     </div>
 
@@ -422,7 +422,6 @@
                                 <input type="text" id="news-search" oninput="renderNewsTable()" placeholder="Tìm kiếm tiêu đề..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
                             </div>
                             
-                            <!-- Nút Quản Lý Thẻ Tag -->
                             <button onclick="openTagManagerModal()" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-amber-500/20 transition whitespace-nowrap tracking-wider flex items-center gap-1.5">
                                 <i class="fa-solid fa-tags"></i> Quản Lý Thẻ Tag
                             </button>
@@ -433,7 +432,6 @@
                         </div>
                     </div>
 
-                    <!-- THỐNG KÊ SỐ LƯỢNG BÀI VIẾT THEO THẺ TAG -->
                     <div id="tag-stats-container" class="bg-amber-50/40 p-4 rounded-2xl border border-amber-200/70 flex flex-wrap items-center gap-2.5 shadow-sm">
                         <div class="text-xs font-bold text-amber-900 flex items-center gap-1.5 mr-2">
                             <i class="fa-solid fa-chart-pie text-amber-600"></i> Thống kê bài viết theo thẻ tag:
@@ -466,7 +464,7 @@
                                     <th class="py-3.5 px-4 w-28">Ngày đăng</th>
                                     <th class="py-3.5 px-4 w-44">NGƯỜI ĐĂNG</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-28 text-center news-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-40 text-center news-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="news-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -515,7 +513,7 @@
                                     <th class="py-3.5 px-4 w-36">Link YouTube</th>
                                     <th class="py-3.5 px-4 w-44">NGƯỜI ĐĂNG</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-28 text-center video-action-th">Thao tác</th>
+                                    <th class="py-3.5 px-4 w-40 text-center video-action-th">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="video-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
@@ -740,7 +738,7 @@
                 <input type="hidden" id="answer-qa-key">
                 
                 <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl border border-amber-200/90 space-y-2 shadow-inner">
-                    <p class="text-xs font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-buddhist-gold"></i> Câu hỏi từ Phật tử <span id="qa-modal-author" class="font-semibold text-slate-800"></span>:</p>
+                    <p class="text-xs font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-amber-500"></i> Câu hỏi từ Phật tử <span id="qa-modal-author" class="font-semibold text-slate-800"></span>:</p>
                     <p id="qa-modal-question-text" class="text-sm sm:text-base font-serif font-bold text-slate-900 italic leading-relaxed pl-4 sm:pl-5 border-l-2 border-amber-400/80 my-2"></p>
                 </div>
 
@@ -762,7 +760,7 @@
         </div>
     </div>
 
-    <!-- MODAL NEWS (WYSIWYG RICH TEXT EDITOR) -->
+    <!-- MODAL NEWS -->
     <div id="modal-news" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
         <div class="bg-white rounded-3xl max-w-6xl w-full h-[95vh] max-h-[95vh] flex flex-col p-6 sm:p-10 shadow-2xl border border-slate-200">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -798,7 +796,6 @@
                     <div id="news-tag-group">
                         <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
                         <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
-                            <!-- Dynamic Tag Options -->
                         </select>
                     </div>
                 </div>
@@ -848,7 +845,6 @@
                             <span class="text-xs text-slate-500 font-medium">Định dạng thay đổi trực tiếp ngay trên văn bản đang gõ</span>
                         </div>
 
-                        <!-- Thanh công cụ WYSIWYG áp dụng trực tiếp lên văn bản -->
                         <div class="flex flex-wrap items-center gap-2 bg-slate-100 p-3 rounded-2xl border border-slate-300 shadow-inner">
                             <button type="button" onclick="execCmd('bold')" title="In đậm" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl font-bold shadow-sm transition text-xs"><i class="fa-solid fa-bold"></i></button>
                             <button type="button" onclick="execCmd('italic')" title="In nghiêng" class="px-3.5 py-2 bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-800 rounded-xl italic shadow-sm transition text-xs"><i class="fa-solid fa-italic"></i></button>
@@ -879,7 +875,6 @@
                         </div>
                     </div>
                     
-                    <!-- VÙNG SOẠN THẢO TRỰC QUAN WYSIWYG -->
                     <div class="relative">
                         <div id="wysiwyg-editor" contenteditable="true" onkeydown="handleWysiwygKeyDown(event)" class="w-full px-6 py-5 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 outline-none font-sans text-sm sm:text-base leading-relaxed text-slate-800 bg-white shadow-inner overflow-y-auto" placeholder="Soạn thảo nội dung chi tiết bài viết tại đây..."></div>
                     </div>
@@ -1141,14 +1136,14 @@
         const IMGBB_DEFAULT_API_KEY = 'b9f24bc89d5986bb2311af0ee3598032';
 
         const PRESET_TAG_COLORS = [
-            { bg: '#fef3c7', text: '#92400e', border: '#fcd34d' }, // Vàng (Tin tức)
-            { bg: '#e0f2fe', text: '#0369a1', border: '#bae6fd' }, // Xanh dương (Quy Y Tam Bảo)
-            { bg: '#dcfce7', text: '#166534', border: '#86efac' }, // Xanh lá (Khóa tu Tuổi trẻ)
-            { bg: '#ffe4e6', text: '#be123c', border: '#fecdd3' }, // Hồng đỏ (Khóa tu Bát Quan Trai)
-            { bg: '#f3e8ff', text: '#6b21a8', border: '#d8b4fe' }, // Tím (Lễ khác)
-            { bg: '#ffedd5', text: '#9a3412', border: '#fdba74' }, // Cam
-            { bg: '#ccfbf1', text: '#115e59', border: '#5eead4' }, // Xanh mòng két
-            { bg: '#fce7f3', text: '#831843', border: '#fbcfe8' }  // Hồng
+            { bg: '#fef3c7', text: '#92400e', border: '#fcd34d' },
+            { bg: '#e0f2fe', text: '#0369a1', border: '#bae6fd' },
+            { bg: '#dcfce7', text: '#166534', border: '#86efac' },
+            { bg: '#ffe4e6', text: '#be123c', border: '#fecdd3' },
+            { bg: '#f3e8ff', text: '#6b21a8', border: '#d8b4fe' },
+            { bg: '#ffedd5', text: '#9a3412', border: '#fdba74' },
+            { bg: '#ccfbf1', text: '#115e59', border: '#5eead4' },
+            { bg: '#fce7f3', text: '#831843', border: '#fbcfe8' }
         ];
 
         function getTagStyleObject(tagName) {
@@ -1632,7 +1627,6 @@
             }
         }
 
-        // WYSIWYG Editor Commands
         function execCmd(command, value = null) {
             document.execCommand(command, false, value);
             document.getElementById('wysiwyg-editor').focus();
@@ -1652,7 +1646,6 @@
                 if (!selection.rangeCount) return;
                 let node = selection.anchorNode;
                 
-                // Kiểm tra xem con trỏ hiện tại có đang nằm trong blockquote hay không
                 let blockquote = null;
                 while (node && node !== document.getElementById('wysiwyg-editor')) {
                     if (node.nodeName && node.nodeName.toLowerCase() === 'blockquote') {
@@ -1663,13 +1656,11 @@
                 }
 
                 if (blockquote) {
-                    // Nếu đang ở trong blockquote mà bấm Enter ở cuối dòng trống, thoát khỏi blockquote
                     const range = selection.getRangeAt(0);
                     const isAtEnd = range.endOffset === blockquote.textContent.length || (range.endContainer.nodeType === Node.TEXT_NODE && range.endOffset === range.endContainer.length && blockquote.lastChild && range.endContainer.parentNode === blockquote);
                     
                     if (blockquote.textContent.trim() === '' || isAtEnd) {
                         event.preventDefault();
-                        // Tạo một thẻ div mới bên ngoài blockquote để tiếp tục gõ bình thường
                         const div = document.createElement('div');
                         div.innerHTML = '<br>';
                         blockquote.parentNode.insertBefore(div, blockquote.nextSibling);
@@ -1980,25 +1971,25 @@
                 const tagStyle = getTagStyleObject(tagName);
 
                 html += `
-                    <div class="flex items-center justify-between p-3.5 bg-slate-50/70 rounded-2xl border border-slate-100 hover:bg-slate-100/80 transition">
-                        <div class="flex items-center space-x-3.5 overflow-hidden">
-                            <div class="w-16 h-14 rounded-xl overflow-hidden border border-slate-200/60 bg-slate-200 flex-shrink-0 shadow-xs">
-                                <img src="${item.image || 'https://placehold.co/100x80/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover">
+                    <div class="flex items-center justify-between p-4 bg-slate-50/80 rounded-2xl border border-slate-200/70 hover:bg-slate-100 transition shadow-xs">
+                        <div class="flex items-center space-x-4 overflow-hidden">
+                            <div class="w-20 h-16 sm:w-24 sm:h-20 rounded-2xl overflow-hidden border-2 border-slate-200 bg-slate-200 flex-shrink-0 shadow-sm">
+                                <img src="${item.image || 'https://placehold.co/150x120/f1f5f9/64748b?text=News'}" alt="Thumb" class="w-full h-full object-cover">
                             </div>
-                            <div class="overflow-hidden space-y-1">
+                            <div class="overflow-hidden space-y-1.5">
                                 <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border inline-flex items-center gap-1 shadow-2xs uppercase" style="background-color: ${tagStyle.bg}; color: ${tagStyle.text}; border-color: ${tagStyle.border}">
-                                        <i class="fa-solid fa-circle text-[5px]"></i> ${tagName}
+                                    <span class="px-2.5 py-0.5 rounded-md text-xs font-bold border inline-flex items-center gap-1 shadow-2xs uppercase" style="background-color: ${tagStyle.bg}; color: ${tagStyle.text}; border-color: ${tagStyle.border}">
+                                        <i class="fa-solid fa-circle text-[6px]"></i> ${tagName}
                                     </span>
-                                    <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                                        <i class="fa-regular fa-calendar text-[10px]"></i> ${dateStr}
+                                    <span class="text-xs text-slate-500 font-semibold flex items-center gap-1">
+                                        <i class="fa-regular fa-calendar text-xs"></i> ${dateStr}
                                     </span>
                                 </div>
-                                <h5 class="text-xs font-bold text-slate-900 truncate">${item.title || ''}</h5>
-                                <p class="text-[10px] text-slate-500 font-medium">Đăng bởi: ${authorName}</p>
+                                <h5 class="text-sm sm:text-base font-bold text-slate-900 truncate">${item.title || ''}</h5>
+                                <p class="text-xs text-slate-500 font-medium">Đăng bởi: ${authorName}</p>
                             </div>
                         </div>
-                        <button onclick="editNews('${key}')" class="px-3.5 py-1.5 bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-3">Sửa bài</button>
+                        <button onclick="editNews('${key}')" class="px-4 py-2 bg-white border border-slate-200 hover:bg-rose-50 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-xs flex-shrink-0 ml-3">Sửa bài</button>
                     </div>
                 `;
             });
@@ -2066,7 +2057,6 @@
                         </td>
                         <td class="py-3.5 px-4">
                             <div class="font-bold text-slate-900">${item.title || ''}</div>
-                            <!-- THẺ TAG NẰM NGAY DƯỚI TIÊU ĐỀ -->
                             <div class="mt-1.5 flex items-center gap-2">
                                 <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold border inline-flex items-center gap-1 shadow-xs uppercase" style="background-color: ${tagStyle.bg}; color: ${tagStyle.text}; border-color: ${tagStyle.border}">
                                     <i class="fa-solid fa-tag text-[9px]"></i> ${tagName}
@@ -2078,8 +2068,8 @@
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editNews('${key}')" class="p-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm" title="Sửa bài viết"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteNews('${key}')" class="p-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm" title="Xóa bài viết"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editNews('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
+                                <button onclick="deleteNews('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -2258,8 +2248,8 @@
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editVideo('${key}')" class="p-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-pen"></i></button>
-                                <button onclick="deleteVideo('${key}')" class="p-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="editVideo('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
+                                <button onclick="deleteVideo('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -2363,19 +2353,24 @@
             }
         }
 
+        // PHẦN QUẢN LÝ HỎI ĐÁP (QA) ĐỒNG BỘ VỚI FIREBASE & TRANG CÔNG KHAI
         async function loadQA() {
             try {
-                const snapshot = await database.ref('questions').once('value');
-                qaData = snapshot.val() || {};
-                
-                let pendingCount = 0;
-                Object.keys(qaData).forEach(k => {
-                    if (!qaData[k].answer || qaData[k].answer.trim() === '' || qaData[k].approved !== true) pendingCount++;
-                });
-                const statEl = document.getElementById('stat-pending-qa');
-                if (statEl) statEl.textContent = pendingCount;
+                database.ref('questions').on('value', (snapshot) => {
+                    qaData = snapshot.val() || {};
+                    
+                    let pendingCount = 0;
+                    Object.keys(qaData).forEach(k => {
+                        const item = qaData[k];
+                        const hasAnswer = item.answer && item.answer.trim() !== '';
+                        const isApproved = item.approved === true || item.approved === 'true';
+                        if (!hasAnswer || !isApproved) pendingCount++;
+                    });
+                    const statEl = document.getElementById('stat-pending-qa');
+                    if (statEl) statEl.textContent = pendingCount;
 
-                renderQATable();
+                    renderQATable();
+                });
             } catch (err) {
                 console.error("Lỗi tải hỏi đáp:", err);
             }
@@ -2434,9 +2429,9 @@
                 if (!hasAnswer) {
                     statusBadge = `<span class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-xl font-bold text-xs shadow-sm inline-block">Chờ trả lời</span>`;
                 } else if (!isApproved) {
-                    statusBadge = `<span class="px-3 py-1.5 bg-rose-100 text-rose-700 rounded-xl font-bold text-xs shadow-sm inline-block">Chờ duyệt</span>`;
+                    statusBadge = `<span class="px-3 py-1.5 bg-rose-100 text-rose-700 rounded-xl font-bold text-xs shadow-sm inline-block">Chờ duyệt công khai</span>`;
                 } else {
-                    statusBadge = `<span class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-xl font-bold text-xs shadow-sm inline-block">Công khai</span>`;
+                    statusBadge = `<span class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-xl font-bold text-xs shadow-sm inline-block">Đã duyệt & Công khai</span>`;
                 }
 
                 html += `
@@ -2445,13 +2440,13 @@
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.name || 'Phật tử ẩn danh'}</td>
                         <td class="py-3.5 px-4">
                             <div class="font-bold text-slate-900">${item.question || ''}</div>
-                            ${hasAnswer ? `<div class="mt-1 text-xs text-rose-700 font-medium bg-rose-50 p-2 rounded-xl border border-rose-100"><strong>Thầy trả lời:</strong> ${item.answer}</div>` : ''}
+                            ${hasAnswer ? `<div class="mt-2 text-xs text-rose-700 font-medium bg-rose-50 p-2.5 rounded-xl border border-rose-100"><strong>Thầy trả lời:</strong> ${item.answer}</div>` : ''}
                         </td>
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
-                            <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-xl text-xs font-bold shadow-sm" title="Trả lời câu hỏi"><i class="fa-solid fa-pen-nib"></i></button>
-                                <button onclick="deleteQA('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold shadow-sm" title="Xóa câu hỏi"><i class="fa-solid fa-trash"></i></button>
+                            <div class="inline-flex items-center justify-center gap-2">
+                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-pen-to-square"></i> Trả lời</button>
+                                <button onclick="deleteQA('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-trash"></i> Xóa</button>
                             </div>
                         </td>
                     </tr>
@@ -2468,6 +2463,52 @@
                 paginationContainer.innerHTML = pagHtml;
             } else if (paginationContainer) {
                 paginationContainer.innerHTML = '';
+            }
+        }
+
+        function openAnswerModal(key) {
+            const item = qaData[key];
+            if (!item) return;
+            document.getElementById('answer-qa-key').value = key;
+            document.getElementById('qa-modal-author').textContent = item.name || 'Phật tử ẩn danh';
+            document.getElementById('qa-modal-question-text').textContent = item.question || '';
+            document.getElementById('qa-modal-answer-text').value = item.answer || '';
+            document.getElementById('qa-modal-approve').checked = item.approved === true || item.approved === 'true' || false;
+            document.getElementById('modal-answer-qa').classList.remove('hidden');
+        }
+
+        function closeAnswerModal() {
+            document.getElementById('modal-answer-qa').classList.add('hidden');
+        }
+
+        async function saveAnswerQA(e) {
+            e.preventDefault();
+            const key = document.getElementById('answer-qa-key').value;
+            const answer = document.getElementById('qa-modal-answer-text').value.trim();
+            const approved = document.getElementById('qa-modal-approve').checked;
+
+            if (!key) return;
+
+            try {
+                await database.ref(`questions/${key}`).update({
+                    answer: answer,
+                    approved: approved
+                });
+                closeAnswerModal();
+                showToast("Đã lưu câu trả lời và cập nhật trạng thái hiển thị thành công!");
+            } catch (err) {
+                showToast("Lỗi khi lưu câu trả lời: " + err.message, true);
+            }
+        }
+
+        async function deleteQA(key) {
+            if (await promptConfirm("Bạn có chắc chắn muốn xóa câu hỏi này?")) {
+                try {
+                    await database.ref(`questions/${key}`).remove();
+                    showToast("Đã xóa câu hỏi!");
+                } catch (err) {
+                    showToast("Lỗi khi xóa: " + err.message, true);
+                }
             }
         }
 
