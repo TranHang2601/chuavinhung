@@ -92,7 +92,6 @@
             background-color: #fef2f2 !important;
             border-top: 2px solid #e11d48 !important;
         }
-        /* WYSIWYG Editor Styling */
         #wysiwyg-editor {
             min-height: 380px;
             outline: none;
@@ -169,8 +168,8 @@
             <i class="fa-solid fa-user-lock"></i>
         </div>
         <div>
-            <h3 class="text-xl font-bold font-serif text-slate-900 uppercase tracking-wide">Hệ Thống Phân Quyền & Đăng Nhập</h3>
-            <p class="text-xs text-slate-500 mt-1.5 font-medium">Nhập mã PIN bảo mật (Tối Cao: 8888 | Biên Tập: 6666 | Theo Dõi: 1111)</p>
+            <h3 class="text-xl font-bold font-serif text-slate-900 uppercase tracking-wide">Hệ Thống CHÙA VĨNH HƯNG</h3>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Nhập mã PIN đăng nhập</p>
         </div>
 
         <div class="space-y-4 pt-3 border-t border-slate-100">
@@ -195,21 +194,21 @@
                 <i class="fa-solid fa-chart-pie text-base"></i>
                 <span>Tổng Quan</span>
             </button>
+            <button onclick="switchTab('news')" id="tab-btn-news" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
+                <i class="fa-solid fa-newspaper text-base"></i>
+                <span>Tin Tức & Thông Báo</span>
+            </button>
+            <button onclick="switchTab('videos')" id="tab-btn-videos" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
+                <i class="fa-solid fa-circle-play text-base"></i>
+                <span>Video & Pháp Thoại</span>
+            </button>
             <button onclick="switchTab('qa')" id="tab-btn-qa" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
                 <i class="fa-solid fa-comments text-base"></i>
                 <span>Hỏi Đáp Phật Pháp</span>
             </button>
-            <button onclick="switchTab('news')" id="tab-btn-news" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
-                <i class="fa-solid fa-newspaper text-base"></i>
-                <span>Bài Viết & Tin Tức</span>
-            </button>
-            <button onclick="switchTab('videos')" id="tab-btn-videos" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
-                <i class="fa-solid fa-circle-play text-base"></i>
-                <span>Video Pháp Thoại</span>
-            </button>
             <button onclick="switchTab('monks')" id="tab-btn-monks" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition font-semibold text-xs uppercase tracking-wide">
                 <i class="fa-solid fa-users text-base"></i>
-                <span>Chư Tăng & BQT</span>
+                <span>Chư Tăng Ni</span>
             </button>
             <div id="nav-menu-wrapper">
                 <button onclick="switchTab('menu')" id="tab-btn-menu" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full font-semibold text-xs uppercase tracking-wide">
@@ -220,7 +219,7 @@
             <div id="nav-footer-wrapper">
                 <button onclick="switchTab('footer')" id="tab-btn-footer" class="tab-btn px-4 py-3.5 rounded-2xl flex items-center space-x-3 transition w-full font-semibold text-xs uppercase tracking-wide">
                     <i class="fa-solid fa-shoe-prints text-base"></i>
-                    <span>Cấu Hình Footer</span>
+                    <span>Cấu Hình Liên Hệ</span>
                 </button>
             </div>
             <div id="nav-permissions-wrapper" class="mt-2 pt-2 border-t border-slate-100">
@@ -250,7 +249,7 @@
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Hỏi Đáp Cần Trả Lời</p>
                             <h3 id="stat-pending-qa" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</h3>
-                            <span class="text-[10px] text-amber-700 font-bold">Xử lý ngay →</span>
+                            <!-- <span class="text-[10px] text-amber-700 font-bold">Xử lý ngay →</span> -->
                         </div>
                     </div>
 
@@ -261,7 +260,7 @@
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tổng Bài Viết</p>
                             <h3 id="stat-news-count" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</h3>
-                            <span class="text-[10px] text-rose-600 font-bold">Xem danh sách →</span>
+                            <!-- <span class="text-[10px] text-rose-600 font-bold">Xem danh sách →</span> -->
                         </div>
                     </div>
 
@@ -272,7 +271,7 @@
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Video Pháp Thoại</p>
                             <h3 id="stat-video-count" class="text-2xl font-extrabold text-slate-900 mt-0.5">0</h3>
-                            <span class="text-[10px] text-amber-700 font-bold">Xem video →</span>
+                            <!-- <span class="text-[10px] text-amber-700 font-bold">Xem video →</span> -->
                         </div>
                     </div>
 
@@ -283,7 +282,7 @@
                         <div>
                             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Hệ Thống</p>
                             <h3 class="text-xs font-bold text-emerald-700 mt-1">Hoạt Động Tốt</h3>
-                            <span class="text-[10px] text-slate-500 font-semibold">Realtime Sync</span>
+                            <!-- <span class="text-[10px] text-slate-500 font-semibold">Realtime Sync</span> -->
                         </div>
                     </div>
                 </div>
@@ -354,67 +353,13 @@
                 </div>
             </section>
 
-            <!-- TAB 2: QA -->
-            <section id="tab-sec-qa" class="hidden space-y-4">
-                <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
-                        <div>
-                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Hỏi Đáp Phật Pháp & Trả Lời Thắc Mắc</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thầy trả lời câu hỏi, tick chọn duyệt hiển thị công khai để đồng bộ lên trang Hỏi Đáp</p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                        <div class="flex flex-wrap items-center gap-3 text-xs font-bold text-slate-700">
-                            <div class="flex items-center space-x-2">
-                                <span>Lọc trạng thái:</span>
-                                <select id="qa-filter-status" onchange="changeQAFilterStatus(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
-                                    <option value="all">Tất cả câu hỏi</option>
-                                    <option value="pending" selected>Chờ trả lời / Chưa duyệt</option>
-                                    <option value="answered">Đã trả lời & Công khai</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span>Hiển thị:</span>
-                                <select id="qa-per-page-select" onchange="changeQAPerPage(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
-                                    <option value="10" selected>10 câu</option>
-                                    <option value="20">20 câu</option>
-                                    <option value="50">50 câu</option>
-                                </select>
-                                <span>câu/trang</span>
-                            </div>
-                        </div>
-                        <div id="qa-count-info" class="text-xs font-bold text-slate-500">Đang hiển thị...</div>
-                    </div>
-
-                    <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-                        <table class="w-full text-left border-collapse min-w-[800px]">
-                            <thead>
-                                <tr class="bg-amber-50/70 text-amber-900 text-xs uppercase font-bold border-b border-amber-100">
-                                    <th class="py-3.5 px-4 w-12 text-center">STT</th>
-                                    <th class="py-3.5 px-4 w-44">Phật Tử</th>
-                                    <th class="py-3.5 px-4">Nội Dung Câu Hỏi</th>
-                                    <th class="py-3.5 px-4 w-36 text-center">Trạng Thái</th>
-                                    <th class="py-3.5 px-4 w-40 text-center">Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <tbody id="qa-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
-                                <tr><td colspan="5" class="py-8 text-center text-slate-400">Đang tải danh sách câu hỏi...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="qa-pagination-container" class="flex items-center justify-between pt-4 border-t border-slate-100"></div>
-                </div>
-            </section>
-
-            <!-- TAB 3: NEWS -->
+            <!-- TAB 2: NEWS -->
             <section id="tab-sec-news" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
-                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Bài Viết Tin Tức & Khóa Tu</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Quản lý bài viết, phân loại chuyên mục, tag, ẩn/hiện & tối ưu ảnh WebP</p>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Bài Viết Tin Tức & THÔNG BÁO</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Quản lý bài viết về tin tức & thông báo của chùa</p>
                         </div>
                         <div class="flex items-center gap-3 flex-wrap">
                             <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200 w-full sm:w-60 shadow-inner">
@@ -434,7 +379,7 @@
 
                     <div id="tag-stats-container" class="bg-amber-50/40 p-4 rounded-2xl border border-amber-200/70 flex flex-wrap items-center gap-2.5 shadow-sm">
                         <div class="text-xs font-bold text-amber-900 flex items-center gap-1.5 mr-2">
-                            <i class="fa-solid fa-chart-pie text-amber-600"></i> Thống kê bài viết theo thẻ tag:
+                            <i class="fa-solid fa-chart-pie text-amber-600"></i> Thống kê bài viết:
                         </div>
                         <div id="tag-stats-pills" class="flex flex-wrap items-center gap-2">
                             <span class="text-xs text-slate-400 italic">Đang tải thống kê tag...</span>
@@ -477,12 +422,12 @@
                 </div>
             </section>
 
-            <!-- TAB 4: VIDEOS -->
+            <!-- TAB 3: VIDEOS -->
             <section id="tab-sec-videos" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
-                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Video Bài Giảng Pháp Thoại</h2>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Video & Bài Giảng Pháp Thoại</h2>
                             <p class="text-xs text-slate-500 font-medium mt-0.5">Các video lưu trữ từ kênh YouTube chính thức của Chùa</p>
                         </div>
                         <button id="btn-add-video" onclick="openVideoModal()" class="px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-amber-600/20 transition tracking-wider">
@@ -526,13 +471,68 @@
                 </div>
             </section>
 
+            <!-- TAB 4: QA -->
+            <section id="tab-sec-qa" class="hidden space-y-4">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                        <div>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Hỏi Đáp Phật Pháp & Trả Lời Thắc Mắc</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Cho phép thầy sửa câu hỏi (chính tả, có dấu), chỉnh sửa tag và trả lời câu hỏi</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <div class="flex flex-wrap items-center gap-3 text-xs font-bold text-slate-700">
+                            <div class="flex items-center space-x-2">
+                                <span>Lọc trạng thái:</span>
+                                <select id="qa-filter-status" onchange="changeQAFilterStatus(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
+                                    <option value="all">Tất cả câu hỏi</option>
+                                    <option value="pending" selected>Chờ trả lời / Chưa duyệt</option>
+                                    <option value="answered">Đã trả lời & Công khai</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>Hiển thị:</span>
+                                <select id="qa-per-page-select" onchange="changeQAPerPage(this.value)" class="px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none font-semibold text-slate-800">
+                                    <option value="10" selected>10 câu</option>
+                                    <option value="20">20 câu</option>
+                                    <option value="50">50 câu</option>
+                                </select>
+                                <span>câu/trang</span>
+                            </div>
+                        </div>
+                        <div id="qa-count-info" class="text-xs font-bold text-slate-500">Đang hiển thị...</div>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+                        <table class="w-full text-left border-collapse min-w-[850px]">
+                            <thead>
+                                <tr class="bg-amber-50/70 text-amber-900 text-xs uppercase font-bold border-b border-amber-100">
+                                    <th class="py-3.5 px-4 w-12 text-center">STT</th>
+                                    <th class="py-3.5 px-4 w-36">Phật Tử</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Tag / Chuyên mục</th>
+                                    <th class="py-3.5 px-4">Nội Dung Câu Hỏi</th>
+                                    <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
+                                    <th class="py-3.5 px-4 w-44 text-center">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="qa-table-body" class="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+                                <tr><td colspan="6" class="py-8 text-center text-slate-400">Đang tải danh sách câu hỏi...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="qa-pagination-container" class="flex items-center justify-between pt-4 border-t border-slate-100"></div>
+                </div>
+            </section>
+
             <!-- TAB 5: MONKS -->
             <section id="tab-sec-monks" class="hidden space-y-4">
                 <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
-                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Chư Tăng & Ban Quản Trị</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thông tin chư Tôn đức Tăng ni và thành viên BQT Chùa Vĩnh Hưng</p>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Chư Tăng & Ni</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thông tin chư Tôn đức Tăng ni Chùa Vĩnh Hưng</p>
                         </div>
                         <button id="btn-add-monk" onclick="openMonkModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
                             <i class="fa-solid fa-user-plus mr-1.5"></i> Thêm Thành Viên
@@ -551,7 +551,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                         <div>
                             <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Menu Điều Hướng Website</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Kéo thả dòng để sắp xếp thứ tự menu. Thay đổi lưu trực tiếp vào cơ sở dữ liệu.</p>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thêm, sửa, xóa, kéo thả dòng để sắp xếp thứ tự menu.</p>
                         </div>
                         <button id="btn-add-menu" onclick="openMenuModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
                             <i class="fa-solid fa-plus mr-1.5"></i> Thêm Mục Menu
@@ -562,7 +562,7 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-rose-50/70 text-rose-800 text-xs uppercase font-bold border-b border-rose-100">
-                                    <th class="py-3.5 px-4 w-16 text-center"><i class="fa-solid fa-grip-vertical mr-1"></i> Sắp Xếp</th>
+                                    <th class="py-3.5 px-4 w-16 text-center"></i> </th>
                                     <th class="py-3.5 px-4">Tên Menu</th>
                                     <th class="py-3.5 px-4">Đường Dẫn (URL)</th>
                                     <th class="py-3.5 px-4 w-32 text-center">Thứ Tự</th>
@@ -583,8 +583,8 @@
                 <div class="bg-white rounded-3xl p-6 sm:p-10 custom-shadow border border-amber-200/80 space-y-8">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-100 pb-5">
                         <div>
-                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Cấu Hình Dữ Liệu Footer Trực Tuyến</h2>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thay đổi thông tin liên lạc, giờ mở cửa và mạng xã hội của chân trang</p>
+                            <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Cấu Hình Dữ Liệu Liên Hệ Trực Tuyến</h2>
+                            <p class="text-xs text-slate-500 font-medium mt-0.5">Thay đổi thông tin liên lạc, giờ mở cửa, mạng xã hội và bản đồ chỉ đường của trang liên hệ</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <button type="button" id="btn-edit-footer" onclick="toggleFooterEditMode()" class="px-6 py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-2xl text-xs uppercase shadow-lg shadow-amber-600/25 transition tracking-wider flex items-center gap-2">
@@ -633,6 +633,10 @@
                             <div>
                                 <label class="block font-bold text-slate-700 uppercase mb-2"><i class="fa-brands fa-facebook text-indigo-600 mr-1.5"></i> Facebook</label>
                                 <input type="url" id="footer-facebook" required disabled class="footer-input w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none bg-slate-100 font-mono text-slate-800 shadow-inner text-xs cursor-not-allowed">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block font-bold text-slate-700 uppercase mb-2"><i class="fa-solid fa-map-location-dot text-rose-600 mr-1.5"></i> Link Nhúng Bản Đồ (Google Maps Embed URL)</label>
+                                <input type="text" id="footer-map" required disabled placeholder="https://www.google.com/maps/embed?pb=..." class="footer-input w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none bg-slate-100 font-mono text-slate-800 shadow-inner text-xs cursor-not-allowed">
                             </div>
                         </div>
                     </form>
@@ -709,11 +713,11 @@
                         <input type="text" id="new-tag-name" required placeholder="Nhập tên thẻ tag (VD: Khóa tu mùa hè)..." class="flex-1 px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 bg-white font-medium text-xs">
                         <button type="submit" class="px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs uppercase shadow transition whitespace-nowrap">Thêm Tag</button>
                     </div>
-                    <p class="text-[11px] text-slate-500 italic">* Thẻ tin tức cố định màu vàng, các thẻ tag khác được tự động cấp màu sắc trực quan.</p>
+                    <p class="text-[11px] text-slate-500 italic">Các thẻ tag được tự động cấp màu sắc trực quan.</p>
                 </form>
 
                 <div class="space-y-3">
-                    <h4 class="font-bold text-slate-700 uppercase text-xs">Danh Sách Thẻ Tag Hiện Có (Từ Firebase)</h4>
+                    <h4 class="font-bold text-slate-700 uppercase text-xs">Danh Sách Thẻ Tag Hiện Có</h4>
                     <div id="tag-list-container" class="max-h-64 overflow-y-auto space-y-2 p-2 border border-slate-200 rounded-2xl bg-slate-50">
                         <p class="text-xs text-slate-400 text-center py-4">Đang tải thẻ tag...</p>
                     </div>
@@ -726,35 +730,51 @@
         </div>
     </div>
 
-    <!-- MODAL TRẢ LỜI QA -->
+    <!-- MODAL TRẢ LỜI & SỬA CÂU HỎI QA -->
     <div id="modal-answer-qa" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                <h3 class="text-xl font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-pen-nib mr-2 text-rose-600"></i> Trả Lời Câu Hỏi Phật Pháp</h3>
+                <h3 class="text-xl font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-pen-nib mr-2 text-rose-600"></i> Chỉnh Sửa & Trả Lời Câu Hỏi Phật Pháp</h3>
                 <button onclick="closeAnswerModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
             <form id="answer-form" onsubmit="saveAnswerQA(event)" class="space-y-5 text-xs sm:text-sm">
                 <input type="hidden" id="answer-qa-key">
                 
-                <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl border border-amber-200/90 space-y-2 shadow-inner">
-                    <p class="text-xs font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-amber-500"></i> Câu hỏi từ Phật tử <span id="qa-modal-author" class="font-semibold text-slate-800"></span>:</p>
-                    <p id="qa-modal-question-text" class="text-sm sm:text-base font-serif font-bold text-slate-900 italic leading-relaxed pl-4 sm:pl-5 border-l-2 border-amber-400/80 my-2"></p>
+                <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl border border-amber-200/90 space-y-4 shadow-inner">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <p class="text-xs font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-amber-500"></i> Người hỏi: <span id="qa-modal-author" class="font-semibold text-slate-800"></span></p>
+                        
+                        <div class="flex items-center space-x-2">
+                            <label for="qa-modal-category" class="text-xs font-bold text-amber-900 uppercase">Chuyên mục (Tag):</label>
+                            <select id="qa-modal-category" class="px-3 py-1.5 bg-white border border-amber-300 rounded-xl outline-none font-semibold text-slate-800 text-xs">
+                                <option value="Giáo lý Phật Pháp">Giáo lý Phật Pháp</option>
+                                <option value="Nghi thức & Tu tập">Nghi thức & Tu tập</option>
+                                <option value="Nhân quả & Đạo đức">Nhân quả & Đạo đức</option>
+                                <option value="Đời sống & Gia đình">Đời sống & Gia đình</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-amber-900 uppercase mb-1.5">Nội dung câu hỏi (Thầy có thể sửa lỗi chính tả, thêm dấu ở đây):</label>
+                        <textarea id="qa-modal-question-input" rows="3" required class="w-full px-4 py-3 border border-amber-300 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 bg-white font-sans font-semibold text-sm sm:text-base text-slate-900 shadow-inner"></textarea>
+                    </div>
                 </div>
 
                 <div>
                     <label class="block font-bold text-slate-700 uppercase mb-2">Nội dung trả lời của Thầy <span class="text-rose-600">*</span></label>
-                    <textarea id="qa-modal-answer-text" rows="6" required placeholder="Nhập lời giải đáp giáo lý, lời khuyên tu tập cho Phật tử..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50 font-sans text-sm text-slate-800 shadow-inner"></textarea>
+                    <textarea id="qa-modal-answer-text" rows="8" required placeholder="Nhập lời giải đáp giáo lý, lời khuyên tu tập cho Phật tử..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50 font-sans text-base text-slate-800 shadow-inner"></textarea>
                 </div>
 
                 <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                     <input type="checkbox" id="qa-modal-approve" class="w-5 h-5 text-rose-600 rounded focus:ring-rose-500 accent-rose-600 cursor-pointer" checked>
-                    <label for="qa-modal-approve" class="font-bold text-slate-700 text-xs sm:text-sm cursor-pointer">Duyệt hiển thị công khai ngay lên trang Hỏi Đáp</label>
+                    <label for="qa-modal-approve" class="font-bold text-slate-700 text-xs sm:text-sm cursor-pointer">Duyệt hiển thị công khai lên trang Hỏi Đáp</label>
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
                     <button type="button" onclick="closeAnswerModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
-                    <button type="submit" class="px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs tracking-wider">Lưu & Gửi Phản Hồi</button>
+                    <button type="submit" class="px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs tracking-wider">Lưu Thay Đổi & Gửi Phản Hồi</button>
                 </div>
             </form>
         </div>
@@ -801,7 +821,7 @@
                 </div>
 
                 <div>
-                    <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Ảnh đại diện bài viết (Tự động nén WebP & Đẩy lên ImgBB)</label>
+                    <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Ảnh đại diện bài viết</label>
                     <div class="space-y-3">
                         <div id="imgbb-dropzone" 
                              class="border-2 border-dashed border-rose-300 bg-rose-50/30 hover:bg-rose-50/70 rounded-3xl p-8 text-center cursor-pointer transition flex flex-col items-center justify-center relative shadow-sm"
@@ -841,8 +861,8 @@
                 <div>
                     <div class="flex flex-col gap-2.5 mb-2">
                         <div class="flex items-center justify-between">
-                            <label class="font-bold text-slate-700 text-sm uppercase">Nội dung chi tiết bài viết (Trình soạn thảo trực quan WYSIWYG) <span class="text-rose-600">*</span></label>
-                            <span class="text-xs text-slate-500 font-medium">Định dạng thay đổi trực tiếp ngay trên văn bản đang gõ</span>
+                            <label class="font-bold text-slate-700 text-sm uppercase">Nội dung chi tiết bài viết <span class="text-rose-600">*</span></label>
+                            <!-- <span class="text-xs text-slate-500 font-medium">Định dạng thay đổi trực tiếp ngay trên văn bản đang gõ</span> -->
                         </div>
 
                         <div class="flex flex-wrap items-center gap-2 bg-slate-100 p-3 rounded-2xl border border-slate-300 shadow-inner">
@@ -866,7 +886,7 @@
                             <span class="text-slate-300 font-light">|</span>
 
                             <button type="button" onclick="openInlineImageModal()" title="Chèn ảnh tự động nén WebP vào đoạn văn" class="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl font-bold shadow-sm transition text-xs flex items-center gap-1.5">
-                                <i class="fa-solid fa-image text-blue-600 text-sm"></i> Chèn Ảnh WebP
+                                <i class="fa-solid fa-image text-blue-600 text-sm"></i> Chèn Ảnh
                             </button>
 
                             <button type="button" onclick="openFacebookEmbedModal()" title="Gắn link hoặc khung nhúng bài viết Facebook" class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl font-bold shadow-sm transition text-xs flex items-center gap-1.5">
@@ -887,7 +907,7 @@
                         </label>
                         <div class="flex items-center gap-2.5">
                             <button type="button" onclick="triggerBatchGalleryUpload()" class="px-4 py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm">
-                                <i class="fa-solid fa-cloud-arrow-up"></i> Tải nhiều ảnh WebP
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Tải nhiều ảnh
                             </button>
                             <button type="button" onclick="addGalleryImageInput()" class="px-4 py-2.5 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm">
                                 <i class="fa-solid fa-plus"></i> Thêm ô URL
@@ -910,7 +930,7 @@
     <div id="modal-inline-image" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 space-y-5">
             <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                <h3 class="text-base font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-file-image mr-2 text-rose-600 text-lg"></i> Chèn Ảnh Vào Đoạn Văn (Nén WebP)</h3>
+                <h3 class="text-base font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-file-image mr-2 text-rose-600 text-lg"></i> Chèn Ảnh Vào Đoạn Văn</h3>
                 <button onclick="closeInlineImageModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
@@ -971,7 +991,7 @@
                     <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." oninput="onVideoUrlChange(this.value)" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 uppercase mb-2">Ảnh thu nhỏ (Thumbnail URL)</label>
+                    <label class="block font-bold text-slate-700 uppercase mb-2">Ảnh thu nhỏ </label>
                     <div class="flex gap-3">
                         <input type="url" id="video-thumbnail" placeholder="Tự động lấy từ YouTube hoặc dán URL ảnh..." class="flex-1 px-5 py-4 border border-slate-300 rounded-2xl text-xs sm:text-sm outline-none bg-slate-50 shadow-inner" oninput="previewVideoThumb(this.value)">
                         <button type="button" onclick="autoExtractYoutubeThumb()" class="px-5 py-4 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-2xl font-bold transition text-xs whitespace-nowrap shadow-sm">Lấy từ YouTube</button>
@@ -1156,8 +1176,6 @@
                 return PRESET_TAG_COLORS[2];
             } else if (lower.includes('bát quan trai') || lower.includes('bat quan trai')) {
                 return PRESET_TAG_COLORS[3];
-            } else if (lower.includes('lễ khác') || lower.includes('ngày lễ')) {
-                return PRESET_TAG_COLORS[4];
             } else if (lower.includes('tin tức') || lower.includes('tin tuc') || lower.includes('chung') || lower === 'tin-tuc') {
                 return PRESET_TAG_COLORS[0];
             }
@@ -1314,7 +1332,6 @@
                         'bat-quan-trai': { name: 'Khóa tu Bát Quan Trai', slug: 'bat-quan-trai' },
                         'tuoi-tre': { name: 'Khóa tu Tuổi trẻ', slug: 'tuoi-tre' },
                         'quy-y': { name: 'Quy y Tam Bảo', slug: 'quy-y' },
-                        'ngay-le': { name: 'Lễ khác / Ngày lễ chùa', slug: 'ngay-le' }
                     };
                     await database.ref('tags').set(defaultTags);
                     tagsData = defaultTags;
@@ -1424,11 +1441,12 @@
                     config = {
                         address: "Khu Phố Vĩnh Hiệp, Phường Tân Triều, Thành Phố Đồng Nai",
                         hours: "04:30 - 21:00 hằng ngày",
-                        phone: "(028) 3812 3456 - 0912 345 678",
+                        phone: "(028) 3812 3456",
                         email: "chuavinhhungtantrieu@gmail.com",
                         youtube: "http://www.youtube.com/@chuavinhhung-tantrieu4686",
                         tiktok: "https://www.tiktok.com/@chuavinhhung_0107",
-                        facebook: "https://www.facebook.com/chuavinhhungTT?locale=vi_VN"
+                        facebook: "https://www.facebook.com/chuavinhhungTT?locale=vi_VN",
+                        map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.305608677682!2d105.8601!3d20.9801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDU4JzQ4LjQiTiAxMDXCsDUxJzM2LjQiEw!5e0!3m2!1svi!2svn!4v1620000000000!5m2!1svi!2svn"
                     };
                     await database.ref('footer_config').set(config);
                 }
@@ -1440,6 +1458,9 @@
                 document.getElementById('footer-youtube').value = config.youtube || '';
                 document.getElementById('footer-tiktok').value = config.tiktok || '';
                 document.getElementById('footer-facebook').value = config.facebook || '';
+                if (document.getElementById('footer-map')) {
+                    document.getElementById('footer-map').value = config.map || '';
+                }
             } catch (err) {
                 console.error("Lỗi tải cấu hình footer:", err);
             }
@@ -1491,8 +1512,9 @@
             const youtube = document.getElementById('footer-youtube').value.trim();
             const tiktok = document.getElementById('footer-tiktok').value.trim();
             const facebook = document.getElementById('footer-facebook').value.trim();
+            const map = document.getElementById('footer-map').value.trim();
 
-            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook };
+            const footerPayload = { address, hours, phone, email, youtube, tiktok, facebook, map };
 
             try {
                 await database.ref('footer_config').set(footerPayload);
@@ -1552,7 +1574,7 @@
             const statusText = document.getElementById('dropzone-status-text');
 
             loadingBox.classList.remove('hidden');
-            statusText.textContent = `Đang nén ảnh "${file.name}" sang WebP...`;
+            statusText.textContent = `Đang nén ảnh "${file.name}" ...`;
 
             try {
                 const webpResult = await compressAndConvertToWebP(file, 1200, 0.82);
@@ -1766,7 +1788,7 @@
             const files = event.target.files;
             if (!files || files.length === 0) return;
             const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
-            showToast(`Đang nén WebP và tải lên ${files.length} ảnh...`);
+            showToast(`Đang nén và tải lên ${files.length} ảnh...`);
 
             for (let i = 0; i < files.length; i++) {
                 try {
@@ -1797,7 +1819,7 @@
             const defaultEditor = localStorage.getItem('pin_editor') || '6666';
             const defaultViewer = localStorage.getItem('pin_viewer') || '1111';
 
-            if (pin === defaultSuper) { authenticatedRole = 'super'; matchedAccountName = 'Thầy Trụ Trì (Super Admin)'; }
+            if (pin === defaultSuper) { authenticatedRole = 'super'; matchedAccountName = 'Super Admin'; }
             else if (pin === defaultEditor) { authenticatedRole = 'editor'; matchedAccountName = 'Biên Tập Viên'; }
             else if (pin === defaultViewer) { authenticatedRole = 'viewer'; matchedAccountName = 'Theo Dõi'; }
             else {
@@ -1837,10 +1859,10 @@
             const permTabWrapper = document.getElementById('nav-permissions-wrapper');
             const settingsTabWrapper = document.getElementById('nav-settings-wrapper');
             const quickButtons = document.getElementById('quick-action-buttons');
-            const savedName = sessionStorage.getItem('vinhhung_admin_name') || 'Thầy Trụ Trì (Super Admin)';
+            const savedName = sessionStorage.getItem('vinhhung_admin_name') || 'Super Admin';
 
             if (currentAdminRole === 'super') {
-                badge.textContent = "QUYỀN: TỐI CAO (SUPER)";
+                badge.textContent = "QUYỀN: ADMIN";
                 badge.className = "inline-block mt-1 px-2.5 py-1 rounded-lg text-[10px] bg-rose-100 text-rose-700 font-bold uppercase shadow-sm";
                 nameDisplay.textContent = savedName;
                 if (menuTabWrapper) menuTabWrapper.style.display = 'block';
@@ -1966,7 +1988,7 @@
             keys.forEach(key => {
                 const item = newsData[key];
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
-                const authorName = item.author || 'Thầy Trụ Trì (Super Admin)';
+                const authorName = item.author || 'Super Admin';
                 const tagName = getDisplayTagName(item);
                 const tagStyle = getTagStyleObject(tagName);
 
@@ -2038,7 +2060,7 @@
                 const actualIndex = startIndex + index + 1;
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
                 const isHidden = item.hidden === true;
-                const authorName = item.author || 'Thầy Trụ Trì (Super Admin)';
+                const authorName = item.author || 'Super Admin';
                 
                 const tagName = getDisplayTagName(item);
                 const tagStyle = getTagStyleObject(tagName);
@@ -2094,7 +2116,7 @@
                     }
                 }
 
-                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage + 1})" ${currentNewsPage === totalPages ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
+                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage + 1})" ${currentNewsPage === totalPages ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
                 pagHtml += `</div>`;
                 paginationContainer.innerHTML = pagHtml;
             }
@@ -2317,7 +2339,7 @@
             const url = document.getElementById('video-url').value.trim();
             const thumbnail = document.getElementById('video-thumbnail').value.trim();
 
-            const currentAdminName = sessionStorage.getItem('vinhhung_admin_name') || 'Thầy Trụ Trì (Super Admin)';
+            const currentAdminName = sessionStorage.getItem('vinhhung_admin_name') || 'Super Admin';
             const videoAuthor = (key && videosData[key] && videosData[key].author) ? videosData[key].author : currentAdminName;
 
             const videoPayload = {
@@ -2353,7 +2375,6 @@
             }
         }
 
-        // PHẦN QUẢN LÝ HỎI ĐÁP (QA) ĐỒNG BỘ VỚI FIREBASE & TRANG CÔNG KHAI
         async function loadQA() {
             try {
                 database.ref('questions').on('value', (snapshot) => {
@@ -2402,7 +2423,7 @@
 
             const totalQA = filteredKeys.length;
             if (totalQA === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Không có câu hỏi nào trong trạng thái này.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Không có câu hỏi nào trong trạng thái này.</td></tr>`;
                 if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 câu hỏi";
                 if (paginationContainer) paginationContainer.innerHTML = '';
                 return;
@@ -2435,17 +2456,19 @@
                 }
 
                 html += `
-                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${actualIndex}</td>
-                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.name || 'Phật tử ẩn danh'}</td>
-                        <td class="py-3.5 px-4">
-                            <div class="font-bold text-slate-900">${item.question || ''}</div>
-                            ${hasAnswer ? `<div class="mt-2 text-xs text-rose-700 font-medium bg-rose-50 p-2.5 rounded-xl border border-rose-100"><strong>Thầy trả lời:</strong> ${item.answer}</div>` : ''}
+                    <tr class="hover:bg-slate-50/85 transition border-b border-slate-100">
+                        <td class="py-4 px-4 text-center font-mono text-slate-400 text-xs">${actualIndex}</td>
+                        <td class="py-4 px-4 font-bold text-slate-900">${item.name || 'Phật tử ẩn danh'}</td>
+                        <td class="py-4 px-4 text-center">
+                            <span class="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold inline-block">
+                                ${item.category || 'Giáo lý Phật Pháp'}
+                            </span>
                         </td>
-                        <td class="py-3.5 px-4 text-center">${statusBadge}</td>
-                        <td class="py-3.5 px-4 text-center">
+                        <td class="py-4 px-4 font-medium text-slate-800">${item.question || ''}</td>
+                        <td class="py-4 px-4 text-center">${statusBadge}</td>
+                        <td class="py-4 px-4 text-center">
                             <div class="inline-flex items-center justify-center gap-2">
-                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-pen-to-square"></i> Trả lời</button>
+                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-pen-to-square"></i> Sửa & Trả lời</button>
                                 <button onclick="deleteQA('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-trash"></i> Xóa</button>
                             </div>
                         </td>
@@ -2457,8 +2480,8 @@
             if (paginationContainer && totalPages > 1) {
                 let pagHtml = `<div class="text-xs text-slate-500 font-medium">Trang ${currentQAPage} / ${totalPages}</div>`;
                 pagHtml += `<div class="flex items-center gap-1.5">`;
-                pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
-                pagHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
+                pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
+                pagHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
                 pagHtml += `</div>`;
                 paginationContainer.innerHTML = pagHtml;
             } else if (paginationContainer) {
@@ -2471,7 +2494,8 @@
             if (!item) return;
             document.getElementById('answer-qa-key').value = key;
             document.getElementById('qa-modal-author').textContent = item.name || 'Phật tử ẩn danh';
-            document.getElementById('qa-modal-question-text').textContent = item.question || '';
+            document.getElementById('qa-modal-category').value = item.category || 'Giáo lý Phật Pháp';
+            document.getElementById('qa-modal-question-input').value = item.question || '';
             document.getElementById('qa-modal-answer-text').value = item.answer || '';
             document.getElementById('qa-modal-approve').checked = item.approved === true || item.approved === 'true' || false;
             document.getElementById('modal-answer-qa').classList.remove('hidden');
@@ -2484,6 +2508,8 @@
         async function saveAnswerQA(e) {
             e.preventDefault();
             const key = document.getElementById('answer-qa-key').value;
+            const updatedQuestion = document.getElementById('qa-modal-question-input').value.trim();
+            const updatedCategory = document.getElementById('qa-modal-category').value;
             const answer = document.getElementById('qa-modal-answer-text').value.trim();
             const approved = document.getElementById('qa-modal-approve').checked;
 
@@ -2491,13 +2517,15 @@
 
             try {
                 await database.ref(`questions/${key}`).update({
+                    question: updatedQuestion,
+                    category: updatedCategory,
                     answer: answer,
                     approved: approved
                 });
                 closeAnswerModal();
-                showToast("Đã lưu câu trả lời và cập nhật trạng thái hiển thị thành công!");
+                showToast("Đã cập nhật câu hỏi, tag và câu trả lời thành công!");
             } catch (err) {
-                showToast("Lỗi khi lưu câu trả lời: " + err.message, true);
+                showToast("Lỗi khi lưu: " + err.message, true);
             }
         }
 
@@ -2525,21 +2553,21 @@
             if (!tbody) return;
             tbody.innerHTML = `
                 <tr class="bg-rose-50/25">
-                    <td class="py-3.5 px-4 font-bold text-slate-800">Thầy Trụ Trì (Super Admin)</td>
+                    <td class="py-3.5 px-4 font-bold text-slate-800">Super Admin</td>
                     <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-[10px] font-bold rounded-lg uppercase">Tối Cao</span></td>
-                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">8888 (Mặc định)</td>
+                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">8888</td>
                     <td class="py-3.5 px-4 text-center text-xs text-slate-400 italic">Mặc định hệ thống</td>
                 </tr>
                 <tr class="bg-blue-50/25">
                     <td class="py-3.5 px-4 font-bold text-slate-800">Ban Biên Tập Chùa (Editor)</td>
                     <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-lg uppercase">Biên Tập Viên</span></td>
-                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">6666 (Mặc định)</td>
+                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">6666</td>
                     <td class="py-3.5 px-4 text-center text-xs text-slate-400 italic">Mặc định hệ thống</td>
                 </tr>
                 <tr class="bg-emerald-50/25">
                     <td class="py-3.5 px-4 font-bold text-slate-800">Phật Tử Theo Dõi (Viewer)</td>
                     <td class="py-3.5 px-4"><span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded-lg uppercase">Theo Dõi</span></td>
-                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">1111 (Mặc định)</td>
+                    <td class="py-3.5 px-4 font-mono font-bold text-slate-700">1111</td>
                     <td class="py-3.5 px-4 text-center text-xs text-slate-400 italic">Mặc định hệ thống</td>
                 </tr>
             `;

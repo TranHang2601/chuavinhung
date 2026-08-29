@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +7,33 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font chữ Sora (Tiêu đề sang trọng) và Plus Jakarta Sans (Nội dung rõ ràng, hiện đại) -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDKs compat để đồng bộ cấu hình từ admin -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        buddhist: { gold: '#d4af37', lightgold: '#f3e5ab', maroon: '#6b2024', dark: '#3d1c1d' }
+                        temple: { 
+                            gold: '#D4AF37', 
+                            lightGold: '#F3E5AB', 
+                            maroon: '#4A151B', 
+                            darkRed: '#2A0B0E',
+                            cream: '#FAF8F5',
+                            charcoal: '#1A1A1A'
+                        }
                     },
                     fontFamily: {
-                        heading: ['Lora', 'serif'],
-                        body: ['Nunito Sans', 'sans-serif'],
+                        heading: ['Sora', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
                     }
                 }
             }
@@ -28,95 +41,182 @@
     </script>
     
     <style>
-        .nen{
-            background-image: url(images/ngoichua4.jpg);
+        /* Background cảnh chùa sáng rõ hơn (độ mờ lớp phủ được giảm nhẹ để thấy ảnh nền rõ nét) */
+        .wide-hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('images/ngoichua4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .modern-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modern-card:hover {
+            border-color: #D4AF37;
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.18);
+        }
+        .social-button {
+            transition: all 0.3s ease;
+        }
+        .social-button:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.05);
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased nen">
+<body class="bg-temple-cream text-temple-charcoal antialiased min-h-screen flex flex-col justify-between font-body">
 
     <!-- Thẻ header -->
     <div id="header-container"></div>
 
-    <main class="pt-32 pb-16 container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-buddhist-maroon mb-4">Thông Tin Liên Hệ</h1>
-            <p class="text-gray-600 max-w-2xl mx-auto">Nếu quý Phật tử có bất kỳ câu hỏi nào về các khóa tu, lịch hoạt động hoặc muốn phát tâm cúng dường, xin vui lòng gửi thư cho chúng tôi qua biểu mẫu bên dưới.</p>
-        </div>
-
-        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-            <!-- Biểu mẫu liên hệ -->
-            <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Gửi Lời Nhắn</h2>
-                <form class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Họ và tên</label>
-                            <input type="text" class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-buddhist-gold outline-none" placeholder="Nguyễn Văn A">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Số điện thoại</label>
-                            <input type="tel" class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-buddhist-gold outline-none" placeholder="090x xxx xxx">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Email</label>
-                        <input type="email" class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-buddhist-gold outline-none" placeholder="email@example.com">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Chủ đề</label>
-                        <select class="w-full border border-gray-300 rounded p-2 focus:ring-2 focus:ring-buddhist-gold outline-none">
-                            <option>Đăng ký khóa tu</option>
-                            <option>Cúng dường Tam Bảo</option>
-                            <option>Hỏi đáp Phật pháp</option>
-                            <option>Khác</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Nội dung</label>
-                        <textarea class="w-full border border-gray-300 rounded p-2 h-32 focus:ring-2 focus:ring-buddhist-gold outline-none" placeholder="Quý Phật tử muốn nhắn gửi điều gì?"></textarea>
-                    </div>
-                    <button type="button" class="w-full bg-buddhist-maroon text-white font-bold py-3 rounded hover:bg-red-900 transition">Gửi Liên Hệ</button>
-                </form>
+    <main class="flex-grow">
+        <!-- Hero Banner Dàn Rộng với cảnh chùa hiện rõ -->
+        <section class="wide-hero-bg text-white py-32 px-6 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+            <div class="w-full max-w-[1400px] mx-auto text-center relative z-10">
+                <span class="inline-flex items-center gap-2 py-1.5 px-6 rounded-full bg-temple-gold/25 border border-temple-gold/40 text-temple-lightGold text-xs font-semibold uppercase tracking-[0.3em] mb-6 shadow-md">
+                    <i class="fa-solid fa-om text-temple-gold"></i> Liên Hệ Chùa Vĩnh Hưng
+                </span>
+                <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white drop-shadow-md">
+                    Kết Nối & Chiêm Bái Bổn Tự
+                </h1>
+                <div class="w-36 h-1 bg-temple-gold mx-auto mb-6 rounded-full"></div>
+                <p class="text-temple-lightGold text-base md:text-lg lg:text-xl max-w-3xl mx-auto font-light leading-relaxed drop-shadow">
+                    Hân hạnh được đón tiếp quý Phật tử và du khách gần xa trở về vãn cảnh chùa, tham gia các khóa tu hoặc gửi gắm những thắc mắc về Phật pháp.
+                </p>
             </div>
+        </section>
 
-            <!-- Thông tin liên hệ phụ -->
-            <div class="space-y-8">
-                <div class="bg-buddhist-dark text-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-bold mb-6 text-buddhist-gold">Thông Tin Chùa</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-location-dot text-buddhist-gold mt-1 mr-4"></i>
-                            <span>Khu phố Vĩnh Hiệp - Phường Tân Triều - Thành Phố Đồng Nai </span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-phone text-buddhist-gold mr-4"></i>
-                            <span>(084) 8483 3926</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fa-solid fa-envelope text-buddhist-gold mr-4"></i>
-                            <span>trhang@gmail.com</span>
-                        </li>
-                        <!-- <li class="flex items-center">
-                            <i class="fa-regular fa-clock text-buddhist-gold mr-4"></i>
-                            <span>Mở cửa: 04:30 - 21:00 mỗi ngày</span>
-                        </li> -->
-                    </ul>
+        <!-- Bố Cục Dàn Rộng Toàn Màn Hình Đã Mở Rộng Thêm -->
+        <section class="w-full max-w-[1400px] mx-auto px-6 -mt-16 relative z-20 pb-28">
+            
+            <!-- Hàng 3 Cột Thông Tin Trọng Điểm Trải Rộng Toàn Bộ Khung Main (Đã lược bỏ icon theo yêu cầu) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Địa chỉ -->
+                <div class="modern-card rounded-3xl p-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-temple-gold block mb-1">Địa Chỉ Bổn Tự</span>
+                    <h3 class="font-heading text-xl font-bold text-temple-charcoal mb-2">Vị Trí Chùa</h3>
+                    <p id="contact-address" class="text-gray-700 text-sm md:text-base leading-relaxed">Đang tải địa chỉ...</p>
                 </div>
-                
-                <!-- Bản đồ giả định -->
-                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h4 class="font-bold text-gray-800 mb-2">Vị trí của chúng tôi</h4>
-                    <div class="w-full h-100 bg-gray-200 rounded flex items-center justify-center text-gray-500">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1384.679536880457!2d106.78928387137306!3d11.00368410522321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174db0a3a312ddf%3A0x600328071491ba5c!2zQ2jDuWEgVsSpbmggSMawbmc!5e0!3m2!1svi!2s!4v1785311472886!5m2!1svi!2s" width="900" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+                <!-- Điện thoại & Email -->
+                <div class="modern-card rounded-3xl p-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-temple-gold block mb-1">Ban Hộ Tự</span>
+                    <h3 class="font-heading text-xl font-bold text-temple-charcoal mb-2">Điện Thoại & Email</h3>
+                    <p class="text-gray-700 text-sm md:text-base mb-2"><span class="font-semibold text-gray-900">Tel:</span> <span id="contact-phone" class="text-gray-700">Đang tải...</span></p>
+                    <div class="text-gray-700 text-sm md:text-base">
+                        <span class="font-semibold text-gray-900">Email:</span> 
+                        <a id="contact-email" href="#" class="text-temple-maroon hover:underline font-medium break-all block mt-1">Đang tải...</a>
                     </div>
                 </div>
+
+                <!-- Giờ mở cửa -->
+                <div class="modern-card rounded-3xl p-8">
+                    <span class="text-xs font-bold uppercase tracking-wider text-temple-gold block mb-1">Thời Gian Biểu</span>
+                    <h3 class="font-heading text-xl font-bold text-temple-charcoal mb-2">Giờ Mở Cửa</h3>
+                    <p class="text-gray-500 text-xs mb-1.5">Hằng ngày đón tiếp Phật tử:</p>
+                    <p id="contact-hours" class="text-temple-charcoal text-base font-bold">Đang tải giờ...</p>
+                </div>
             </div>
-        </div>
+
+            <!-- Khu Vực Bản Đồ & Mạng Xã Hội Dàn Ngang Cân Đối -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Bản đồ lớn (8 cột) -->
+                <div class="lg:col-span-8 modern-card rounded-3xl p-6 md:p-8 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="font-heading text-2xl font-bold text-temple-charcoal flex items-center gap-3">
+                            <i class="fa-solid fa-map-location-dot text-temple-gold"></i> Bản Đồ Chỉ Đường Trực Tuyến
+                        </h3>
+                        <span class="text-xs text-gray-500 font-semibold bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">Google Maps</span>
+                    </div>
+                    <div class="w-full h-[420px] rounded-2xl overflow-hidden shadow-inner border border-gray-100 flex-grow">
+                        <iframe 
+                            id="contact-map-iframe"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.305608677682!2d105.8601!3d20.9801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDU4JzQ4LjQiTiAxMDXCsDUxJzM2LjQiEw!5e0!3m2!1svi!2svn!4v1620000000000!5m2!1svi!2svn" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Mạng xã hội (4 cột) -->
+                <div class="lg:col-span-4 modern-card rounded-3xl p-8 flex flex-col justify-between text-center">
+                    <div>
+                        <div class="w-16 h-16 bg-temple-gold/15 text-temple-gold rounded-full flex items-center justify-center text-3xl mx-auto mb-5 shadow-sm">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-temple-charcoal mb-3">Kênh Truyền Thông</h3>
+                        <p class="text-gray-600 text-sm md:text-base mb-8 leading-relaxed font-light">
+                            Theo dõi các bài pháp thoại, video khóa tu và thông tin sinh hoạt mới nhất từ bổn tự trên các nền tảng số.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <a id="link-youtube" href="#" target="_blank" class="social-button w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-semibold text-base shadow-md flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-youtube text-xl"></i> YouTube Chùa Vĩnh Hưng
+                        </a>
+                        <a id="link-tiktok" href="#" target="_blank" class="social-button w-full py-4 px-6 bg-black hover:bg-gray-900 text-white rounded-2xl font-semibold text-base shadow-md flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-tiktok text-xl"></i> TikTok Phật Pháp
+                        </a>
+                        <a id="link-facebook" href="#" target="_blank" class="social-button w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-semibold text-base shadow-md flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-facebook text-xl"></i> Facebook Bổn Tự
+                        </a>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <p class="text-xs text-gray-500 font-light tracking-wide italic">Nam Mô Bổn Sư Thích Ca Mâu Ni Phật</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Thẻ header -->
+    <!-- Thẻ footer container -->
     <div id="footer-container"></div>
+    
     <script src="js/main.js"></script>
+    <script>
+        // Đồng bộ dữ liệu cấu hình Footer trực tuyến từ Firebase vào trang Liên Hệ
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "chuavinhhung-web.appspot.com"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
+        db.ref('footer_config').on('value', (snapshot) => {
+            const config = snapshot.val();
+            if (config) {
+                if (document.getElementById('contact-address')) document.getElementById('contact-address').textContent = config.address || '';
+                if (document.getElementById('contact-phone')) document.getElementById('contact-phone').textContent = config.phone || '';
+                if (document.getElementById('contact-email')) {
+                    const emailVal = config.email || '';
+                    const emailEl = document.getElementById('contact-email');
+                    emailEl.textContent = emailVal;
+                    emailEl.href = 'mailto:' + emailVal;
+                }
+                if (document.getElementById('contact-hours')) document.getElementById('contact-hours').textContent = config.hours || '';
+                
+                if (config.youtube && document.getElementById('link-youtube')) document.getElementById('link-youtube').href = config.youtube;
+                if (config.tiktok && document.getElementById('link-tiktok')) document.getElementById('link-tiktok').href = config.tiktok;
+                if (config.facebook && document.getElementById('link-facebook')) document.getElementById('link-facebook').href = config.facebook;
+                
+                if (config.map && document.getElementById('contact-map-iframe')) {
+                    document.getElementById('contact-map-iframe').src = config.map;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
