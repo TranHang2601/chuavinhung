@@ -77,173 +77,185 @@
 
 <div id="header-container"></div>
 
-<section class="hero-banner pt-44 pb-20 px-6 sm:px-10 lg:px-16 relative overflow-hidden w-full">
+<section class="hero-banner pt-32 pb-14 px-4 sm:px-10 lg:px-16 relative overflow-hidden w-full">
     <div class="w-full max-w-[1600px] mx-auto text-center relative z-10">
-        <span class="inline-flex items-center gap-3 px-7 py-3 rounded-full bg-black/40 backdrop-blur-md text-amber-200 text-base font-bold tracking-widest uppercase mb-5 shadow-sm border border-amber-400/30">
-            <i class="fa-solid fa-dharmachakra text-buddhist-gold text-lg"></i> Vấn Đáp Tu Học Phật Pháp
+        <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/40 backdrop-blur-md text-amber-200 text-xs sm:text-sm font-bold tracking-widest uppercase mb-4 shadow-sm border border-amber-400/35">
+            <i class="fa-solid fa-dharmachakra text-buddhist-gold text-base"></i> Vấn Đáp Tu Học Phật Pháp
         </span>
-        <h1 class="font-heading text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight drop-shadow-md">
+        <h1 class="font-heading text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight leading-snug drop-shadow-md">
             Hỏi Đáp Phật Pháp
         </h1>
-        <p class="text-gray-200 text-lg md:text-xl max-w-5xl mx-auto font-medium leading-relaxed drop-shadow-sm">
+        <p class="text-gray-200 text-sm sm:text-lg md:text-xl max-w-5xl mx-auto font-medium leading-relaxed drop-shadow-sm px-2">
             Nơi tháo gỡ những vướng mắc trên con đường tu tập, nuôi dưỡng tâm từ bi và trí tuệ.
         </p>
     </div>
 </section>
 
-<main class="pb-28 px-6 sm:px-10 lg:px-16 w-full mt-6">
-    <div class="w-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+<main class="pb-20 px-3 sm:px-10 lg:px-16 w-full mt-4 sm:mt-6">
+    <div class="w-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
 
-        <!-- CỘT TRÁI (32%): Góc Tỉnh Thức Hằng Ngày & Thống Kê Phật Pháp -->
-        <aside class="lg:col-span-4 space-y-8 lg:sticky lg:top-32">
+        <!-- CỘT TRÁI: Góc Tỉnh Thức & Thống Kê -->
+        <aside class="lg:col-span-4 space-y-6 lg:sticky lg:top-32">
             
             <!-- Góc Tỉnh Thức Hằng Ngày -->
-            <div class="bg-gradient-to-br from-amber-500/10 via-amber-100/30 to-rose-500/5 rounded-3xl p-8 border border-amber-200/70 shadow-md">
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="text-xs font-bold uppercase tracking-wider text-buddhist-maroon bg-white px-3 py-1.5 rounded-full border border-amber-200 shadow-xs">Tỉnh Thức Mỗi Ngày</span>
+            <div class="bg-gradient-to-br from-amber-500/10 via-amber-100/30 to-rose-500/5 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-amber-200/70 shadow-md">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-buddhist-maroon bg-white px-3 py-1 rounded-full border border-amber-200 shadow-xs">Tỉnh Thức Mỗi Ngày</span>
                 </div>
-                <blockquote id="daily-quote" class="font-heading italic text-base text-gray-800 mb-4 leading-relaxed">
+                <blockquote id="daily-quote" class="font-heading italic text-sm sm:text-base text-gray-800 mb-3 leading-relaxed">
                     "Tâm bình thế giới bình. Khi buông bỏ được phiền não, an lạc tự khắc hiện tiền."
                 </blockquote>
-                <p id="daily-author" class="text-sm font-semibold text-buddhist-maroon mb-5">— Lời Phật Dạy</p>
-                <button onclick="nextDailyWisdom()" class="w-full py-3 rounded-xl bg-white hover:bg-amber-50 text-buddhist-maroon border border-amber-200 font-semibold text-sm shadow-xs transition flex items-center justify-center gap-2">
+                <p id="daily-author" class="text-xs sm:text-sm font-semibold text-buddhist-maroon mb-4">— Lời Phật Dạy</p>
+                <button onclick="nextDailyWisdom()" class="w-full py-2.5 sm:py-3 rounded-xl bg-white hover:bg-amber-50 text-buddhist-maroon border border-amber-200 font-semibold text-xs sm:text-sm shadow-xs transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-rotate text-buddhist-gold"></i> Đổi Câu Khuyên Khác
                 </button>
             </div>
 
             <!-- Widget Thống Kê Phật Pháp -->
-            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-md border border-amber-100/90">
-                <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-gray-100">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-buddhist-maroon flex items-center justify-center text-xl font-bold">
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-md border border-amber-100/90">
+                <div class="flex items-center gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-100">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-50 text-buddhist-maroon flex items-center justify-center text-lg sm:text-xl font-bold">
                         <i class="fa-solid fa-chart-pie text-buddhist-gold"></i>
                     </div>
                     <div>
-                        <h3 class="font-heading font-bold text-lg text-buddhist-maroon">Thống Kê Phật Pháp</h3>
-                        <p class="text-sm text-gray-500">Dữ liệu vấn đáp tu học</p>
+                        <h3 class="font-heading font-bold text-base sm:text-lg text-buddhist-maroon">Thống Kê Phật Pháp</h3>
+                        <p class="text-xs sm:text-sm text-gray-500">Dữ liệu vấn đáp tu học</p>
                     </div>
                 </div>
-                <div class="space-y-4.5 text-base">
-                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                <div class="space-y-3.5 sm:space-y-4.5 text-xs sm:text-base">
+                    <div class="flex justify-between items-center py-1.5 sm:py-2 border-b border-gray-50">
                         <span class="text-gray-600 font-medium">Tổng câu hỏi đã giải đáp:</span>
-                        <span id="stat-total" class="font-heading font-bold text-buddhist-maroon text-lg">0</span>
+                        <span id="stat-total" class="font-heading font-bold text-buddhist-maroon text-base sm:text-lg">0</span>
                     </div>
-                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                    <div class="flex justify-between items-center py-1.5 sm:py-2 border-b border-gray-50">
                         <span class="text-gray-600 font-medium">Phật tử tham gia hỏi:</span>
-                        <span id="stat-users" class="font-heading font-bold text-gray-900 text-lg">0</span>
+                        <span id="stat-users" class="font-heading font-bold text-gray-900 text-base sm:text-lg">0</span>
                     </div>
-                    <!-- Tổng số lượt thích -->
-                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                    <div class="flex justify-between items-center py-1.5 sm:py-2 border-b border-gray-50">
                         <span class="text-gray-600 font-medium">Tổng số lượt thích:</span>
-                        <span id="stat-likes" class="font-heading font-bold text-rose-700 text-lg">0</span>
+                        <span id="stat-likes" class="font-heading font-bold text-rose-700 text-base sm:text-lg">0</span>
                     </div>
-                    <div class="flex justify-between items-center py-2">
+                    <div class="flex justify-between items-center py-1.5 sm:py-2">
                         <span class="text-gray-600 font-medium">Chuyên mục phổ biến:</span>
-                        <span id="stat-category" class="font-heading font-bold text-lg">Đang cập nhật...</span>
+                        <span id="stat-category" class="font-heading font-bold text-sm sm:text-lg">Đang cập nhật...</span>
                     </div>
                 </div>
             </div>
 
         </aside>
 
-        <!-- CỘT PHẢI (68%): Danh sách câu hỏi và bộ lọc -->
-        <section class="lg:col-span-8 space-y-6">
+        <!-- CỘT PHẢI: Danh sách câu hỏi và bộ lọc -->
+        <section class="lg:col-span-8 space-y-4 sm:space-y-6">
             <!-- Thanh Tìm Kiếm & Nút Gửi Câu Hỏi -->
-            <div class="bg-white/95 backdrop-blur-md p-5 rounded-3xl soft-shadow border border-amber-100/90 flex flex-col sm:flex-row gap-4">
-                <div class="flex items-center flex-1 px-5 py-4 bg-gray-50/90 rounded-2xl border border-gray-100 focus-within:border-buddhist-maroon transition">
-                    <i class="fa-solid fa-magnifying-glass text-buddhist-gold text-lg mr-4"></i>
-                    <input type="text" id="live-search" oninput="filterQuestions()" placeholder="Tìm kiếm câu hỏi, từ khóa..." class="w-full bg-transparent placeholder-gray-400 focus:outline-none text-base text-gray-800 font-medium">
+            <div class="bg-white/95 backdrop-blur-md p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl soft-shadow border border-amber-100/90 flex flex-col sm:flex-row gap-3">
+                <div class="flex items-center flex-1 px-4 py-3 sm:py-4 bg-gray-50/90 rounded-xl sm:rounded-2xl border border-gray-100 focus-within:border-buddhist-maroon transition">
+                    <i class="fa-solid fa-magnifying-glass text-buddhist-gold text-base sm:text-lg mr-3"></i>
+                    <input type="text" id="live-search" oninput="filterQuestions()" placeholder="Tìm kiếm câu hỏi, từ khóa..." class="w-full bg-transparent placeholder-gray-400 focus:outline-none text-xs sm:text-base text-gray-800 font-medium">
                 </div>
-                <button onclick="openQuestionModal()" class="bg-buddhist-maroon hover:bg-red-950 text-white font-bold px-8 py-4 rounded-2xl transition duration-300 flex items-center justify-center gap-3 shadow-md flex-shrink-0 text-base">
-                    <i class="fa-solid fa-pen-to-square text-buddhist-gold text-lg"></i> Gửi Câu Hỏi
+                <button onclick="openQuestionModal()" class="bg-buddhist-maroon hover:bg-red-950 text-white font-bold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl transition duration-300 flex items-center justify-center gap-2.5 shadow-md flex-shrink-0 text-xs sm:text-base">
+                    <i class="fa-solid fa-pen-to-square text-buddhist-gold text-base sm:text-lg"></i> Gửi Câu Hỏi
                 </button>
             </div>
 
-            <!-- KHUNG GỘP CHUNG: Thanh Lọc Tag & Thanh Điều Hướng Số Lượng (Nền Trắng) -->
-            <div class="bg-white/95 backdrop-blur-sm p-5 md:p-6 rounded-3xl shadow-md border border-amber-100/90 space-y-5">
+            <!-- KHUNG GỘP CHUNG: Thanh Lọc Tag & Thanh Điều Hướng -->
+            <div class="bg-white/95 backdrop-blur-sm p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-md border border-amber-100/90 space-y-4 sm:space-y-5">
                 
                 <!-- Phần Lọc Tag -->
-                <div class="flex flex-wrap items-center gap-3 pb-5 border-b border-gray-100">
-                    <div class="flex items-center gap-2 font-bold text-buddhist-maroon text-sm uppercase tracking-wider mr-2">
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 pb-4 sm:pb-5 border-b border-gray-100">
+                    <div class="flex items-center gap-1.5 font-bold text-buddhist-maroon text-xs sm:text-sm uppercase tracking-wider mr-1">
                         <i class="fa-solid fa-filter text-amber-600"></i> LỌC TAG:
                     </div>
                     
-                    <!-- Tất Cả (Vàng) -->
-                    <button onclick="selectCategory('all', this)" id="cat-btn-all" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-amber-500 text-white border border-amber-600 shadow-md">
+                    <!-- Tất Cả -->
+                    <button onclick="selectCategory('all', this)" id="cat-btn-all" class="cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-amber-500 text-white border border-amber-600 shadow-md">
                         Tất cả câu hỏi
                     </button>
 
-                    <!-- Giáo lý Phật Pháp (Đỏ) -->
-                    <button onclick="selectCategory('Giáo lý Phật Pháp', this)" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-rose-800 border border-rose-300 hover:bg-rose-50 shadow-xs">
+                    <!-- Giáo lý Phật Pháp -->
+                    <button onclick="selectCategory('Giáo lý Phật Pháp', this)" class="cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-rose-800 border border-rose-300 hover:bg-rose-50 shadow-xs">
                         Giáo lý Phật Pháp
                     </button>
 
-                    <!-- Nghi thức & Tu tập (Xanh lá) -->
-                    <button onclick="selectCategory('Nghi thức & Tu tập', this)" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50 shadow-xs">
+                    <!-- Nghi thức & Tu tập -->
+                    <button onclick="selectCategory('Nghi thức & Tu tập', this)" class="cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50 shadow-xs">
                         Nghi thức & Tu tập
                     </button>
 
-                    <!-- Nhân quả & Đạo đức (Tím) -->
-                    <button onclick="selectCategory('Nhân quả & Đạo đức', this)" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-purple-700 border border-purple-300 hover:bg-purple-50 shadow-xs">
+                    <!-- Nhân quả & Đạo đức -->
+                    <button onclick="selectCategory('Nhân quả & Đạo đức', this)" class="cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-purple-700 border border-purple-300 hover:bg-purple-50 shadow-xs">
                         Nhân quả & Đạo đức
                     </button>
 
-                    <!-- Đời sống & Gia đình (Xanh dương) -->
-                    <button onclick="selectCategory('Đời sống & Gia đình', this)" class="cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-sky-700 border border-sky-300 hover:bg-sky-50 shadow-xs">
+                    <!-- Đời sống & Gia đình -->
+                    <button onclick="selectCategory('Đời sống & Gia đình', this)" class="cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-sky-700 border border-sky-300 hover:bg-sky-50 shadow-xs">
                         Đời sống & Gia đình
                     </button>
                 </div>
 
-                <!-- Phần Thông Tin Số Lượng & Dropdown Phân Trang -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-                    <div id="qa-count-info" class="text-sm font-semibold text-gray-500">Đang hiển thị...</div>
-                    <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700">
+                <!-- Phần Thông Tin Số Lượng & Dropdown -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1 text-xs sm:text-sm">
+                    <div id="qa-count-info" class="font-semibold text-gray-500">Đang hiển thị...</div>
+                    <div class="flex items-center gap-2 font-semibold text-gray-700">
                         <span>Hiển thị:</span>
-                        <select id="qa-per-page-select" onchange="changeQAPerPage(this.value)" class="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-gray-800 cursor-pointer">
+                        <select id="qa-per-page-select" onchange="changeQAPerPage(this.value)" class="px-2.5 py-1.5 sm:px-3.5 sm:py-2 bg-gray-50 border border-gray-200 rounded-xl outline-none font-bold text-gray-800 cursor-pointer">
                             <option value="10" selected>10 câu</option>
                             <option value="20">20 câu</option>
                             <option value="50">50 câu</option>
                         </select>
-                        <span>câu hỏi trên mỗi trang</span>
+                        <span>câu hỏi</span>
                     </div>
                 </div>
 
             </div>
 
-            <!-- KHUNG BẢNG TO TỔNG THỂ CHỨA CÁC CÂU HỎI ACCORDION -->
+            <!-- KHUNG BẢNG TO CHỨA CÁC CÂU HỎI -->
             <div id="public-questions-container" class="space-y-4">
-                <div class="text-center py-24 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100">
-                    <i class="fa-solid fa-spinner fa-spin text-4xl text-buddhist-gold mb-4"></i>
-                    <p class="text-gray-500 font-medium text-base">Đang tải danh sách hỏi đáp Phật pháp...</p>
+                <div class="text-center py-20 bg-white/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100">
+                    <i class="fa-solid fa-spinner fa-spin text-3xl sm:text-4xl text-buddhist-gold mb-3"></i>
+                    <p class="text-gray-500 font-medium text-xs sm:text-base">Đang tải danh sách hỏi đáp Phật pháp...</p>
                 </div>
             </div>
 
-            <!-- THANH PHÂN TRANG (Pagination) -->
-            <div id="qa-pagination-container" class="flex flex-col sm:flex-row items-center justify-between pt-4 gap-3 bg-white/95 backdrop-blur-sm p-5 rounded-3xl border border-amber-100/90 shadow-sm"></div>
+            <!-- THANH PHÂN TRANG -->
+            <div id="qa-pagination-container" class="flex flex-col sm:flex-row items-center justify-between pt-3 gap-3 bg-white/95 backdrop-blur-sm p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-amber-100/90 shadow-sm"></div>
         </section>
 
     </div>
 </main>
 
-<div id="question-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-8 md:p-10 shadow-2xl relative border border-amber-100/60">
-        <button onclick="closeQuestionModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-700 text-xl w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center transition">
-            <i class="fa-solid fa-xmark text-lg"></i>
+<!-- MODAL XEM CÂU TRẢ LỜI TRÊN ĐIỆN THOẠI -->
+<div id="answer-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-amber-100/60 max-h-[90vh] overflow-y-auto">
+        <button onclick="closeAnswerModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-400 hover:text-gray-700 text-lg w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-50 flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-base"></i>
         </button>
-        <div class="text-center mb-8">
-            <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+        <div id="modal-answer-content" class="space-y-5 pt-2">
+            <!-- Nội dung trả lời sẽ được điền động bằng JS -->
+        </div>
+    </div>
+</div>
+
+<!-- MODAL GỬI CÂU HỎI -->
+<div id="question-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full p-6 sm:p-10 shadow-2xl relative border border-amber-100/60 max-h-[90vh] overflow-y-auto">
+        <button onclick="closeQuestionModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-400 hover:text-gray-700 text-lg w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-50 flex items-center justify-center transition">
+            <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+        <div class="text-center mb-6 sm:mb-8">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl sm:text-3xl shadow-inner">
                 <i class="fa-solid fa-hands-praying"></i>
             </div>
-            <h3 class="font-heading font-bold text-2xl md:text-3xl text-buddhist-maroon">Gửi Thắc Mắc Đến Chùa</h3>
-            <p class="text-sm text-gray-500 mt-2">Câu hỏi sẽ được gửi về ban trị sự để xem xét giải đáp.</p>
+            <h3 class="font-heading font-bold text-xl sm:text-3xl text-buddhist-maroon">Gửi Thắc Mắc Đến Chùa</h3>
+            <p class="text-xs sm:text-sm text-gray-500 mt-1.5">Câu hỏi sẽ được gửi về ban trị sự để xem xét giải đáp.</p>
         </div>
-        <form id="question-form" onsubmit="submitUserQuestion(event)" class="space-y-5">
+        <form id="question-form" onsubmit="submitUserQuestion(event)" class="space-y-4 sm:space-y-5">
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Họ tên Phật tử <span class="text-red-500">*</span></label>
-                <input type="text" id="q-name" required placeholder="Ví dụ: Diệu Tâm..." class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800">
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Họ tên Phật tử <span class="text-red-500">*</span></label>
+                <input type="text" id="q-name" required placeholder="Ví dụ: Diệu Tâm..." class="w-full px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-xs sm:text-base text-gray-800">
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Chuyên mục</label>
-                <select id="q-category" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800">
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Chuyên mục</label>
+                <select id="q-category" class="w-full px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-xs sm:text-base text-gray-800">
                     <option value="Giáo lý Phật Pháp">Giáo lý Phật Pháp</option>
                     <option value="Nghi thức & Tu tập">Nghi thức & Tu tập</option>
                     <option value="Nhân quả & Đạo đức">Nhân quả & Đạo đức</option>
@@ -251,11 +263,11 @@
                 </select>
             </div>
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Nội dung câu hỏi <span class="text-red-500">*</span></label>
-                <textarea id="q-content" rows="5" required placeholder="Nhập chi tiết thắc mắc của bạn..." class="w-full px-5 py-4 rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-base text-gray-800"></textarea>
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Nội dung câu hỏi <span class="text-red-500">*</span></label>
+                <textarea id="q-content" rows="4" required placeholder="Nhập chi tiết thắc mắc của bạn..." class="w-full px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-buddhist-maroon text-xs sm:text-base text-gray-800"></textarea>
             </div>
-            <div class="pt-3">
-                <button type="submit" id="submit-btn" class="w-full bg-buddhist-maroon text-white font-bold py-4 rounded-2xl hover:bg-red-950 transition shadow-md text-base flex items-center justify-center gap-3">
+            <div class="pt-2">
+                <button type="submit" id="submit-btn" class="w-full bg-buddhist-maroon text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-red-950 transition shadow-md text-xs sm:text-base flex items-center justify-center gap-2.5">
                     <i class="fa-solid fa-paper-plane text-buddhist-gold"></i> Gửi Câu Hỏi Lên Chùa
                 </button>
             </div>
@@ -263,11 +275,11 @@
     </div>
 </div>
 
-<div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-white text-gray-800 px-7 py-5 rounded-2xl shadow-2xl flex items-center gap-4 border border-gray-100">
-    <i id="toast-icon" class="fa-solid fa-circle-check text-green-600 text-2xl"></i>
+<div id="toast" class="fixed bottom-6 right-4 sm:right-8 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-white text-gray-800 px-5 sm:px-7 py-4 sm:py-5 rounded-2xl shadow-2xl flex items-center gap-3.5 border border-gray-100 max-w-sm">
+    <i id="toast-icon" class="fa-solid fa-circle-check text-green-600 text-xl sm:text-2xl"></i>
     <div>
-        <h4 id="toast-title" class="font-bold text-base">Thông báo</h4>
-        <p id="toast-msg" class="text-sm text-gray-500">Nội dung hệ thống.</p>
+        <h4 id="toast-title" class="font-bold text-sm sm:text-base">Thông báo</h4>
+        <p id="toast-msg" class="text-xs sm:text-sm text-gray-500">Nội dung hệ thống.</p>
     </div>
 </div>
 
@@ -360,23 +372,23 @@
             }
             
             if (topCat.includes('Giáo lý')) {
-                catEl.className = "font-heading font-bold text-lg text-rose-800";
+                catEl.className = "font-heading font-bold text-sm sm:text-lg text-rose-800";
                 catEl.innerText = topCat;
             } else if (topCat.includes('Nghi thức')) {
-                catEl.className = "font-heading font-bold text-lg text-emerald-800";
+                catEl.className = "font-heading font-bold text-sm sm:text-lg text-emerald-800";
                 catEl.innerText = topCat;
             } else if (topCat.includes('Nhân quả')) {
-                catEl.className = "font-heading font-bold text-lg text-purple-700";
+                catEl.className = "font-heading font-bold text-sm sm:text-lg text-purple-700";
                 catEl.innerText = topCat;
             } else if (topCat.includes('Đời sống')) {
-                catEl.className = "font-heading font-bold text-lg text-sky-700";
+                catEl.className = "font-heading font-bold text-sm sm:text-lg text-sky-700";
                 catEl.innerText = topCat;
             } else {
-                catEl.className = "font-heading font-bold text-lg text-amber-700";
+                catEl.className = "font-heading font-bold text-sm sm:text-lg text-amber-700";
                 catEl.innerText = topCat;
             }
         } else {
-            catEl.className = "font-heading font-bold text-lg text-gray-500";
+            catEl.className = "font-heading font-bold text-sm sm:text-lg text-gray-500";
             catEl.innerText = 'Chưa có';
         }
     }
@@ -418,13 +430,13 @@
         const total = filtered.length;
         if (total === 0) {
             container.innerHTML = `
-                <div class="text-center py-20 bg-white/90 backdrop-blur-sm rounded-3xl shadow-sm border border-gray-100 p-8">
-                    <div class="w-16 h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-inner">
+                <div class="text-center py-16 sm:py-20 bg-white/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-amber-50 text-buddhist-maroon rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl sm:text-2xl shadow-inner">
                         <i class="fa-solid fa-seedling text-buddhist-gold"></i>
                     </div>
-                    <h4 class="font-heading font-bold text-xl text-gray-800">Chưa có câu hỏi phù hợp</h4>
-                    <p class="text-gray-500 text-sm mt-1 mb-6">Bạn có thể gửi câu hỏi mới đến Ban Trị Sự.</p>
-                    <button onclick="openQuestionModal()" class="bg-buddhist-maroon text-white px-8 py-3.5 rounded-2xl text-sm font-semibold hover:bg-red-950 transition shadow-sm">Gửi câu hỏi ngay</button>
+                    <h4 class="font-heading font-bold text-lg sm:text-xl text-gray-800">Chưa có câu hỏi phù hợp</h4>
+                    <p class="text-gray-500 text-xs sm:text-sm mt-1 mb-5">Bạn có thể gửi câu hỏi mới đến Ban Trị Sự.</p>
+                    <button onclick="openQuestionModal()" class="bg-buddhist-maroon text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold hover:bg-red-950 transition shadow-sm">Gửi câu hỏi ngay</button>
                 </div>
             `;
             if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 câu hỏi";
@@ -471,52 +483,55 @@
                 arrowBtnTheme = "bg-sky-50 text-sky-700 border border-sky-200 group-hover:bg-sky-100";
             }
 
+            const qJson = encodeURIComponent(JSON.stringify(q));
+
             return `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${borderColorClass} group">
-                    <button onclick="toggleAccordionItem(${uniqueId})" class="w-full text-left p-6 md:p-8 flex justify-between items-start gap-5 focus:outline-none bg-white transition">
-                        <div class="flex items-start gap-4 flex-1">
+                <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${borderColorClass} group">
+                    <button onclick="handleQuestionClick('${q.id}', '${qJson}')" class="w-full text-left p-4 sm:p-6 md:p-8 flex justify-between items-start gap-3 sm:gap-5 focus:outline-none bg-white transition">
+                        <div class="flex items-start gap-3 sm:gap-4 flex-1">
                             <div class="flex-1">
-                                <div class="flex items-center gap-3 mb-3 flex-wrap">
-                                    <span class="${tagStyle} text-xs px-4 py-1.5 rounded-xl font-bold flex items-center gap-1.5">
+                                <div class="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3 flex-wrap">
+                                    <span class="${tagStyle} text-[11px] sm:text-xs px-3 sm:px-4 py-1 sm:py-1.5 rounded-lg sm:rounded-xl font-bold flex items-center gap-1.5">
                                         <i class="fa-solid fa-bookmark"></i> ${q.category || 'Phật pháp'}
                                     </span>
-                                    <span class="text-sm text-gray-700 font-bold bg-gray-100/80 px-3 py-1 rounded-lg">
-                                        <i class="fa-regular fa-user mr-1.5 text-buddhist-gold"></i> ${escapeHtml(q.name)}
+                                    <span class="text-xs sm:text-sm text-gray-700 font-bold bg-gray-100/80 px-2.5 sm:px-3 py-1 rounded-lg">
+                                        <i class="fa-regular fa-user mr-1 text-buddhist-gold"></i> ${escapeHtml(q.name)}
                                     </span>
                                 </div>
-                                <h3 class="font-heading font-bold text-lg md:text-xl text-buddhist-dark group-hover:text-buddhist-maroon transition leading-snug tracking-tight">${escapeHtml(q.question)}</h3>
+                                <h3 class="font-heading font-bold text-sm sm:text-base md:text-xl text-buddhist-dark group-hover:text-buddhist-maroon transition leading-snug tracking-tight">${escapeHtml(q.question)}</h3>
                             </div>
                         </div>
-                        <div class="w-12 h-12 rounded-2xl ${arrowBtnTheme} flex items-center justify-center flex-shrink-0 transition-all duration-300 shadow-sm mt-0.5" id="icon-${uniqueId}">
-                            <i class="fa-solid fa-chevron-down text-base font-bold"></i>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${arrowBtnTheme} flex items-center justify-center flex-shrink-0 transition-all duration-300 shadow-sm mt-0.5" id="icon-${uniqueId}">
+                            <i class="fa-solid fa-chevron-down text-sm sm:text-base font-bold md:block hidden"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-sm sm:text-base font-bold md:hidden"></i>
                         </div>
                     </button>
                     
-                    <div id="panel-${uniqueId}" class="accordion-content px-6 md:px-8 bg-white">
-                        <div class="pb-6 pt-1 space-y-4">
-                            <div class="bg-amber-50/30 backdrop-blur-sm p-6 md:p-8 rounded-3xl border-2 border-amber-200/80 shadow-md relative overflow-hidden">
-                                <div class="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-amber-200/30 to-transparent rounded-bl-full pointer-events-none"></div>
-                                <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-amber-200/20 to-transparent rounded-tr-full pointer-events-none"></div>
+                    <div id="panel-${uniqueId}" class="accordion-content px-4 sm:px-6 md:px-8 bg-white hidden md:block">
+                        <div class="pb-5 sm:pb-6 pt-1 space-y-4">
+                            <div class="bg-amber-50/30 backdrop-blur-sm p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border-2 border-amber-200/80 shadow-md relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-28 h-28 sm:w-36 sm:h-36 bg-gradient-to-bl from-amber-200/30 to-transparent rounded-bl-full pointer-events-none"></div>
+                                <div class="absolute bottom-0 left-0 w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-tr from-amber-200/20 to-transparent rounded-tr-full pointer-events-none"></div>
                                 
-                                <div class="flex items-start gap-5 relative z-10">
-                                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-buddhist-maroon to-red-950 text-amber-200 flex items-center justify-center flex-shrink-0 font-heading font-bold text-base shadow-md border-2 border-amber-400/60">
-                                        <i class="fa-solid fa-dharmachakra text-xl animate-spin-slow"></i>
+                                <div class="flex items-start gap-3 sm:gap-5 relative z-10">
+                                    <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-buddhist-maroon to-red-950 text-amber-200 flex items-center justify-center flex-shrink-0 font-heading font-bold text-sm sm:text-base shadow-md border-2 border-amber-400/60">
+                                        <i class="fa-solid fa-dharmachakra text-base sm:text-xl animate-spin-slow"></i>
                                     </div>
                                     <div class="flex-1">
-                                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-amber-100">
-                                            <h4 class="font-heading font-bold text-lg md:text-xl text-buddhist-maroon flex items-center gap-2.5">
-                                                <i class="fa-solid fa-feather text-buddhist-gold text-base"></i> Ban Trị Sự Giải Đáp:
+                                        <div class="flex items-center justify-between mb-2.5 sm:mb-3 pb-2 border-b border-amber-100">
+                                            <h4 class="font-heading font-bold text-base sm:text-lg md:text-xl text-buddhist-maroon flex items-center gap-2">
+                                                <i class="fa-solid fa-feather text-buddhist-gold text-sm sm:text-base"></i> Ban Trị Sự Giải Đáp:
                                             </h4>
                                         </div>
-                                        <p class="text-gray-800 text-base md:text-lg whitespace-pre-line leading-relaxed font-normal">${escapeHtml(q.answer || '')}</p>
+                                        <p class="text-gray-800 text-xs sm:text-base md:text-lg whitespace-pre-line leading-relaxed font-normal">${escapeHtml(q.answer || '')}</p>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="flex items-center justify-between pb-2 px-2" onclick="event.stopPropagation();">
+                            <div class="flex items-center justify-between pb-1 px-1" onclick="event.stopPropagation();">
                                 <span class="text-xs font-semibold text-gray-500"><i class="fa-solid fa-fire text-amber-600 mr-1"></i> Lượt thích: <strong class="text-buddhist-maroon">${likesCount}</strong></span>
-                                <button onclick="likeQuestion('${q.id}')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-sm font-bold shadow-xs transition duration-300 transform active:scale-95">
-                                    <i class="fa-solid fa-heart text-rose-600 text-base"></i>
+                                <button onclick="likeQuestion('${q.id}')" class="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs sm:text-sm font-bold shadow-xs transition duration-300 transform active:scale-95">
+                                    <i class="fa-solid fa-heart text-rose-600 text-sm sm:text-base"></i>
                                     <span>Thích</span>
                                 </button>
                             </div>
@@ -527,35 +542,35 @@
         }).join('');
 
         container.innerHTML = `
-            <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-6 md:p-8 soft-shadow border border-amber-200/80 space-y-6">
-                <div class="flex items-center justify-between pb-4 border-b-2 border-amber-100 mb-2">
-                    <h3 class="font-heading font-bold text-2xl text-buddhist-maroon flex items-center gap-3">
-                        <i class="fa-solid fa-list-check text-buddhist-gold text-xl"></i> Danh Sách Câu Hỏi & Giải Đáp Phật Pháp
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 soft-shadow border border-amber-200/80 space-y-4 sm:space-y-6">
+                <div class="flex items-center justify-between pb-3 sm:pb-4 border-b-2 border-amber-100 mb-1">
+                    <h3 class="font-heading font-bold text-lg sm:text-2xl text-buddhist-maroon flex items-center gap-2.5 sm:gap-3">
+                        <i class="fa-solid fa-list-check text-buddhist-gold text-base sm:text-xl"></i> Danh Sách Câu Hỏi & Giải Đáp Phật Pháp
                     </h3>
                 </div>
-                <div class="space-y-5">
+                <div class="space-y-4 sm:space-y-5">
                     ${tableContentHtml}
                 </div>
             </div>
         `;
 
-        let paginationHtml = `<span class="text-xs text-gray-500 font-semibold">Trang ${currentQAPage} / ${totalPages}</span>`;
-        paginationHtml += `<div class="flex items-center gap-1.5">`;
+        let paginationHtml = `<span class="text-[11px] sm:text-xs text-gray-500 font-semibold">Trang ${currentQAPage} / ${totalPages}</span>`;
+        paginationHtml += `<div class="flex items-center gap-1">`;
         
-        paginationHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3.5 py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
+        paginationHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
 
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= currentQAPage - 1 && i <= currentQAPage + 1)) {
                 const activeClass = i === currentQAPage 
                     ? 'bg-buddhist-maroon text-white shadow-sm' 
                     : 'bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 shadow-xs';
-                paginationHtml += `<button onclick="changeQAPage(${i})" class="w-9 h-9 rounded-xl text-xs font-bold transition flex items-center justify-center ${activeClass}">${i}</button>`;
+                paginationHtml += `<button onclick="changeQAPage(${i})" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs font-bold transition flex items-center justify-center ${activeClass}">${i}</button>`;
             } else if (i === currentQAPage - 2 || i === currentQAPage + 2) {
-                paginationHtml += `<span class="px-1 text-gray-400">...</span>`;
+                paginationHtml += `<span class="px-1 text-gray-400 text-xs">...</span>`;
             }
         }
 
-        paginationHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3.5 py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Sau</button>`;
+        paginationHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gray-100 text-gray-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-white border border-gray-200 hover:bg-amber-50 text-gray-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Sau</button>`;
         paginationHtml += `</div>`;
 
         if (paginationContainer) paginationContainer.innerHTML = paginationHtml;
@@ -570,9 +585,69 @@
         });
     }
 
+    function handleQuestionClick(id, encodedQJson) {
+        if (window.innerWidth >= 768) {
+            const container = document.getElementById('public-questions-container');
+            const allButtons = container.querySelectorAll('button[onclick*="handleQuestionClick"]');
+            let matchedIndex = -1;
+            allButtons.forEach((btn, idx) => {
+                if (btn.getAttribute('onclick').includes(id)) {
+                    matchedIndex = idx;
+                }
+            });
+            if (matchedIndex !== -1) {
+                toggleAccordionItem(matchedIndex);
+            }
+        } else {
+            const qData = JSON.parse(decodeURIComponent(encodedQJson));
+            openAnswerModal(qData);
+        }
+    }
+
+    function openAnswerModal(q) {
+        const modalContent = document.getElementById('modal-answer-content');
+        const likesCount = q.likes || 0;
+        
+        modalContent.innerHTML = `
+            <div>
+                <div class="flex items-center gap-2 mb-3 flex-wrap">
+                    <span class="bg-amber-50 text-amber-700 border border-amber-300 text-[11px] px-3 py-1 rounded-lg font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-bookmark"></i> ${q.category || 'Phật pháp'}
+                    </span>
+                    <span class="text-xs text-gray-700 font-bold bg-gray-100 px-2.5 py-1 rounded-lg">
+                        <i class="fa-regular fa-user mr-1 text-buddhist-gold"></i> ${escapeHtml(q.name)}
+                    </span>
+                </div>
+                <h3 class="font-heading font-bold text-sm sm:text-base text-buddhist-dark leading-snug">${escapeHtml(q.question)}</h3>
+            </div>
+
+            <div class="bg-amber-50/40 p-4 sm:p-6 rounded-2xl border border-amber-200/80 shadow-inner relative overflow-hidden space-y-3">
+                <div class="flex items-center gap-2 text-buddhist-maroon font-heading font-bold text-base pb-2 border-b border-amber-200">
+                    <i class="fa-solid fa-dharmachakra text-buddhist-gold animate-spin-slow"></i> Ban Trị Sự Giải Đáp:
+                </div>
+                <p class="text-gray-800 text-xs sm:text-sm whitespace-pre-line leading-relaxed font-normal">${escapeHtml(q.answer || '')}</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                <span class="text-xs font-semibold text-gray-500"><i class="fa-solid fa-fire text-amber-600 mr-1"></i> Lượt thích: <strong class="text-buddhist-maroon">${likesCount}</strong></span>
+                <button onclick="likeQuestion('${q.id}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold shadow-xs transition active:scale-95">
+                    <i class="fa-solid fa-heart text-rose-600"></i>
+                    <span>Thích</span>
+                </button>
+            </div>
+        `;
+
+        document.getElementById('answer-modal').classList.remove('hidden');
+    }
+
+    function closeAnswerModal() {
+        document.getElementById('answer-modal').classList.add('hidden');
+    }
+
     function toggleAccordionItem(index) {
         const panel = document.getElementById(`panel-${index}`);
         const icon = document.getElementById(`icon-${index}`);
+        if (!panel || !icon) return;
         if (panel.classList.contains('expanded')) {
             panel.classList.remove('expanded');
             icon.style.transform = 'rotate(0deg)';
@@ -602,28 +677,28 @@
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(b => {
             if(b.id === 'cat-btn-all') {
-                b.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 shadow-xs";
+                b.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-amber-700 border border-amber-300 hover:bg-amber-50 shadow-xs";
             } else if(b.textContent.includes('Giáo lý')) {
-                b.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-rose-800 border border-rose-300 hover:bg-rose-50 shadow-xs";
+                b.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-rose-800 border border-rose-300 hover:bg-rose-50 shadow-xs";
             } else if(b.textContent.includes('Nghi thức')) {
-                b.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50 shadow-xs";
+                b.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50 shadow-xs";
             } else if(b.textContent.includes('Nhân quả')) {
-                b.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-purple-700 border border-purple-300 hover:bg-purple-50 shadow-xs";
+                b.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-purple-700 border border-purple-300 hover:bg-purple-50 shadow-xs";
             } else if(b.textContent.includes('Đời sống')) {
-                b.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap bg-white text-sky-700 border border-sky-300 hover:bg-sky-50 shadow-xs";
+                b.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-white text-sky-700 border border-sky-300 hover:bg-sky-50 shadow-xs";
             }
         });
 
         if(cat === 'all') {
-            btn.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-amber-500 text-white border border-amber-600 shadow-md";
+            btn.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-amber-500 text-white border border-amber-600 shadow-md";
         } else if(cat === 'Giáo lý Phật Pháp') {
-            btn.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-rose-700 text-white border border-rose-800 shadow-md";
+            btn.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-rose-700 text-white border border-rose-800 shadow-md";
         } else if(cat === 'Nghi thức & Tu tập') {
-            btn.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-emerald-600 text-white border border-emerald-700 shadow-md";
+            btn.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-emerald-600 text-white border border-emerald-700 shadow-md";
         } else if(cat === 'Nhân quả & Đạo đức') {
-            btn.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-purple-600 text-white border border-purple-700 shadow-md";
+            btn.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-purple-600 text-white border border-purple-700 shadow-md";
         } else if(cat === 'Đời sống & Gia đình') {
-            btn.className = "cat-btn px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap bg-sky-600 text-white border border-sky-700 shadow-md";
+            btn.className = "cat-btn px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-sky-600 text-white border border-sky-700 shadow-md";
         }
 
         renderPublicList();
@@ -689,11 +764,11 @@
         const icon = document.getElementById('toast-icon');
 
         if (type === 'success') {
-            icon.className = 'fa-solid fa-circle-check text-green-600 text-2xl';
+            icon.className = 'fa-solid fa-circle-check text-green-600 text-xl sm:text-2xl';
         } else if (type === 'error') {
-            icon.className = 'fa-solid fa-circle-xmark text-red-500 text-2xl';
+            icon.className = 'fa-solid fa-circle-xmark text-red-500 text-xl sm:text-2xl';
         } else {
-            icon.className = 'fa-solid fa-circle-info text-blue-500 text-2xl';
+            icon.className = 'fa-solid fa-circle-info text-blue-500 text-xl sm:text-2xl';
         }
 
         toast.classList.remove('translate-y-32', 'opacity-0');
