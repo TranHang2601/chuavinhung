@@ -109,6 +109,7 @@
 
         <div class="bg-white rounded-3xl p-8 md:p-14 card-shadow border border-zenwarm-border">
             
+            <!-- Tab Lịch Sử Hình Thành -->
             <div id="content-lich-su" class="tab-pane space-y-12">
                 <div class="max-w-3xl mx-auto text-center space-y-4">
                     <span id="history-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Dòng Thời Gian Thiền Viện</span>
@@ -120,34 +121,9 @@
                     </p>
                 </div>
 
-                <!-- Timeline độc đáo, trang trọng -->
-                <div class="relative border-l-2 border-amber-300 ml-4 md:ml-12 pl-6 md:pl-10 space-y-12 my-8">
-                    <!-- Mốc 1 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-zenwarm-primary border-4 border-white shadow-md flex items-center justify-center"></div>
-                        <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm">
-                            <span class="text-xs font-bold text-zenwarm-primary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block mb-3">Giai Đoạn Khởi Khởi (1985)</span>
-                            <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text mb-3">Từ Ngôi Am Lá Sơ Sài Đến Đạo Tràng</h3>
-                            <p id="history-desc1-el" class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light mb-6">
-                                Chùa Vĩnh Hưng được thành lập với tâm nguyện hoằng pháp lợi sinh. Trải qua thời gian, nơi đây đã trở thành điểm tựa tâm linh thanh bình cho hàng vạn phật tử quy hướng.
-                            </p>
-                            <div class="rounded-2xl overflow-hidden shadow-md max-h-72 cursor-pointer group border border-stone-200" onclick="openLightbox('https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1000&q=80', 'Giai đoạn khởi nguyên Chùa Vĩnh Hưng')">
-                                <img id="history-img-el" src="https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1000&q=80" alt="Khởi nguyên" class="w-full h-60 object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x400/f3f4f6/9ca3af?text=ChuaVinhHung'">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mốc 2 -->
-                    <div class="relative">
-                        <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-zenwarm-secondary border-4 border-white shadow-md flex items-center justify-center"></div>
-                        <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm">
-                            <span class="text-xs font-bold text-zenwarm-secondary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block mb-3">Giai Đoạn Trùng Tu & Phát Triển (2005)</span>
-                            <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text mb-3">Xây Dựng Ngôi Chánh Điện Trang Nghiêm</h3>
-                            <p id="history-desc2-el" class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light">
-                                Với không gian kiến trúc hài hòa cùng thiên nhiên, chùa thường xuyên tổ chức các khóa tu thiền định và các hoạt động an sinh xã hội ý nghĩa phục vụ cộng đồng.
-                            </p>
-                        </div>
-                    </div>
+                <!-- Timeline động render từ admin -->
+                <div id="dynamic-timeline-container" class="relative border-l-2 border-amber-300 ml-4 md:ml-12 pl-6 md:pl-10 space-y-12 my-8">
+                    <!-- Populated dynamically -->
                 </div>
 
                 <div class="bg-gradient-to-r from-amber-50/80 to-orange-50/50 p-8 md:p-10 rounded-2xl border border-amber-200/60 relative overflow-hidden shadow-sm">
@@ -159,6 +135,7 @@
                 </div>
             </div>
 
+            <!-- Tab Kiến Trúc & Không Gian -->
             <div id="content-kien-truc" class="tab-pane hidden space-y-8">
                 <div class="max-w-2xl">
                     <span id="arch-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Thắng Cảnh Thiền Viện</span>
@@ -167,10 +144,11 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="architecture-grid-container">
-                    <!-- Populated dynamically from Firebase admin configuration -->
+                    <!-- Populated dynamically -->
                 </div>
             </div>
 
+            <!-- Tab Chư Tăng Ni & Trị Sự -->
             <div id="content-nhan-su" class="tab-pane hidden space-y-8">
                 <div class="max-w-2xl">
                     <span class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Ban Trị Sự & Chư Tăng Ni</span>
@@ -222,6 +200,7 @@
         <p>&copy; 2026 Chùa Vĩnh Hưng. Bản quyền thuộc về Ban Hoằng Pháp.</p>
     </footer>
 
+    <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
         <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl hover:text-amber-400 transition focus:outline-none w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
@@ -232,6 +211,7 @@
         </div>
     </div>
 
+    <!-- Monk Modal -->
     <div id="monk-modal" class="fixed inset-0 z-50 bg-stone-950/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 md:p-10 relative card-shadow border border-zenwarm-border">
             <button onclick="closeMonkModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700 text-2xl transition focus:outline-none w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
@@ -256,10 +236,14 @@
         const firebaseConfig = {
             databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+        } catch (e) {
+            console.error("Firebase init error:", e);
         }
-        const database = firebase.database();
+        const database = typeof firebase !== 'undefined' && firebase.database ? firebase.database() : null;
 
         document.addEventListener('DOMContentLoaded', () => {
             loadAboutConfigFromAdmin();
@@ -267,95 +251,111 @@
 
         async function loadAboutConfigFromAdmin() {
             try {
-                const snapshot = await database.ref('about_config').once('value');
-                const config = snapshot.val();
-                if (!config) return;
+                if (!database) return;
+                database.ref('about_config').on('value', (snapshot) => {
+                    const config = snapshot.val();
+                    if (!config) return;
 
-                const safeSetText = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el && val) el.textContent = val;
-                };
+                    const safeSetText = (id, val) => {
+                        const el = document.getElementById(id);
+                        if (el && val !== undefined) el.textContent = val;
+                    };
 
-                const safeSetSrc = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el && val) el.src = val;
-                };
+                    // Hero
+                    safeSetText('hero-title-el', config.hero_title);
+                    safeSetText('hero-subtitle-el', config.hero_subtitle);
 
-                safeSetText('hero-title-el', config.hero_title);
-                safeSetText('hero-subtitle-el', config.hero_subtitle);
+                    // History Section Header
+                    safeSetText('history-badge-el', config.history_badge);
+                    safeSetText('history-title-el', config.history_title);
 
-                safeSetText('history-badge-el', config.history_badge);
-                safeSetText('history-title-el', config.history_title);
-                safeSetText('history-desc1-el', config.history_desc1);
-                safeSetText('history-desc2-el', config.history_desc2);
-                safeSetSrc('history-img-el', config.history_img);
+                    // Render dynamic stages
+                    renderDynamicTimeline(config.stages || []);
 
-                if (config.quote_text) safeSetText('quote-text-el', `"${config.quote_text}"`);
-                if (config.quote_author) safeSetText('quote-author-el', `— ${config.quote_author}`);
+                    // Quote
+                    if (config.quote_text) safeSetText('quote-text-el', `"${config.quote_text}"`);
+                    if (config.quote_author) safeSetText('quote-author-el', `— ${config.quote_author}`);
 
-                safeSetText('arch-badge-el', config.arch_badge);
-                safeSetText('arch-title-el', config.arch_title);
-                safeSetText('arch-desc-el', config.arch_desc);
-
-                renderArchitectureGallery(config);
+                    // Architecture
+                    safeSetText('arch-badge-el', config.arch_badge);
+                    safeSetText('arch-title-el', config.arch_title);
+                    safeSetText('arch-desc-el', config.arch_desc);
+                });
 
             } catch (err) {
                 console.error("Lỗi tải cấu hình giới thiệu từ quản trị:", err);
             }
         }
 
-        function renderArchitectureGallery(config) {
-            const container = document.getElementById('architecture-grid-container');
+        function renderDynamicTimeline(stages) {
+            const container = document.getElementById('dynamic-timeline-container');
             if (!container) return;
-
-            const items = [
-                {
-                    img: config.arch_img1 || 'https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title1 || 'Cổng Tam Quan Vững Chãi',
-                    category: 'Kiến trúc'
-                },
-                {
-                    img: config.arch_img2 || 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title2 || 'Tôn Tượng Đức Phật Từ Bi',
-                    category: 'Tôn nghiêm'
-                },
-                {
-                    img: config.arch_img3 || 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title3 || 'Vườn Thiền & Hồ Sen An Lạc',
-                    category: 'Thiên nhiên'
-                },
-                {
-                    img: config.arch_img4 || 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title4 || 'Không Gian Chánh Điện',
-                    category: 'Kiến trúc'
-                },
-                {
-                    img: config.arch_img5 || 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title5 || 'Đại Hồng Chuông Tỉnh Thức',
-                    category: 'Pháp khí'
-                },
-                {
-                    img: config.arch_img6 || 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-                    title: config.arch_title6 || 'Vườn Thiền Trà An Nhiên',
-                    category: 'Tu học'
-                }
-            ];
+            if (!stages || stages.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400 italic">Chưa có giai đoạn lịch sử nào được thiết lập.</p>`;
+                return;
+            }
 
             let html = '';
-            items.forEach(item => {
-                if (item.img && item.img.trim() !== '') {
-                    html += `
-                        <div onclick="openLightbox('${item.img}', '${item.title}')" class="group relative rounded-2xl overflow-hidden shadow-md h-72 cursor-pointer bg-stone-100 border border-zenwarm-border">
-                            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x400/f3f4f6/9ca3af?text=ChuaVinhHung'">
-                            <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <div class="text-white">
-                                    <span class="text-xs text-amber-300 font-semibold uppercase tracking-wider block mb-1">${item.category}</span>
-                                    <h4 class="font-bold text-base">${item.title}</h4>
-                                </div>
+            stages.forEach((st, idx) => {
+                const bulletColor = idx % 2 === 0 ? 'bg-zenwarm-primary' : 'bg-zenwarm-secondary';
+                
+                let processedDesc = st.desc || '';
+                
+                // Automatically convert plain image links or image tags in the rich text description into responsive images with lightbox (taller display)
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = processedDesc;
+                
+                const walkAndTransform = (node) => {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        const urlRegex = /(https?:\/\/[^\s]+?\.(?:png|jpg|jpeg|webp|gif))/gi;
+                        if (urlRegex.test(node.nodeValue)) {
+                            const fragment = document.createDocumentFragment();
+                            let lastIdx = 0;
+                            node.nodeValue.replace(urlRegex, (match, url, offset) => {
+                                if (offset > lastIdx) {
+                                    fragment.appendChild(document.createTextNode(node.nodeValue.substring(lastIdx, offset)));
+                                }
+                                const imgWrap = document.createElement('div');
+                                imgWrap.className = "my-6 rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
+                                imgWrap.setAttribute('onclick', `openLightbox('${url}', 'Hình ảnh lịch sử')`);
+                                imgWrap.innerHTML = `<img src="${url}" class="w-full h-80 sm:h-96 md:h-[420px] object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x500/f3f4f6/9ca3af?text=ChuaVinhHung'">`;
+                                fragment.appendChild(imgWrap);
+                                lastIdx = offset + match.length;
+                            });
+                            if (lastIdx < node.nodeValue.length) {
+                                fragment.appendChild(document.createTextNode(node.nodeValue.substring(lastIdx)));
+                            }
+                            node.parentNode.replaceChild(fragment, node);
+                        }
+                    } else if (node.nodeType === Node.ELEMENT_NODE) {
+                        if (node.tagName === 'A' && node.getAttribute('data-img-preview')) {
+                            const imgUrl = node.getAttribute('data-img-preview');
+                            const imgWrap = document.createElement('div');
+                            imgWrap.className = "my-6 rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
+                            imgWrap.setAttribute('onclick', `openLightbox('${imgUrl}', 'Hình ảnh lịch sử')`);
+                            imgWrap.innerHTML = `<img src="${imgUrl}" class="w-full h-80 sm:h-96 md:h-[420px] object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x500/f3f4f6/9ca3af?text=ChuaVinhHung'">`;
+                            node.parentNode.replaceChild(imgWrap, node);
+                        } else {
+                            Array.from(node.childNodes).forEach(walkAndTransform);
+                        }
+                    }
+                };
+
+                walkAndTransform(tempDiv);
+                processedDesc = tempDiv.innerHTML;
+
+                html += `
+                    <div class="relative">
+                        <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full ${bulletColor} border-4 border-white shadow-md flex items-center justify-center"></div>
+                        <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm space-y-4">
+                            <span class="text-xs font-bold text-zenwarm-primary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block">${st.badge || 'Mốc thời gian'}</span>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text">${st.subtitle || ''}</h3>
+                            <div class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light space-y-2">
+                                ${processedDesc}
                             </div>
                         </div>
-                    `;
-                }
+                    </div>
+                `;
             });
             container.innerHTML = html;
         }
