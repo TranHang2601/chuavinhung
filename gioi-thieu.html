@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giới Thiệu | Chùa Vĩnh Hưng - Không Gian Tịnh Lạc</title>
-    
+    <title>Chùa Vĩnh Hưng - Giới Thiệu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -54,7 +53,7 @@
         }
     </style>
 </head>
-<body class="bg-zenwarm-bg text-zenwarm-text font-sans antialiased">
+<body class="bg-zenwarm-bg font-sans text-zenwarm-text antialiased min-h-screen flex flex-col justify-between">
 
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zenwarm-border shadow-sm">
         <div class="max-w-7xl mx-auto px-6">
@@ -91,7 +90,7 @@
         </div>
     </section>
 
-    <main id="main-tabs" class="max-w-6xl mx-auto px-6 -mt-12 relative z-20 pb-24">
+    <main id="main-tabs" class="max-w-6xl mx-auto px-6 -mt-12 relative z-20 pb-24 w-full">
         
         <div class="bg-white p-2 rounded-2xl card-shadow border border-zenwarm-border flex flex-col md:flex-row gap-2 mb-12">
             <button onclick="switchTab('lich-su')" id="btn-lich-su" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 bg-zenwarm-primary text-white shadow-md shadow-amber-600/20 tab-transition">
@@ -110,24 +109,43 @@
 
         <div class="bg-white rounded-3xl p-8 md:p-14 card-shadow border border-zenwarm-border">
             
-            <!-- TAB 1: LỊCH SỬ HÌNH THÀNH -->
             <div id="content-lich-su" class="tab-pane space-y-12">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                    <div class="lg:col-span-7 space-y-6">
-                        <span id="history-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Khởi Nguyên</span>
-                        <h2 id="history-title-el" class="font-serif text-3xl md:text-4xl font-bold text-zenwarm-text leading-snug">
-                            Từ Ngôi Am Nhỏ Đến Đạo Tràng Trang Nghiêm
-                        </h2>
-                        <p id="history-desc1-el" class="text-zenwarm-muted leading-relaxed text-base md:text-lg font-light">
-                            Chùa Vĩnh Hưng được thành lập với tâm nguyện hoằng pháp lợi sinh. Trải qua thời gian, nơi đây đã trở thành điểm tựa tâm linh thanh bình cho hàng vạn phật tử quy hướng.
-                        </p>
-                        <p id="history-desc2-el" class="text-zenwarm-muted leading-relaxed text-base font-light">
-                            Với không gian kiến trúc hài hòa cùng thiên nhiên, chùa thường xuyên tổ chức các khóa tu thiền định và các hoạt động an sinh xã hội ý nghĩa.
-                        </p>
+                <div class="max-w-3xl mx-auto text-center space-y-4">
+                    <span id="history-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Dòng Thời Gian Thiền Viện</span>
+                    <h2 id="history-title-el" class="font-serif text-3xl md:text-5xl font-bold text-zenwarm-text leading-tight">
+                        Hành Trình Khởi Nguyên & Phát Triển
+                    </h2>
+                    <p class="text-zenwarm-muted text-base md:text-lg font-light leading-relaxed">
+                        Trải qua bao thăng trầm thời gian, Chùa Vĩnh Hưng vẫn luôn giữ vững tinh thần từ bi, phụng sự Đạo pháp và Dân tộc.
+                    </p>
+                </div>
+
+                <!-- Timeline độc đáo, trang trọng -->
+                <div class="relative border-l-2 border-amber-300 ml-4 md:ml-12 pl-6 md:pl-10 space-y-12 my-8">
+                    <!-- Mốc 1 -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-zenwarm-primary border-4 border-white shadow-md flex items-center justify-center"></div>
+                        <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm">
+                            <span class="text-xs font-bold text-zenwarm-primary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block mb-3">Giai Đoạn Khởi Khởi (1985)</span>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text mb-3">Từ Ngôi Am Lá Sơ Sài Đến Đạo Tràng</h3>
+                            <p id="history-desc1-el" class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light mb-6">
+                                Chùa Vĩnh Hưng được thành lập với tâm nguyện hoằng pháp lợi sinh. Trải qua thời gian, nơi đây đã trở thành điểm tựa tâm linh thanh bình cho hàng vạn phật tử quy hướng.
+                            </p>
+                            <div class="rounded-2xl overflow-hidden shadow-md max-h-72 cursor-pointer group border border-stone-200" onclick="openLightbox('https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1000&q=80', 'Giai đoạn khởi nguyên Chùa Vĩnh Hưng')">
+                                <img id="history-img-el" src="https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1000&q=80" alt="Khởi nguyên" class="w-full h-60 object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x400/f3f4f6/9ca3af?text=ChuaVinhHung'">
+                            </div>
+                        </div>
                     </div>
-                    <div class="lg:col-span-5">
-                        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-amber-50 cursor-pointer group" onclick="openLightbox(document.getElementById('history-img-el').src, 'Lịch sử Chùa Vĩnh Hưng')">
-                            <img id="history-img-el" src="https://ibb.co/XkW2nt1n" alt="Lịch sử chùa" class="w-full h-80 object-cover group-hover:scale-105 transition duration-500">
+
+                    <!-- Mốc 2 -->
+                    <div class="relative">
+                        <div class="absolute -left-[31px] md:-left-[47px] top-0 w-6 h-6 rounded-full bg-zenwarm-secondary border-4 border-white shadow-md flex items-center justify-center"></div>
+                        <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm">
+                            <span class="text-xs font-bold text-zenwarm-secondary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block mb-3">Giai Đoạn Trùng Tu & Phát Triển (2005)</span>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text mb-3">Xây Dựng Ngôi Chánh Điện Trang Nghiêm</h3>
+                            <p id="history-desc2-el" class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light">
+                                Với không gian kiến trúc hài hòa cùng thiên nhiên, chùa thường xuyên tổ chức các khóa tu thiền định và các hoạt động an sinh xã hội ý nghĩa phục vụ cộng đồng.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -141,7 +159,6 @@
                 </div>
             </div>
 
-            <!-- TAB 2: KIẾN TRÚC & KHÔNG GIAN (DYNAMIC LINK GALLERY) -->
             <div id="content-kien-truc" class="tab-pane hidden space-y-8">
                 <div class="max-w-2xl">
                     <span id="arch-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Thắng Cảnh Thiền Viện</span>
@@ -154,7 +171,6 @@
                 </div>
             </div>
 
-            <!-- TAB 3: CHƯ TĂNG NI & TRỊ SỰ -->
             <div id="content-nhan-su" class="tab-pane hidden space-y-8">
                 <div class="max-w-2xl">
                     <span class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Ban Trị Sự & Chư Tăng Ni</span>
@@ -202,12 +218,10 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-stone-900 text-stone-400 py-16 border-t border-stone-800 text-center text-xs">
         <p>&copy; 2026 Chùa Vĩnh Hưng. Bản quyền thuộc về Ban Hoằng Pháp.</p>
     </footer>
 
-    <!-- LIGHTBOX MODAL -->
     <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
         <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl hover:text-amber-400 transition focus:outline-none w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
@@ -218,7 +232,6 @@
         </div>
     </div>
 
-    <!-- MONK DETAIL MODAL -->
     <div id="monk-modal" class="fixed inset-0 z-50 bg-stone-950/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-2xl w-full p-8 md:p-10 relative card-shadow border border-zenwarm-border">
             <button onclick="closeMonkModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700 text-2xl transition focus:outline-none w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
@@ -258,27 +271,32 @@
                 const config = snapshot.val();
                 if (!config) return;
 
-                // Hero section
-                if (config.hero_title) document.getElementById('hero-title-el').textContent = config.hero_title;
-                if (config.hero_subtitle) document.getElementById('hero-subtitle-el').textContent = config.hero_subtitle;
+                const safeSetText = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val) el.textContent = val;
+                };
 
-                // History section
-                if (config.history_badge) document.getElementById('history-badge-el').textContent = config.history_badge;
-                if (config.history_title) document.getElementById('history-title-el').textContent = config.history_title;
-                if (config.history_desc1) document.getElementById('history-desc1-el').textContent = config.history_desc1;
-                if (config.history_desc2) document.getElementById('history-desc2-el').textContent = config.history_desc2;
-                if (config.history_img) document.getElementById('history-img-el').src = config.history_img;
+                const safeSetSrc = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val) el.src = val;
+                };
 
-                // Quote
-                if (config.quote_text) document.getElementById('quote-text-el').textContent = `"${config.quote_text}"`;
-                if (config.quote_author) document.getElementById('quote-author-el').textContent = `— ${config.quote_author}`;
+                safeSetText('hero-title-el', config.hero_title);
+                safeSetText('hero-subtitle-el', config.hero_subtitle);
 
-                // Architecture section
-                if (config.arch_badge) document.getElementById('arch-badge-el').textContent = config.arch_badge;
-                if (config.arch_title) document.getElementById('arch-title-el').textContent = config.arch_title;
-                if (config.arch_desc) document.getElementById('arch-desc-el').textContent = config.arch_desc;
+                safeSetText('history-badge-el', config.history_badge);
+                safeSetText('history-title-el', config.history_title);
+                safeSetText('history-desc1-el', config.history_desc1);
+                safeSetText('history-desc2-el', config.history_desc2);
+                safeSetSrc('history-img-el', config.history_img);
 
-                // Render architecture image gallery cards with custom links from admin
+                if (config.quote_text) safeSetText('quote-text-el', `"${config.quote_text}"`);
+                if (config.quote_author) safeSetText('quote-author-el', `— ${config.quote_author}`);
+
+                safeSetText('arch-badge-el', config.arch_badge);
+                safeSetText('arch-title-el', config.arch_title);
+                safeSetText('arch-desc-el', config.arch_desc);
+
                 renderArchitectureGallery(config);
 
             } catch (err) {
