@@ -1,7 +1,7 @@
 /**
- * maintenance-config.js - Quản lý chế độ bảo trì thông minh
- * Chạy trên Live Server (127.0.0.1 / localhost): KHÔNG BAO GIỜ bị chuyển hướng bảo trì.
- * Chạy trên Domain chính (Cloudflare): Tự động bật/tắt màn hình bảo trì theo Admin.
+ * maintenance-config.js - Cấu hình kiểm tra và quản lý chế độ bảo trì thông minh
+ * Chạy trên Localhost / Live Server: KHÔNG BAO GIỜ bị chuyển hướng bảo trì.
+ * Chạy trên Cloudflare Workers / Domain chính: Tự động bật/tắt màn hình bảo trì theo Admin.
  */
 
 (async function () {
@@ -25,7 +25,15 @@
         return;
     }
 
-    // 2. Chỉ chạy kiểm tra bảo trì trên Domain chính thức (Cloudflare)
+    // 2. Kiểm tra xem người dùng có đang ở trang Quản trị hoặc trang Bảo trì hay không
+    // Hỗ trợ cả trường hợp có hoặc không có đuôi .html (ví dụ: /admin hoặc /admin.html)
+    const isAtAdmin = currentPath.includes('admin');
+    const isAtMaint = currentPath.includes('bao-tri');
+
+    // Tuyệt đối không chuyển hướng nếu Admin đang ở trang quản trị
+    if (isAtAdmin) return;
+
+    // 3. Kết nối Firebase Realtime Database trên Domain chính thức
     const firebaseConfig = {
         databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
     };
@@ -41,18 +49,18 @@
             firebase.database().ref('settings/maintenance_mode').on('value', (snapshot) => {
                 const isMaintenance = snapshot.val() === true;
                 const pathNow = window.location.pathname;
-                const isAtAdmin = pathNow.includes('admin.html');
-                const isAtMaint = pathNow.includes('bao-tri.html');
+                const checkAdmin = pathNow.includes('admin');
+                const checkMaint = pathNow.includes('bao-tri');
 
-                // Tuyệt đối không chuyển hướng nếu Admin đang ở trang quản trị
-                if (isAtAdmin) return;
+                // Nếu đang ở trang admin thì luôn bỏ qua
+                if (checkAdmin) return;
 
                 // Trên Domain chính: Nếu bật bảo trì và khách không ở trang bảo trì -> chuyển hướng sang bao-tri.html
-                if (isMaintenance && !isAtMaint) {
+                if (isMaintenance && !checkMaint) {
                     window.location.href = 'bao-tri.html';
                 }
-                // Nếu tắt bảo trì và đang ở trang bao-tri.html -> tự động quay về trang chủ
-                else if (!isMaintenance && isAtMaint) {
+                // Nếu tắt bảo trì và đang ở trang bao-tri -> tự động quay về trang chủ
+                else if (!isMaintenance && checkMaint) {
                     window.location.href = 'index.html';
                 }
             });
