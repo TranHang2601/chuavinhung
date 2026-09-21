@@ -1,6 +1,6 @@
 /**
  * main.js - Script dùng chung cho toàn bộ trang web Chùa Vĩnh Hưng
- * Tự động nạp Header và Footer động từ file html rời
+ * Tự động nạp Header và Footer động từ file html rời và kiểm tra bảo trì
  */
 
 // Mẫu HTML Header mặc định dự phòng khi không fetch được file
@@ -21,10 +21,10 @@ const DEFAULT_HEADER_HTML = `
             <!-- Desktop Navigation Menu -->
             <nav id="desktop-menu-nav" class="hidden md:flex space-x-6 lg:space-x-8 items-center">
                 <a href="index.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-amber-400 border-b-2 border-amber-400 pb-1 font-bold">Trang Chủ</a>
-                <a href="pages/gioi-thieu.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Giới Thiệu</a>
-                <a href="pages/tin-tuc.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Tin Tức & Khóa Tu</a>
-                <a href="pages/video.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Giảng Pháp</a>
-                <a href="pages/lien-he.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Liên Hệ</a>
+                <a href="gioi-thieu.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Giới Thiệu</a>
+                <a href="tin-tuc.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Tin Tức & Khóa Tu</a>
+                <a href="video.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Video & Pháp Thoại</a>
+                <a href="lien-he.html" class="nav-link text-xs lg:text-sm font-semibold uppercase tracking-wider text-white hover:text-amber-300 transition-colors">Liên Hệ</a>
             </nav>
 
             <!-- Nút Bật/Tắt Mobile Menu -->
@@ -40,10 +40,10 @@ const DEFAULT_HEADER_HTML = `
     <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md shadow-2xl absolute w-full left-0 top-20 border-t border-amber-200 text-slate-800">
         <div id="mobile-menu-container" class="px-4 py-4 space-y-2">
             <a href="index.html" class="block px-4 py-2.5 text-sm font-semibold bg-amber-50 text-amber-800 rounded-xl font-bold">Trang Chủ</a>
-            <a href="pages/gioi-thieu.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Giới Thiệu</a>
-            <a href="pages/tin-tuc.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Tin Tức & Khóa Tu</a>
-            <a href="pages/video.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Giảng Pháp</a>
-            <a href="pages/lien-he.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Liên Hệ</a>
+            <a href="gioi-thieu.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Giới Thiệu</a>
+            <a href="tin-tuc.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Tin Tức & Khóa Tu</a>
+            <a href="video.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Video & Pháp Thoại</a>
+            <a href="lien-he.html" class="block px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition">Liên Hệ</a>
         </div>
     </div>
 </header>
@@ -86,10 +86,10 @@ const DEFAULT_FOOTER_HTML = `
                 </h4>
                 <ul class="space-y-3 text-sm">
                     <li><a href="index.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Trang Chủ</a></li>
-                    <li><a href="pages/gioi-thieu.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giới Thiệu</a></li>
-                    <li><a href="pages/tin-tuc.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Tin Tức & Khóa Tu</a></li>
-                    <li><a href="pages/video.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giảng Pháp</a></li>
-                    <li><a href="pages/lien-he.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Liên Hệ</a></li>
+                    <li><a href="gioi-thieu.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giới Thiệu</a></li>
+                    <li><a href="tin-tuc.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Tin Tức & Khóa Tu</a></li>
+                    <li><a href="video.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Giảng Pháp</a></li>
+                    <li><a href="lien-he.html" class="hover:text-buddhist-gold transition flex items-center"><i class="fa-solid fa-chevron-right text-xs text-buddhist-gold mr-2"></i> Liên Hệ</a></li>
                 </ul>
             </div>
 
@@ -163,13 +163,11 @@ async function loadComponentIntoContainer(containerId, pathsToTry, defaultHtml) 
         }
     }
 
-    // Nếu không fetch được (do CORS file:// hoặc sai đường dẫn 404), sử dụng mẫu HTML dự phòng
     if (!loaded && container.children.length === 0) {
         container.innerHTML = defaultHtml;
         loaded = true;
     }
 
-    // Thực thi lại script bên trong thẻ HTML vừa nạp
     if (loaded) {
         const scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
@@ -196,9 +194,9 @@ async function loadHeaderContainer() {
     }
 }
 
-// 2. Nạp Footer (Gắn file footer.html)
+// 2. Nạp Footer
 async function loadFooterContainer() {
-    const pathsToTry = ['footer.html', 'pages/footer.html', './footer.html', '../pages/footer.html'];
+    const pathsToTry = ['footer.html', 'pages/footer.html', './header.html', '../pages/header.html'];
     await loadComponentIntoContainer('footer-container', pathsToTry, DEFAULT_FOOTER_HTML);
 }
 
@@ -326,13 +324,32 @@ function setupHeaderScrollEffect() {
     handleScroll();
 }
 
-// Hàm khởi tạo Mobile Menu toggle
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenu) {
         mobileMenu.classList.toggle('hidden');
     }
 }
+
+// Kiểm tra trạng thái bảo trì thời gian thực cho mọi trang có nhúng main.js
+document.addEventListener("DOMContentLoaded", () => {
+    const firebaseConfig = {
+        databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    firebase.database().ref('settings/maintenance_mode').on('value', (snapshot) => {
+        const isMaintenance = snapshot.val() === true;
+        const currentPath = window.location.pathname;
+        const isMaintenancePage = currentPath.includes('bao-tri.html') || currentPath.includes('admin.html');
+        
+        if (isMaintenance && !isMaintenancePage) {
+            window.location.href = 'bao-tri.html';
+        }
+    });
+});
 
 // Khởi chạy khi DOM sẵn sàng
 document.addEventListener('DOMContentLoaded', async () => {

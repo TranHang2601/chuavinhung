@@ -797,14 +797,38 @@
         <!-- TAB 9: SETTINGS -->
         <section id="tab-sec-settings" class="hidden space-y-6">
             <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
-                <h2 class="text-xl font-serif font-bold text-slate-900 uppercase border-b border-slate-100 pb-4">Cấu Hình Kết Nối & Tối Ưu Hình Ảnh</h2>
-                <div class="space-y-5">
+                <h2 class="text-xl font-serif font-bold text-slate-900 uppercase border-b border-slate-100 pb-4">Cấu Hình Kết Nối & Trạng Thái Bảo Trì </h2>
+                
+                <!-- PHẦN BẬT / TẮT BẢO TRÌ -->
+                <div class="bg-amber-50/50 p-6 rounded-2xl border border-amber-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-sm uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Bật Chế Độ Bảo Trì
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1">Khi gạt bật, khách truy cập vào trang chủ sẽ tự động chuyển hướng đến <code class="bg-amber-100 px-1.5 py-0.5 rounded font-mono text-amber-900">bao-tri.html</code>.</p>
+                        </div>
+                        <!-- Toggle Switch -->
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="maintenance-toggle" onchange="toggleMaintenanceMode(this.checked)" class="sr-only peer">
+                            <div class="w-14 h-7 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[4px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-rose-600"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-amber-200/60">
+                        <p id="maintenance-status-label" class="text-xs font-bold text-slate-600">Trạng thái: Đang tải...</p>
+                        <a href="../bao-tri.html" target="_blank" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-eye"></i> Xem trước trang bao-tri.html
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-5 pt-2">
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Cấu hình API Key ImgBB (Tự động tải lên)</label>
                     <div class="flex gap-3">
                         <input type="text" id="setting-imgbb-key" value="d25b42d2a45a34f82803b0c8b3260c6d" class="flex-1 px-4 py-3.5 border border-slate-300 rounded-2xl bg-slate-50 font-mono text-xs text-slate-700 outline-none focus:ring-2 focus:ring-rose-500 shadow-inner">
                         <button onclick="saveImgBBKeySetting()" class="px-6 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase transition shadow-md shadow-rose-600/20 whitespace-nowrap tracking-wider">Lưu API Key</button>
                     </div>
-                    <button onclick="testCloudConnection()" class="py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs uppercase transition shadow-md shadow-emerald-600/20 tracking-wider">
+                    <button onclick="testCloudConnection()" class="py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-xs uppercase transition shadow-md shadow-rose-600/20 tracking-wider">
                         Kiểm Tra Kết Nối Realtime Database
                     </button>
                     <p id="connection-status" class="text-xs font-bold text-slate-500"></p>
@@ -1435,9 +1459,50 @@
 
             loadFooterConfigData();
             loadAboutConfigData();
+            loadMaintenanceState(); // Đồng bộ trạng thái bảo trì thời gian thực
             setInterval(updateAdminClock, 1000);
             updateAdminClock();
         });
+
+        // HÀM LẮNG NGHE VÀ BẬT/TẮT BẢO TRÌ LIÊN KẾT `bao-tri.html`
+        async function loadMaintenanceState() {
+            try {
+                database.ref('settings/maintenance_mode').on('value', (snapshot) => {
+                    const isMaintenance = snapshot.val() === true;
+                    const toggleEl = document.getElementById('maintenance-toggle');
+                    const labelEl = document.getElementById('maintenance-status-label');
+                    if (toggleEl) toggleEl.checked = isMaintenance;
+                    if (labelEl) {
+                        if (isMaintenance) {
+                            labelEl.innerHTML = `<span class="text-rose-600 font-bold"><i class="fa-solid fa-circle-exclamation mr-1"></i> Chế độ bảo trì đang BẬT (Trang chủ chuyển hướng sang bao-tri.html)</span>`;
+                        } else {
+                            labelEl.innerHTML = `<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Hệ thống đang hoạt động bình thường</span>`;
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error("Lỗi tải trạng thái bảo trì:", err);
+            }
+        }
+
+        async function toggleMaintenanceMode(isChecked) {
+            if (currentAdminRole !== 'super') {
+                showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền bật/tắt chế độ bảo trì!", true);
+                document.getElementById('maintenance-toggle').checked = !isChecked; // Revert
+                return;
+            }
+            try {
+                await database.ref('settings/maintenance_mode').set(isChecked);
+                if (isChecked) {
+                    showToast("Đã BẬT bảo trì! Khách truy cập sẽ tự động chuyển đến bao-tri.html.");
+                } else {
+                    showToast("Đã TẮT bảo trì, hệ thống hoạt động bình thường!");
+                }
+            } catch (err) {
+                showToast("Lỗi thay đổi trạng thái: " + err.message, true);
+                document.getElementById('maintenance-toggle').checked = !isChecked;
+            }
+        }
 
         function switchSubTabAbout(subTabName) {
             document.querySelectorAll('[id^="subtab-pane-"]').forEach(pane => pane.classList.add('hidden'));
@@ -2273,7 +2338,7 @@
         }
 
         async function loadAllData() {
-            await Promise.all([loadTags(), loadQA(), loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts(), loadFooterConfigData(), loadAboutConfigData()]);
+            await Promise.all([loadTags(), loadQA(), loadNews(), loadVideos(), loadMonks(), loadMenu(), loadAdminAccounts(), loadFooterConfigData(), loadAboutConfigData(), loadMaintenanceState()]);
         }
 
         async function loadNews() {

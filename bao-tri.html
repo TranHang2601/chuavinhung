@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chùa Vĩnh Hưng - Đang Trùng Tu & Nâng Cấp</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brightGold: '#D97706',
+                        templeYellow: '#FEF3C7',
+                        templeBrown: '#78350F',
+                        softCream: '#FFFBEB',
+                        sacredGreen: '#047857',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 50%, #FCD34D 100%);
+            color: #451A03;
+            overflow-x: hidden;
+        }
+        .lotus-glow {
+            filter: drop-shadow(0 0 15px rgba(180, 83, 9, 0.3));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 20px 40px rgba(120, 53, 15, 0.1);
+        }
+    </style>
+    <!-- Đoạn code tự động chuyển về trang chủ khi tắt bảo trì -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const firebaseConfig = {
+                databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+            };
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            // Lắng nghe trạng thái bảo trì thời gian thực
+            firebase.database().ref('settings/maintenance_mode').on('value', (snapshot) => {
+                const isMaintenance = snapshot.val() === true;
+                
+                // Nếu trạng thái đổi thành false (Đã tắt bảo trì) -> Tự động quay về index.html
+                if (!isMaintenance) {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+
+</head>
+<body class="h-full flex flex-col justify-between min-h-screen selection:bg-amber-400 selection:text-amber-950">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-amber-200/50 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-orange-200/40 rounded-full blur-3xl"></div>
+    </div>
+
+    <header class="relative z-10 w-full py-6 px-6 sm:px-12 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-white shadow-md lotus-glow border-2 border-amber-600 overflow-hidden p-1">
+                <img src="images/logo.png" alt="Logo Chùa Vĩnh Hưng" class="w-full h-full object-contain" onerror="this.src='https://placehold.co/100x100/e11d48/ffffff?text=VH'">
+            </div>
+            <div>
+                <h1 class="font-serif text-xl sm:text-2xl font-bold tracking-wide text-amber-900">CHÙA VĨNH HƯNG</h1>
+                <p class="text-xs text-amber-700 font-medium tracking-widest uppercase">Trang Chính Thức</p>
+            </div>
+        </div>
+        <div class="hidden sm:flex items-center space-x-2 text-sm text-amber-900 bg-amber-100/80 px-4 py-2 rounded-full border border-amber-300 shadow-sm">
+            <i class="fa-solid fa-circle text-[8px] text-amber-600 animate-pulse"></i>
+            <span>Đang bảo trì & nâng cấp hệ thống</span>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow flex items-center justify-center px-4 py-12 max-w-3xl mx-auto text-center">
+        <div class="glass-card rounded-3xl p-8 sm:p-14 w-full relative overflow-hidden">
+            <!-- Decorative corner motifs -->
+            <div class="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-amber-400/50 rounded-tl-3xl m-4 pointer-events-none"></div>
+            <div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-amber-400/50 rounded-tr-3xl m-4 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-amber-400/50 rounded-bl-3xl m-4 pointer-events-none"></div>
+            <div class="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-amber-400/50 rounded-br-3xl m-4 pointer-events-none"></div>
+
+            <!-- Lotus Icon & Floating Element -->
+            <div class="mb-6 inline-block floating">
+                <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-b from-amber-100 to-amber-200 border border-amber-400 flex items-center justify-center lotus-glow shadow-inner">
+                    <i class="fa-solid fa-spa text-4xl text-amber-700"></i>
+                </div>
+            </div>
+
+            <!-- Main Heading -->
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-950 mb-6 tracking-wide">
+                Website Đang Được <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600"><br> Bảo Trì & Nâng Cấp</span>
+            </h2>
+
+            <p class="text-amber-900/80 text-base sm:text-lg max-w-xl mx-auto mb-10 font-light leading-relaxed">
+                Nam Mô Bổn Sư Thích Ca Mâu Ni Phật.<br>
+                Trang thông tin điện tử của <strong class="text-amber-950 font-medium">Chùa Vĩnh Hưng</strong> đang được hoàn thiện nhằm mang đến không gian trải nghiệm thanh tịnh, trang nghiêm và kết nối Phật pháp trọn vẹn nhất.
+            </p>
+
+            <!-- Quick Action / Contact Info -->
+            <div class="border-t border-amber-200 pt-8 max-w-lg mx-auto">
+                <p class="text-sm text-amber-900 font-medium">Nguyện cầu hồng ân Tam Bảo gia hộ quý Phật tử và gia đình luôn an lạc, cát tường.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 py-6 px-6 text-center text-xs text-amber-900/70 border-t border-amber-300/40 max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p>&copy; 2026 Chùa Vĩnh Hưng. Nguyện đem công đức này hướng về khắp tất cả.</p>
+        <div class="flex space-x-4 text-amber-800">
+            <a href="#" class="hover:text-amber-600 transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-base"></i></a>
+            <a href="#" class="hover:text-amber-600 transition" aria-label="YouTube"><i class="fa-brands fa-youtube text-base"></i></a>
+            <a href="#" class="hover:text-amber-600 transition" aria-label="Location"><i class="fa-solid fa-location-dot text-base"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
