@@ -13,6 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
+    <script src="js/maintenance-config.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -55,26 +57,7 @@
 </head>
 <body class="bg-zenwarm-bg font-sans text-zenwarm-text antialiased min-h-screen flex flex-col justify-between">
 
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zenwarm-border shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 rounded-full bg-zenwarm-secondary text-amber-100 flex items-center justify-center text-xl font-serif shadow-md border-2 border-amber-600">
-                        <i class="fa-solid fa-dharmachakra"></i>
-                    </div>
-                    <div>
-                        <span class="font-serif text-xl sm:text-2xl font-bold text-zenwarm-text tracking-wide block">CHÙA VĨNH HƯNG</span>
-                        <span class="text-xs text-zenwarm-primary tracking-widest uppercase font-medium">Thiền môn thanh tịnh - An nhiên</span>
-                    </div>
-                </div>
-                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-stone-700">
-                    <a href="#main-tabs" onclick="switchTab('lich-su')" class="hover:text-zenwarm-primary transition">Lịch Sử</a>
-                    <a href="#main-tabs" onclick="switchTab('kien-truc')" class="hover:text-zenwarm-primary transition">Kiến Trúc & Không Gian</a>
-                    <a href="#main-tabs" onclick="switchTab('nhan-su')" class="hover:text-zenwarm-primary transition">Chư Tăng Ni & Trị Sự</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <div id="header-container"></div>
 
     <section class="hero-warm-gradient text-white py-24 px-6 relative overflow-hidden">
         <div class="max-w-4xl mx-auto text-center relative z-10">
@@ -196,9 +179,7 @@
         </div>
     </main>
 
-    <footer class="bg-stone-900 text-stone-400 py-16 border-t border-stone-800 text-center text-xs">
-        <p>&copy; 2026 Chùa Vĩnh Hưng. Bản quyền thuộc về Ban Hoằng Pháp.</p>
-    </footer>
+     <div id="footer-container"></div>
 
     <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
@@ -231,7 +212,7 @@
             </div>
         </div>
     </div>
-
+    <script src="js/main.js"></script>
     <script>
         const firebaseConfig = {
             databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"

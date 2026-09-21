@@ -339,16 +339,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
-
-    firebase.database().ref('settings/maintenance_mode').on('value', (snapshot) => {
-        const isMaintenance = snapshot.val() === true;
-        const currentPath = window.location.pathname;
-        const isMaintenancePage = currentPath.includes('bao-tri.html') || currentPath.includes('admin.html');
-        
-        if (isMaintenance && !isMaintenancePage) {
-            window.location.href = 'bao-tri.html';
-        }
-    });
 });
 
 // Khởi chạy khi DOM sẵn sàng
