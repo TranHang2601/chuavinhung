@@ -87,6 +87,38 @@
             animation: floatLotus 3s ease-in-out infinite;
         }
 
+        /* Hiệu ứng phát sáng mạnh và rực rỡ hơn khi hover nút play của video mới nhất */
+        .main-play-btn-glow {
+            transition: all 0.3s ease;
+        }
+        .group:hover .main-play-btn-glow {
+            background-color: #ffffff !important;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.9), 0 0 60px rgba(212, 175, 55, 0.9), 0 0 90px rgba(255, 255, 255, 0.6);
+            transform: scale(1.15);
+            color: #6b2024 !important;
+        }
+
+        /* Hiệu ứng phát sáng viền mượt mà cho các item video bên cạnh khi hover */
+        .video-item-card {
+            transition: all 0.3s ease;
+        }
+        .video-item-card:hover {
+            border-color: #d4af37 !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 10px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hiệu ứng phóng to và phát sáng viền vàng khi hover thẻ tin tức (không dùng bóng đổ) */
+        .news-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .news-card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #d4af37 !important;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+
         /* Tùy chỉnh màu sắc và vị trí nút điều hướng Swiper */
         .swiper-button-next, .swiper-button-prev {
             color: #6b2024 !important;
@@ -199,9 +231,9 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Cập nhật những thông tin mới nhất về các hoạt động tu học, từ thiện và sự kiện Phật giáo diễn ra tại chùa.</p>
             </div>
 
-            <!-- Swiper Container Xoay Vòng -->
+            <!-- Swiper Container Xoay Vòng - Tăng padding py-8 để không bị cắt hiệu ứng phát sáng -->
             <div class="relative reveal px-2 sm:px-10">
-                <div class="swiper newsSwiper py-6">
+                <div class="swiper newsSwiper py-8">
                     <div id="tin-tuc-container" class="swiper-wrapper">
                         <!-- Loading State -->
                         <div class="swiper-slide text-center py-10">
@@ -245,7 +277,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Footer Container -->
     <div id="footer-container"></div>
@@ -293,43 +324,47 @@
                     const newsList = Object.keys(data).map(key => ({ id: key, ...data[key] }))
                         .filter(item => item.hidden !== true && item.hidden !== 'true')
                         .sort((a, b) => (b.created_at || 0) - (a.created_at || 0))
-                        .slice(0, 8); // Lấy 6 bài viết mới nhất
+                        .slice(0, 8);
                     
                     if (newsList.length === 0) {
                         container.innerHTML = "<div class='swiper-slide'><p class='text-center text-gray-500 py-8'>Hiện chưa có bài viết nào.</p></div>";
                         return;
                     }
                     
-                    // Render các bài viết vào các swiper-slide với kích thước đều nhau
+                    // Render các bài viết với chiều cao co giãn tự nhiên, không chứa khoảng trống thừa
                     container.innerHTML = newsList.map(item => {
-                        // Làm sạch hoàn toàn các thẻ HTML và mọi ký tự Markdown (##, ###, **, *, __, ~~, v.v.)
                         let rawText = item.content ? item.content.replace(/<[^>]*>/g, '') : '';
                         let cleanText = rawText
-                            .replace(/#{1,6}\s?/g, '')       // Xóa tiêu đề markdown (#, ##, ###...)
-                            .replace(/(\*\*|__)(.*?)\1/g, '$2') // Xóa định dạng chữ in đậm (**text** hoặc __text__)
-                            .replace(/(\*|_)(.*?)\1/g, '$2')   // Xóa định dạng chữ in nghiêng (*text* hoặc _text_)
-                            .replace(/~~(.*?)~~/g, '$1')     // Xóa chữ gạch ngang
-                            .replace(/[\*#_~`]/g, '')        // Xóa sạch các dấu *, #, _, ~, ` còn sót lại
+                            .replace(/#{1,6}\s?/g, '')       
+                            .replace(/(\*\*|__)(.*?)\1/g, '$2') 
+                            .replace(/(\*|_)(.*?)\1/g, '$2')   
+                            .replace(/~~(.*?)~~/g, '$1')     
+                            .replace(/[\*#_~`]/g, '')        
                             .trim();
                         
+                        const newsDateFormatted = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : '';
+                        const detailUrl = `chi-tiet-tin-tuc.html?slug=${item.slug || item.id}`;
+                        
                         return `
-                        <div class="swiper-slide h-auto flex">
-                            <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between border border-amber-100 w-full h-full">
-                                <div class="h-60 bg-gray-100 overflow-hidden flex-shrink-0">
+                        <div class="swiper-slide h-auto flex py-3">
+                            <article onclick="window.location.href='${detailUrl}'" class="bg-white rounded-2xl overflow-hidden border border-amber-100 w-full h-full flex flex-col justify-between news-card-hover">
+                                <div class="h-60 bg-gray-100 overflow-hidden flex-shrink-0 group">
                                     <img src="${item.image || 'https://placehold.co/600x400?text=ChuaVinhHung'}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=ChuaVinhHung'">
                                 </div>
                                 <div class="p-6 flex-1 flex flex-col justify-between">
                                     <div>
-                                        <div class="text-xs font-semibold text-buddhist-gold uppercase mb-2">
-                                            <i class="fa-regular fa-calendar mr-1.5"></i> ${item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : ''}
-                                        </div>
-                                        <h3 class="text-xl font-heading font-bold mb-3 line-clamp-2 min-h-[3.5rem]">${item.title}</h3>
-                                        <p class="text-gray-600 text-sm line-clamp-3 min-h-[4rem]">${cleanText.substring(0, 140)}...</p>
+                                        ${newsDateFormatted ? `
+                                            <div class="text-xs font-semibold text-buddhist-gold uppercase mb-2 flex items-center gap-1.5">
+                                                <i class="fa-regular fa-calendar"></i> ${newsDateFormatted}
+                                            </div>
+                                        ` : ''}
+                                        <h3 class="text-xl font-heading font-bold mb-3 line-clamp-2">${item.title}</h3>
+                                        <p class="text-gray-600 text-sm line-clamp-3">${cleanText.substring(0, 140)}...</p>
                                     </div>
                                     <div class="pt-4 border-t border-gray-100 mt-4">
-                                        <a href="chi-tiet-tin-tuc.html?slug=${item.slug || item.id}" class="text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
+                                        <span class="text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
                                             Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                        </a>
+                                        </span>
                                     </div>
                                 </div>
                             </article>
@@ -397,34 +432,43 @@
                 const main = videos[0];
                 const others = videos.slice(1, 4);
                 
+                const mainDateFormatted = main.created_at ? new Date(main.created_at).toLocaleDateString('vi-VN') : '';
+
                 let html = `
                     <a href="${main.url}" target="_blank" class="lg:col-span-2 relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl block">
                         <img src="https://img.youtube.com/vi/${getYouTubeID(main.url)}/maxresdefault.jpg" class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://img.youtube.com/vi/${getYouTubeID(main.url)}/hqdefault.jpg'">
                         <div class="absolute inset-0 bg-black/40 group-hover:bg-opacity-20 transition"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-16 h-16 bg-buddhist-gold rounded-full flex items-center justify-center text-buddhist-dark text-2xl shadow-lg">
+                            <div class="w-16 h-16 bg-buddhist-gold rounded-full flex items-center justify-center text-buddhist-dark text-2xl shadow-lg main-play-btn-glow">
                                 <i class="fa-solid fa-play ml-1"></i>
                             </div>
                         </div>
                         <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
-                            <span class="bg-buddhist-maroon text-xs px-2.5 py-1 rounded-lg text-white mb-2 inline-block font-semibold">Mới nhất</span>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="bg-buddhist-maroon text-xs px-2.5 py-1 rounded-lg text-white font-semibold">Mới nhất</span>
+                                ${mainDateFormatted ? `<span class="text-xs text-buddhist-lightgold flex items-center gap-1"><i class="fa-regular fa-calendar"></i> ${mainDateFormatted}</span>` : ''}
+                            </div>
                             <h3 class="text-xl font-heading font-bold text-white line-clamp-2">${main.title}</h3>
                         </div>
                     </a>
                 `;
                 
                 if (others.length > 0) {
-                    html += `<div class="flex flex-col gap-4 lg:col-span-2 justify-start">` + others.map(v => `
-                        <a href="${v.url}" target="_blank" class="flex gap-4 group cursor-pointer bg-gray-800/60 p-3 rounded-2xl border border-gray-700/50 hover:border-buddhist-gold/50 transition">
+                    html += `<div class="flex flex-col gap-4 lg:col-span-2 justify-start">` + others.map(v => {
+                        const vDateFormatted = v.created_at ? new Date(v.created_at).toLocaleDateString('vi-VN') : '';
+                        return `
+                        <a href="${v.url}" target="_blank" class="flex gap-4 group cursor-pointer bg-gray-800/60 p-3 rounded-2xl border border-gray-700/50 video-item-card">
                             <div class="relative w-36 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-gray-900">
                                 <img src="https://img.youtube.com/vi/${getYouTubeID(v.url)}/hqdefault.jpg" class="w-full h-full object-cover group-hover:scale-110 transition" onerror="this.src='https://placehold.co/300x200?text=Video'">
                                 <div class="absolute inset-0 flex items-center justify-center bg-black/30"><i class="fa-solid fa-play text-white"></i></div>
                             </div>
                             <div class="flex flex-col justify-center flex-1">
+                                ${vDateFormatted ? `<span class="text-xs text-buddhist-lightgold mb-1 flex items-center gap-1"><i class="fa-regular fa-calendar"></i> ${vDateFormatted}</span>` : ''}
                                 <h4 class="font-heading font-bold text-sm text-gray-100 group-hover:text-buddhist-lightgold line-clamp-2">${v.title}</h4>
                             </div>
                         </a>
-                    `).join('') + `</div>`;
+                    `;
+                    }).join('') + `</div>`;
                 }
                 container.innerHTML = html;
             } catch (err) {

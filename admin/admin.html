@@ -20,11 +20,11 @@
     <style>
         body { 
             background: linear-gradient(135deg, #fcfbf7 0%, #fffdf9 100%); 
-            font-family: 'Plus Jakarta Sans', sans-serif !important;; 
+            font-family: 'Plus Jakarta Sans', sans-serif !important; 
             color: #1e293b;
         }
 
-        .font-serif { font-family: 'Playfair Display', serif !important;; }
+        .font-serif { font-family: 'Playfair Display', serif !important; }
         .custom-shadow { 
             box-shadow: 0 12px 30px -4px rgba(225, 29, 72, 0.06), 0 4px 12px -2px rgba(0, 0, 0, 0.03); 
             transition: all 0.25s ease;
@@ -576,7 +576,7 @@
                                 <th class="py-3.5 px-4 w-28 text-center">Ảnh Video</th>
                                 <th class="py-3.5 px-4">Tiêu đề Video</th>
                                 <th class="py-3.5 px-4 w-36">Link YouTube</th>
-                                <th class="py-3.5 px-4 w-44">NGƯỜI ĐĂNG</th>
+                                <th class="py-3.5 px-4 w-32">Ngày đăng</th>
                                 <th class="py-3.5 px-4 w-32 text-center">Trạng Thái</th>
                                 <th class="py-3.5 px-4 w-40 text-center video-action-th">Thao tác</th>
                             </tr>
@@ -935,11 +935,18 @@
         <form id="news-form" onsubmit="saveNews(event)" class="overflow-y-auto my-4 py-2 space-y-6 flex-1 text-xs">
             <input type="hidden" id="news-key">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2">
                     <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Tiêu đề bài viết <span class="text-rose-600">*</span></label>
                     <input type="text" id="news-title" required oninput="autoGenerateSlug()" placeholder="Nhập tiêu đề tin tức, sự kiện..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none text-base font-semibold text-slate-800 bg-slate-50/50 shadow-inner">
                 </div>
+                <div>
+                    <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Ngày đăng bài <span class="text-rose-600">*</span></label>
+                    <input type="date" id="news-date" required class="w-full px-5 py-4 border border-slate-300 rounded-2xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none text-sm font-semibold text-slate-800 bg-slate-50/50 shadow-inner">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <div class="flex items-center justify-between mb-2">
                         <label class="font-bold text-slate-700 text-sm uppercase">Đường dẫn tĩnh (Slug) <span class="text-rose-600">*</span></label>
@@ -947,9 +954,6 @@
                     </div>
                     <input type="text" id="news-slug" required placeholder="duong-dan-bai-viet" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-slate-100 font-mono text-sm focus:ring-2 focus:ring-rose-500 outline-none text-slate-700 shadow-inner">
                 </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-amber-50/40 p-6 rounded-3xl border border-amber-200/80 shadow-sm">
                 <div>
                     <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Chọn Chuyên Mục Chính <span class="text-rose-600">*</span></label>
                     <select id="news-category" onchange="onCategoryChange(this.value)" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
@@ -957,11 +961,12 @@
                         <option value="thong-bao">Thông Báo (Khóa tu & Sự kiện)</option>
                     </select>
                 </div>
-                <div id="news-tag-group">
-                    <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
-                    <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
-                    </select>
-                </div>
+            </div>
+
+            <div id="news-tag-group" class="bg-amber-50/40 p-6 rounded-3xl border border-amber-200/80 shadow-sm">
+                <label class="block font-bold text-slate-700 text-sm uppercase mb-2">Thẻ Tag Thông Báo / Khóa Tu</label>
+                <select id="news-tag" class="w-full px-5 py-4 border border-slate-300 rounded-2xl bg-white font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-rose-500 shadow-sm text-sm appearance-none cursor-pointer">
+                </select>
             </div>
 
             <div>
@@ -1126,11 +1131,15 @@
         <form id="video-form" onsubmit="saveVideo(event)" class="space-y-5 text-xs sm:text-sm">
             <input type="hidden" id="video-key">
             <div>
-                <label class="block font-bold text-slate-700 uppercase mb-2">Tiêu đề video pháp thoại</label>
+                <label class="block font-bold text-slate-700 uppercase mb-2">Tiêu đề video pháp thoại <span class="text-rose-600">*</span></label>
                 <input type="text" id="video-title" required placeholder="Nội dung bài giảng..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-base outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
             </div>
             <div>
-                <label class="block font-bold text-slate-700 uppercase mb-2">Đường dẫn YouTube (URL)</label>
+                <label class="block font-bold text-slate-700 uppercase mb-2">Ngày đăng video <span class="text-rose-600">*</span></label>
+                <input type="date" id="video-date" required class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-semibold text-slate-800 shadow-inner">
+            </div>
+            <div>
+                <label class="block font-bold text-slate-700 uppercase mb-2">Đường dẫn YouTube (URL) <span class="text-rose-600">*</span></label>
                 <input type="url" id="video-url" required placeholder="https://www.youtube.com/watch?v=..." oninput="onVideoUrlChange(this.value)" class="w-full px-5 py-4 border border-slate-300 rounded-2xl text-sm outline-none bg-slate-50 font-mono text-slate-700 shadow-inner">
             </div>
             <div>
@@ -1454,6 +1463,9 @@
                 loadAllData();
             }
 
+            const savedTab = localStorage.getItem('vinhhung_admin_active_tab') || 'overview';
+            switchTab(savedTab);
+
             const savedKey = localStorage.getItem('vinhhung_imgbb_key');
             if (savedKey) {
                 const keyInput = document.getElementById('setting-imgbb-key');
@@ -1462,12 +1474,11 @@
 
             loadFooterConfigData();
             loadAboutConfigData();
-            loadMaintenanceState(); // Đồng bộ trạng thái bảo trì thời gian thực
+            loadMaintenanceState(); 
             setInterval(updateAdminClock, 1000);
             updateAdminClock();
         });
 
-        // HÀM LẮNG NGHE VÀ BẬT/TẮT BẢO TRÌ LIÊN KẾT `bao-tri.html`
         async function loadMaintenanceState() {
             try {
                 database.ref('settings/maintenance_mode').on('value', (snapshot) => {
@@ -1491,7 +1502,7 @@
         async function toggleMaintenanceMode(isChecked) {
             if (currentAdminRole !== 'super') {
                 showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền bật/tắt chế độ bảo trì!", true);
-                document.getElementById('maintenance-toggle').checked = !isChecked; // Revert
+                document.getElementById('maintenance-toggle').checked = !isChecked; 
                 return;
             }
             try {
@@ -2337,6 +2348,7 @@
             if (targetSec && targetBtn) {
                 targetSec.classList.remove('hidden');
                 targetBtn.classList.add('active');
+                localStorage.setItem('vinhhung_admin_active_tab', tabName);
             }
         }
 
@@ -2547,6 +2559,10 @@
             document.getElementById('news-key').value = '';
             document.getElementById('news-title').value = '';
             document.getElementById('news-slug').value = '';
+            
+            const todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('news-date').value = todayStr;
+
             document.getElementById('news-category').value = 'tin-tuc';
             document.getElementById('news-tag').value = '';
             document.getElementById('news-input-image').value = '';
@@ -2566,6 +2582,14 @@
             document.getElementById('news-key').value = key;
             document.getElementById('news-title').value = item.title || '';
             document.getElementById('news-slug').value = item.slug || '';
+            
+            if (item.created_at) {
+                const d = new Date(item.created_at);
+                document.getElementById('news-date').value = d.toISOString().split('T')[0];
+            } else {
+                document.getElementById('news-date').value = new Date().toISOString().split('T')[0];
+            }
+
             document.getElementById('news-category').value = item.category || 'tin-tuc';
             onCategoryChange(item.category || 'tin-tuc');
             if (item.tag) document.getElementById('news-tag').value = item.tag;
@@ -2590,6 +2614,7 @@
             const key = document.getElementById('news-key').value;
             const title = document.getElementById('news-title').value.trim();
             const slug = document.getElementById('news-slug').value.trim() || generateSlug(title);
+            const dateInputVal = document.getElementById('news-date').value;
             const category = document.getElementById('news-category').value;
             const tag = category === 'thong-bao' ? document.getElementById('news-tag').value : 'tin-tuc';
             const image = document.getElementById('news-input-image').value.trim();
@@ -2604,16 +2629,25 @@
             const currentAdminName = sessionStorage.getItem('vinhhung_admin_name') || 'Thầy Trụ Trì (Super Admin)';
             const newsAuthor = (key && newsData[key] && newsData[key].author) ? newsData[key].author : currentAdminName;
 
+            let timestamp = Date.now();
+            if (dateInputVal) {
+                const parsedDate = new Date(dateInputVal);
+                if (!isNaN(parsedDate.getTime())) {
+                    parsedDate.setHours(12, 0, 0, 0);
+                    timestamp = parsedDate.getTime();
+                }
+            }
+
             const newsPayload = {
                 title, slug, category, tag, image, content, gallery,
                 author: newsAuthor,
-                created_at: key && newsData[key] ? newsData[key].created_at : Date.now(),
+                created_at: timestamp,
                 hidden: key && newsData[key] ? (newsData[key].hidden || false) : false
             };
 
             try {
                 if (key) {
-                    await database.ref(`news/${key}`).update(newsPayload);
+                    await database.ref(`news/${key}`).set(newsPayload);
                     showToast("Cập nhật bài viết thành công!");
                 } else {
                     await database.ref('news').push(newsPayload);
@@ -2672,7 +2706,7 @@
             keys.forEach((key, index) => {
                 const item = videosData[key];
                 const isHidden = item.hidden === true;
-                const authorName = item.author || 'Thầy Trụ Trì (Super Admin)';
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
 
                 const statusBadge = isHidden 
                     ? `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
@@ -2684,7 +2718,7 @@
                         <td class="py-3.5 px-4 text-center"><img src="${item.thumbnail || ''}" class="w-16 h-10 object-cover rounded-lg mx-auto shadow-sm"></td>
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
                         <td class="py-3.5 px-4"><a href="${item.url}" target="_blank" class="text-blue-600 text-xs font-mono font-bold hover:underline"><i class="fa-brands fa-youtube text-rose-600 mr-1"></i>Xem YouTube</a></td>
-                        <td class="py-3.5 px-4 text-xs font-semibold text-rose-950/80 whitespace-nowrap">${authorName}</td>
+                        <td class="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap font-medium">${dateStr}</td>
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
@@ -2703,6 +2737,10 @@
             document.getElementById('video-title').value = '';
             document.getElementById('video-url').value = '';
             document.getElementById('video-thumbnail').value = '';
+            
+            const todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('video-date').value = todayStr;
+
             document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
             document.getElementById('modal-video').classList.remove('hidden');
         }
@@ -2714,6 +2752,14 @@
             document.getElementById('video-title').value = item.title || '';
             document.getElementById('video-url').value = item.url || '';
             document.getElementById('video-thumbnail').value = item.thumbnail || '';
+            
+            if (item.created_at) {
+                const d = new Date(item.created_at);
+                document.getElementById('video-date').value = d.toISOString().split('T')[0];
+            } else {
+                document.getElementById('video-date').value = new Date().toISOString().split('T')[0];
+            }
+
             if (item.thumbnail) {
                 document.getElementById('video-thumb-preview-img').src = item.thumbnail;
                 document.getElementById('video-thumb-preview-wrap').classList.remove('hidden');
@@ -2756,19 +2802,29 @@
             const title = document.getElementById('video-title').value.trim();
             const url = document.getElementById('video-url').value.trim();
             const thumbnail = document.getElementById('video-thumbnail').value.trim();
+            const dateInputVal = document.getElementById('video-date').value;
 
             const currentAdminName = sessionStorage.getItem('vinhhung_admin_name') || 'Super Admin';
             const videoAuthor = (key && videosData[key] && videosData[key].author) ? videosData[key].author : currentAdminName;
 
+            let timestamp = Date.now();
+            if (dateInputVal) {
+                const parsedDate = new Date(dateInputVal);
+                if (!isNaN(parsedDate.getTime())) {
+                    parsedDate.setHours(12, 0, 0, 0);
+                    timestamp = parsedDate.getTime();
+                }
+            }
+
             const videoPayload = {
                 title, url, thumbnail,
                 author: videoAuthor,
-                created_at: key && videosData[key] ? videosData[key].created_at : Date.now(),
+                created_at: timestamp,
                 hidden: key && videosData[key] ? (videosData[key].hidden || false) : false
             };
 
             try {
-                if (key) await database.ref(`videos/${key}`).update(videoPayload);
+                if (key) await database.ref(`videos/${key}`).set(videoPayload);
                 else await database.ref('videos').push(videoPayload);
                 closeVideoModal();
                 loadVideos();

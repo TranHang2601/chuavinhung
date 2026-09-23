@@ -351,7 +351,11 @@
         grid.innerHTML = '';
         paginationEl.innerHTML = '';
 
-        const keys = Object.keys(allNewsCache).reverse();
+        const keys = Object.keys(allNewsCache).sort((a, b) => {
+            const timeA = allNewsCache[a].created_at || 0;
+            const timeB = allNewsCache[b].created_at || 0;
+            return timeB - timeA; // Sắp xếp giảm dần từ mới nhất đến cũ nhất
+        });
         let matchedPosts = [];
 
         keys.forEach(key => {
