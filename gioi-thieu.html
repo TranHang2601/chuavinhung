@@ -43,7 +43,7 @@
 
     <style>
         .hero-warm-gradient {
-            background: linear-gradient(135deg, rgba(120, 53, 15, 0.92) 0%, rgba(180, 83, 9, 0.88) 100%), url('https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/chua1.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -82,7 +82,7 @@
             </button>
             <button onclick="switchTab('kien-truc')" id="btn-kien-truc" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 text-zenwarm-muted hover:bg-amber-50/50 hover:text-zenwarm-text tab-transition">
                 <i class="fa-solid fa-images text-base"></i>
-                <span>Kiến Trúc & Không Gian</span>
+                <span>Cảnh chùa</span>
             </button>
             <button onclick="switchTab('nhan-su')" id="btn-nhan-su" class="tab-btn flex-1 py-4 px-6 rounded-xl font-semibold text-sm flex items-center justify-center space-x-3 text-zenwarm-muted hover:bg-amber-50/50 hover:text-zenwarm-text tab-transition">
                 <i class="fa-solid fa-users text-base"></i>
@@ -104,7 +104,6 @@
                     </p>
                 </div>
 
-                <!-- Timeline động render từ admin -->
                 <div id="dynamic-timeline-container" class="relative border-l-2 border-amber-300 ml-4 md:ml-12 pl-6 md:pl-10 space-y-12 my-8">
                     <!-- Populated dynamically -->
                 </div>
@@ -118,7 +117,7 @@
                 </div>
             </div>
 
-            <!-- Tab Kiến Trúc & Không Gian -->
+            <!-- Tab Kiến Trúc & Không Gian (Cảnh Chùa) -->
             <div id="content-kien-truc" class="tab-pane hidden space-y-8">
                 <div class="max-w-2xl">
                     <span id="arch-badge-el" class="text-zenwarm-primary font-bold text-xs uppercase tracking-widest bg-amber-50 px-3.5 py-1.5 rounded-lg border border-amber-200 inline-block">Thắng Cảnh Thiền Viện</span>
@@ -127,8 +126,11 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="architecture-grid-container">
-                    <!-- Populated dynamically -->
+                    <!-- Populated dynamically from Admin Architecture tab -->
                 </div>
+
+                <!-- Phân trang cảnh chùa -->
+                <div id="architecture-pagination" class="flex justify-center items-center space-x-2 pt-6"></div>
             </div>
 
             <!-- Tab Chư Tăng Ni & Trị Sự -->
@@ -179,7 +181,7 @@
         </div>
     </main>
 
-     <div id="footer-container"></div>
+    <div id="footer-container"></div>
 
     <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4">
@@ -226,6 +228,11 @@
         }
         const database = typeof firebase !== 'undefined' && firebase.database ? firebase.database() : null;
 
+        // Biến lưu trữ cấu hình toàn cục cho phân trang cảnh chùa
+        let globalArchitectureItems = [];
+        let currentArchitecturePage = 1;
+        const ITEMS_PER_PAGE = 21;
+
         document.addEventListener('DOMContentLoaded', () => {
             loadAboutConfigFromAdmin();
         });
@@ -257,14 +264,96 @@
                     if (config.quote_text) safeSetText('quote-text-el', `"${config.quote_text}"`);
                     if (config.quote_author) safeSetText('quote-author-el', `— ${config.quote_author}`);
 
-                    // Architecture
+                    // Architecture (Cảnh Chùa)
                     safeSetText('arch-badge-el', config.arch_badge);
                     safeSetText('arch-title-el', config.arch_title);
                     safeSetText('arch-desc-el', config.arch_desc);
+                    
+                    globalArchitectureItems = config.architecture_items || [];
+                    currentArchitecturePage = 1;
+                    renderArchitectureGallery();
                 });
 
             } catch (err) {
                 console.error("Lỗi tải cấu hình giới thiệu từ quản trị:", err);
+            }
+        }
+
+        function renderArchitectureGallery() {
+            const container = document.getElementById('architecture-grid-container');
+            const paginationContainer = document.getElementById('architecture-pagination');
+            if (!container) return;
+
+            if (!globalArchitectureItems || globalArchitectureItems.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400 italic col-span-3">Chưa có hình ảnh cảnh chùa nào được thiết lập.</p>`;
+                if (paginationContainer) paginationContainer.innerHTML = '';
+                return;
+            }
+
+            // Tính toán phân trang
+            const totalItems = globalArchitectureItems.length;
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            if (currentArchitecturePage > totalPages) currentArchitecturePage = totalPages || 1;
+
+            const startIndex = (currentArchitecturePage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const currentItems = globalArchitectureItems.slice(startIndex, endIndex);
+
+            let html = '';
+            currentItems.forEach((item, index) => {
+                const imgUrl = item.url || item.image || '';
+                const title = item.title || `Thắng cảnh ${startIndex + index + 1}`;
+                html += `
+                    <div class="group relative rounded-2xl overflow-hidden card-shadow bg-stone-100 aspect-[4/3] cursor-pointer border border-stone-200" onclick="openLightbox('${imgUrl}', '${title}')">
+                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x450/f3f4f6/9ca3af?text=ChuaVinhHung'">
+                        <div class="absolute inset-0 bg-stone-950/30 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full bg-white text-stone-800 flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition duration-300">
+                                <i class="fa-solid fa-magnifying-glass text-lg text-rose-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // Render thanh phân trang nếu có từ 2 trang trở lên
+            if (totalPages > 1 && paginationContainer) {
+                let pagHtml = '';
+                // Nút Trang Trước
+                pagHtml += `
+                    <button onclick="changeArchitecturePage(${currentArchitecturePage - 1})" ${currentArchitecturePage === 1 ? 'disabled class="px-4 py-2 rounded-xl border border-stone-200 text-stone-300 cursor-not-allowed text-xs font-semibold"' : 'class="px-4 py-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-amber-50 hover:text-zenwarm-primary text-xs font-semibold transition"'}>
+                        <i class="fa-solid fa-chevron-left mr-1"></i> Trước
+                    </button>
+                `;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === currentArchitecturePage) {
+                        pagHtml += `<button class="w-9 h-9 rounded-xl bg-zenwarm-primary text-white text-xs font-bold shadow-sm">${i}</button>`;
+                    } else {
+                        pagHtml += `<button onclick="changeArchitecturePage(${i})" class="w-9 h-9 rounded-xl border border-stone-200 text-stone-600 hover:bg-amber-50 hover:text-zenwarm-primary text-xs font-semibold transition">${i}</button>`;
+                    }
+                }
+
+                // Nút Trang Sau
+                pagHtml += `
+                    <button onclick="changeArchitecturePage(${currentArchitecturePage + 1})" ${currentArchitecturePage === totalPages ? 'disabled class="px-4 py-2 rounded-xl border border-stone-200 text-stone-300 cursor-not-allowed text-xs font-semibold"' : 'class="px-4 py-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-amber-50 hover:text-zenwarm-primary text-xs font-semibold transition"'}>
+                        Sau <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                `;
+                paginationContainer.innerHTML = pagHtml;
+            } else if (paginationContainer) {
+                paginationContainer.innerHTML = '';
+            }
+        }
+
+        function changeArchitecturePage(page) {
+            const totalPages = Math.ceil(globalArchitectureItems.length / ITEMS_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentArchitecturePage = page;
+            renderArchitectureGallery();
+            const archHeader = document.getElementById('content-kien-truc');
+            if (archHeader) {
+                archHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -282,7 +371,6 @@
                 
                 let processedDesc = st.desc || '';
                 
-                // Automatically convert plain image links or image tags in the rich text description into responsive images with lightbox (taller display)
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = processedDesc;
                 
@@ -331,7 +419,7 @@
                         <div class="bg-stone-50 p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm space-y-4">
                             <span class="text-xs font-bold text-zenwarm-primary bg-amber-50 px-3.5 py-1 rounded-full border border-amber-200 inline-block">${st.badge || 'Mốc thời gian'}</span>
                             <h3 class="font-serif text-xl md:text-2xl font-bold text-zenwarm-text">${st.subtitle || ''}</h3>
-                            <div class="text-zenwarm-muted text-sm md:text-base leading-relaxed font-light space-y-2">
+                            <div class="text-stone-800 text-base md:text-lg leading-relaxed font-normal space-y-3">
                                 ${processedDesc}
                             </div>
                         </div>

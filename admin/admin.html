@@ -348,7 +348,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                     <div>
                         <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Quản Lý Nội Dung Giới Thiệu</h2>
-                        <p class="text-xs text-slate-500 font-medium mt-0.5">Cập nhật nội dung Lịch sử hình thành động & Kiến trúc không gian hiển thị trên trang giới thiệu</p>
+                        <p class="text-xs text-slate-500 font-medium mt-0.5">Cập nhật nội dung Lịch sử hình thành & Kiến trúc không gian hiển thị trên trang giới thiệu</p>
                     </div>
                 </div>
 
@@ -363,12 +363,11 @@
                         <span>2. Kiến Trúc & Không Gian</span>
                     </button>
                 </div>
-
                 <!-- SUB-TAB 1: LỊCH SỬ HÌNH THÀNH FORM -->
                 <div id="subtab-pane-lichsu" class="space-y-6 pt-4">
-                    <form id="form-about-history" onsubmit="saveAboutHistory(event)" class="space-y-6 text-xs sm:text-sm">
-                        <div class="flex items-center justify-between bg-amber-50/70 p-4 rounded-2xl border border-amber-200">
-                            <span class="font-bold text-amber-900 uppercase text-xs flex items-center gap-1.5">
+                    <form id="form-about-history" onsubmit="saveAboutHistory(event)" class="space-y-6 text-xs sm:text-sm" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
+                        <div class="flex items-center justify-between bg-amber-50/70 p-5 rounded-2xl border border-amber-200">
+                            <span class="font-bold text-amber-900 uppercase text-xs flex items-center gap-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                                 <i class="fa-solid fa-circle-info text-amber-600"></i> Quản lý các mốc giai đoạn lịch sử Chùa Vĩnh Hưng
                             </span>
                             <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-xl text-xs uppercase shadow-md shadow-amber-600/20 transition tracking-wider">
@@ -378,34 +377,35 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-4 border-b border-slate-100">
                             <div>
-                                <label class="block font-bold text-slate-700 uppercase mb-2">Tiêu đề Hero (Trang chủ giới thiệu)</label>
-                                <input type="text" id="about-hero-title" class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none font-semibold text-slate-800 bg-slate-50 shadow-inner">
+                                <label class="block font-bold text-slate-800 text-xs uppercase mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Tiêu đề Hero (Trang chủ giới thiệu)</label>
+                                <!-- Tăng padding ngang lên px-5 để chữ thụt vào trong, không bị sát viền trái và chuẩn font Plus Jakarta Sans -->
+                                <input type="text" id="about-hero-title" class="w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none font-semibold text-sm sm:text-base text-slate-900 bg-slate-50 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                             </div>
                             <div>
-                                <label class="block font-bold text-slate-700 uppercase mb-2">Phụ đề Hero</label>
-                                <input type="text" id="about-hero-subtitle" class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none font-medium text-slate-800 bg-slate-50 shadow-inner">
+                                <label class="block font-bold text-slate-800 text-xs uppercase mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Phụ đề Hero</label>
+                                <input type="text" id="about-hero-subtitle" class="w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none font-medium text-sm sm:text-base text-slate-900 bg-slate-50 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                             </div>
                             <div>
-                                <label class="block font-bold text-slate-700 uppercase mb-2">Tác giả câu nói (Quote)</label>
-                                <input type="text" id="about-quote-author" class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none font-medium text-slate-800 bg-slate-50 shadow-inner">
+                                <label class="block font-bold text-slate-800 text-xs uppercase mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Tác giả câu nói (Quote)</label>
+                                <input type="text" id="about-quote-author" class="w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none font-medium text-sm sm:text-base text-slate-900 bg-slate-50 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                             </div>
                             <div>
-                                <label class="block font-bold text-slate-700 uppercase mb-2">Nội dung câu nói (Quote Text)</label>
-                                <input type="text" id="about-quote-text" class="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none font-serif font-bold text-slate-900 bg-slate-50 shadow-inner">
+                                <label class="block font-bold text-slate-800 text-xs uppercase mb-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Nội dung câu nói (Quote Text)</label>
+                                <input type="text" id="about-quote-text" class="w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none font-serif font-bold text-sm sm:text-base text-slate-900 bg-slate-50 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                             </div>
                         </div>
 
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
-                                <h4 class="font-bold text-slate-800 uppercase text-xs flex items-center gap-2">
-                                    <i class="fa-solid fa-timeline text-amber-600"></i> Danh Sách Các Giai Đoạn Lịch Sử
+                                <h4 class="font-bold text-slate-900 uppercase text-xs flex items-center gap-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
+                                    <i class="fa-solid fa-timeline text-amber-600 text-sm"></i> Danh Sách Các Giai Đoạn Lịch Sử
                                 </h4>
-                                <span class="text-xs text-slate-400 italic">Có thể thêm nhiều mốc thời gian</span>
+                                <span class="text-xs text-slate-500 font-medium italic">Có thể thêm nhiều mốc thời gian</span>
                             </div>
 
                             <div id="history-stages-container" class="space-y-6"></div>
 
-                            <div onclick="addHistoryStageItem()" class="border-2 border-dashed border-amber-300 bg-amber-50/30 hover:bg-amber-50/70 rounded-3xl p-5 text-center cursor-pointer transition flex items-center justify-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider shadow-2xs">
+                            <div onclick="addHistoryStageItem()" class="border-2 border-dashed border-amber-300 bg-amber-50/30 hover:bg-amber-50/70 rounded-3xl p-5 text-center cursor-pointer transition flex items-center justify-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider shadow-2xs">
                                 <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center text-sm shadow-sm">
                                     <i class="fa-solid fa-plus"></i>
                                 </div>
@@ -420,12 +420,9 @@
                     <form id="form-about-architecture" onsubmit="saveAboutArchitecture(event)" class="space-y-6 text-xs sm:text-sm">
                         <div class="flex items-center justify-between bg-amber-50/70 p-4 rounded-2xl border border-amber-200">
                             <span class="font-bold text-amber-900 uppercase text-xs flex items-center gap-1.5">
-                                <i class="fa-solid fa-images text-amber-600"></i> Quản lý bộ sưu tập Kiến trúc & Không gian (Không giới hạn số lượng ảnh)
+                                <i class="fa-solid fa-images text-amber-600"></i> Quản lý bộ sưu tập Kiến trúc & Không gian (Kéo thả để sắp xếp vị trí)
                             </span>
                             <div class="flex items-center gap-2">
-                                <button type="button" onclick="triggerArchBatchUpload()" class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs uppercase shadow-md shadow-emerald-600/20 transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i> Tải Nhiều Ảnh WebP
-                                </button>
                                 <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold rounded-xl text-xs uppercase shadow-md shadow-amber-600/20 transition tracking-wider">
                                     Lưu Kiến Trúc
                                 </button>
@@ -452,20 +449,18 @@
                                 <h4 class="font-bold text-slate-800 uppercase text-xs flex items-center gap-2">
                                     <i class="fa-solid fa-camera-retro text-amber-600"></i> Danh Sách Hình Ảnh Thắng Cảnh / Không Gian
                                 </h4>
-                                <span class="text-xs text-slate-400 italic">Thêm tùy ý bao nhiêu ảnh cũng được</span>
+                                <span class="text-xs text-slate-400 italic">Kéo thả các ô vuông để đổi vị trí, bấm nút X góc phải để xóa ảnh</span>
                             </div>
 
                             <input type="file" id="arch-batch-file-input" multiple accept="image/*" class="hidden" onchange="handleArchBatchUpload(event)">
 
-                            <div id="architecture-items-container" class="space-y-4">
-                                <!-- Dynamic rows -->
-                            </div>
+                            <div id="architecture-items-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 py-2"></div>
 
-                            <div onclick="addArchItemRow()" class="border-2 border-dashed border-amber-300 bg-amber-50/30 hover:bg-amber-50/70 rounded-3xl p-5 text-center cursor-pointer transition flex items-center justify-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider shadow-2xs">
+                            <div onclick="triggerArchBatchUpload()" class="border-2 border-dashed border-amber-300 bg-amber-50/30 hover:bg-amber-50/70 rounded-3xl p-6 text-center cursor-pointer transition flex items-center justify-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider shadow-2xs">
                                 <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center text-sm shadow-sm">
-                                    <i class="fa-solid fa-plus"></i>
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
                                 </div>
-                                <span>Thêm một ảnh thắng cảnh mới</span>
+                                <span>Chèn ảnh trực tiếp từ máy tính (Tự động WebP)</span>
                             </div>
                         </div>
                     </form>
@@ -1275,6 +1270,7 @@
 <footer class="bg-white/80 backdrop-blur-md border-t border-slate-200/80 py-5 text-center text-xs text-slate-500 font-medium w-full shadow-inner mt-auto">
     <p>© 2026 Chùa Vĩnh Hưng. Hệ thống Quản trị & Tối ưu Ảnh WebP Tự động (Giao diện Sáng & Sang trọng).</p>
 </footer>
+
 <script>
         const firebaseConfig = {
             databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -1568,38 +1564,97 @@
                 } else if (!config.architecture_items && config.arch_img1) {
                     for(let i=1; i<=6; i++) {
                         if (config[`arch_img${i}`]) {
-                            addArchItemRow({ title: config[`arch_title${i}`] || '', url: config[`arch_img${i}`] });
+                            addArchItemRow({ url: config[`arch_img${i}`] });
                         }
                     }
-                } else {
-                    addArchItemRow();
                 }
             } catch (err) {
                 console.error("Lỗi tải cấu hình:", err);
             }
         }
+
         function addArchItemRow(data = {}) {
             const container = document.getElementById('architecture-items-container');
             if (!container) return;
+            const imgUrl = data.url || data.image || '';
             const div = document.createElement('div');
-            div.className = "bg-slate-50 p-4 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-12 gap-4 items-center arch-item-row relative";
+            div.className = "w-full aspect-square rounded-2xl overflow-hidden border-2 border-slate-200 bg-white relative group cursor-grab active:cursor-grabbing shadow-sm transition hover:shadow-md hover:border-amber-400 arch-item-card";
+            div.draggable = true;
+
+            div.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', imgUrl);
+                div.classList.add('opacity-40', 'border-dashed', 'border-rose-500');
+                window.draggedArchCard = div;
+            });
+
+            div.addEventListener('dragend', () => {
+                div.classList.remove('opacity-40', 'border-dashed', 'border-rose-500');
+                window.draggedArchCard = null;
+                document.querySelectorAll('.arch-item-card').forEach(c => c.classList.remove('border-t-4', 'border-amber-600'));
+            });
+
+            div.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (window.draggedArchCard && window.draggedArchCard !== div) {
+                    div.classList.add('border-t-4', 'border-amber-600');
+                }
+            });
+
+            div.addEventListener('dragleave', () => {
+                div.classList.remove('border-t-4', 'border-amber-600');
+            });
+
+            div.addEventListener('drop', (e) => {
+                e.preventDefault();
+                div.classList.remove('border-t-4', 'border-amber-600');
+                if (window.draggedArchCard && window.draggedArchCard !== div) {
+                    const rect = div.getBoundingClientRect();
+                    const next = (e.clientX - rect.left) > (rect.width / 2);
+                    if (next) {
+                        container.insertBefore(window.draggedArchCard, div.nextSibling);
+                    } else {
+                        container.insertBefore(window.draggedArchCard, div);
+                    }
+                }
+            });
+
             div.innerHTML = `
-                <div class="md:col-span-4">
-                    <label class="block font-bold text-slate-700 text-xs uppercase mb-1">Tiêu đề ảnh</label>
-                    <input type="text" class="arch-item-title w-full px-3.5 py-2.5 border border-slate-300 rounded-xl outline-none bg-white font-semibold text-xs" value="${data.title || ''}" placeholder="Tên thắng cảnh...">
-                </div>
-                <div class="md:col-span-7">
-                    <label class="block font-bold text-slate-700 text-xs uppercase mb-1">Đường dẫn ảnh (URL hoặc WebP)</label>
-                    <input type="url" class="arch-item-url w-full px-3.5 py-2.5 border border-slate-300 rounded-xl outline-none bg-white font-mono text-xs" value="${data.url || ''}" placeholder="https://...">
-                </div>
-                <div class="md:col-span-1 flex items-end justify-center pt-5 md:pt-0">
-                    <button type="button" onclick="this.closest('.arch-item-row').remove()" class="w-10 h-10 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition flex items-center justify-center shadow-2xs" title="Xóa ảnh"><i class="fa-solid fa-trash"></i></button>
-                </div>
+                <input type="hidden" class="arch-item-url" value="${imgUrl}">
+                <img src="${imgUrl || 'https://placehold.co/150x150/f1f5f9/64748b?text=Image'}" alt="Thắng cảnh" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/150x150/f1f5f9/64748b?text=Image'">
+                <button type="button" onclick="this.closest('.arch-item-card').remove()" class="absolute top-2 right-2 w-7 h-7 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center text-[10px] shadow-md transition opacity-90 hover:opacity-100 z-10" title="Xóa ảnh"><i class="fa-solid fa-xmark"></i></button>
             `;
             container.appendChild(div);
         }
+
         function triggerArchBatchUpload() {
             document.getElementById('arch-batch-file-input').click();
+        }
+
+        async function handleArchBatchUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+            const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+            showToast(`Đang nén và tải lên ${files.length} ảnh kiến trúc...`);
+
+            for (let i = 0; i < files.length; i++) {
+                try {
+                    const webpResult = await compressAndConvertToWebP(files[i], 1200, 0.82);
+                    const formData = new FormData();
+                    formData.append('image', webpResult.file);
+                    const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (data && data.success) {
+                        addArchItemRow({ url: data.data.url });
+                    }
+                } catch (err) {
+                    console.error("Lỗi tải ảnh kiến trúc:", err);
+                }
+            }
+            showToast("Tải và thêm ảnh vào bộ sưu tập kiến trúc thành công!");
+            event.target.value = '';
         }
 
         function addHistoryStageItem(data = {}) {
@@ -1609,47 +1664,49 @@
             let cleanDesc = data.desc || '';
 
             const div = document.createElement('div');
-            div.className = "bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4 history-stage-item relative";
+            div.className = "bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4 history-stage-item relative shadow-xs";
 
             div.innerHTML = `
                 <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-                    <h4 class="font-bold text-slate-800 uppercase text-xs flex items-center gap-2">
+                    <h4 class="font-bold text-slate-800 uppercase text-xs flex items-center gap-2" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
                         <i class="fa-solid fa-flag text-amber-600"></i> Giai Đoạn Lịch Sử
                     </h4>
-                    <button type="button" onclick="this.closest('.history-stage-item').remove()" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1">
+                    <button type="button" onclick="this.closest('.history-stage-item').remove()" class="px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1.5">
                         <i class="fa-solid fa-trash"></i> Xóa Giai Đoạn
                     </button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-bold text-slate-700 text-xs uppercase mb-1">Nhãn mốc thời gian (Ví dụ: Giai Đoạn Khởi Khởi (1985))</label>
-                        <input type="text" class="stage-badge-input w-full px-3.5 py-2.5 border border-slate-300 rounded-xl outline-none bg-white font-semibold text-xs" value="${data.badge || ''}">
+                        <label class="block font-bold text-slate-800 text-xs uppercase mb-1.5" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Nhãn mốc thời gian (Ví dụ: Giai Đoạn Khởi Khởi (1985))</label>
+                        <!-- Thêm padding ngang px-5 để thụt chữ vào trong -->
+                        <input type="text" class="stage-badge-input w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none bg-white font-semibold text-sm text-slate-900 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;" value="${data.badge || ''}">
                     </div>
                     <div>
-                        <label class="block font-bold text-slate-700 text-xs uppercase mb-1">Tiêu đề giai đoạn</label>
-                        <input type="text" class="stage-subtitle-input w-full px-3.5 py-2.5 border border-slate-300 rounded-xl outline-none bg-white font-semibold text-xs" value="${data.subtitle || ''}">
+                        <label class="block font-bold text-slate-800 text-xs uppercase mb-1.5" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Tiêu đề giai đoạn</label>
+                        <input type="text" class="stage-subtitle-input w-full px-5 py-3.5 border border-slate-300 rounded-xl outline-none bg-white font-semibold text-sm text-slate-900 shadow-inner" style="font-family: 'Plus Jakarta Sans', sans-serif !important;" value="${data.subtitle || ''}">
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 text-xs uppercase mb-1">Mô tả chi tiết giai đoạn (Hỗ trợ định dạng rich text & chèn link ảnh)</label>
-                    <div class="flex flex-wrap items-center gap-1.5 bg-slate-200 p-2 rounded-xl mb-2">
-                        <button type="button" onclick="execStageCmd(this, 'bold')" class="px-2.5 py-1 bg-white rounded text-xs font-bold shadow-2xs" title="In đậm"><i class="fa-solid fa-bold"></i></button>
-                        <button type="button" onclick="execStageCmd(this, 'italic')" class="px-2.5 py-1 bg-white rounded text-xs italic shadow-2xs" title="In nghiêng"><i class="fa-solid fa-italic"></i></button>
-                        <button type="button" onclick="execStageCmd(this, 'underline')" class="px-2.5 py-1 bg-white rounded text-xs underline shadow-2xs" title="Gạch chân"><i class="fa-solid fa-underline"></i></button>
-                        <span class="text-slate-400">|</span>
-                        <button type="button" onclick="execStageCmd(this, 'justifyLeft')" class="px-2.5 py-1 bg-white rounded text-xs shadow-2xs" title="Căn trái"><i class="fa-solid fa-align-left"></i></button>
-                        <button type="button" onclick="execStageCmd(this, 'justifyCenter')" class="px-2.5 py-1 bg-white rounded text-xs shadow-2xs" title="Căn giữa"><i class="fa-solid fa-align-center"></i></button>
-                        <button type="button" onclick="execStageCmd(this, 'justifyRight')" class="px-2.5 py-1 bg-white rounded text-xs shadow-2xs" title="Căn phải"><i class="fa-solid fa-align-right"></i></button>
-                        <span class="text-slate-400">|</span>
-                        <button type="button" onclick="formatStageHeading(this, 'H2')" class="px-2.5 py-1 bg-white rounded text-xs font-bold shadow-2xs">H2</button>
-                        <button type="button" onclick="formatStageHeading(this, 'H3')" class="px-2.5 py-1 bg-white rounded text-xs font-bold shadow-2xs">H3</button>
-                        <button type="button" onclick="formatStageQuote(this)" class="px-2.5 py-1 bg-white rounded text-xs font-bold text-amber-800 shadow-2xs"><i class="fa-solid fa-quote-left mr-1"></i>Trích dẫn</button>
-                        <span class="text-slate-400">|</span>
-                        <button type="button" onclick="openStageInlineImageModal(this)" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded text-xs font-bold shadow-2xs flex items-center gap-1">
+                    <label class="block font-bold text-slate-800 text-xs uppercase mb-1.5" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">Mô tả chi tiết giai đoạn (Hỗ trợ định dạng rich text & chèn link ảnh)</label>
+                    <div class="flex flex-wrap items-center gap-2 bg-slate-200/80 p-2.5 rounded-xl mb-2.5" style="font-family: 'Plus Jakarta Sans', sans-serif !important;">
+                        <button type="button" onclick="execStageCmd(this, 'bold')" class="px-3 py-1.5 bg-white rounded-lg text-xs font-bold shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="In đậm"><i class="fa-solid fa-bold"></i></button>
+                        <button type="button" onclick="execStageCmd(this, 'italic')" class="px-3 py-1.5 bg-white rounded-lg text-xs italic shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="In nghiêng"><i class="fa-solid fa-italic"></i></button>
+                        <button type="button" onclick="execStageCmd(this, 'underline')" class="px-3 py-1.5 bg-white rounded-lg text-xs underline shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="Gạch chân"><i class="fa-solid fa-underline"></i></button>
+                        <span class="text-slate-400 font-light">|</span>
+                        <button type="button" onclick="execStageCmd(this, 'justifyLeft')" class="px-3 py-1.5 bg-white rounded-lg text-xs shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="Căn trái"><i class="fa-solid fa-align-left"></i></button>
+                        <button type="button" onclick="execStageCmd(this, 'justifyCenter')" class="px-3 py-1.5 bg-white rounded-lg text-xs shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="Căn giữa"><i class="fa-solid fa-align-center"></i></button>
+                        <button type="button" onclick="execStageCmd(this, 'justifyRight')" class="px-3 py-1.5 bg-white rounded-lg text-xs shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition" title="Căn phải"><i class="fa-solid fa-align-right"></i></button>
+                        <span class="text-slate-400 font-light">|</span>
+                        <button type="button" onclick="formatStageHeading(this, 'H2')" class="px-3 py-1.5 bg-white rounded-lg text-xs font-bold shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition">H2</button>
+                        <button type="button" onclick="formatStageHeading(this, 'H3')" class="px-3 py-1.5 bg-white rounded-lg text-xs font-bold shadow-2xs text-slate-800 hover:bg-rose-100 hover:text-rose-700 transition">H3</button>
+                        <button type="button" onclick="formatStageQuote(this)" class="px-3 py-1.5 bg-white rounded-lg text-xs font-bold text-amber-900 shadow-2xs hover:bg-amber-100 transition"><i class="fa-solid fa-quote-left mr-1"></i>Trích dẫn</button>
+                        <span class="text-slate-400 font-light">|</span>
+                        <button type="button" onclick="openStageInlineImageModal(this)" class="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold shadow-2xs flex items-center gap-1.5 transition">
                             <i class="fa-solid fa-image text-blue-600"></i> Chèn Ảnh
                         </button>
                     </div>
-                    <div contenteditable="true" class="stage-desc-editor w-full min-h-[140px] px-4 py-3 border border-slate-300 rounded-xl outline-none bg-white text-xs font-medium text-slate-800 shadow-inner relative" onmouseover="handleStageEditorMouseOver(event)" onmouseout="handleStageEditorMouseOut(event)">${cleanDesc}</div>
+                    <!-- Tăng khoảng cách lề trong (px-5) cho ô soạn thảo mô tả giai đoạn lịch sử -->
+                    <div contenteditable="true" class="stage-desc-editor w-full min-h-[150px] px-5 py-4 border border-slate-300 rounded-xl outline-none bg-white text-sm font-medium leading-relaxed text-slate-900 shadow-inner relative" style="font-family: 'Plus Jakarta Sans', sans-serif !important;" onmouseover="handleStageEditorMouseOver(event)" onmouseout="handleStageEditorMouseOut(event)">${cleanDesc}</div>
                 </div>
             `;
             container.appendChild(div);
@@ -1710,6 +1767,7 @@
                 activeTooltip = null;
             }
         }
+
         async function saveAboutHistory(e) {
             e.preventDefault();
             try {
@@ -1748,12 +1806,11 @@
                 config.arch_title = document.getElementById('about-arch-title').value.trim();
                 config.arch_desc = document.getElementById('about-arch-desc').value.trim();
 
-                const rows = document.querySelectorAll('.arch-item-row');
+                const cards = document.querySelectorAll('.arch-item-card');
                 const archItems = [];
-                rows.forEach(row => {
-                    const title = row.querySelector('.arch-item-title').value.trim();
-                    const url = row.querySelector('.arch-item-url').value.trim();
-                    if (url) archItems.push({ title, url });
+                cards.forEach(card => {
+                    const url = card.querySelector('.arch-item-url').value.trim();
+                    if (url) archItems.push({ title: '', url });
                 });
                 config.architecture_items = archItems;
 
@@ -2180,6 +2237,16 @@
                 showToast("Vui lòng chọn hoặc nhập URL ảnh!", true);
                 return;
             }
+            if (activeStageEditor) {
+                activeStageEditor.focus();
+                const linkHtml = `<a href="${url}" target="_blank" data-img-preview="${url}" class="text-blue-600 underline font-mono text-xs mx-1 inline hover:text-blue-800">${url}</a>`;
+                document.execCommand('insertHTML', false, linkHtml);
+                activeStageEditor = null;
+                closeInlineImageModal();
+                showToast("Đã chèn link ảnh vào giai đoạn lịch sử!");
+                return;
+            }
+
             const editor = document.getElementById('wysiwyg-editor');
             editor.focus();
             const linkHtml = `<a href="${url}" target="_blank" data-img-preview="${url}" class="text-blue-600 underline font-mono text-xs mx-1 inline hover:text-blue-800">${url}</a>`;
@@ -2536,17 +2603,17 @@
                 }
                 let pagHtml = `<div class="text-xs text-slate-500 font-medium">Trang ${currentNewsPage} / ${totalPages}</div>`;
                 pagHtml += `<div class="flex items-center gap-1.5">`;
-                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage - 1})" ${currentNewsPage === 1 ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
+                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage - 1})" ${currentNewsPage === 1 ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
                 
                 for (let p = 1; p <= totalPages; p++) {
                     if (p === 1 || p === totalPages || (p >= currentNewsPage - 1 && p <= currentNewsPage + 1)) {
-                        pagHtml += `<button onclick="changeNewsPage(${p})" class="px-3 py-1.5 ${p === currentNewsPage ? 'bg-rose-600 text-white shadow-md' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50'} rounded-xl text-xs font-bold transition shadow-xs">${p}</button>`;
+                        pagHtml += `<button onclick="changeNewsPage(${p})" class="px-3.5 py-2 ${p === currentNewsPage ? 'bg-rose-600 text-white shadow-md' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-50'} rounded-xl text-xs font-bold transition shadow-xs">${p}</button>`;
                     } else if (p === currentNewsPage - 2 || p === currentNewsPage + 2) {
                         pagHtml += `<span class="px-2 text-slate-400">...</span>`;
                     }
                 }
 
-                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage + 1})" ${currentNewsPage === totalPages ? 'disabled class="px-3 py-1.5 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
+                pagHtml += `<button onclick="changeNewsPage(${currentNewsPage + 1})" ${currentNewsPage === totalPages ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
                 pagHtml += `</div>`;
                 paginationContainer.innerHTML = pagHtml;
             }
