@@ -44,17 +44,22 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 3.5rem;
-            line-height: 1.75rem;
+            height: 3rem;
+            line-height: 1.5rem;
+            font-size: 0.95rem;
         }
         .post-desc {
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            max-height: 3.9rem;
-            line-height: 1.3rem;
-            font-size: 0.875rem;
+            max-height: 3.6rem;
+            line-height: 1.2rem;
+            font-size: 0.75rem;
+        }
+        @media (min-width: 768px) {
+            .post-title { height: 3.5rem; line-height: 1.75rem; font-size: 1.25rem; }
+            .post-desc { max-height: 3.9rem; line-height: 1.3rem; font-size: 0.875rem; }
         }
     </style>
 </head>
@@ -64,43 +69,43 @@
 
 <section class="hero-sub h-[40vh] mt-0 flex items-center justify-center relative">
     <div class="text-center px-4 z-10 text-white mt-10">
-        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Tin Tức & Thông Báo</h1>
-        <p class="text-lg text-gray-200 font-light">Cập nhật tin tức, lịch khóa tu, ngày lễ và các Phật sự mới nhất.</p>
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-4 drop-shadow-lg">Tin Tức & Thông Báo</h1>
+        <p class="text-sm md:text-lg text-gray-200 font-light">Cập nhật tin tức, lịch khóa tu, ngày lễ và các Phật sự mới nhất.</p>
     </div>
 </section>
 
 <section class="bg-white border-b border-gray-200 shadow-sm sticky top-20 z-40">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                <button onclick="filterCategory('all')" id="tab-all" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md">
+    <div class="container mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <button onclick="filterCategory('all')" id="tab-all" class="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md">
                     <i class="fa-solid fa-globe mr-1.5"></i> Tất Cả
                 </button>
-                <button onclick="filterCategory('tin-tuc')" id="tab-tin-tuc" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm">
+                <button onclick="filterCategory('tin-tuc')" id="tab-tin-tuc" class="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm">
                     <i class="fa-solid fa-newspaper mr-1.5"></i> Tin Tức
                 </button>
-                <button onclick="filterCategory('thong-bao')" id="tab-thong-bao" class="px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm flex items-center gap-2">
+                <button onclick="filterCategory('thong-bao')" id="tab-thong-bao" class="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-bell text-buddhist-gold"></i> Thông Báo & Khóa Tu
                 </button>
             </div>
 
             <div class="relative w-full md:w-80">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs sm:text-sm"></i>
                 </span>
-                <input type="text" id="search-input" oninput="onSearchInput()" placeholder="Tìm kiếm tiêu đề bài viết..." class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-buddhist-maroon shadow-inner">
+                <input type="text" id="search-input" oninput="onSearchInput()" placeholder="Tìm kiếm tiêu đề bài viết..." class="w-full pl-10 pr-4 py-2 sm:py-2.5 bg-gray-50 border border-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-buddhist-maroon shadow-inner">
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-16 flex-grow">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-10 sm:py-16 flex-grow">
+    <div class="container mx-auto px-3 sm:px-6 lg:px-8">
         
-        <div id="sub-tags-container" class="hidden flex flex-wrap items-center justify-center gap-3 mb-8 p-5 bg-amber-50/90 border border-amber-200 rounded-2xl shadow-sm">
-            <span class="text-sm font-bold text-amber-900 uppercase tracking-wide mr-2"><i class="fa-solid fa-filter mr-1.5"></i> Lọc tag:</span>
-            <div id="dynamic-subtags-list" class="flex flex-wrap items-center justify-center gap-3">
-                <button onclick="filterCategory('thong-bao')" id="subtag-thong-bao" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-amber-700 text-white transition shadow-md">
+        <div id="sub-tags-container" class="hidden flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 p-4 sm:p-5 bg-amber-50/90 border border-amber-200 rounded-2xl shadow-sm">
+            <span class="text-xs sm:text-sm font-bold text-amber-900 uppercase tracking-wide mr-2"><i class="fa-solid fa-filter mr-1.5"></i> Lọc tag:</span>
+            <div id="dynamic-subtags-list" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <button onclick="filterCategory('thong-bao')" id="subtag-thong-bao" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-700 text-white transition shadow-md">
                     Tất cả thông báo
                 </button>
             </div>
@@ -110,7 +115,8 @@
             Hiển thị: Tất cả bài viết
         </div>
         
-        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Đã sửa thành grid-cols-2 trên mobile và giữ nguyên máy tính -->
+        <div id="news-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
             <div class="col-span-full text-center py-20">
                 <i class="fa-solid fa-spinner fa-spin text-4xl text-buddhist-gold"></i>
                 <p class="mt-4 text-gray-500">Đang tải tin tức...</p>
@@ -140,48 +146,40 @@
     let searchQuery = '';
     const postsPerPage = 15;
 
-    // Bảng màu PRESET chuẩn xác, tách biệt màu Lễ Phật Đản và Bát Quan Trai
     const PRESET_TAG_COLORS = [
-        { bg: 'bg-amber-100', text: 'text-amber-900', border: 'border-amber-300', activeBg: 'bg-amber-700 text-white' },     // 0: Vàng (Tin tức)
-        { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-300', activeBg: 'bg-sky-700 text-white' },               // 1: Xanh dương (Quy Y)
-        { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-300', activeBg: 'bg-emerald-700 text-white' }, // 2: Xanh lá (Tuổi trẻ)
-        { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-300', activeBg: 'bg-rose-700 text-white' },           // 3: Hồng đỏ (Bát Quan Trai)
-        { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-300', activeBg: 'bg-pink-700 text-white' },           // 4: Hồng sáng (Lễ Phật Đản - Riêng biệt)
-        { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-300', activeBg: 'bg-purple-700 text-white' },   // 5: Tím (Ngày lễ khác)
-        { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-300', activeBg: 'bg-orange-700 text-white' },   // 6: Cam
-        { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-300', activeBg: 'bg-teal-700 text-white' }            // 7: Xanh mòng két
+        { bg: 'bg-amber-100', text: 'text-amber-900', border: 'border-amber-300', activeBg: 'bg-amber-700 text-white' },
+        { bg: 'bg-sky-100', text: 'text-sky-800', border: 'border-sky-300', activeBg: 'bg-sky-700 text-white' },
+        { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-300', activeBg: 'bg-emerald-700 text-white' },
+        { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-300', activeBg: 'bg-rose-700 text-white' },
+        { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-300', activeBg: 'bg-pink-700 text-white' },
+        { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-300', activeBg: 'bg-purple-700 text-white' },
+        { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-300', activeBg: 'bg-orange-700 text-white' },
+        { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-300', activeBg: 'bg-teal-700 text-white' }
     ];
 
     function getTagStyle(slug = '', name = '') {
         const s = (slug || '').toLowerCase().trim();
         const n = (name || '').toLowerCase().trim();
 
-        // 1. Khớp chính xác "Lễ Phật Đản" / "phat-dan" -> Màu Hồng sáng (Index 4) riêng biệt với Bát Quan Trai
         if (s.includes('phat-dan') || n.includes('phật đản') || n.includes('phat dan')) {
-            return PRESET_TAG_COLORS[4]; // Hồng sáng đặc trưng cho Phật Đản
+            return PRESET_TAG_COLORS[4];
         }
-        // 2. Bát Quan Trai -> Màu Hồng Đỏ (Index 3)
         if (s === 'bat-quan-trai' || n.includes('bát quan trai') || n.includes('bat quan trai')) {
             return PRESET_TAG_COLORS[3]; 
         }
-        // 3. Tuổi trẻ -> Xanh lá (Index 2)
         if (s === 'tuoi-tre' || n.includes('tuổi trẻ') || n.includes('tuoi tre')) {
             return PRESET_TAG_COLORS[2]; 
         }
-        // 4. Quy y -> Xanh dương (Index 1)
         if (s === 'quy-y' || n.includes('quy y')) {
             return PRESET_TAG_COLORS[1]; 
         }
-        // 5. Các ngày lễ khác -> Tím (Index 5)
         if (n.includes('lễ') || n.includes('ngày lễ') || s.includes('ngay-le')) {
             return PRESET_TAG_COLORS[5]; 
         }
-        // 6. Thông báo / Tin tức -> Vàng (Index 0)
         if (s === 'thong-bao' || s === 'tin-tuc' || n.includes('thông báo') || n.includes('tin tức')) {
             return PRESET_TAG_COLORS[0]; 
         }
 
-        // Hash code tự động nếu thêm mới tag ngoài danh sách preset
         let hash = 0;
         const str = s || n || '';
         for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -234,7 +232,7 @@
         if (!listContainer) return;
 
         let html = `
-            <button onclick="filterCategory('thong-bao')" id="subtag-thong-bao" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-amber-700 text-white transition shadow-md">
+            <button onclick="filterCategory('thong-bao')" id="subtag-thong-bao" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-700 text-white transition shadow-md">
                 Tất cả thông báo
             </button>
         `;
@@ -246,7 +244,7 @@
             const styleObj = getTagStyle(slug, name);
 
             html += `
-                <button onclick="filterCategory('${slug}')" id="subtag-${slug}" data-slug="${slug}" data-name="${name}" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:${styleObj.bg} ${styleObj.text} border ${styleObj.border} transition shadow-xs">
+                <button onclick="filterCategory('${slug}')" id="subtag-${slug}" data-slug="${slug}" data-name="${name}" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white hover:${styleObj.bg} ${styleObj.text} border ${styleObj.border} transition shadow-xs">
                     ${name}
                 </button>
             `;
@@ -297,9 +295,9 @@
             const btn = document.getElementById(`tab-${cat}`);
             if (btn) {
                 if (cat === category || (isNotificationRelated && cat === 'thong-bao')) {
-                    btn.className = "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md";
+                    btn.className = "px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition bg-buddhist-maroon text-white shadow-md";
                 } else {
-                    btn.className = "px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm";
+                    btn.className = "px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm";
                 }
             }
         });
@@ -317,9 +315,9 @@
                 const styleObj = getTagStyle(slug, name);
 
                 if (btnId === category || slug === category) {
-                    btn.className = `px-5 py-2.5 rounded-xl text-sm font-bold ${styleObj.activeBg} transition shadow-md`;
+                    btn.className = `px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold ${styleObj.activeBg} transition shadow-md`;
                 } else {
-                    btn.className = `px-5 py-2.5 rounded-xl text-sm font-bold bg-white hover:${styleObj.bg} ${styleObj.text} border ${styleObj.border} transition shadow-xs`;
+                    btn.className = `px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white hover:${styleObj.bg} ${styleObj.text} border ${styleObj.border} transition shadow-xs`;
                 }
             });
         } else {
@@ -354,7 +352,7 @@
         const keys = Object.keys(allNewsCache).sort((a, b) => {
             const timeA = allNewsCache[a].created_at || 0;
             const timeB = allNewsCache[b].created_at || 0;
-            return timeB - timeA; // Sắp xếp giảm dần từ mới nhất đến cũ nhất
+            return timeB - timeA;
         });
         let matchedPosts = [];
 
@@ -411,28 +409,28 @@
             const postSlug = post.slug ? post.slug : (post.title ? createSlug(post.title) : key);
             
             const tagInfo = getDisplayTagNameAndStyle(post);
-            const tagBadge = `<span class="inline-block px-3 py-1 rounded-md text-[11px] font-bold uppercase shadow-xs ${tagInfo.style.bg} ${tagInfo.style.text} border ${tagInfo.style.border}"><i class="fa-solid fa-tag mr-1"></i>${tagInfo.name}</span>`;
+            const tagBadge = `<span class="inline-block px-2 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold uppercase shadow-xs ${tagInfo.style.bg} ${tagInfo.style.text} border ${tagInfo.style.border}"><i class="fa-solid fa-tag mr-1"></i>${tagInfo.name}</span>`;
 
             const card = document.createElement('div');
             card.className = "bg-white rounded-2xl overflow-hidden shadow-md border border-amber-100 flex flex-col justify-between hover:shadow-xl transition duration-300 h-full";
             card.innerHTML = `
-                <div class="h-48 overflow-hidden relative flex-shrink-0">
+                <div class="h-32 sm:h-48 overflow-hidden relative flex-shrink-0">
                     <img src="${imgSrc}" alt="${post.title || ''}" class="w-full h-full object-cover hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/3d1c1d/d4af37?text=ChuaVinhHung'">
                 </div>
-                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div class="p-3 sm:p-6 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
                     <div>
-                        <div class="flex items-center justify-between mb-3 h-7">
-                            <span class="text-xs font-semibold text-buddhist-gold uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-1.5"></i> ${dateStr}</span>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2 sm:mb-3 gap-1">
+                            <span class="text-[10px] sm:text-xs font-semibold text-buddhist-gold uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-1"></i> ${dateStr}</span>
                             <div>${tagBadge}</div>
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-gray-900 hover:text-buddhist-maroon transition post-title mb-2">
+                        <h3 class="font-heading font-bold text-gray-900 hover:text-buddhist-maroon transition post-title mb-1.5 sm:mb-2">
                             <a href="chi-tiet-tin-tuc.html?slug=${postSlug}">${post.title || ''}</a>
                         </h3>
                         <p class="text-gray-600 post-desc">${rawContent}</p>
                     </div>
-                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <a href="chi-tiet-tin-tuc.html?slug=${postSlug}" class="text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
-                            Xem chi tiết <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <div class="pt-3 sm:pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <a href="chi-tiet-tin-tuc.html?slug=${postSlug}" class="text-[10px] sm:text-xs font-bold text-buddhist-maroon hover:text-buddhist-gold uppercase tracking-wider flex items-center gap-1">
+                            Xem chi tiết <i class="fa-solid fa-arrow-right text-[9px] sm:text-[10px]"></i>
                         </a>
                     </div>
                 </div>
@@ -444,27 +442,27 @@
             let paginationHtml = '';
             
             if (currentPage > 1) {
-                paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage - 1})" class="px-4 py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-buddhist-maroon hover:text-white transition shadow-sm"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
+                paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage - 1})" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold text-xs sm:text-sm hover:bg-buddhist-maroon hover:text-white transition shadow-sm"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
             } else {
-                paginationHtml += `<button disabled class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold cursor-not-allowed"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
+                paginationHtml += `<button disabled class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold text-xs sm:text-sm cursor-not-allowed"><i class="fa-solid fa-chevron-left mr-1"></i> Trước</button>`;
             }
 
             for (let i = 1; i <= totalPages; i++) {
                 if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
                     if (i === currentPage) {
-                        paginationHtml += `<button class="w-10 h-10 rounded-xl bg-buddhist-maroon text-white font-bold shadow-md">${i}</button>`;
+                        paginationHtml += `<button class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-buddhist-maroon text-white font-bold text-xs sm:text-sm shadow-md">${i}</button>`;
                     } else {
-                        paginationHtml += `<button onclick="renderNewsList('${category}', ${i})" class="w-10 h-10 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-gray-100 transition shadow-sm">${i}</button>`;
+                        paginationHtml += `<button onclick="renderNewsList('${category}', ${i})" class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold text-xs sm:text-sm hover:bg-gray-100 transition shadow-sm">${i}</button>`;
                     }
                 } else if (i === currentPage - 2 || i === currentPage + 2) {
-                    paginationHtml += `<span class="px-2 text-gray-400 font-bold">...</span>`;
+                    paginationHtml += `<span class="px-1.5 sm:px-2 text-gray-400 font-bold text-xs sm:text-sm">...</span>`;
                 }
             }
 
             if (currentPage < totalPages) {
-                paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage + 1})" class="px-4 py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold hover:bg-buddhist-maroon hover:text-white transition shadow-sm">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
+                paginationHtml += `<button onclick="renderNewsList('${category}', ${currentPage + 1})" class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-white border border-gray-300 text-gray-700 font-bold text-xs sm:text-sm hover:bg-buddhist-maroon hover:text-white transition shadow-sm">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
             } else {
-                paginationHtml += `<button disabled class="px-4 py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold cursor-not-allowed">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
+                paginationHtml += `<button disabled class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gray-100 border border-gray-200 text-gray-300 font-bold text-xs sm:text-sm cursor-not-allowed">Tiếp <i class="fa-solid fa-chevron-right ml-1"></i></button>`;
             }
 
             paginationEl.innerHTML = paginationHtml;
