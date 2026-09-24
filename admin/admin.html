@@ -1459,8 +1459,8 @@
                 loadAllData();
             }
 
-            const savedTab = localStorage.getItem('vinhhung_admin_active_tab') || 'overview';
-            switchTab(savedTab);
+            // Luôn focus vào trang tổng quan khi vào admin hoặc sau khi đăng nhập
+            switchTab('overview');
 
             const savedKey = localStorage.getItem('vinhhung_imgbb_key');
             if (savedKey) {
@@ -2353,6 +2353,10 @@
                 document.getElementById('welcome-msg').classList.remove('hidden');
                 
                 applyRolePermissions();
+                
+                // Focus thẳng vào trang Tổng quan sau khi đăng nhập thành công
+                switchTab('overview');
+
                 showToast(`Đăng nhập thành công (${matchedAccountName})`);
                 loadAllData();
             } else {
