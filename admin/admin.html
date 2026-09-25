@@ -597,6 +597,7 @@
             </div>
         </section>
 
+        <!-- CHƯ TĂNG NI SECTION -->
         <section id="tab-sec-monks" class="hidden space-y-4">
             <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
@@ -1124,7 +1125,7 @@
 
         <form id="monk-form" onsubmit="saveMonk(event)" class="space-y-6 text-xs sm:text-sm">
             <input type="hidden" id="monk-key">
-            <!-- Hidden inputs to store original image and crop data state so it can be restored exactly when editing -->
+            <!-- Hidden inputs to store original image and crop data state -->
             <input type="hidden" id="monk-original-image">
             <input type="hidden" id="monk-crop-scale" value="1">
             <input type="hidden" id="monk-crop-offsetX" value="0">
@@ -1170,7 +1171,6 @@
                             <div class="w-28 h-28 rounded-xl overflow-hidden border-2 border-rose-300 bg-slate-100 shadow-md">
                                 <canvas id="topcv-preview-canvas" width="160" height="160" class="w-full h-full"></canvas>
                             </div>
-                            <!-- Note: monk-avatar now stores the full original image as requested, while preview-canvas shows the cropped view -->
                             <input type="hidden" id="monk-avatar">
                         </div>
                     </div>
@@ -1536,7 +1536,7 @@
             setupTopCVCropperEvents();
         });
 
-        /* --- TOPCV CROPPER LOGIC ON CANVAS (FIXED: Keep original image, focus on saved crop state without over-zooming) --- */
+        /* --- TOPCV CROPPER LOGIC ON CANVAS (FIXED: Focus and display at 100% scale on edit) --- */
         function setupTopCVCropperEvents() {
             const canvas = document.getElementById('topcv-crop-canvas');
             if (!canvas) return;
@@ -1600,13 +1600,12 @@
                 img.src = originalUrl;
                 img.onload = () => {
                     topcvImage = img;
-                    // Fit scale so entire image fits or minimum size without forced over-zooming
-                    topcvScale = Math.max(220 / img.width, 220 / img.height);
+                    topcvScale = 1; // 100% scale
                     topcvOffsetX = (220 - img.width * topcvScale) / 2;
                     topcvOffsetY = (220 - img.height * topcvScale) / 2;
 
-                    document.getElementById('topcv-zoom-range').value = Math.round(topcvScale * 100);
-                    document.getElementById('zoom-value-label').textContent = Math.round(topcvScale * 100) + '%';
+                    document.getElementById('topcv-zoom-range').value = 100;
+                    document.getElementById('zoom-value-label').textContent = '100%';
                     
                     drawTopCVCropper();
                     exportTopCVCrop();
@@ -1627,19 +1626,13 @@
             img.onload = () => {
                 topcvImage = img;
 
-                // Restore saved crop state if available, otherwise default to fit scale
-                if (m.cropScale !== undefined && m.cropOffsetX !== undefined && m.cropOffsetY !== undefined) {
-                    topcvScale = Number(m.cropScale);
-                    topcvOffsetX = Number(m.cropOffsetX);
-                    topcvOffsetY = Number(m.cropOffsetY);
-                } else {
-                    topcvScale = Math.max(220 / img.width, 220 / img.height);
-                    topcvOffsetX = (220 - img.width * topcvScale) / 2;
-                    topcvOffsetY = (220 - img.height * topcvScale) / 2;
-                }
+                // Force 100% scale focus when opening edit modal
+                topcvScale = 1;
+                topcvOffsetX = (220 - img.width * topcvScale) / 2;
+                topcvOffsetY = (220 - img.height * topcvScale) / 2;
 
-                document.getElementById('topcv-zoom-range').value = Math.round(topcvScale * 100);
-                document.getElementById('zoom-value-label').textContent = Math.round(topcvScale * 100) + '%';
+                document.getElementById('topcv-zoom-range').value = 100;
+                document.getElementById('zoom-value-label').textContent = '100%';
                 
                 drawTopCVCropper();
                 exportTopCVCrop();
@@ -1683,11 +1676,9 @@
             ctx.drawImage(topcvImage, 0, 0);
             ctx.restore();
 
-            // Dark backdrop
             ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Square cutout region (160x160 centered in 220x220 canvas)
             const cw = 160;
             const ch = 160;
             const cx = (canvas.width - cw) / 2;
@@ -1743,7 +1734,6 @@
 
             pCtx.drawImage(topcvImage, sourceX, sourceY, sourceW, sourceH, 0, 0, previewCanvas.width, previewCanvas.height);
 
-            // monk-avatar stores the full original image as requested so original photo is retained
             const originalUrl = document.getElementById('monk-original-image').value || topcvImage.src;
             document.getElementById('monk-avatar').value = originalUrl;
         }
@@ -3573,9 +3563,9 @@
             document.getElementById('monk-role').value = m.role || '';
             document.getElementById('monk-avatar').value = m.avatar || '';
             document.getElementById('monk-original-image').value = m.originalImage || m.avatar || '';
-            document.getElementById('monk-crop-scale').value = m.cropScale !== undefined ? m.cropScale : 1;
-            document.getElementById('monk-crop-offsetX').value = m.cropOffsetX !== undefined ? m.cropOffsetX : 0;
-            document.getElementById('monk-crop-offsetY').value = m.cropOffsetY !== undefined ? m.cropOffsetY : 0;
+            document.getElementById('monk-crop-scale').value = 1;
+            document.getElementById('monk-crop-offsetX').value = 0;
+            document.getElementById('monk-crop-offsetY').value = 0;
             document.getElementById('monk-halap').value = m.halap || '';
             document.getElementById('monk-bio-editor').innerHTML = m.bio || '';
             

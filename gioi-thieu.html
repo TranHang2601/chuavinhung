@@ -167,24 +167,31 @@
             <p id="lightbox-caption" class="text-white text-xs sm:text-lg font-serif mt-3 text-center tracking-wide px-2"></p>
         </div>
     </div>
-    <!-- Monk Modal -->
+
     <div id="monk-modal" class="fixed inset-0 z-50 bg-stone-950/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <!-- Nút X cố định nằm sát ngay góc ngoài phía trên bên phải khung modal cho cả mobile và desktop -->
-        <button onclick="closeMonkModal()" class="fixed z-[70] text-white bg-rose-600 hover:bg-rose-700 text-lg sm:text-xl transition focus:outline-none w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-2xl flex items-center justify-center border-2 border-white cursor-pointer" style="top: calc(50% - min(45vh, 450px) - 6px); right: calc(50% - min(36rem, 45vw) - 6px);">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 md:p-10 relative card-shadow border border-zenwarm-border max-h-[90vh] overflow-y-auto">
-            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start mb-5 sm:mb-6">
-                <img id="monk-modal-img" src="" class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover border-4 border-amber-100 shadow-md flex-shrink-0">
-                <div class="text-center sm:text-left">
-                    <span id="monk-modal-role" class="text-[10px] bg-zenwarm-primary text-white px-3 py-1 rounded-full font-bold uppercase tracking-wider inline-block mb-2"></span>
-                    <h3 id="monk-modal-name" class="font-serif font-bold text-lg sm:text-2xl text-zenwarm-text"></h3>
-                    <p id="monk-modal-halap" class="text-xs text-zenwarm-primary font-semibold mt-1"></p>
-                </div>
+        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full relative card-shadow border border-zenwarm-border max-h-[90vh] flex flex-col overflow-hidden">
+            <!-- Header cố định chứa nút X bên trong khi cuộn modal -->
+            <div class="sticky top-0 bg-white/95 backdrop-blur-sm px-5 sm:px-8 pt-5 sm:pt-6 pb-3 flex items-center justify-between border-b border-stone-100 z-20">
+                <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-zenwarm-primary"><i class="fa-solid fa-user-tie mr-1.5"></i> Thông Tin Chi Tiết Chư Tăng Ni</span>
+                <button onclick="closeMonkModal()" class="text-stone-400 hover:text-stone-700 bg-stone-100 hover:bg-stone-200 transition focus:outline-none w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm sm:text-base"></i>
+                </button>
             </div>
-            <div class="border-t border-stone-200 pt-4 sm:pt-6">
-                <h4 class="font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-700 mb-2"><i class="fa-solid fa-book-open-reader mr-2 text-zenwarm-primary"></i> Tiểu Sử</h4>
-                <div id="monk-modal-bio" class="text-stone-600 text-xs sm:text-base leading-relaxed font-light space-y-2"></div>
+            
+            <!-- Phần nội dung cuộn bên dưới -->
+            <div class="p-5 sm:p-8 md:p-10 overflow-y-auto space-y-5 sm:space-y-6">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start">
+                    <img id="monk-modal-img" src="" class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover border-4 border-amber-100 shadow-md flex-shrink-0">
+                    <div class="text-center sm:text-left">
+                        <span id="monk-modal-role" class="text-[10px] bg-zenwarm-primary text-white px-3 py-1 rounded-full font-bold uppercase tracking-wider inline-block mb-2"></span>
+                        <h3 id="monk-modal-name" class="font-serif font-bold text-lg sm:text-2xl text-zenwarm-text"></h3>
+                        <p id="monk-modal-halap" class="text-xs text-zenwarm-primary font-semibold mt-1"></p>
+                    </div>
+                </div>
+                <div class="border-t border-stone-200 pt-4 sm:pt-6">
+                    <h4 class="font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-700 mb-2"><i class="fa-solid fa-book-open-reader mr-2 text-zenwarm-primary"></i> Tiểu Sử</h4>
+                    <div id="monk-modal-bio" class="text-stone-600 text-xs sm:text-base leading-relaxed font-light space-y-2"></div>
+                </div>
             </div>
         </div>
     </div>
