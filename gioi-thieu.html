@@ -53,6 +53,13 @@
         .tab-transition {
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        /* Kỹ thuật Responsive Typography với clamp để tự động co dãn chữ luôn nằm trên 1 dòng duy nhất */
+        #history-title-el {
+            font-size: clamp(0.85rem, 3.4vw, 2.75rem);
+            white-space: nowrap;
+            display: inline-block;
+            width: 100%;
+        }
     </style>
 </head>
 <body class="bg-zenwarm-bg font-sans text-zenwarm-text antialiased min-h-screen flex flex-col justify-between">
@@ -90,21 +97,22 @@
             </button>
         </div>
 
-        <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-10 md:p-14 card-shadow border border-zenwarm-border">
-            
             <!-- Tab Lịch Sử Hình Thành -->
             <div id="content-lich-su" class="tab-pane space-y-8 sm:space-y-12">
-                <div class="max-w-3xl mx-auto text-center space-y-3">
-                    <span id="history-badge-el" class="text-zenwarm-primary font-bold text-[11px] sm:text-xs uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-lg border border-amber-200 inline-block">Dòng Thời Gian Thiền Viện</span>
-                    <h2 id="history-title-el" class="font-serif text-xl sm:text-3xl md:text-5xl font-bold text-zenwarm-text leading-tight px-1">
-                        Hành Trình Khởi Nguyên & Phát Triển
+                <div class="max-w-4xl mx-auto text-center space-y-3">
+                    <div class="flex items-center justify-center space-x-2 text-zenwarm-primary mb-1">
+                        <i class="fa-solid fa-spa text-xl sm:text-2xl"></i>
+                    </div>
+                    <!-- Tiêu đề áp dụng clamp để luôn nằm gọn trên 1 dòng -->
+                    <h2 id="history-title-el" class="font-serif font-bold text-stone-900 tracking-tight">
+                        LỊCH SỬ HÌNH THÀNH & PHÁT TRIỂN
                     </h2>
-                    <p class="text-zenwarm-muted text-xs sm:text-base md:text-lg font-light leading-relaxed px-1">
-                        Trải qua bao thăng trầm thời gian, Chùa Vĩnh Hưng vẫn luôn giữ vững tinh thần từ bi, phụng sự Đạo pháp và Dân tộc.
+                    <p id="history-badge-el" class="text-stone-500 text-xs sm:text-sm font-normal">
+                        Các cột mốc giai đoạn lịch sử của Chùa Vĩnh Hưng qua thời gian
                     </p>
                 </div>
 
-                <div id="dynamic-timeline-container" class="relative border-l-2 border-amber-300 ml-3 sm:ml-4 md:ml-12 pl-4 sm:pl-6 md:pl-10 space-y-8 sm:space-y-12 my-6">
+                <div id="dynamic-timeline-container" class="space-y-8 sm:space-y-10 my-6">
                     <!-- Populated dynamically -->
                 </div>
 
@@ -117,7 +125,7 @@
                 </div>
             </div>
 
-            <!-- Tab Kiến Trúc & Không Gian (Cảnh Chùa) -->
+            <!-- Tab Kiến Trúc -->
             <div id="content-kien-truc" class="tab-pane hidden space-y-6 sm:space-y-8">
                 <div class="max-w-2xl">
                     <span id="arch-badge-el" class="text-zenwarm-primary font-bold text-[11px] sm:text-xs uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-lg border border-amber-200 inline-block">Thắng Cảnh Thiền Viện</span>
@@ -125,16 +133,14 @@
                     <p id="arch-desc-el" class="text-zenwarm-muted text-xs sm:text-sm mt-1.5 sm:mt-2">Bấm vào bất kỳ bức ảnh nào bên dưới để phóng to chi tiết và chiêm bái không gian chùa.</p>
                 </div>
 
-                <!-- 2 ảnh trên 1 hàng trên di động (grid-cols-2), 3 ảnh trên máy tính (md:grid-cols-3) -->
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-6 pt-2" id="architecture-grid-container">
                     <!-- Populated dynamically -->
                 </div>
 
-                <!-- Phân trang cảnh chùa -->
                 <div id="architecture-pagination" class="flex justify-center items-center space-x-1.5 sm:space-x-2 pt-6"></div>
             </div>
 
-            <!-- Tab Chư Tăng Ni & Trị Sự -->
+            <!-- Tab Nhân Sự -->
             <div id="content-nhan-su" class="tab-pane hidden space-y-6 sm:space-y-8">
                 <div class="max-w-2xl">
                     <span class="text-zenwarm-primary font-bold text-[11px] sm:text-xs uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-lg border border-amber-200 inline-block">Ban Trị Sự & Chư Tăng Ni</span>
@@ -142,40 +148,8 @@
                     <p class="text-zenwarm-muted text-xs sm:text-sm mt-1.5 sm:mt-2">Những bậc chân tu tinh tấn hành trì, thay mặt Tam Bảo hoằng pháp lợi sinh.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-2">
-                    <div class="bg-stone-50 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between shadow-sm">
-                        <div>
-                            <div class="flex items-center space-x-3.5 sm:space-x-4 mb-3 sm:mb-4">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-zenwarm-primary shadow-sm flex-shrink-0 cursor-pointer" onclick="openLightbox(this.src, 'HT. Thích Tâm Quang')">
-                                <div>
-                                    <span class="text-[9px] sm:text-[10px] bg-zenwarm-secondary text-amber-100 px-2.5 py-0.5 sm:py-1 rounded-full font-bold uppercase tracking-wider">Viện Chủ</span>
-                                    <h3 class="font-serif font-bold text-sm sm:text-lg text-zenwarm-text mt-1.5">HT. Thích Tâm Quang</h3>
-                                    <p class="text-[11px] sm:text-xs text-zenwarm-primary font-semibold">Hơn 50 hạ lạp</p>
-                                </div>
-                            </div>
-                            <p class="text-[11px] sm:text-xs text-zenwarm-muted font-light mb-4 leading-relaxed">"Phật pháp bất ly thế gian giác, tu tâm dưỡng tính là gốc của mọi hạnh phúc."</p>
-                        </div>
-                        <button onclick="openMonkModal('ht-tam-quang')" class="w-full bg-white hover:bg-amber-50 text-zenwarm-primary border border-amber-300 py-2.5 rounded-xl font-semibold text-xs transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-circle-info"></i> <span>Xem Chi Tiết Tiểu Sử</span>
-                        </button>
-                    </div>
-
-                    <div class="bg-stone-50 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between shadow-sm">
-                        <div>
-                            <div class="flex items-center space-x-3.5 sm:space-x-4 mb-3 sm:mb-4">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-zenwarm-primary shadow-sm flex-shrink-0 cursor-pointer" onclick="openLightbox(this.src, 'ĐĐ. Thích Quảng Minh')">
-                                <div>
-                                    <span class="text-[9px] sm:text-[10px] bg-zenwarm-primary text-white px-2.5 py-0.5 sm:py-1 rounded-full font-bold uppercase tracking-wider">Trụ Trì</span>
-                                    <h3 class="font-serif font-bold text-sm sm:text-lg text-zenwarm-text mt-1.5">ĐĐ. Thích Quảng Minh</h3>
-                                    <p class="text-[11px] sm:text-xs text-zenwarm-primary font-semibold">25 hạ lạp</p>
-                                </div>
-                            </div>
-                            <p class="text-[11px] sm:text-xs text-zenwarm-muted font-light mb-4 leading-relaxed">"Tỉnh thức trong từng hơi thở, an lạc trong từng bước chân trên đường đạo."</p>
-                        </div>
-                        <button onclick="openMonkModal('dd-quang-minh')" class="w-full bg-white hover:bg-amber-50 text-zenwarm-primary border border-amber-300 py-2.5 rounded-xl font-semibold text-xs transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-circle-info"></i> <span>Xem Chi Tiết Tiểu Sử</span>
-                        </button>
-                    </div>
+                <div id="dynamic-monks-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-2">
+                    <p class="text-xs text-stone-400 italic col-span-full py-4 text-center">Đang tải danh sách chư tăng ni từ quản trị...</p>
                 </div>
             </div>
 
@@ -184,7 +158,6 @@
 
     <div id="footer-container"></div>
 
-    <!-- Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-3 sm:p-4">
         <button onclick="closeLightbox()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white text-2xl sm:text-3xl hover:text-amber-400 transition focus:outline-none w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
@@ -194,13 +167,13 @@
             <p id="lightbox-caption" class="text-white text-xs sm:text-lg font-serif mt-3 text-center tracking-wide px-2"></p>
         </div>
     </div>
-
     <!-- Monk Modal -->
     <div id="monk-modal" class="fixed inset-0 z-50 bg-stone-950/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 md:p-10 relative card-shadow border border-zenwarm-border">
-            <button onclick="closeMonkModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-stone-400 hover:text-stone-700 text-xl sm:text-2xl transition focus:outline-none w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-stone-100 flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <!-- Nút X cố định nằm sát ngay góc ngoài phía trên bên phải khung modal cho cả mobile và desktop -->
+        <button onclick="closeMonkModal()" class="fixed z-[70] text-white bg-rose-600 hover:bg-rose-700 text-lg sm:text-xl transition focus:outline-none w-10 h-10 sm:w-11 sm:h-11 rounded-full shadow-2xl flex items-center justify-center border-2 border-white cursor-pointer" style="top: calc(50% - min(45vh, 450px) - 6px); right: calc(50% - min(36rem, 45vw) - 6px);">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full p-5 sm:p-8 md:p-10 relative card-shadow border border-zenwarm-border max-h-[90vh] overflow-y-auto">
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start mb-5 sm:mb-6">
                 <img id="monk-modal-img" src="" class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover border-4 border-amber-100 shadow-md flex-shrink-0">
                 <div class="text-center sm:text-left">
@@ -211,7 +184,7 @@
             </div>
             <div class="border-t border-stone-200 pt-4 sm:pt-6">
                 <h4 class="font-bold text-xs sm:text-sm uppercase tracking-wider text-stone-700 mb-2"><i class="fa-solid fa-book-open-reader mr-2 text-zenwarm-primary"></i> Tiểu Sử</h4>
-                <p id="monk-modal-bio" class="text-stone-600 text-xs sm:text-base leading-relaxed font-light"></p>
+                <div id="monk-modal-bio" class="text-stone-600 text-xs sm:text-base leading-relaxed font-light space-y-2"></div>
             </div>
         </div>
     </div>
@@ -232,18 +205,19 @@
 
         let globalArchitectureItems = [];
         let currentArchitecturePage = 1;
+        let fetchedMonksData = {};
 
-        // Trả về số lượng ảnh trên 1 trang tùy thuộc vào thiết bị (Mobile: 22 ảnh, Máy tính: 21 ảnh)
         function getItemsPerPage() {
             return window.innerWidth < 768 ? 22 : 21;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             loadAboutConfigFromAdmin();
+            loadMonksDataFromAdmin();
             
-            // Lắng nghe sự kiện thay đổi kích thước màn hình để tự động cập nhật lại phân trang nếu cần
             window.addEventListener('resize', () => {
                 renderArchitectureGallery();
+                redrawAllMonkCanvases();
             });
         });
 
@@ -281,6 +255,149 @@
             } catch (err) {
                 console.error("Lỗi tải cấu hình giới thiệu từ quản trị:", err);
             }
+        }
+
+        async function loadMonksDataFromAdmin() {
+            try {
+                if (!database) return;
+                database.ref('monks').on('value', (snapshot) => {
+                    fetchedMonksData = snapshot.val() || {};
+                    renderMonksGallery(fetchedMonksData);
+                });
+            } catch (err) {
+                console.error("Lỗi tải dữ liệu chư tăng ni:", err);
+            }
+        }
+
+        function redrawAllMonkCanvases() {
+            if (!fetchedMonksData) return;
+            const keys = Object.keys(fetchedMonksData);
+            keys.forEach(key => {
+                const m = fetchedMonksData[key];
+                const monkQuote = m.quote ? `"${m.quote}"` : `"Tinh tấn hành trì, soi sáng tự tâm, phụng sự Đạo pháp."`;
+                drawQuoteOnCanvas(`canvas-${key}`, monkQuote);
+            });
+        }
+
+        function drawQuoteOnCanvas(canvasId, text) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            const dpr = window.devicePixelRatio || 1;
+            const width = canvas.parentElement.clientWidth || 300;
+            const height = 110;
+            
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            
+            ctx.scale(dpr, dpr);
+            
+            ctx.fillStyle = '#fffbeb'; 
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.strokeStyle = '#fcd34d';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(0, 0, width, height);
+            
+            ctx.fillStyle = '#451a03';
+            ctx.font = '600 italic 16px "Playfair Display", serif';
+            ctx.textBaseline = 'top';
+            
+            const padding = 14;
+            const maxWidth = width - (padding * 2);
+            
+            const words = text.split(' ');
+            let line = '';
+            let lines = [];
+            
+            for (let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                let metrics = ctx.measureText(testLine);
+                let testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    lines.push(line);
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
+            }
+            lines.push(line);
+            
+            let lineHeight = 24;
+            let startY = padding + (height - (padding * 2) - (lines.length * lineHeight)) / 2;
+            if (startY < padding) startY = padding;
+            
+            for (let i = 0; i < lines.length; i++) {
+                ctx.fillText(lines[i].trim(), padding, startY + (i * lineHeight));
+            }
+        }
+
+        function renderMonksGallery(monks) {
+            const container = document.getElementById('dynamic-monks-container');
+            if (!container) return;
+            
+            const keys = Object.keys(monks).sort((a, b) => (monks[a].order || 0) - (monks[b].order || 0));
+
+            if (keys.length === 0) {
+                container.innerHTML = `<p class="text-xs text-stone-400 italic col-span-full py-4 text-center">Chưa có thông tin chư tăng ni nào được thêm từ trang quản trị.</p>`;
+                return;
+            }
+
+            let html = '';
+            keys.forEach(key => {
+                const m = monks[key];
+                const avatar = m.avatar || 'https://placehold.co/300x300/f1f5f9/64748b?text=Monk';
+                const name = m.name || '';
+                const role = m.role || 'Thành viên Tăng đoàn';
+                const halap = m.halap ? `<p class="text-[11px] sm:text-xs text-zenwarm-primary font-semibold">${m.halap}</p>` : '';
+                
+                html += `
+                    <div class="bg-stone-50 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center space-x-3.5 sm:space-x-4 mb-3">
+                                <img src="${avatar}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-zenwarm-primary shadow-sm flex-shrink-0 cursor-pointer" onclick="openLightbox('${avatar}', '${name}')" onerror="this.src='https://placehold.co/200x200/f1f5f9/64748b?text=Monk'">
+                                <div>
+                                    <span class="text-[9px] sm:text-[10px] bg-zenwarm-primary text-white px-2.5 py-0.5 sm:py-1 rounded-full font-bold uppercase tracking-wider">${role}</span>
+                                    <h3 class="font-serif font-bold text-sm sm:text-lg text-zenwarm-text mt-1.5">${name}</h3>
+                                    ${halap}
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDynamicMonkModal('${key}')" class="w-full bg-white hover:bg-amber-50 text-zenwarm-primary border border-amber-300 py-2.5 rounded-xl font-semibold text-xs transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-circle-info"></i> <span>Xem Chi Tiết Tiểu Sử</span>
+                        </button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function openDynamicMonkModal(key) {
+            const data = fetchedMonksData[key];
+            if (!data) return;
+            document.getElementById('monk-modal-name').textContent = data.name || '';
+            document.getElementById('monk-modal-role').textContent = data.role || '';
+            document.getElementById('monk-modal-halap').textContent = data.halap || '';
+            document.getElementById('monk-modal-img').src = data.avatar || 'https://placehold.co/300x300/f1f5f9/64748b?text=Monk';
+            
+            let bioContent = data.bio || '<p class="italic text-stone-400">Chưa có thông tin tiểu sử chi tiết.</p>';
+            
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = bioContent;
+            tempDiv.querySelectorAll('a[data-img-preview]').forEach(link => {
+                const imgUrl = link.getAttribute('data-img-preview');
+                const imgWrap = document.createElement('div');
+                imgWrap.className = "my-3 rounded-xl overflow-hidden shadow-md cursor-pointer border border-stone-200 bg-stone-900 flex items-center justify-center";
+                imgWrap.setAttribute('onclick', `openLightbox('${imgUrl}', 'Hình ảnh tiểu sử')`);
+                imgWrap.innerHTML = `<img src="${imgUrl}" class="max-w-full max-h-[500px] object-contain hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/f3f4f6/9ca3af?text=Image'">`;
+                link.parentNode.replaceChild(imgWrap, link);
+            });
+
+            document.getElementById('monk-modal-bio').innerHTML = tempDiv.innerHTML;
+            document.getElementById('monk-modal').classList.remove('hidden');
         }
 
         function renderArchitectureGallery() {
@@ -363,16 +480,13 @@
             const container = document.getElementById('dynamic-timeline-container');
             if (!container) return;
             if (!stages || stages.length === 0) {
-                container.innerHTML = `<p class="text-xs text-stone-400 italic">Chưa có giai đoạn lịch sử nào được thiết lập.</p>`;
+                container.innerHTML = `<p class="text-xs text-stone-400 italic text-center py-6">Chưa có giai đoạn lịch sử nào được thiết lập.</p>`;
                 return;
             }
 
             let html = '';
             stages.forEach((st, idx) => {
-                const bulletColor = idx % 2 === 0 ? 'bg-zenwarm-primary' : 'bg-zenwarm-secondary';
-                
                 let processedDesc = st.desc || '';
-                
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = processedDesc;
                 
@@ -392,7 +506,7 @@
                                     fragment.appendChild(document.createTextNode(node.nodeValue.substring(lastIdx, offset)));
                                 }
                                 const imgWrap = document.createElement('div');
-                                imgWrap.className = "my-4 sm:my-6 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
+                                imgWrap.className = "my-4 sm:my-6 rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
                                 imgWrap.setAttribute('onclick', `openLightbox('${url}', 'Hình ảnh lịch sử')`);
                                 imgWrap.innerHTML = `<img src="${url}" class="w-full h-60 sm:h-80 md:h-[420px] object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x500/f3f4f6/9ca3af?text=ChuaVinhHung'">`;
                                 fragment.appendChild(imgWrap);
@@ -407,7 +521,7 @@
                         if (node.tagName === 'A' && node.getAttribute('data-img-preview')) {
                             const imgUrl = node.getAttribute('data-img-preview');
                             const imgWrap = document.createElement('div');
-                            imgWrap.className = "my-4 sm:my-6 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
+                            imgWrap.className = "my-4 sm:my-6 rounded-2xl overflow-hidden shadow-lg max-h-[500px] cursor-pointer group border border-stone-200";
                             imgWrap.setAttribute('onclick', `openLightbox('${imgUrl}', 'Hình ảnh lịch sử')`);
                             imgWrap.innerHTML = `<img src="${imgUrl}" class="w-full h-60 sm:h-80 md:h-[420px] object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x500/f3f4f6/9ca3af?text=ChuaVinhHung'">`;
                             node.parentNode.replaceChild(imgWrap, node);
@@ -420,15 +534,26 @@
                 walkAndTransform(tempDiv);
                 processedDesc = tempDiv.innerHTML;
 
+                const badgeBgColors = [
+                    'bg-rose-100 text-rose-800 border-rose-200',
+                    'bg-amber-100 text-amber-900 border-amber-200',
+                    'bg-emerald-100 text-emerald-900 border-emerald-200',
+                    'bg-sky-100 text-sky-900 border-sky-200'
+                ];
+                const badgeClass = badgeBgColors[idx % badgeBgColors.length];
+
                 html += `
-                    <div class="relative">
-                        <div class="absolute -left-[27px] sm:-left-[31px] md:-left-[47px] top-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full ${bulletColor} border-4 border-white shadow-md flex items-center justify-center"></div>
-                        <div class="bg-stone-50 p-4 sm:p-6 md:p-8 rounded-2xl border border-zenwarm-border shadow-sm space-y-3 sm:space-y-4">
-                            <span class="text-[11px] sm:text-xs font-bold text-zenwarm-primary bg-amber-50 px-3 py-1 rounded-full border border-amber-200 inline-block">${st.badge || 'Mốc thời gian'}</span>
-                            <h3 class="font-serif text-lg sm:text-2xl md:text-3xl font-bold text-zenwarm-text">${st.subtitle || ''}</h3>
-                            <div class="text-stone-950 space-y-3 text-xs sm:text-base md:text-lg leading-relaxed font-light">
-                                ${processedDesc}
-                            </div>
+                    <div class="bg-white rounded-3xl p-6 sm:p-10 card-shadow border border-stone-200/80 space-y-4 sm:space-y-6">
+                        <div class="inline-block">
+                            <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border ${badgeClass} shadow-xs inline-block">
+                                ${st.badge || 'Giai đoạn'}
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-3xl font-bold text-stone-900 leading-snug">
+                            ${st.subtitle || ''}
+                        </h3>
+                        <div class="text-stone-600 space-y-4 text-sm sm:text-base md:text-lg leading-relaxed font-light">
+                            ${processedDesc}
                         </div>
                     </div>
                 `;
@@ -459,34 +584,6 @@
 
         function closeLightbox() {
             document.getElementById('lightbox-modal').classList.add('hidden');
-        }
-
-        const monksData = {
-            'ht-tam-quang': {
-                name: 'Hòa Thượng Thích Tâm Quang',
-                role: 'Viện Chủ Chùa Vĩnh Hưng',
-                halap: 'Hơn 50 hạ lạp',
-                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80',
-                bio: 'Hòa Thượng xuất gia năm 12 tuổi, là bậc cao tăng có nhiều cống hiến to lớn trong việc hoằng pháp lợi sinh.'
-            },
-            'dd-quang-minh': {
-                name: 'Đại Đức Thích Quảng Minh',
-                role: 'Trụ Trì Chùa Vĩnh Hưng',
-                halap: '25 hạ lạp',
-                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
-                bio: 'Tốt nghiệp Học viện Phật giáo Việt Nam, phụ trách tổ chức các khóa tu và hoạt động thiện nguyện.'
-            }
-        };
-
-        function openMonkModal(key) {
-            const data = monksData[key];
-            if (!data) return;
-            document.getElementById('monk-modal-name').textContent = data.name;
-            document.getElementById('monk-modal-role').textContent = data.role;
-            document.getElementById('monk-modal-halap').textContent = data.halap;
-            document.getElementById('monk-modal-img').src = data.image;
-            document.getElementById('monk-modal-bio').textContent = data.bio;
-            document.getElementById('monk-modal').classList.remove('hidden');
         }
 
         function closeMonkModal() {
