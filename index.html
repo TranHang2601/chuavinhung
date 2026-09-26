@@ -131,6 +131,33 @@
         .swiper-pagination-bullet-active {
             background: #6b2024 !important;
         }
+
+        /* Running Orbit Circles Animation (Hiệu ứng vòng tròn chạy) */
+        @keyframes orbitRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes orbitRotateReverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes pulseBubble {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.12); opacity: 1; box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
+        }
+
+        .animate-orbit-1 {
+            animation: orbitRotate 22s linear infinite;
+        }
+        .animate-orbit-2 {
+            animation: orbitRotateReverse 30s linear infinite;
+        }
+        .animate-orbit-3 {
+            animation: orbitRotate 38s linear infinite;
+        }
+        .floating-badge {
+            animation: pulseBubble 3.5s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased bg-[#faf8f5]">
@@ -270,11 +297,53 @@
         </div>
     </section>
 
-    <!-- Section: Đăng ký tâm linh (Cầu An, Cầu Siêu, Quy Y) -->
-    <section class="py-20 bg-buddhist-maroon text-white overflow-hidden">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-            <div class="max-w-4xl mx-auto border-2 border-buddhist-gold/40 p-8 sm:p-10 rounded-2xl bg-buddhist-dark/30 shadow-2xl backdrop-blur-sm">
-                <h2 class="text-2xl sm:text-3xl font-heading font-bold mb-4 text-buddhist-lightgold">Đăng Ký Phật Sự & Tu Học</h2>
+    <!-- Section: Đăng ký tâm linh (Cầu An, Cầu Siêu, Quy Y) với Hiệu ứng vòng tròn chạy -->
+    <section class="py-28 bg-buddhist-maroon text-white overflow-hidden relative">
+        
+        <!-- Hiệu ứng các đường tròn chạy (Orbit Running Rings & Floating Badges) chỉ chứa icon Om tiếng Phạn nằm chuẩn trên đường tròn -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0">
+            <!-- Vòng tròn chạy thứ 1: Nét đứt, màu sáng (gold/lightgold) -->
+            <div class="absolute w-[600px] h-[600px] md:w-[900px] md:h-[900px] rounded-full border-2 border-dashed border-buddhist-lightgold/50 shadow-[0_0_15px_rgba(243,229,171,0.3)] animate-orbit-1">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 bg-[#f3e5ab] text-buddhist-maroon rounded-full shadow-lg floating-badge font-serif text-xl font-bold flex items-center justify-center">
+                    ॐ
+                </div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-11 h-11 bg-white text-buddhist-maroon rounded-full shadow-lg floating-badge font-serif text-xl font-bold flex items-center justify-center">
+                    ॐ
+                </div>
+            </div>
+
+            <!-- Vòng tròn chạy thứ 2 (Ngược chiều): Nét liền, sáng rõ -->
+            <div class="absolute w-[760px] h-[760px] md:w-[1140px] md:h-[1140px] rounded-full border-2 border-solid border-buddhist-gold/70 shadow-[0_0_25px_rgba(212,175,55,0.4)] animate-orbit-2">
+                <div class="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-buddhist-gold text-buddhist-dark rounded-full shadow-lg floating-badge font-serif text-2xl font-bold flex items-center justify-center">
+                    ॐ
+                </div>
+                <div class="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-[#f3e5ab] text-buddhist-dark rounded-full shadow-lg floating-badge font-serif text-2xl font-bold flex items-center justify-center">
+                    ॐ
+                </div>
+            </div>
+
+            <!-- Vòng tròn tâm điểm lớn hơn: Nét đứt mịn -->
+            <div class="absolute w-[440px] h-[440px] md:w-[680px] md:h-[680px] rounded-full border-2 border-dashed border-buddhist-lightgold/30 animate-orbit-3"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center reveal relative z-10">
+            <div class="max-w-4xl mx-auto border-2 border-buddhist-gold/40 p-8 sm:p-12 rounded-3xl bg-buddhist-dark/70 shadow-2xl backdrop-blur-md relative">
+                
+                <!-- Họa tiết bánh xe pháp luân trang trí 4 góc bên trong khung -->
+                <div class="absolute top-4 left-4 text-buddhist-gold text-sm pointer-events-none">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                </div>
+                <div class="absolute top-4 right-4 text-buddhist-gold text-sm pointer-events-none">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-buddhist-gold text-sm pointer-events-none">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                </div>
+                <div class="absolute bottom-4 right-4 text-buddhist-gold text-sm pointer-events-none">
+                    <i class="fa-solid fa-dharmachakra"></i>
+                </div>
+
+                <h2 class="text-2xl sm:text-4xl font-heading font-bold mb-4 text-buddhist-lightgold tracking-wide">Đăng Ký Phật Sự & Tu Học</h2>
                 <div class="my-3">
                     <i class="fa-brands fa-pagelines text-buddhist-gold text-2xl animate-float-lotus inline-block"></i>
                 </div>
@@ -285,7 +354,6 @@
                     <button class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2">
                         <i class="fa-solid fa-hands-praying text-buddhist-maroon"></i> Đăng Ký Cầu An
                     </button>
-                    <!-- Đã đổi button Đăng Ký Cầu Siêu thành thẻ a dẫn đến Form-cau-sieu.html -->
                     <a href="Form-cau-sieu.html" class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 inline-block">
                         <i class="fa-solid fa-dove text-buddhist-maroon"></i> Đăng Ký Cầu Siêu
                     </a>
@@ -296,7 +364,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Footer Container -->
     <div id="footer-container"></div>
 

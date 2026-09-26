@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Đăng Ký Quy Y Tam Bảo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canvaBg: '#fffdf4',
+                        canvaBorder: '#16a34a',
+                        canvaGreen: '#16a34a',
+                        canvaInputBg: '#e6f4ea',
+                        canvaBtn: '#d9f99d',
+                        canvaBtnHover: '#bef264'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fffdf4;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .canva-box {
+            background-color: #fffdf4;
+            border: 3px solid #16a34a;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(22, 163, 74, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        .canva-input {
+            background-color: #e6f4ea;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .canva-input:focus {
+            background-color: #ffffff;
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+        }
+
+        /* Hiệu ứng bong bóng / hạt rơi đủ màu nhẹ nhàng sinh động */
+        .bubble {
+            position: fixed;
+            bottom: -60px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-50vh) translateX(40px) scale(1.2);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-105vh) translateX(-30px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            .canva-box { border: 2px solid #333 !important; box-shadow: none !important; }
+            .bubble { display: none !important; }
+        }
+    </style>
+</head>
+<body class="py-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+
+    <!-- Container hiệu ứng bong bóng đủ màu rơi/bay lên -->
+    <div id="bubble-container"></div>
+
+    <div class="w-full max-w-lg">
+        
+        <!-- Main Form Box -->
+        <div class="canva-box p-6 sm:p-10">
+            
+            <!-- Header Title -->
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold tracking-widest text-canvaGreen uppercase block mb-1">NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-canvaGreen tracking-tight">Đăng Ký Quy Y Tam Bảo</h1>
+                <p class="text-xs text-stone-500 mt-2">Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đăng ký</p>
+            </div>
+
+            <form id="quyYForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                
+                <!-- Họ và tên -->
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1.5">Họ và Tên <span class="text-canvaGreen">*</span></label>
+                    <input type="text" id="hoTen" required placeholder="Nhập họ và tên đầy đủ..." class="canva-input w-full px-4 py-3 rounded-xl text-stone-800 text-sm font-semibold focus:outline-none">
+                </div>
+
+                <!-- Ngày sinh & Giới tính -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1.5">Ngày sinh <span class="text-canvaGreen">*</span></label>
+                        <input type="date" id="ngaySinh" required class="canva-input w-full px-4 py-3 rounded-xl text-stone-800 text-sm font-semibold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1.5">Giới tính <span class="text-canvaGreen">*</span></label>
+                        <select id="gioiTinh" required class="canva-input w-full px-4 py-3 rounded-xl text-stone-800 text-sm font-semibold focus:outline-none">
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Số điện thoại -->
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1.5">Số điện thoại <span class="text-canvaGreen">*</span></label>
+                    <input type="tel" id="sdt" required placeholder="Ví dụ: 0912345678" class="canva-input w-full px-4 py-3 rounded-xl text-stone-800 text-sm font-semibold focus:outline-none">
+                </div>
+
+                <!-- Địa chỉ -->
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1.5">Địa chỉ thường trú <span class="text-canvaGreen">*</span></label>
+                    <input type="text" id="diaChi" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..." class="canva-input w-full px-4 py-3 rounded-xl text-stone-800 text-sm font-semibold focus:outline-none">
+                </div>
+
+                <!-- Ngũ giới checkbox -->
+                <div class="bg-[#e6f4ea] p-4 rounded-xl border border-[#c6e7cb]">
+                    <p class="text-xs font-bold text-canvaGreen uppercase mb-2"><i class="fa-solid fa-scroll mr-1"></i> Phát Nguyện Thọ Trì Ngũ Giới</p>
+                    <div class="text-[11px] text-stone-600 space-y-1 mb-3">
+                        <div>1. Không sát sinh &nbsp;&bull;&nbsp; 2. Không trộm cắp</div>
+                        <div>3. Không tà dâm &nbsp;&bull;&nbsp; 4. Không nói dối &nbsp;&bull;&nbsp; 5. Không uống rượu chất kích thích</div>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <input type="checkbox" id="camKet" required class="w-4 h-4 text-canvaGreen focus:ring-canvaGreen border-stone-300 rounded cursor-pointer accent-canvaGreen">
+                        <label for="camKet" class="text-xs font-bold text-stone-800 cursor-pointer">
+                            Tôi tự nguyện phát nguyện Quy Y Tam Bảo và giữ gìn Ngũ Giới. <span class="text-canvaGreen">*</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-extrabold py-3.5 px-6 rounded-xl shadow-sm transition-all text-base tracking-wide flex items-center justify-center gap-2 cursor-pointer">
+                        <span>Submit</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div id="successModal" class="hidden space-y-6 pt-2">
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-[#e6f4ea] text-canvaGreen rounded-full flex items-center justify-center mx-auto mb-3 text-2xl border border-[#c6e7cb]">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-canvaGreen mb-1">Đăng Ký Thành Công!</h3>
+                    <p class="text-xs text-stone-500 mb-5">Nam Mô Phật Bổn Sư Thích Ca Mâu Ni.</p>
+                    
+                    <!-- Ticket View -->
+                    <div class="bg-[#f2faf4] p-4 rounded-xl border-2 border-dashed border-canvaGreen text-left mb-6">
+                        <div class="text-center pb-2 mb-3 border-b border-[#c6e7cb]">
+                            <h4 class="text-[11px] font-extrabold text-canvaGreen uppercase tracking-wider">PHIẾU XÁC NHẬN QUY Y TAM BẢO</h4>
+                            <p class="text-xs text-stone-500 mt-0.5">Mã hồ sơ: <span id="lblMaPhieu" class="font-bold text-stone-900 font-mono"></span></p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-stone-700">
+                            <div><span class="text-stone-400 block text-[10px] uppercase font-bold">Họ và tên</span><strong id="lblHoTen" class="text-stone-900 text-sm"></strong></div>
+                            <div><span class="text-stone-400 block text-[10px] uppercase font-bold">Ngày sinh</span><strong id="lblNgaySinh"></strong></div>
+                            <div><span class="text-stone-400 block text-[10px] uppercase font-bold">Giới tính</span><strong id="lblGioiTinh"></strong></div>
+                            <div><span class="text-stone-400 block text-[10px] uppercase font-bold">Số điện thoại</span><strong id="lblSdt"></strong></div>
+                            <div class="sm:col-span-2"><span class="text-stone-400 block text-[10px] uppercase font-bold">Địa chỉ</span><strong id="lblDiaChi"></strong></div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center no-print">
+                        <button onclick="window.print()" class="bg-stone-900 hover:bg-stone-800 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-print"></i> In Phiếu Xác Nhận
+                        </button>
+                        <button onclick="resetForm()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-rotate-right"></i> Đăng Ký Mới
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Note -->
+            <div class="mt-8 text-center no-print">
+                <p class="text-[11px] text-canvaGreen font-semibold">Tên hồ sơ Canva của bạn sẽ được chia sẻ</p>
+                <a href="#" onclick="showPrivacyModal(event)" class="text-[11px] text-canvaGreen underline hover:opacity-80">Tìm hiểu cách chúng tôi xử lý dữ liệu của bạn</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Privacy Info Modal -->
+    <div id="privacyModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full border-2 border-canvaGreen shadow-2xl text-center">
+            <h4 class="font-extrabold text-canvaGreen text-lg mb-2">Bảo Mật Thông Tin</h4>
+            <p class="text-xs text-stone-600 mb-4 leading-relaxed">
+                Mọi thông tin Phật tử đăng ký quy y được bảo mật tuyệt đối và chỉ sử dụng cho mục đích lập danh sách đạo hữu tại bổn tự.
+            </p>
+            <button onclick="closePrivacyModal()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-6 py-2 rounded-xl text-xs cursor-pointer">Đã hiểu</button>
+        </div>
+    </div>
+
+    <script>
+        // Tạo hiệu ứng bong bóng / hạt đủ màu rơi sinh động giống video
+        function createBubbles() {
+            const container = document.getElementById('bubble-container');
+            const bubbleCount = 22;
+            // Danh sách các màu sắc sinh động (xanh lá, vàng, cam, hồng nhạt, xanh dương...)
+            const colors = [
+                'radial-gradient(circle, rgba(34,197,94,0.4) 0%, rgba(22,163,74,0.15) 100%)',
+                'radial-gradient(circle, rgba(234,179,8,0.4) 0%, rgba(202,138,4,0.15) 100%)',
+                'radial-gradient(circle, rgba(249,115,22,0.35) 0%, rgba(234,88,12,0.15) 100%)',
+                'radial-gradient(circle, rgba(59,130,246,0.35) 0%, rgba(37,99,235,0.15) 100%)',
+                'radial-gradient(circle, rgba(236,72,153,0.35) 0%, rgba(219,39,119,0.15) 100%)'
+            ];
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                const size = Math.random() * 35 + 15; // Kích thước từ 15px đến 50px
+                const leftPos = Math.random() * 100; // Vị trí ngang ngẫu nhiên (%)
+                const animDuration = Math.random() * 7 + 6; // Thời gian bay từ 6s đến 13s
+                const animDelay = Math.random() * 6; // Độ trễ xuất hiện
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${leftPos}%`;
+                bubble.style.background = randomColor;
+                bubble.style.border = '1px solid rgba(255,255,255,0.3)';
+                bubble.style.animationDuration = `${animDuration}s`;
+                bubble.style.animationDelay = `${animDelay}s`;
+
+                container.appendChild(bubble);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", createBubbles);
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const hoTen = document.getElementById('hoTen').value;
+            const ngaySinhVal = document.getElementById('ngaySinh').value;
+            const dateObj = new Date(ngaySinhVal);
+            const formattedNgaySinh = !isNaN(dateObj.getTime()) ? 
+                String(dateObj.getDate()).padStart(2, '0') + '/' + String(dateObj.getMonth() + 1).padStart(2, '0') + '/' + dateObj.getFullYear() : ngaySinhVal;
+
+            const gioiTinh = document.getElementById('gioiTinh').value;
+            const sdt = document.getElementById('sdt').value;
+            const diaChi = document.getElementById('diaChi').value;
+
+            const randomCode = 'QY-' + Math.floor(100000 + Math.random() * 900000);
+
+            document.getElementById('lblMaPhieu').innerText = randomCode;
+            document.getElementById('lblHoTen').innerText = hoTen;
+            document.getElementById('lblNgaySinh').innerText = formattedNgaySinh;
+            document.getElementById('lblGioiTinh').innerText = gioiTinh;
+            document.getElementById('lblSdt').innerText = sdt;
+            document.getElementById('lblDiaChi').innerText = diaChi;
+
+            document.getElementById('quyYForm').style.display = 'none';
+            document.getElementById('successModal').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('quyYForm').reset();
+            document.getElementById('quyYForm').style.display = 'block';
+            document.getElementById('successModal').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showPrivacyModal(e) {
+            e.preventDefault();
+            document.getElementById('privacyModal').classList.remove('hidden');
+            document.getElementById('privacyModal').classList.add('flex');
+        }
+
+        function closePrivacyModal() {
+            document.getElementById('privacyModal').classList.add('hidden');
+            document.getElementById('privacyModal').classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
