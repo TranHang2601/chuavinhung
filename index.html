@@ -87,7 +87,6 @@
             animation: floatLotus 3s ease-in-out infinite;
         }
 
-        /* Hiệu ứng phát sáng mạnh và rực rỡ hơn khi hover nút play của video mới nhất */
         .main-play-btn-glow {
             transition: all 0.3s ease;
         }
@@ -98,7 +97,6 @@
             color: #6b2024 !important;
         }
 
-        /* Hiệu ứng phát sáng viền mượt mà cho các item video bên cạnh khi hover */
         .video-item-card {
             transition: all 0.3s ease;
         }
@@ -108,7 +106,6 @@
             transform: translateY(-2px);
         }
 
-        /* Hiệu ứng phóng to và phát sáng viền vàng khi hover thẻ tin tức (không dùng bóng đổ) */
         .news-card-hover {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
@@ -119,7 +116,6 @@
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
         }
 
-        /* Tùy chỉnh màu sắc và vị trí nút điều hướng Swiper */
         .swiper-button-next, .swiper-button-prev {
             color: #6b2024 !important;
             background: white;
@@ -231,21 +227,17 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Cập nhật những thông tin mới nhất về các hoạt động tu học, từ thiện và sự kiện Phật giáo diễn ra tại chùa.</p>
             </div>
 
-            <!-- Swiper Container Xoay Vòng - Tăng padding py-8 để không bị cắt hiệu ứng phát sáng -->
             <div class="relative reveal px-2 sm:px-10">
                 <div class="swiper newsSwiper py-8">
                     <div id="tin-tuc-container" class="swiper-wrapper">
-                        <!-- Loading State -->
                         <div class="swiper-slide text-center py-10">
                             <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
                             <p class="mt-3 text-gray-500 font-medium">Đang tải tin tức từ hệ thống...</p>
                         </div>
                     </div>
                 </div>
-                <!-- Nút điều hướng Swiper -->
                 <div class="swiper-button-prev !-left-1 md:!left-1"></div>
                 <div class="swiper-button-next !-right-1 md:!right-1"></div>
-                <!-- Phân trang (Dots) -->
                 <div class="swiper-pagination !-bottom-2"></div>
             </div>
             
@@ -273,6 +265,33 @@
             <div id="home-video-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
                 <div class="col-span-full text-center py-10">
                     <i class="fa-solid fa-spinner fa-spin text-3xl text-buddhist-gold"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Đăng ký tâm linh (Cầu An, Cầu Siêu, Quy Y) -->
+    <section class="py-20 bg-buddhist-maroon text-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <div class="max-w-4xl mx-auto border-2 border-buddhist-gold/40 p-8 sm:p-10 rounded-2xl bg-buddhist-dark/30 shadow-2xl backdrop-blur-sm">
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold mb-4 text-buddhist-lightgold">Đăng Ký Phật Sự & Tu Học</h2>
+                <div class="my-3">
+                    <i class="fa-brands fa-pagelines text-buddhist-gold text-2xl animate-float-lotus inline-block"></i>
+                </div>
+                <p class="max-w-2xl mx-auto mb-8 text-gray-200 text-base leading-relaxed">
+                    Quý Phật tử có nhu cầu đăng ký cầu an cho gia đình, cầu siêu cho cửu huyền thất tổ hoặc đăng ký quy y Tam Bảo, vui lòng chọn hình thức bên dưới.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <button class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2">
+                        <i class="fa-solid fa-hands-praying text-buddhist-maroon"></i> Đăng Ký Cầu An
+                    </button>
+                    <!-- Đã đổi button Đăng Ký Cầu Siêu thành thẻ a dẫn đến Form-cau-sieu.html -->
+                    <a href="Form-cau-sieu.html" class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 inline-block">
+                        <i class="fa-solid fa-dove text-buddhist-maroon"></i> Đăng Ký Cầu Siêu
+                    </a>
+                    <button class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2">
+                        <i class="fa-solid fa-dharmachakra text-buddhist-maroon"></i> Đăng Ký Quy Y
+                    </button>
                 </div>
             </div>
         </div>
@@ -331,7 +350,6 @@
                         return;
                     }
                     
-                    // Render các bài viết với chiều cao co giãn tự nhiên, không chứa khoảng trống thừa
                     container.innerHTML = newsList.map(item => {
                         let rawText = item.content ? item.content.replace(/<[^>]*>/g, '') : '';
                         let cleanText = rawText
@@ -372,7 +390,6 @@
                     `;
                     }).join('');
 
-                    // Khởi tạo Swiper xoay vòng
                     new Swiper(".newsSwiper", {
                         slidesPerView: 1,
                         spaceBetween: 24,

@@ -597,12 +597,13 @@
             </div>
         </section>
 
+        <!-- CHƯ TĂNG NI SECTION -->
         <section id="tab-sec-monks" class="hidden space-y-4">
             <div class="bg-white rounded-3xl p-6 sm:p-8 custom-shadow border border-slate-200/80 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
                     <div>
                         <h2 class="text-xl font-serif font-bold text-slate-900 uppercase">Danh Sách Chư Tăng & Ni</h2>
-                        <p class="text-xs text-slate-500 font-medium mt-0.5">Thông tin chư Tôn đức Tăng ni Chùa Vĩnh Hưng (Hỗ trợ cắt ảnh đại diện chuẩn TopCV trên canvas)</p>
+                        <p class="text-xs text-slate-500 font-medium mt-0.5">Thông tin chư Tôn đức Tăng ni Chùa Vĩnh Hưng (Hỗ trợ lưu ảnh gốc và crop preview)</p>
                     </div>
                     <button id="btn-add-monk" onclick="openMonkModal()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs uppercase shadow-md shadow-rose-600/20 transition tracking-wider">
                         <i class="fa-solid fa-user-plus mr-1.5"></i> Thêm Thành Viên
@@ -1124,6 +1125,11 @@
 
         <form id="monk-form" onsubmit="saveMonk(event)" class="space-y-6 text-xs sm:text-sm">
             <input type="hidden" id="monk-key">
+            <!-- Hidden inputs to store original image and crop data state -->
+            <input type="hidden" id="monk-original-image">
+            <input type="hidden" id="monk-crop-scale" value="1">
+            <input type="hidden" id="monk-crop-offsetX" value="0">
+            <input type="hidden" id="monk-crop-offsetY" value="0">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
@@ -1530,7 +1536,7 @@
             setupTopCVCropperEvents();
         });
 
-        /* --- TOPCV CROPPER LOGIC ON CANVAS --- */
+        /* --- TOPCV CROPPER LOGIC ON CANVAS (FIXED: Focus and display at 100% scale on edit) --- */
         function setupTopCVCropperEvents() {
             const canvas = document.getElementById('topcv-crop-canvas');
             if (!canvas) return;
@@ -1547,6 +1553,7 @@
                 topcvOffsetX = e.clientX - startDragX;
                 topcvOffsetY = e.clientY - startDragY;
                 drawTopCVCropper();
+                saveCurrentCropState();
             });
 
             window.addEventListener('mouseup', () => {
@@ -1568,6 +1575,7 @@
                 topcvOffsetX = e.touches[0].clientX - startDragX;
                 topcvOffsetY = e.touches[0].clientY - startDragY;
                 drawTopCVCropper();
+                saveCurrentCropState();
             });
 
             window.addEventListener('touchend', () => {
@@ -1585,39 +1593,50 @@
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (e) => {
+                const originalUrl = e.target.result;
+                document.getElementById('monk-original-image').value = originalUrl;
+
                 const img = new Image();
-                img.src = e.target.result;
+                img.src = originalUrl;
                 img.onload = () => {
                     topcvImage = img;
-                    topcvScale = Math.max(220 / img.width, 220 / img.height);
+                    topcvScale = 1; // 100% scale
                     topcvOffsetX = (220 - img.width * topcvScale) / 2;
                     topcvOffsetY = (220 - img.height * topcvScale) / 2;
 
-                    document.getElementById('topcv-zoom-range').value = Math.round(topcvScale * 100);
-                    document.getElementById('zoom-value-label').textContent = Math.round(topcvScale * 100) + '%';
+                    document.getElementById('topcv-zoom-range').value = 100;
+                    document.getElementById('zoom-value-label').textContent = '100%';
                     
                     drawTopCVCropper();
                     exportTopCVCrop();
+                    saveCurrentCropState();
                 };
             };
         }
 
-        function loadTopCVCropperWithUrl(url) {
-            if (!url) return;
+        function loadTopCVCropperWithData(m) {
+            const originalUrl = m.originalImage || m.avatar;
+            if (!originalUrl) return;
+
+            document.getElementById('monk-original-image').value = originalUrl;
+            
             const img = new Image();
             img.crossOrigin = "anonymous";
-            img.src = url;
+            img.src = originalUrl;
             img.onload = () => {
                 topcvImage = img;
-                topcvScale = Math.max(220 / img.width, 220 / img.height);
+
+                // Force 100% scale focus when opening edit modal
+                topcvScale = 1;
                 topcvOffsetX = (220 - img.width * topcvScale) / 2;
                 topcvOffsetY = (220 - img.height * topcvScale) / 2;
 
-                document.getElementById('topcv-zoom-range').value = Math.round(topcvScale * 100);
-                document.getElementById('zoom-value-label').textContent = Math.round(topcvScale * 100) + '%';
+                document.getElementById('topcv-zoom-range').value = 100;
+                document.getElementById('zoom-value-label').textContent = '100%';
                 
                 drawTopCVCropper();
                 exportTopCVCrop();
+                saveCurrentCropState();
             };
         }
 
@@ -1636,6 +1655,13 @@
 
             drawTopCVCropper();
             exportTopCVCrop();
+            saveCurrentCropState();
+        }
+
+        function saveCurrentCropState() {
+            document.getElementById('monk-crop-scale').value = topcvScale;
+            document.getElementById('monk-crop-offsetX').value = topcvOffsetX;
+            document.getElementById('monk-crop-offsetY').value = topcvOffsetY;
         }
 
         function drawTopCVCropper() {
@@ -1650,11 +1676,9 @@
             ctx.drawImage(topcvImage, 0, 0);
             ctx.restore();
 
-            // Dark backdrop
             ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Square cutout region (160x160 centered in 220x220 canvas)
             const cw = 160;
             const ch = 160;
             const cx = (canvas.width - cw) / 2;
@@ -1710,8 +1734,8 @@
 
             pCtx.drawImage(topcvImage, sourceX, sourceY, sourceW, sourceH, 0, 0, previewCanvas.width, previewCanvas.height);
 
-            const dataUrl = previewCanvas.toDataURL('image/webp', 0.9);
-            document.getElementById('monk-avatar').value = dataUrl;
+            const originalUrl = document.getElementById('monk-original-image').value || topcvImage.src;
+            document.getElementById('monk-avatar').value = originalUrl;
         }
 
         async function loadMaintenanceState() {
@@ -3505,10 +3529,13 @@
             document.getElementById('monk-name').value = '';
             document.getElementById('monk-role').value = '';
             document.getElementById('monk-avatar').value = '';
+            document.getElementById('monk-original-image').value = '';
+            document.getElementById('monk-crop-scale').value = '1';
+            document.getElementById('monk-crop-offsetX').value = '0';
+            document.getElementById('monk-crop-offsetY').value = '0';
             document.getElementById('monk-halap').value = '';
             document.getElementById('monk-bio-editor').innerHTML = '';
             
-            // Clear canvas cropper with placeholder
             topcvImage = null;
             const canvas = document.getElementById('topcv-crop-canvas');
             const ctx = canvas.getContext('2d');
@@ -3535,11 +3562,15 @@
             document.getElementById('monk-name').value = m.name || '';
             document.getElementById('monk-role').value = m.role || '';
             document.getElementById('monk-avatar').value = m.avatar || '';
+            document.getElementById('monk-original-image').value = m.originalImage || m.avatar || '';
+            document.getElementById('monk-crop-scale').value = 1;
+            document.getElementById('monk-crop-offsetX').value = 0;
+            document.getElementById('monk-crop-offsetY').value = 0;
             document.getElementById('monk-halap').value = m.halap || '';
             document.getElementById('monk-bio-editor').innerHTML = m.bio || '';
             
-            if (m.avatar) {
-                loadTopCVCropperWithUrl(m.avatar);
+            if (m.originalImage || m.avatar) {
+                loadTopCVCropperWithData(m);
             }
             document.getElementById('modal-monk').classList.remove('hidden');
         }
@@ -3665,11 +3696,26 @@
             const name = document.getElementById('monk-name').value.trim();
             const role = document.getElementById('monk-role').value.trim();
             const avatar = document.getElementById('monk-avatar').value.trim();
+            const originalImage = document.getElementById('monk-original-image').value.trim() || avatar;
+            const cropScale = parseFloat(document.getElementById('monk-crop-scale').value) || 1;
+            const cropOffsetX = parseFloat(document.getElementById('monk-crop-offsetX').value) || 0;
+            const cropOffsetY = parseFloat(document.getElementById('monk-crop-offsetY').value) || 0;
             const halap = document.getElementById('monk-halap').value.trim();
             const bio = document.getElementById('monk-bio-editor').innerHTML.trim();
 
             const existingOrder = key && monksData[key] && monksData[key].order ? monksData[key].order : Object.keys(monksData).length + 1;
-            const payload = { name, role, avatar, halap, bio, order: existingOrder };
+            const payload = { 
+                name, 
+                role, 
+                avatar, 
+                originalImage, 
+                cropScale, 
+                cropOffsetX, 
+                cropOffsetY, 
+                halap, 
+                bio, 
+                order: existingOrder 
+            };
             try {
                 if (key) {
                     await database.ref(`monks/${key}`).set(payload);
