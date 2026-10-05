@@ -161,88 +161,6 @@
             </div>
         </section>
 
-        <!-- ================= TAB 2: QUẢN LÝ ADMIN ================= -->
-        <section id="tab-admin" class="hidden space-y-6 animate-fadeIn">
-            
-            <div id="admin-lock-screen" class="bg-white rounded-2xl p-8 sm:p-12 custom-shadow border border-amber-200 text-center max-w-md mx-auto space-y-6">
-                <div class="w-20 h-20 rounded-full bg-amber-100 text-chua-red flex items-center justify-center mx-auto text-3xl border-2 border-amber-300">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold font-serif text-chua-darkred uppercase">Màn Hình Quản Lý</h3>
-                    <p class="text-xs text-gray-500 mt-1">Vui lòng nhập mã PIN Admin để xem danh sách đăng ký</p>
-                </div>
-
-                <div class="space-y-4">
-                    <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN..." maxlength="8" onkeypress="if(event.key === 'Enter') unlockAdmin()" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold border border-gray-300 rounded-xl focus:ring-2 focus:ring-chua-amber focus:border-chua-amber outline-none">
-                    
-                    <button type="button" onclick="unlockAdmin()" class="w-full py-3 bg-chua-amber hover:bg-chua-red text-white font-bold rounded-xl shadow transition text-sm uppercase cursor-pointer">
-                        Mở Khóa Quản Lý
-                    </button>
-                </div>
-            </div>
-
-            <div id="admin-content" class="hidden bg-white rounded-2xl p-6 sm:p-8 custom-shadow border border-amber-200 space-y-6">
-                
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-4">
-                    <div>
-                        <h2 class="text-2xl font-serif font-bold text-chua-red uppercase flex items-center">
-                            <i class="fa-solid fa-list-check mr-2.5 text-chua-amber"></i>
-                            Danh Sách Cầu Siêu Đã Đăng Ký
-                        </h2>
-                        <p class="text-xs text-gray-500 mt-1">
-                            Tổng số lượt đăng ký: <span id="total-records-count" class="font-bold text-chua-red text-sm">0</span>
-                        </p>
-                    </div>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button type="button" onclick="exportToExcel()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center shadow cursor-pointer">
-                            <i class="fa-solid fa-file-excel mr-1.5 text-sm"></i> Xuất File Excel
-                        </button>
-                        <button type="button" onclick="promptChangePassword()" class="px-3.5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-xs font-semibold transition flex items-center cursor-pointer">
-                            <i class="fa-solid fa-key mr-1.5"></i> Đổi PIN
-                        </button>
-                        <button type="button" onclick="logoutAdmin()" class="px-3 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl text-xs font-semibold transition flex items-center cursor-pointer">
-                            <i class="fa-solid fa-lock mr-1.5"></i> Khóa
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center bg-gray-50 px-3.5 py-2 rounded-xl border border-gray-200">
-                    <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2.5"></i>
-                    <input type="text" id="search-input" oninput="currentPage = 1; renderAdminList()" placeholder="Tìm kiếm theo Tín chủ, SĐT, Hương linh, Pháp danh..." class="w-full bg-transparent outline-none text-sm">
-                </div>
-
-                <div class="overflow-x-auto rounded-xl border border-gray-200">
-                    <table class="w-full text-left border-collapse min-w-[700px]">
-                        <thead>
-                            <tr class="bg-amber-100/70 text-chua-darkred text-xs uppercase font-bold border-b border-amber-200">
-                                <th class="py-3 px-4 w-12 text-center">STT</th>
-                                <th class="py-3 px-4 w-32">Ngày gửi</th>
-                                <th class="py-3 px-4 w-48">Tín Chủ</th>
-                                <th class="py-3 px-4 w-48">Liên Hệ & Địa Chỉ</th>
-                                <th class="py-3 px-4">Danh Sách Hương Linh Cầu Siêu</th>
-                                <th class="py-3 px-4 w-20 text-center">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-list-body" class="divide-y divide-gray-100 text-sm">
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Phân trang -->
-                <div id="pagination-container" class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-gray-200 text-xs sm:text-sm text-gray-600">
-                    <div id="pagination-info" class="text-xs text-gray-500 italic">
-                        Hiển thị 0 - 0 trên 0 bản ghi
-                    </div>
-                    <div id="pagination-controls" class="flex items-center space-x-1.5 flex-wrap">
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
     </main>
 
     <!-- Footer tĩnh -->
@@ -305,7 +223,7 @@
         const itemsPerPage = 10;
         let pendingRecord = null;
 
-        const CLOUD_DB_URL = 'https://chua-vinh-hung-default-rtdb.asia-southeast1.firebasedatabase.app/registrations';
+        const CLOUD_DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/registrations';
         const STORAGE_KEY_RECORDS = 'chua_vinh_hung_cau_sieu_records';
         const STORAGE_KEY_PIN = 'chua_vinh_hung_admin_pin';
 
@@ -660,23 +578,36 @@
             document.getElementById('review-modal').classList.remove('hidden');
         }
 
-        function confirmAndSubmitForm() {
+        async function confirmAndSubmitForm() {
             if (!pendingRecord) return;
             document.getElementById('review-modal').classList.add('hidden');
 
             const record = pendingRecord;
             pendingRecord = null;
 
+            // Lưu cục bộ (LocalStorage) phòng trường hợp ngoại tuyến
             const records = getSavedRecords();
             records.push(record);
             saveLocalRecords(records);
 
-            fetch(`${CLOUD_DB_URL}.json`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(record)
-            }).catch(err => console.warn("Lưu đám mây ngầm thất bại", err));
+            // Đẩy dữ liệu trực tiếp lên Firebase Realtime Database của Chùa Vĩnh Hưng
+            try {
+                const response = await fetch('https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/registrations.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(record)
+                });
+                
+                if (response.ok) {
+                    const resData = await response.json();
+                    // Cập nhật lại key Firebase vào bản ghi cục bộ nếu cần
+                    record.firebaseKey = resData.name;
+                }
+            } catch (err) {
+                console.warn("Lỗi kết nối đồng bộ đám mây ngầm:", err);
+            }
 
+            // Reset Form
             document.getElementById('cauSieuForm').reset();
             document.getElementById('people-container').innerHTML = '';
             personCounter = 0;
@@ -684,7 +615,7 @@
 
             showModal(
                 "Đăng Ký Thành Công!",
-                "Thông tin cầu siêu của gia đình đã được lưu gửi đến Chùa Vĩnh Hưng. Chúc quý Phật tử cùng gia quyến luôn an lạc, vạn sự cát tường!"
+                "Thông tin cầu siêu của gia đình đã được lưu gửi thành công đến Chùa Vĩnh Hưng. Chúc quý Phật tử cùng gia quyến luôn an lạc, vạn sự cát tường!"
             );
         }
 
