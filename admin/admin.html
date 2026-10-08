@@ -666,7 +666,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-3">
                         <div>
                             <h3 class="text-base font-bold text-slate-800 uppercase flex items-center">
-                                <i class="fa-solid fa-list-check mr-2 text-rose-600"></i> Danh Sách Cầu Siêu Đã Đăng Ký
+                                <i class="fa-solid fa-table mr-2 text-rose-600"></i> Bảng Đăng Ký Cầu Siêu
                             </h3>
                             <p class="text-xs text-slate-500 mt-0.5">
                                 Tổng số lượt đăng ký cầu siêu: <span id="cau-sieu-total-count" class="font-bold text-rose-600 text-sm">0</span>
@@ -685,15 +685,15 @@
                     </div>
 
                     <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-                        <table class="w-full text-left border-collapse min-w-[700px]">
+                        <table id="registrations_cau_sieu" class="w-full text-left border-collapse min-w-[950px]">
                             <thead>
-                                <tr class="bg-amber-100/70 text-amber-950 text-xs uppercase font-bold border-b border-amber-200">
+                                <tr class="bg-amber-100/80 text-amber-950 text-xs uppercase font-bold border-b border-amber-200">
                                     <th class="py-3 px-4 w-12 text-center">STT</th>
-                                    <th class="py-3 px-4 w-32">Ngày gửi</th>
-                                    <th class="py-3 px-4 w-48">Tín Chủ</th>
+                                    <th class="py-3 px-4 w-32">Ngày Gửi</th>
+                                    <th class="py-3 px-4 w-44">Tín Chủ</th>
                                     <th class="py-3 px-4 w-48">Liên Hệ & Địa Chỉ</th>
                                     <th class="py-3 px-4">Danh Sách Hương Linh Cầu Siêu</th>
-                                    <th class="py-3 px-4 w-20 text-center">Thao tác</th>
+                                    <th class="py-3 px-4 w-24 text-center">Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody id="cau-sieu-admin-list-body" class="divide-y divide-slate-100 text-sm">
@@ -4121,7 +4121,7 @@
 
         async function fetchCauSieuRecords() {
             try {
-                const snapshot = await database.ref('registrations').once('value');
+                const snapshot = await database.ref('registrations_cau_sieu').once('value');
                 const data = snapshot.val();
                 if (data) {
                     const recordsList = Object.keys(data).map(key => ({
@@ -4305,7 +4305,7 @@
 
             if (firebaseKey) {
                 try {
-                    await database.ref(`registrations/${firebaseKey}`).remove();
+                    await database.ref(`registrations_cau_sieu/${firebaseKey}`).remove();
                     showToast("Đã xóa bản ghi thành công trên hệ thống!");
                 } catch(e) {
                     console.warn("Lỗi khi xóa trên Firebase", e);
