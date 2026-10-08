@@ -357,7 +357,7 @@
                     <button onclick="openCauSieuModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-dove text-buddhist-maroon"></i> Đăng Ký Cầu Siêu
                     </button>
-                    <button class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2">
+                    <button onclick="openQuyYModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-dharmachakra text-buddhist-maroon"></i> Đăng Ký Quy Y
                     </button>
                 </div>
@@ -382,6 +382,26 @@
             <!-- Khung chứa file Form-cau-sieu.html nguyên bản -->
             <div class="flex-1 w-full bg-[#fffdf4] overflow-hidden">
                 <iframe id="cauSieuIframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Đăng Ký Quy Y bằng Iframe giữ nguyên 100% Form gốc -->
+    <div id="quyYModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="relative w-full max-w-2xl h-[90vh] bg-[#fffdf4] border-3 border-[#16a34a] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+            
+            <!-- Thanh tiêu đề & Nút Đóng Modal -->
+            <div class="bg-[#e6f4ea] px-6 py-3 border-b border-[#c6e7cb] flex items-center justify-between">
+                <span class="text-xs sm:text-sm font-extrabold text-[#16a34a] uppercase tracking-wider">
+                    <i class="fa-solid fa-dharmachakra mr-1.5"></i> Biểu Mẫu Đăng Ký Quy Y Tam Bảo - Chùa Vĩnh Hưng
+                </span>
+                <button onclick="closeQuyYModal()" class="w-8 h-8 rounded-full bg-[#c6e7cb] hover:bg-[#bbf7d0] text-stone-900 flex items-center justify-center font-bold text-base transition cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Khung chứa file Form-quy-y.html nguyên bản -->
+            <div class="flex-1 w-full bg-[#fffdf4] overflow-hidden">
+                <iframe id="quyYIframe" src="" class="w-full h-full border-0"></iframe>
             </div>
         </div>
     </div>
@@ -596,6 +616,24 @@
 
     function closeCauSieuModal() {
         const modal = document.getElementById('cauSieuModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto'; // Mở lại cuộn trang
+    }
+    function openQuyYModal() {
+        const modal = document.getElementById('quyYModal');
+        const iframe = document.getElementById('quyYIframe');
+        
+        // Gán đường dẫn file Form-quy-y.html vào iframe nếu chưa có
+        if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
+            iframe.src = 'Form-quy-y.html';
+        }
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
+    }
+
+    function closeQuyYModal() {
+        const modal = document.getElementById('quyYModal');
         modal.classList.add('hidden');
         document.body.style.overflow = 'auto'; // Mở lại cuộn trang
     }
