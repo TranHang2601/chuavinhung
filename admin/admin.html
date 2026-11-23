@@ -681,7 +681,7 @@
 
                     <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200">
                         <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2.5 text-xs"></i>
-                        <input type="text" id="cau-an-search" oninput="cauAnCurrentPage = 1; renderCauAnAdminList()" placeholder="Tìm kiếm theo Tín chủ, SĐT, Thành viên, Pháp danh..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
+                        <input type="text" id="cau-sieu-search" oninput="cauSieuCurrentPage = 1; renderCauSieuAdminList()" placeholder="Tìm kiếm theo Tín chủ, SĐT, Hương linh, Pháp danh..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
                     </div>
 
                     <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
@@ -959,6 +959,60 @@
                     </div>
                 </div>
 
+                <!-- 3 NÚT ĐÓNG / MỞ FORM ĐĂNG KÝ TRÊN TRANG CHỦ -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+                    <div class="border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-slate-900 text-sm uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-file-pen text-rose-600"></i> Đóng / Mở Form Đăng Ký Trên Trang Chủ
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">Khi bật nút gạt, Phật tử mới có thể bấm đăng ký trên trang chủ. Khi tắt nút gạt, form sẽ đóng và thông báo tạm ngưng nhận đăng ký.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                        <!-- Form Cầu Siêu -->
+                        <div class="p-4 rounded-2xl border border-amber-200 bg-amber-50/40 flex items-center justify-between gap-3">
+                            <div>
+                                <div class="font-bold text-amber-950 text-xs uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-dove text-amber-700"></i> Form Cầu Siêu
+                                </div>
+                                <div id="form-status-causieu" class="text-[11px] font-bold text-slate-500 mt-1">Đang tải...</div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                                <input type="checkbox" id="toggle-form-causieu" onchange="toggleRegistrationForm('causieu', this.checked)" class="sr-only peer">
+                                <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                            </label>
+                        </div>
+
+                        <!-- Form Cầu An -->
+                        <div class="p-4 rounded-2xl border border-sky-200 bg-sky-50/40 flex items-center justify-between gap-3">
+                            <div>
+                                <div class="font-bold text-sky-950 text-xs uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-hands-praying text-sky-700"></i> Form Cầu An
+                                </div>
+                                <div id="form-status-cauan" class="text-[11px] font-bold text-slate-500 mt-1">Đang tải...</div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                                <input type="checkbox" id="toggle-form-cauan" onchange="toggleRegistrationForm('cauan', this.checked)" class="sr-only peer">
+                                <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                            </label>
+                        </div>
+
+                        <!-- Form Quy Y -->
+                        <div class="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/40 flex items-center justify-between gap-3">
+                            <div>
+                                <div class="font-bold text-emerald-950 text-xs uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-dharmachakra text-emerald-700"></i> Form Quy Y
+                                </div>
+                                <div id="form-status-quyy" class="text-[11px] font-bold text-slate-500 mt-1">Đang tải...</div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                                <input type="checkbox" id="toggle-form-quyy" onchange="toggleRegistrationForm('quyy', this.checked)" class="sr-only peer">
+                                <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="space-y-5 pt-2">
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Cấu hình API Key ImgBB (Tự động tải lên)</label>
                     <div class="flex gap-3">
@@ -976,6 +1030,7 @@
     </div>
 </main>
 
+<!-- (Giữ nguyên toàn bộ các modal và script bên dưới) -->
 <div id="modal-tag-manager" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
     <div class="bg-white rounded-3xl max-w-2xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
         <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -1214,7 +1269,7 @@
         
         <div class="space-y-4 text-xs sm:text-sm">
             <div>
-                <label class="block font-bold text-slate-700 uppercase mb-2">Chọn ảnh từ máy tính (Tự động chuyển WebP)</label>
+                <label class="block font-bold text-slate-700 uppercase mb-2">Chọn ảnh từ máy tính</label>
                 <input type="file" id="inline-file-input" accept="image/*" class="w-full px-4 py-3.5 border border-slate-300 rounded-2xl outline-none bg-slate-50 font-medium" onchange="processInlineImageFile(event)">
             </div>
             <div class="relative text-center border-t border-slate-200 pt-3">
@@ -1295,13 +1350,12 @@
 <div id="modal-monk" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 max-h-[95vh] overflow-y-auto">
         <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-            <h3 id="monk-modal-title" class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm / Sửa Thành Viên Chư Tăng Ni & Cắt Ảnh TopCV</h3>
+            <h3 id="monk-modal-title" class="text-xl font-bold font-serif text-slate-900 uppercase">Thêm / Sửa Thành Viên Chư Tăng Ni </h3>
             <button onclick="closeMonkModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
 
         <form id="monk-form" onsubmit="saveMonk(event)" class="space-y-6 text-xs sm:text-sm">
             <input type="hidden" id="monk-key">
-            <!-- Hidden inputs to store original image and crop data state -->
             <input type="hidden" id="monk-original-image">
             <input type="hidden" id="monk-crop-scale" value="1">
             <input type="hidden" id="monk-crop-offsetX" value="0">
@@ -1323,7 +1377,6 @@
                     </div>
                 </div>
 
-                <!-- TOPCV-STYLE CROPPING WORKSPACE -->
                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
                     <div class="flex items-center justify-between">
                         <label class="font-bold text-slate-800 uppercase text-xs flex items-center gap-1.5">
@@ -1336,12 +1389,10 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row items-center gap-4">
-                        <!-- Canvas Editor (Left) -->
                         <div class="relative w-[220px] h-[220px] bg-slate-200 rounded-xl overflow-hidden border-2 border-slate-300 shadow-inner flex items-center justify-center cursor-crosshair">
                             <canvas id="topcv-crop-canvas" width="220" height="220" class="w-full h-full"></canvas>
                         </div>
 
-                        <!-- Preview Column (Right) - Square 1:1 -->
                         <div class="flex flex-col items-center justify-center space-y-2 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                             <span class="text-[11px] font-bold text-slate-500 uppercase">Ảnh vuông hiển thị</span>
                             <div class="w-28 h-28 rounded-xl overflow-hidden border-2 border-rose-300 bg-slate-100 shadow-md">
@@ -1705,14 +1756,69 @@
 
             loadFooterConfigData();
             loadAboutConfigData();
-            loadMaintenanceState(); 
+            loadMaintenanceState();
+            loadRegistrationFormsState();
             setInterval(updateAdminClock, 1000);
             updateAdminClock();
 
             setupTopCVCropperEvents();
         });
 
-        /* --- TOPCV CROPPER LOGIC ON CANVAS (FIXED: Focus and display at 100% scale on edit) --- */
+        /* --- TRẠNG THÁI ĐÓNG / MỞ 3 FORM ĐĂNG KÝ --- */
+        function updateSingleFormStatusUI(formKey, isOpen) {
+            const toggleEl = document.getElementById(`toggle-form-${formKey}`);
+            const statusEl = document.getElementById(`form-status-${formKey}`);
+            if (toggleEl) toggleEl.checked = isOpen;
+            if (statusEl) {
+                if (isOpen) {
+                    statusEl.innerHTML = `<span class="text-emerald-700"><i class="fa-solid fa-door-open mr-1"></i> Đang mở đăng ký</span>`;
+                } else {
+                    statusEl.innerHTML = `<span class="text-rose-600"><i class="fa-solid fa-door-closed mr-1"></i> Đang đóng form</span>`;
+                }
+            }
+        }
+
+        function loadRegistrationFormsState() {
+            const keys = ['causieu', 'cauan', 'quyy'];
+            keys.forEach((key) => {
+                database.ref(`settings/registration_forms/${key}`).on('value', (snapshot) => {
+                    const val = snapshot.val();
+                    const isOpen = val === null || val === undefined ? true : val === true;
+                    updateSingleFormStatusUI(key, isOpen);
+                });
+            });
+        }
+
+        async function toggleRegistrationForm(formKey, isChecked) {
+            if (currentAdminRole !== 'super') {
+                showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền đóng/mở form đăng ký!", true);
+                const snapshot = await database.ref(`settings/registration_forms/${formKey}`).once('value');
+                const currentVal = snapshot.val() === null || snapshot.val() === undefined ? true : snapshot.val() === true;
+                updateSingleFormStatusUI(formKey, currentVal);
+                return;
+            }
+
+            const nameMap = {
+                causieu: 'Cầu Siêu',
+                cauan: 'Cầu An',
+                quyy: 'Quy Y'
+            };
+
+            try {
+                await database.ref(`settings/registration_forms/${formKey}`).set(isChecked);
+                updateSingleFormStatusUI(formKey, isChecked);
+                if (isChecked) {
+                    showToast(`Đã MỞ form đăng ký ${nameMap[formKey]} trên trang chủ!`);
+                } else {
+                    showToast(`Đã ĐÓNG form đăng ký ${nameMap[formKey]} trên trang chủ!`);
+                }
+            } catch (err) {
+                showToast("Lỗi cập nhật trạng thái form: " + err.message, true);
+                updateSingleFormStatusUI(formKey, !isChecked);
+            }
+        }
+
+        /* --- TOPCV CROPPER LOGIC ON CANVAS --- */
         function setupTopCVCropperEvents() {
             const canvas = document.getElementById('topcv-crop-canvas');
             if (!canvas) return;
@@ -1778,10 +1884,7 @@
                     topcvImage = img;
                     
                     const cw = 160;
-                    // Sử dụng Math.min để tính tỷ lệ thu nhỏ vừa khít cạnh nhỏ nhất của ảnh vào khung vuông (không bị lộ phần xám)
                     const fitScale = Math.min(cw / img.width, cw / img.height);
-                    
-                    // Giới hạn mức thu nhỏ tối thiểu đúng bằng kích thước ảnh gốc vừa khít khung, tối đa phóng to gấp 4 lần
                     const minScale = fitScale; 
                     const maxScale = Math.max(fitScale * 4, 3);
 
@@ -2250,7 +2353,6 @@
         }
 
         function showCenterAlert(message, title = "Thành Công") {
-            // Xóa bỏ alert cũ nếu đang tồn tại
             const existing = document.getElementById('center-alert-modal');
             if (existing) existing.remove();
 
@@ -2923,7 +3025,10 @@
                 loadFooterConfigData(), 
                 loadAboutConfigData(), 
                 loadMaintenanceState(),
-                renderCauSieuAdminList()
+                loadRegistrationFormsState(),
+                renderCauSieuAdminList(),
+                renderCauAnAdminList(),
+                renderQuyYAdminList()
             ]);
         }
 
@@ -3619,13 +3724,19 @@
                         <td class="py-3.5 px-4 font-bold text-slate-800">${acc.name}</td>
                         <td class="py-3.5 px-4"><span class="px-2.5 py-1 ${roleBg} text-[10px] font-bold rounded-lg uppercase">${acc.role}</span></td>
                         <td class="py-3.5 px-4 font-mono font-bold text-slate-700">${acc.pin}</td>
-                        <td class="py-3.5 px-4 text-center"><button onclick="deleteAdminAccount('${key}')" class="px-3 py-1 bg-rose-50 text-rose-600 rounded-xl text-xs font-bold">Xóa</button></td>
+                        <td class="py-3.5 px-4 text-center"><button onclick="deleteAdminAccount('${key}')" class="px-3 py-1 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg text-xs font-bold transition"><i class="fa-solid fa-trash mr-1"></i> Xóa</button></td>
                     </tr>
                 `;
             }
         }
 
-        function openAddAdminModal() { document.getElementById('modal-admin-account').classList.remove('hidden'); }
+        function openAddAdminModal() {
+            document.getElementById('admin-acc-name').value = '';
+            document.getElementById('admin-acc-role').value = 'editor';
+            document.getElementById('admin-acc-pin').value = '';
+            document.getElementById('modal-admin-account').classList.remove('hidden');
+        }
+
         function closeAddAdminModal() { document.getElementById('modal-admin-account').classList.add('hidden'); }
 
         async function saveAdminAccount(e) {
@@ -3633,18 +3744,19 @@
             const name = document.getElementById('admin-acc-name').value.trim();
             const role = document.getElementById('admin-acc-role').value;
             const pin = document.getElementById('admin-acc-pin').value.trim();
+            if (!name || !pin) return;
             try {
                 await database.ref('admin_accounts').push({ name, role, pin });
                 closeAddAdminModal();
-                showToast("Cấp tài khoản quản trị thành công!");
+                showToast("Đã cấp tài khoản quản trị thành công!");
                 loadAdminAccounts();
             } catch (err) {
-                showToast("Lỗi khi lưu tài khoản: " + err.message, true);
+                showToast("Lỗi khi thêm tài khoản: " + err.message, true);
             }
         }
 
         async function deleteAdminAccount(key) {
-            if (await promptConfirm("Xóa tài khoản này?")) {
+            if (await promptConfirm("Xóa tài khoản quản trị này?")) {
                 await database.ref(`admin_accounts/${key}`).remove();
                 showToast("Đã xóa tài khoản!");
                 loadAdminAccounts();
@@ -3653,167 +3765,182 @@
 
         async function loadMonks() {
             try {
-                const snap = await database.ref('monks').once('value');
-                monksData = snap.val() || {};
-                const tbody = document.getElementById('monk-table-body');
-                if (!tbody) return;
-                let html = '';
-                const keys = Object.keys(monksData).sort((a, b) => (monksData[a].order || 0) - (monksData[b].order || 0));
-                
-                if (keys.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có thông tin chư tăng ni nào.</td></tr>';
-                    return;
-                }
-
-                keys.forEach((k, index) => {
-                    const m = monksData[k];
-                    // Sử dụng trực tiếp trường avatar đã được cắt và lưu chuẩn vuông từ trước
-                    const displayAvatar = m.avatar || 'https://placehold.co/100x100/f1f5f9/64748b?text=Monk';
-
-                    html += `
-                        <tr draggable="true" ondragstart="onMonkDragStart(event, '${k}')" ondragover="onMonkDragOver(event)" ondragleave="onMonkDragLeave(event)" ondrop="onMonkDrop(event, '${k}')" class="draggable-row hover:bg-slate-50 transition border-b border-slate-100">
-                            <td class="py-3.5 px-4 text-center cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-700" title="Kéo thả để sắp xếp">
-                                <i class="fa-solid fa-grip-vertical text-base"></i>
-                            </td>
-                            <td class="py-3.5 px-4 text-center">
-                                <div class="w-14 h-14 rounded-xl overflow-hidden border-2 border-amber-300 mx-auto shadow-sm bg-slate-100">
-                                    <img src="${displayAvatar}" alt="Avatar" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/f1f5f9/64748b?text=Monk'">
-                                </div>
-                            </td>
-                            <td class="py-3.5 px-4 font-bold text-slate-900">${m.name || ''}</td>
-                            <td class="py-3.5 px-4 font-semibold text-slate-700">${m.role || ''}</td>
-                            <td class="py-3.5 px-4 text-center">
-                                <div class="flex items-center justify-center gap-1.5">
-                                    <button onclick="editMonk('${k}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
-                                    <button onclick="deleteMonk('${k}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                });
-                tbody.innerHTML = html;
-            } catch (err) {
-                console.error("Lỗi tải chư tăng:", err);
-            }
+                const snapshot = await database.ref('monks').once('value');
+                monksData = snapshot.val() || {};
+                renderMonkTable();
+            } catch (err) { console.error("Lỗi tải chư tăng ni:", err); }
         }
 
-        let draggedMonkKey = null;
-        function onMonkDragStart(event, key) { draggedMonkKey = key; event.target.classList.add('dragging'); event.dataTransfer.effectAllowed = 'move'; }
-        function onMonkDragOver(event) { event.preventDefault(); event.dataTransfer.dropEffect = 'move'; const tr = event.target.closest('tr'); if (tr) tr.classList.add('drag-over'); }
-        function onMonkDragLeave(event) { const tr = event.target.closest('tr'); if (tr) tr.classList.remove('drag-over'); }
+        function renderMonkTable() {
+            const tbody = document.getElementById('monk-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            const keys = Object.keys(monksData).sort((a, b) => (monksData[a].order || 999) - (monksData[b].order || 999));
 
-        async function onMonkDrop(event, targetKey) {
-            event.preventDefault();
-            document.querySelectorAll('.draggable-row').forEach(row => row.classList.remove('dragging', 'drag-over'));
-            if (!draggedMonkKey || draggedMonkKey === targetKey) return;
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có dữ liệu chư tăng ni.</td></tr>`;
+                return;
+            }
 
-            const keys = Object.keys(monksData).sort((a, b) => (monksData[a].order || 0) - (monksData[b].order || 0));
-            const draggedIdx = keys.indexOf(draggedMonkKey);
-            const targetIdx = keys.indexOf(targetKey);
-            if (draggedIdx === -1 || targetIdx === -1) return;
-
-            keys.splice(draggedIdx, 1);
-            keys.splice(targetIdx, 0, draggedMonkKey);
-
-            const updates = {};
-            keys.forEach((k, idx) => {
-                updates[`monks/${k}/order`] = idx + 1;
-                monksData[k].order = idx + 1;
+            let html = '';
+            keys.forEach((key) => {
+                const item = monksData[key];
+                const avatarSrc = item.avatar || item.original_image || '';
+                html += `
+                    <tr id="monk-row-${key}" data-key="${key}" draggable="true" class="draggable-row hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 text-center text-slate-400"><i class="fa-solid fa-grip-vertical"></i></td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden border-2 border-slate-200 bg-slate-100 mx-auto shadow-sm relative">
+                                <img src="${avatarSrc || 'https://placehold.co/150x150/f1f5f9/64748b?text=Monk'}" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                        </td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.name || ''}</td>
+                        <td class="py-3.5 px-4 text-xs text-slate-600 font-semibold">${item.role || ''}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="editMonk('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
+                                <button onclick="deleteMonk('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
             });
+            tbody.innerHTML = html;
+            attachMonkDragAndDrop();
+        }
 
+        function attachMonkDragAndDrop() {
+            const rows = document.querySelectorAll('#monk-table-body tr.draggable-row');
+            let draggedKey = null;
+
+            rows.forEach(row => {
+                row.addEventListener('dragstart', (e) => {
+                    draggedKey = row.getAttribute('data-key');
+                    row.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                row.addEventListener('dragend', () => {
+                    row.classList.remove('dragging');
+                    document.querySelectorAll('#monk-table-body tr').forEach(r => r.classList.remove('drag-over'));
+                    saveMonkOrderToFirebase();
+                });
+
+                row.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    const targetRow = e.target.closest('tr.draggable-row');
+                    if (targetRow && targetRow !== row) {
+                        document.querySelectorAll('#monk-table-body tr').forEach(r => r.classList.remove('drag-over'));
+                        targetRow.classList.add('drag-over');
+                    }
+                });
+
+                row.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const targetRow = e.target.closest('tr.draggable-row');
+                    if (!targetRow || !draggedKey) return;
+                    const targetKey = targetRow.getAttribute('data-key');
+                    if (draggedKey === targetKey) return;
+
+                    const tbody = document.getElementById('monk-table-body');
+                    const draggedEl = document.getElementById(`monk-row-${draggedKey}`);
+                    
+                    const rect = targetRow.getBoundingClientRect();
+                    const next = (e.clientY - rect.top) / (rect.bottom - rect.top) > 0.5;
+                    if (next) {
+                        tbody.insertBefore(draggedEl, targetRow.nextSibling);
+                    } else {
+                        tbody.insertBefore(draggedEl, targetRow);
+                    }
+                });
+            });
+        }
+
+        async function saveMonkOrderToFirebase() {
+            const rows = document.querySelectorAll('#monk-table-body tr.draggable-row');
+            const updates = {};
+            rows.forEach((row, index) => {
+                const key = row.getAttribute('data-key');
+                if (key) {
+                    updates[`monks/${key}/order`] = index + 1;
+                }
+            });
             try {
                 await database.ref().update(updates);
-                showToast("Đã cập nhật vị trí chư Tăng Ni thành công!");
-                loadMonks();
+                showToast("Đã lưu thứ tự sắp xếp Chư Tăng Ni!");
             } catch (err) {
-                showToast("Lỗi sắp xếp chư Tăng Ni: " + err.message, true);
+                console.error("Lỗi lưu thứ tự monk:", err);
             }
-            draggedMonkKey = null;
         }
 
         function openMonkModal() {
-            document.getElementById('monk-modal-title').textContent = "Thêm Thành Viên Chư Tăng Ni & Cắt Ảnh TopCV";
             document.getElementById('monk-key').value = '';
             document.getElementById('monk-name').value = '';
             document.getElementById('monk-role').value = '';
+            document.getElementById('monk-halap').value = '';
             document.getElementById('monk-avatar').value = '';
             document.getElementById('monk-original-image').value = '';
             document.getElementById('monk-crop-scale').value = '1';
             document.getElementById('monk-crop-offsetX').value = '0';
             document.getElementById('monk-crop-offsetY').value = '0';
-            document.getElementById('monk-halap').value = '';
             document.getElementById('monk-bio-editor').innerHTML = '';
-            
-            topcvImage = null;
-            const canvas = document.getElementById('topcv-crop-canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#f1f5f9';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#64748b';
-            ctx.font = '12px Plus Jakarta Sans';
-            ctx.textAlign = 'center';
-            ctx.fillText("Chưa tải ảnh", canvas.width/2, canvas.height/2);
 
+            topcvImage = null;
+            const cCanvas = document.getElementById('topcv-crop-canvas');
             const pCanvas = document.getElementById('topcv-preview-canvas');
-            const pCtx = pCanvas.getContext('2d');
-            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            if (cCanvas) cCanvas.getContext('2d').clearRect(0, 0, cCanvas.width, cCanvas.height);
+            if (pCanvas) pCanvas.getContext('2d').clearRect(0, 0, pCanvas.width, pCanvas.height);
+            document.getElementById('topcv-zoom-range').value = 100;
+            document.getElementById('zoom-value-label').textContent = '100%';
 
             document.getElementById('modal-monk').classList.remove('hidden');
         }
 
-        function loadClippedCropperForEdit(m) {
-            const originalUrl = m.originalImage || m.avatar;
-            if (!originalUrl) return;
-
-            document.getElementById('monk-original-image').value = originalUrl;
-
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.src = originalUrl;
-            img.onload = () => {
-                topcvImage = img;
-
-                const cw = 160;
-                const fitScale = Math.min(cw / img.width, cw / img.height);
-                const minScale = fitScale;
-                const maxScale = Math.max(fitScale * 4, 3);
-
-                const rangeEl = document.getElementById('topcv-zoom-range');
-                rangeEl.min = Math.round(minScale * 100);
-                rangeEl.max = Math.round(maxScale * 100);
-
-                topcvScale = (m.cropScale !== undefined && m.cropScale !== null) ? parseFloat(m.cropScale) : fitScale;
-                topcvOffsetX = (m.cropOffsetX !== undefined && m.cropOffsetX !== null) ? parseFloat(m.cropOffsetX) : (220 - img.width * topcvScale) / 2;
-                topcvOffsetY = (m.cropOffsetY !== undefined && m.cropOffsetY !== null) ? parseFloat(m.cropOffsetY) : (220 - img.height * topcvScale) / 2;
-
-                const zoomPercent = Math.round(topcvScale * 100);
-                rangeEl.value = zoomPercent;
-                document.getElementById('zoom-value-label').textContent = zoomPercent + '%';
-
-                drawTopCVCropper();
-                exportTopCVCrop();
-                saveCurrentCropState();
-            };
-        }
-
         function editMonk(key) {
-            const m = monksData[key];
-            if (!m) return;
-            document.getElementById('monk-modal-title').textContent = "Chỉnh Sửa Thông Tin Chư Tăng Ni & Cắt Ảnh";
+            const item = monksData[key];
+            if (!item) return;
             document.getElementById('monk-key').value = key;
-            document.getElementById('monk-name').value = m.name || '';
-            document.getElementById('monk-role').value = m.role || '';
-            document.getElementById('monk-avatar').value = m.avatar || '';
-            document.getElementById('monk-original-image').value = m.originalImage || m.avatar || '';
-            document.getElementById('monk-crop-scale').value = m.cropScale !== undefined ? m.cropScale : 1;
-            document.getElementById('monk-crop-offsetX').value = m.cropOffsetX !== undefined ? m.cropOffsetX : 0;
-            document.getElementById('monk-crop-offsetY').value = m.cropOffsetY !== undefined ? m.cropOffsetY : 0;
-            document.getElementById('monk-halap').value = m.halap || '';
-            document.getElementById('monk-bio-editor').innerHTML = m.bio || '';
-            
-            if (m.originalImage || m.avatar) {
-                loadClippedCropperForEdit(m);
+            document.getElementById('monk-name').value = item.name || '';
+            document.getElementById('monk-role').value = item.role || '';
+            document.getElementById('monk-halap').value = item.halap || '';
+            document.getElementById('monk-avatar').value = item.avatar || '';
+            document.getElementById('monk-bio-editor').innerHTML = item.bio || '';
+
+            const origUrl = item.original_image || item.avatar;
+            document.getElementById('monk-original-image').value = origUrl || '';
+
+            if (origUrl) {
+                const img = new Image();
+                img.src = origUrl;
+                img.onload = () => {
+                    topcvImage = img;
+                    const cw = 160;
+                    const fitScale = Math.min(cw / img.width, cw / img.height);
+                    const minScale = fitScale;
+                    const maxScale = Math.max(fitScale * 4, 3);
+                    const rangeEl = document.getElementById('topcv-zoom-range');
+                    rangeEl.min = Math.round(minScale * 100);
+                    rangeEl.max = Math.round(maxScale * 100);
+
+                    if (item.crop_scale) {
+                        topcvScale = parseFloat(item.crop_scale);
+                        topcvOffsetX = parseFloat(item.crop_offsetX) || 0;
+                        topcvOffsetY = parseFloat(item.crop_offsetY) || 0;
+                    } else {
+                        topcvScale = fitScale;
+                        topcvOffsetX = (220 - img.width * topcvScale) / 2;
+                        topcvOffsetY = (220 - img.height * topcvScale) / 2;
+                    }
+
+                    const zoomPercent = Math.round(topcvScale * 100);
+                    rangeEl.value = zoomPercent;
+                    document.getElementById('zoom-value-label').textContent = zoomPercent + '%';
+
+                    drawTopCVCropper();
+                    exportTopCVCrop();
+                    saveCurrentCropState();
+                };
             }
             document.getElementById('modal-monk').classList.remove('hidden');
         }
@@ -3821,189 +3948,104 @@
         function closeMonkModal() { document.getElementById('modal-monk').classList.add('hidden'); }
 
         function execMonkCmd(cmd) {
-            const editor = document.getElementById('monk-bio-editor');
-            editor.focus();
+            document.getElementById('monk-bio-editor').focus();
             document.execCommand(cmd, false, null);
         }
 
         function formatMonkHeading(tag) {
-            const editor = document.getElementById('monk-bio-editor');
-            editor.focus();
+            document.getElementById('monk-bio-editor').focus();
             document.execCommand('formatBlock', false, tag === 'H2' ? '<h2>' : '<h3>');
         }
 
         function formatMonkQuote() {
-            const editor = document.getElementById('monk-bio-editor');
-            editor.focus();
+            document.getElementById('monk-bio-editor').focus();
             document.execCommand('formatBlock', false, '<blockquote>');
         }
 
         function openMonkInlineImageModal() {
-            window.activeMonkEditor = document.getElementById('monk-bio-editor');
-            window.activeMonkEditor.focus();
+            const editor = document.getElementById('monk-bio-editor');
+            window.activeMonkEditor = editor;
+            editor.focus();
             
             const sel = window.getSelection();
-            if (sel.rangeCount > 0) {
-                lastMonkSelectionRange = sel.getRangeAt(0);
+            if (sel && sel.rangeCount > 0) {
+                lastMonkSelectionRange = sel.getRangeAt(0).cloneRange();
             } else {
                 lastMonkSelectionRange = null;
             }
 
-            document.getElementById('monk-inline-image-url').value = '';
-            document.getElementById('monk-inline-file-input').value = '';
-            document.getElementById('modal-monk-inline-image').classList.remove('hidden');
+            document.getElementById('inline-image-url').value = '';
+            document.getElementById('inline-file-input').value = '';
+            document.getElementById('modal-inline-image').classList.remove('hidden');
         }
 
         function closeMonkInlineImageModal() {
-            document.getElementById('modal-monk-inline-image').classList.add('hidden');
-        }
-
-        async function processMonkInlineImageFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
-            showToast("Đang nén WebP và tải lên ảnh tiểu sử...");
-            try {
-                const webpResult = await compressAndConvertToWebP(file, 1200, 0.82);
-                const formData = new FormData();
-                formData.append('image', webpResult.file);
-                const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-                if (data && data.success) {
-                    document.getElementById('monk-inline-image-url').value = data.data.url;
-                    showToast("Đã tải ảnh lên thành công!");
-                } else {
-                    showToast("Tải ảnh thất bại!", true);
-                }
-            } catch (err) {
-                showToast("Lỗi: " + err.message, true);
-            }
-        }
-
-        function confirmInsertMonkInlineImage() {
-            const url = document.getElementById('monk-inline-image-url').value.trim();
-            if (!url) {
-                showToast("Vui lòng nhập hoặc chọn ảnh!", true);
-                return;
-            }
-            if (window.activeMonkEditor) {
-                const editor = window.activeMonkEditor;
-                editor.focus();
-                
-                if (lastMonkSelectionRange) {
-                    const sel = window.getSelection();
-                    sel.removeAllRanges();
-                    sel.addRange(lastMonkSelectionRange);
-                }
-
-                const linkHtml = `<a href="${url}" target="_blank" data-img-preview="${url}" class="text-blue-600 underline font-mono text-xs mx-1 inline hover:text-blue-800">${url}</a>`;
-                
-                const sel = window.getSelection();
-                if (sel.rangeCount > 0) {
-                    const range = sel.getRangeAt(0);
-                    if (editor.contains(range.commonAncestorContainer)) {
-                        range.deleteContents();
-                        const el = document.createElement('div');
-                        el.innerHTML = linkHtml;
-                        let frag = document.createDocumentFragment(), node, lastNode;
-                        while ((node = el.firstChild)) {
-                            lastNode = frag.appendChild(node);
-                        }
-                        range.insertNode(frag);
-                        if (lastNode) {
-                            range.setStartAfter(lastNode);
-                            range.collapse(true);
-                            sel.removeAllRanges();
-                            sel.addRange(range);
-                        }
-                    } else {
-                        document.execCommand('insertHTML', false, linkHtml);
-                    }
-                } else {
-                    document.execCommand('insertHTML', false, linkHtml);
-                }
-
-                window.activeMonkEditor = null;
-                lastMonkSelectionRange = null;
-                closeMonkInlineImageModal();
-                showToast("Đã chèn ảnh vào tiểu sử!");
-            }
+            document.getElementById('modal-inline-image').classList.add('hidden');
         }
 
         async function saveMonk(e) {
-           e.preventDefault();
+            e.preventDefault();
             const key = document.getElementById('monk-key').value;
             const name = document.getElementById('monk-name').value.trim();
             const role = document.getElementById('monk-role').value.trim();
-            
-            // Tính toán và tạo DataURL ảnh crop chuẩn vuông 1:1 từ canvas crop hiện tại để lưu trực tiếp vào trường avatar
-            const cropCanvas = document.getElementById('topcv-crop-canvas');
-            const hiddenCanvas = document.getElementById('monk-thumb-render-canvas') || (() => {
-                const c = document.createElement('canvas');
-                c.id = 'monk-thumb-render-canvas';
-                c.width = 160;
-                c.height = 160;
-                c.style.display = 'none';
-                document.body.appendChild(c);
-                return c;
-            })();
-
-            let croppedAvatarUrl = document.getElementById('monk-avatar').value.trim();
-            const originalImage = document.getElementById('monk-original-image').value.trim() || croppedAvatarUrl;
-            const cropScale = parseFloat(document.getElementById('monk-crop-scale').value) || 1;
-            const cropOffsetX = parseFloat(document.getElementById('monk-crop-offsetX').value) || 0;
-            const cropOffsetY = parseFloat(document.getElementById('monk-crop-offsetY').value) || 0;
-
-            if (originalImage && topcvImage) {
-                try {
-                    const ctx = hiddenCanvas.getContext('2d');
-                    ctx.clearRect(0, 0, 160, 160);
-                    
-                    const cropCanvasW = 220;
-                    const cropCanvasH = 220;
-                    const cw = 160;
-                    const ch = 160;
-                    const cx = (cropCanvasW - cw) / 2;
-                    const cy = (cropCanvasH - ch) / 2;
-
-                    const sourceX = (cx - cropOffsetX) / cropScale;
-                    const sourceY = (cy - cropOffsetY) / cropScale;
-                    const sourceW = cw / cropScale;
-                    const sourceH = ch / cropScale;
-
-                    ctx.drawImage(topcvImage, sourceX, sourceY, sourceW, sourceH, 0, 0, 160, 160);
-                    croppedAvatarUrl = hiddenCanvas.toDataURL('image/webp', 0.9);
-                } catch (err) {
-                    console.error("Lỗi tạo ảnh crop khi lưu:", err);
-                }
-            }
-
             const halap = document.getElementById('monk-halap').value.trim();
             const bio = document.getElementById('monk-bio-editor').innerHTML.trim();
 
-            const existingOrder = key && monksData[key] && monksData[key].order ? monksData[key].order : Object.keys(monksData).length + 1;
-            const payload = { 
-                name, 
-                role, 
-                avatar: croppedAvatarUrl, 
-                originalImage, 
-                cropScale, 
-                cropOffsetX, 
-                cropOffsetY, 
-                halap, 
-                bio, 
+            const scaleVal = parseFloat(document.getElementById('monk-crop-scale').value) || 1;
+            const offsetXVal = parseFloat(document.getElementById('monk-crop-offsetX').value) || 0;
+            const offsetYVal = parseFloat(document.getElementById('monk-crop-offsetY').value) || 0;
+
+            let originalImage = document.getElementById('monk-original-image').value.trim();
+            let finalAvatarUrl = originalImage;
+
+            if (originalImage && originalImage.startsWith('data:image')) {
+                const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+                showToast("Đang nén WebP và tải ảnh đại diện lên ImgBB...");
+                try {
+                    const response = await fetch(originalImage);
+                    const blob = await response.blob();
+                    const file = new File([blob], "monk_avatar.jpg", { type: blob.type || "image/jpeg" });
+                    const webpResult = await compressAndConvertToWebP(file, 1200, 0.85);
+                    
+                    const formData = new FormData();
+                    formData.append('image', webpResult.file);
+                    const uploadResp = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const uploadData = await uploadResp.json();
+                    if (uploadData && uploadData.success) {
+                        originalImage = uploadData.data.url;
+                        finalAvatarUrl = originalImage;
+                    }
+                } catch (err) {
+                    console.error("Upload monk avatar error:", err);
+                }
+            }
+
+            if (!finalAvatarUrl) {
+                finalAvatarUrl = document.getElementById('monk-avatar').value.trim();
+            }
+
+            const existingOrder = (key && monksData[key] && monksData[key].order) ? monksData[key].order : (Object.keys(monksData).length + 1);
+
+            const monkPayload = { 
+                name, role, halap, bio, 
+                avatar: finalAvatarUrl, 
+                original_image: originalImage,
+                crop_scale: scaleVal,
+                crop_offsetX: offsetXVal,
+                crop_offsetY: offsetYVal,
                 order: existingOrder 
             };
+
             try {
                 if (key) {
-                    await database.ref(`monks/${key}`).set(payload);
-                    showToast("Cập nhật thông tin chư tăng ni thành công!");
+                    await database.ref(`monks/${key}`).set(monkPayload);
+                    showToast("Cập nhật thành viên chư tăng ni thành công!");
                 } else {
-                    await database.ref('monks').push(payload);
-                    showToast("Thêm thành viên chư tăng ni thành công!");
+                    await database.ref('monks').push(monkPayload);
+                    showToast("Đã thêm thành viên chư tăng ni thành công!");
                 }
                 closeMonkModal();
                 loadMonks();
@@ -4013,93 +4055,127 @@
         }
 
         async function deleteMonk(key) {
-            if (await promptConfirm("Xóa thành viên chư tăng ni này?")) {
-                try {
-                    await database.ref(`monks/${key}`).remove();
-                    showToast("Đã xóa thành viên!");
-                    loadMonks();
-                } catch (err) {
-                    showToast("Lỗi khi xóa: " + err.message, true);
-                }
+            if (await promptConfirm("Xóa thành viên này?")) {
+                await database.ref(`monks/${key}`).remove();
+                showToast("Đã xóa thành viên!");
+                loadMonks();
             }
         }
 
         async function loadMenu() {
-            const snap = await database.ref('menus').once('value');
-            menuData = snap.val() || {};
+            try {
+                const snapshot = await database.ref('menu').once('value');
+                menuData = snapshot.val() || {};
+                renderMenuTable();
+            } catch (err) { console.error("Lỗi tải menu:", err); }
+        }
+
+        function renderMenuTable() {
             const tbody = document.getElementById('menu-table-body');
             if (!tbody) return;
-            let html = '';
-            const sortedKeys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
-            if (sortedKeys.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-slate-400">Chưa có mục menu nào.</td></tr>';
+            tbody.innerHTML = '';
+            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 999) - (menuData[b].order || 999));
+
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Chưa có mục menu nào.</td></tr>`;
                 return;
             }
 
-            sortedKeys.forEach((k, index) => {
-                const m = menuData[k];
-                const isHidden = m.hidden === true;
+            let html = '';
+            keys.forEach((key) => {
+                const item = menuData[key];
+                const isHidden = item.hidden === true;
                 const statusBadge = isHidden 
-                    ? `<span onclick="toggleHideMenu('${k}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
-                    : `<span onclick="toggleHideMenu('${k}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
+                    ? `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
+                    : `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
 
                 html += `
-                    <tr draggable="true" ondragstart="onMenuDragStart(event, '${k}')" ondragover="onMenuDragOver(event)" ondragleave="onMenuDragLeave(event)" ondrop="onMenuDrop(event, '${k}')" class="draggable-row hover:bg-slate-50 transition border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-700" title="Kéo thả để sắp xếp">
-                            <i class="fa-solid fa-grip-vertical text-base"></i>
-                        </td>
-                        <td class="py-3.5 px-4 font-bold text-slate-900">${m.title}</td>
-                        <td class="py-3.5 px-4 font-mono text-xs text-slate-600">${m.url}</td>
-                        <td class="py-3.5 px-4 text-center font-mono font-bold">${m.order || (index + 1)}</td>
+                    <tr id="menu-row-${key}" data-key="${key}" draggable="true" class="draggable-row hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 text-center text-slate-400"><i class="fa-solid fa-grip-vertical"></i></td>
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
+                        <td class="py-3.5 px-4 font-mono text-xs text-slate-600">${item.url || ''}</td>
+                        <td class="py-3.5 px-4 text-center font-bold text-slate-700">${item.order || 1}</td>
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editMenu('${k}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
-                                <button onclick="deleteMenu('${k}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
+                                <button onclick="editMenu('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
+                                <button onclick="deleteMenu('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
                             </div>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = html;
+            attachMenuDragAndDrop();
         }
 
-        let draggedMenuKey = null;
-        function onMenuDragStart(event, key) { draggedMenuKey = key; event.target.classList.add('dragging'); event.dataTransfer.effectAllowed = 'move'; }
-        function onMenuDragOver(event) { event.preventDefault(); event.dataTransfer.dropEffect = 'move'; const tr = event.target.closest('tr'); if (tr) tr.classList.add('drag-over'); }
-        function onMenuDragLeave(event) { const tr = event.target.closest('tr'); if (tr) tr.classList.remove('drag-over'); }
+        function attachMenuDragAndDrop() {
+            const rows = document.querySelectorAll('#menu-table-body tr.draggable-row');
+            let draggedKey = null;
 
-        async function onMenuDrop(event, targetKey) {
-            event.preventDefault();
-            document.querySelectorAll('.draggable-row').forEach(row => row.classList.remove('dragging', 'drag-over'));
-            if (!draggedMenuKey || draggedMenuKey === targetKey) return;
+            rows.forEach(row => {
+                row.addEventListener('dragstart', (e) => {
+                    draggedKey = row.getAttribute('data-key');
+                    row.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
 
-            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
-            const draggedIdx = keys.indexOf(draggedMenuKey);
-            const targetIdx = keys.indexOf(targetKey);
-            if (draggedIdx === -1 || targetIdx === -1) return;
+                row.addEventListener('dragend', () => {
+                    row.classList.remove('dragging');
+                    document.querySelectorAll('#menu-table-body tr').forEach(r => r.classList.remove('drag-over'));
+                    saveMenuOrderToFirebase();
+                });
 
-            keys.splice(draggedIdx, 1);
-            keys.splice(targetIdx, 0, draggedMenuKey);
+                row.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    const targetRow = e.target.closest('tr.draggable-row');
+                    if (targetRow && targetRow !== row) {
+                        document.querySelectorAll('#menu-table-body tr').forEach(r => r.classList.remove('drag-over'));
+                        targetRow.classList.add('drag-over');
+                    }
+                });
 
-            const updates = {};
-            keys.forEach((k, idx) => {
-                updates[`menus/${k}/order`] = idx + 1;
-                menuData[k].order = idx + 1;
+                row.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const targetRow = e.target.closest('tr.draggable-row');
+                    if (!targetRow || !draggedKey) return;
+                    const targetKey = targetRow.getAttribute('data-key');
+                    if (draggedKey === targetKey) return;
+
+                    const tbody = document.getElementById('menu-table-body');
+                    const draggedEl = document.getElementById(`menu-row-${draggedKey}`);
+                    
+                    const rect = targetRow.getBoundingClientRect();
+                    const next = (e.clientY - rect.top) / (rect.bottom - rect.top) > 0.5;
+                    if (next) {
+                        tbody.insertBefore(draggedEl, targetRow.nextSibling);
+                    } else {
+                        tbody.insertBefore(draggedEl, targetRow);
+                    }
+                });
             });
+        }
 
+        async function saveMenuOrderToFirebase() {
+            const rows = document.querySelectorAll('#menu-table-body tr.draggable-row');
+            const updates = {};
+            rows.forEach((row, index) => {
+                const key = row.getAttribute('data-key');
+                if (key) {
+                    updates[`menu/${key}/order`] = index + 1;
+                }
+            });
             try {
                 await database.ref().update(updates);
-                showToast("Đã cập nhật vị trí menu thành công!");
+                showToast("Đã cập nhật thứ tự sắp xếp Menu!");
                 loadMenu();
             } catch (err) {
-                showToast("Lỗi sắp xếp menu: " + err.message, true);
+                console.error("Lỗi lưu thứ tự menu:", err);
             }
-            draggedMenuKey = null;
         }
 
         function openMenuModal() {
-            document.getElementById('menu-modal-title').textContent = "Thêm Mục Menu Mới";
             document.getElementById('menu-key').value = '';
             document.getElementById('menu-title').value = '';
             document.getElementById('menu-url').value = '';
@@ -4107,14 +4183,13 @@
             document.getElementById('modal-menu').classList.remove('hidden');
         }
 
-        function editMenu(k) {
-            const m = menuData[k];
-            if (!m) return;
-            document.getElementById('menu-modal-title').textContent = "Chỉnh Sửa Mục Menu";
-            document.getElementById('menu-key').value = k;
-            document.getElementById('menu-title').value = m.title || '';
-            document.getElementById('menu-url').value = m.url || '';
-            document.getElementById('menu-order').value = m.order || 1;
+        function editMenu(key) {
+            const item = menuData[key];
+            if (!item) return;
+            document.getElementById('menu-key').value = key;
+            document.getElementById('menu-title').value = item.title || '';
+            document.getElementById('menu-url').value = item.url || '';
+            document.getElementById('menu-order').value = item.order || 1;
             document.getElementById('modal-menu').classList.remove('hidden');
         }
 
@@ -4126,67 +4201,61 @@
             const title = document.getElementById('menu-title').value.trim();
             const url = document.getElementById('menu-url').value.trim();
             const order = parseInt(document.getElementById('menu-order').value) || 1;
+            const menuPayload = { title, url, order, hidden: key && menuData[key] ? (menuData[key].hidden || false) : false };
             try {
-                if (key) await database.ref(`menus/${key}`).update({ title, url, order });
-                else await database.ref('menus').push({ title, url, order });
+                if (key) await database.ref(`menu/${key}`).set(menuPayload);
+                else await database.ref('menu').push(menuPayload);
                 closeMenuModal();
-                loadMenu();
                 showToast("Lưu menu thành công!");
+                loadMenu();
             } catch (err) {
-                showToast("Lỗi: " + err.message, true);
+                showToast("Lỗi khi lưu menu: " + err.message, true);
             }
         }
 
-        async function toggleHideMenu(k) {
-            const m = menuData[k];
-            if (!m) return;
-            await database.ref(`menus/${k}`).update({ hidden: !(m.hidden === true) });
+        async function toggleHideMenu(key) {
+            const item = menuData[key];
+            if (!item) return;
+            await database.ref(`menu/${key}`).update({ hidden: !(item.hidden === true) });
             loadMenu();
         }
 
-        async function deleteMenu(k) {
+        async function deleteMenu(key) {
             if (await promptConfirm("Xóa mục menu này?")) {
-                await database.ref(`menus/${k}`).remove();
-                loadMenu();
+                await database.ref(`menu/${key}`).remove();
                 showToast("Đã xóa mục menu!");
+                loadMenu();
             }
         }
 
         function promptConfirm(msg) {
             return new Promise((resolve) => {
+                confirmResolver = resolve;
                 document.getElementById('confirm-msg').textContent = msg;
                 document.getElementById('modal-confirm').classList.remove('hidden');
-                confirmResolver = resolve;
             });
         }
 
-        async function closeConfirmModal(result) {
+        function closeConfirmModal(result) {
             document.getElementById('modal-confirm').classList.add('hidden');
-            if (confirmResolver) {
-                confirmResolver(result);
-                confirmResolver = null;
-            }
+            if (confirmResolver) confirmResolver(result);
         }
 
         async function testCloudConnection() {
             const statusEl = document.getElementById('connection-status');
-            statusEl.textContent = "Đang kiểm tra kết nối tới Firebase Realtime Database...";
+            statusEl.textContent = "Đang kiểm tra kết nối Firebase...";
+            statusEl.className = "text-xs font-bold text-amber-600";
             try {
-                const snapshot = await database.ref('.info/connected').once('value');
-                if (snapshot.val()) {
-                    statusEl.className = "text-xs font-bold text-emerald-600";
-                    statusEl.textContent = "✓ Kết nối Realtime Database thành công & ổn định!";
-                } else {
-                    statusEl.className = "text-xs font-bold text-amber-600";
-                    statusEl.textContent = "⚠ Mất kết nối hoặc đang ngoại tuyến.";
-                }
+                await database.ref('.info/connected').once('value');
+                statusEl.textContent = "Kết nối Firebase Realtime Database ổn định và hoạt động tốt!";
+                statusEl.className = "text-xs font-bold text-emerald-700";
             } catch (err) {
+                statusEl.textContent = "Lỗi kết nối: " + err.message;
                 statusEl.className = "text-xs font-bold text-rose-600";
-                statusEl.textContent = "✗ Lỗi kết nối: " + err.message;
             }
         }
 
-        let cauSieuCurrentPage = 1;
+       let cauSieuCurrentPage = 1;
         let cauAnCurrentPage = 1;
         let quyYCurrentPage = 1;
         const itemsPerPage = 10;
