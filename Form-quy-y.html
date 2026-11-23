@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <!-- FontAwesome -->
@@ -162,8 +163,8 @@
 
                 <!-- Submit Button -->
                 <div class="pt-2">
-                    <button type="submit" class="w-full bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-extrabold py-3.5 px-6 rounded-xl shadow-sm transition-all text-base tracking-wide flex items-center justify-center gap-2 cursor-pointer">
-                        <span>Submit</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <button type="submit" id="submitBtn" class="w-full bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-extrabold py-3.5 px-6 rounded-xl shadow-sm transition-all text-base tracking-wide flex items-center justify-center gap-2 cursor-pointer">
+                        <span id="btnText">Submit</span> <i class="fa-solid fa-arrow-right text-xs" id="btnIcon"></i>
                     </button>
                 </div>
             </form>
@@ -224,11 +225,17 @@
     </div>
 
     <script>
-        // Tạo hiệu ứng bong bóng / hạt đủ màu rơi sinh động giống video
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
         function createBubbles() {
             const container = document.getElementById('bubble-container');
             const bubbleCount = 22;
-            // Danh sách các màu sắc sinh động (xanh lá, vàng, cam, hồng nhạt, xanh dương...)
             const colors = [
                 'radial-gradient(circle, rgba(34,197,94,0.4) 0%, rgba(22,163,74,0.15) 100%)',
                 'radial-gradient(circle, rgba(234,179,8,0.4) 0%, rgba(202,138,4,0.15) 100%)',
@@ -241,10 +248,10 @@
                 const bubble = document.createElement('div');
                 bubble.classList.add('bubble');
                 
-                const size = Math.random() * 35 + 15; // Kích thước từ 15px đến 50px
-                const leftPos = Math.random() * 100; // Vị trí ngang ngẫu nhiên (%)
-                const animDuration = Math.random() * 7 + 6; // Thời gian bay từ 6s đến 13s
-                const animDelay = Math.random() * 6; // Độ trễ xuất hiện
+                const size = Math.random() * 35 + 15;
+                const leftPos = Math.random() * 100;
+                const animDuration = Math.random() * 7 + 6;
+                const animDelay = Math.random() * 6;
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
                 bubble.style.width = `${size}px`;
@@ -261,31 +268,64 @@
 
         document.addEventListener("DOMContentLoaded", createBubbles);
 
-        function handleFormSubmit(event) {
+        async function handleFormSubmit(event) {
             event.preventDefault();
 
-            const hoTen = document.getElementById('hoTen').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+
+            submitBtn.disabled = true;
+            btnText.innerText = "Đang gửi...";
+            btnIcon.className = "fa-solid fa-spinner fa-spin text-xs";
+
+            const hoTen = document.getElementById('hoTen').value.trim();
             const ngaySinhVal = document.getElementById('ngaySinh').value;
             const dateObj = new Date(ngaySinhVal);
             const formattedNgaySinh = !isNaN(dateObj.getTime()) ? 
                 String(dateObj.getDate()).padStart(2, '0') + '/' + String(dateObj.getMonth() + 1).padStart(2, '0') + '/' + dateObj.getFullYear() : ngaySinhVal;
 
             const gioiTinh = document.getElementById('gioiTinh').value;
-            const sdt = document.getElementById('sdt').value;
-            const diaChi = document.getElementById('diaChi').value;
+            const sdt = document.getElementById('sdt').value.trim();
+            const diaChi = document.getElementById('diaChi').value.trim();
+            const camKet = document.getElementById('camKet').checked;
 
             const randomCode = 'QY-' + Math.floor(100000 + Math.random() * 900000);
 
-            document.getElementById('lblMaPhieu').innerText = randomCode;
-            document.getElementById('lblHoTen').innerText = hoTen;
-            document.getElementById('lblNgaySinh').innerText = formattedNgaySinh;
-            document.getElementById('lblGioiTinh').innerText = gioiTinh;
-            document.getElementById('lblSdt').innerText = sdt;
-            document.getElementById('lblDiaChi').innerText = diaChi;
+            const formData = {
+                maPhieu: randomCode,
+                hoTen: hoTen,
+                ngaySinh: formattedNgaySinh,
+                ngaySinhRaw: ngaySinhVal,
+                gioiTinh: gioiTinh,
+                sdt: sdt,
+                diaChi: diaChi,
+                camKet: camKet,
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            };
 
-            document.getElementById('quyYForm').style.display = 'none';
-            document.getElementById('successModal').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            try {
+                // Đã chuyển tên nhánh thành registrations_quy_y giống cấu trúc của cầu siêu
+                await database.ref('registrations_quy_y').push(formData);
+
+                document.getElementById('lblMaPhieu').innerText = randomCode;
+                document.getElementById('lblHoTen').innerText = hoTen;
+                document.getElementById('lblNgaySinh').innerText = formattedNgaySinh;
+                document.getElementById('lblGioiTinh').innerText = gioiTinh;
+                document.getElementById('lblSdt').innerText = sdt;
+                document.getElementById('lblDiaChi').innerText = diaChi;
+
+                document.getElementById('quyYForm').style.display = 'none';
+                document.getElementById('successModal').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error("Lỗi khi lưu dữ liệu lên Firebase:", error);
+                alert("Có lỗi xảy ra khi gửi đăng ký. Vui lòng kiểm tra lại kết nối và thử lại.");
+            } finally {
+                submitBtn.disabled = false;
+                btnText.innerText = "Submit";
+                btnIcon.className = "fa-solid fa-arrow-right text-xs";
+            }
         }
 
         function resetForm() {

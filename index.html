@@ -351,7 +351,7 @@
                     Quý Phật tử có nhu cầu đăng ký cầu an cho gia đình, cầu siêu cho cửu huyền thất tổ hoặc đăng ký quy y Tam Bảo, vui lòng chọn hình thức bên dưới.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                    <button class="bg-[#f3e5ab] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2">
+                    <button onclick="openCauAnModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-hands-praying text-buddhist-maroon"></i> Đăng Ký Cầu An
                     </button>
                     <button onclick="openCauSieuModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
@@ -365,6 +365,26 @@
         </div>
     </section>
 
+    <!-- Modal Đăng Ký Cầu An bằng Iframe giữ nguyên Form gốc -->
+    <div id="cauAnModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="relative w-full max-w-3xl h-[90vh] bg-[#f4faff] border-3 border-[#60a5fa] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+
+            <!-- Thanh tiêu đề & Nút Đóng Modal -->
+            <div class="bg-[#e0f2fe] px-6 py-3 border-b border-sky-200 flex items-center justify-between">
+                <span class="text-xs sm:text-sm font-extrabold text-[#0369a1] uppercase tracking-wider">
+                    <i class="fa-solid fa-hands-praying mr-1.5"></i> Biểu Mẫu Đăng Ký Cầu An - Chùa Vĩnh Hưng
+                </span>
+                <button onclick="closeCauAnModal()" class="w-8 h-8 rounded-full bg-sky-200 hover:bg-sky-300 text-sky-900 flex items-center justify-center font-bold text-base transition cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Khung chứa file dang-ky-cau-an.html nguyên bản -->
+            <div class="flex-1 w-full bg-[#f4faff] overflow-hidden">
+                <iframe id="cauAnIframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>  
     <!-- Modal Đăng Ký Cầu Siêu bằng Iframe giữ nguyên 100% Form gốc -->
     <div id="cauSieuModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-2 sm:p-4 hidden">
         <div class="relative w-full max-w-3xl h-[90vh] bg-[#fffdf4] border-3 border-[#d97706] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
@@ -601,42 +621,60 @@
                 container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Không thể tải video.</p>';
             }
         }
+        function openCauAnModal() {
+            const modal = document.getElementById('cauAnModal');
+            const iframe = document.getElementById('cauAnIframe');
+
+            // Gán đường dẫn file dang-ky-cau-an.html vào iframe nếu chưa có
+            if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
+                iframe.src = 'Form-cau-an.html';
+            }
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền khi mở modal
+        }
+
+        function closeCauAnModal() {
+            const modal = document.getElementById('cauAnModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Mở lại cuộn trang
+        }
         function openCauSieuModal() {
-        const modal = document.getElementById('cauSieuModal');
-        const iframe = document.getElementById('cauSieuIframe');
-        
-        // Gán đường dẫn file Form-cau-sieu.html vào iframe nếu chưa có
-        if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
-            iframe.src = 'Form-cau-sieu.html';
+            const modal = document.getElementById('cauSieuModal');
+            const iframe = document.getElementById('cauSieuIframe');
+            
+            // Gán đường dẫn file Form-cau-sieu.html vào iframe nếu chưa có
+            if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
+                iframe.src = 'Form-cau-sieu.html';
+            }
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền khi mở modal
         }
-        
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền khi mở modal
-    }
 
-    function closeCauSieuModal() {
-        const modal = document.getElementById('cauSieuModal');
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto'; // Mở lại cuộn trang
-    }
-    function openQuyYModal() {
-        const modal = document.getElementById('quyYModal');
-        const iframe = document.getElementById('quyYIframe');
-        
-        // Gán đường dẫn file Form-quy-y.html vào iframe nếu chưa có
-        if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
-            iframe.src = 'Form-quy-y.html';
+        function closeCauSieuModal() {
+            const modal = document.getElementById('cauSieuModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Mở lại cuộn trang
         }
-        
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
-    }
+        function openQuyYModal() {
+            const modal = document.getElementById('quyYModal');
+            const iframe = document.getElementById('quyYIframe');
+            
+            // Gán đường dẫn file Form-quy-y.html vào iframe nếu chưa có
+            if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
+                iframe.src = 'Form-quy-y.html';
+            }
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
+        }
 
-    function closeQuyYModal() {
-        const modal = document.getElementById('quyYModal');
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto'; // Mở lại cuộn trang
-    }
+        function closeQuyYModal() {
+            const modal = document.getElementById('quyYModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Mở lại cuộn trang
+        }
     </script>
 </body>
 </html>
