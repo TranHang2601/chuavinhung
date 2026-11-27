@@ -828,7 +828,7 @@
 
                     <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200">
                         <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2.5 text-xs"></i>
-                        <input type="text" id="quy-y-search" oninput="quyYCurrentPage = 1; renderQuyYAdminList()" placeholder="Tìm kiếm theo Họ tên, SĐT, Địa chỉ, Mã phiếu..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
+                        <input type="text" id="quy-y-search" oninput="quyYCurrentPage = 1; renderQuyYAdminList()" placeholder="Tìm kiếm theo Họ tên, SĐT, Địa chỉ,..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
                     </div>
 
                     <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
@@ -836,7 +836,7 @@
                             <thead>
                                 <tr class="bg-emerald-100/80 text-emerald-950 text-xs uppercase font-bold border-b border-emerald-200">
                                     <th class="py-3 px-4 w-12 text-center">STT</th>
-                                    <th class="py-3 px-4 w-36">Mã Phiếu & Ngày Gửi</th>
+                                    <th class="py-3 px-4 w-36">Ngày Gửi</th>
                                     <th class="py-3 px-4 w-44">Họ Và Tên</th>
                                     <th class="py-3 px-4 w-36">Ngày Sinh & Giới Tính</th>
                                     <th class="py-3 px-4 w-52">Số Điện Thoại & Địa Chỉ</th>
@@ -4440,7 +4440,7 @@
             const searchTerm = (document.getElementById('quy-y-search')?.value || '').toLowerCase().trim();
             const filtered = records.filter(reg => {
                 if (!searchTerm) return true;
-                const combined = `${reg.maPhieu || reg.code || ''} ${reg.hoTen || reg.fullName || reg.name || ''} ${reg.sdt || reg.phone || ''} ${reg.diaChi || reg.address || ''} ${reg.ngaySinh || reg.dob || ''}`.toLowerCase();
+                const combined = `${reg.hoTen || reg.fullName || reg.name || ''} ${reg.sdt || reg.phone || ''} ${reg.diaChi || reg.address || ''} ${reg.ngaySinh || reg.dob || ''}`.toLowerCase();
                 return combined.includes(searchTerm);
             });
 
@@ -4464,7 +4464,6 @@
             slice.forEach((reg, idx) => {
                 const stt = start + idx + 1;
                 const dateStr = formatRegistrationDate(reg);
-                const maPhieu = reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase();
                 const hoTen = reg.hoTen || reg.fullName || reg.name || 'Chưa nhập';
                 const ngaySinh = reg.ngaySinh || reg.dob || reg.birth || 'Chưa rõ';
                 const gioiTinh = reg.gioiTinh || reg.gender || 'Chưa rõ';
@@ -4486,9 +4485,8 @@
                 html += `
                     <tr class="hover:bg-emerald-50/30 transition border-b border-slate-100 align-top">
                         <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${stt}</td>
-                        <td class="py-3.5 px-4 text-xs">
-                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-mono font-bold inline-block mb-1">#${maPhieu}</span>
-                            <div class="text-slate-500">${dateStr}</div>
+                        <td class="py-3.5 px-4 text-xs text-slate-500 font-medium whitespace-nowrap">
+                            ${dateStr}
                         </td>
                         <td class="py-3.5 px-4">
                             <div class="font-bold text-slate-900">${hoTen}</div>
@@ -4646,7 +4644,6 @@
                     : (rawGioi || ((reg.camKet === true || reg.camKet === 'true') ? 'Phát nguyện trọn vẹn Ngũ Giới' : ''));
                 rows.push({
                     'STT': idx + 1,
-                    'Mã Phiếu': reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase(),
                     'Ngày Gửi': formatRegistrationDate(reg),
                     'Họ Và Tên': reg.hoTen || reg.fullName || reg.name || '',
                     'Pháp Danh': reg.phapDanh || reg.phapdanh || '',

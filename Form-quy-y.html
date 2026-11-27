@@ -181,7 +181,6 @@
                     <div class="bg-[#f2faf4] p-4 rounded-xl border-2 border-dashed border-canvaGreen text-left mb-6">
                         <div class="text-center pb-2 mb-3 border-b border-[#c6e7cb]">
                             <h4 class="text-[11px] font-extrabold text-canvaGreen uppercase tracking-wider">PHIẾU XÁC NHẬN QUY Y TAM BẢO</h4>
-                            <p class="text-xs text-stone-500 mt-0.5">Mã hồ sơ: <span id="lblMaPhieu" class="font-bold text-stone-900 font-mono"></span></p>
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-stone-700">
@@ -194,9 +193,6 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3 justify-center no-print">
-                        <button onclick="window.print()" class="bg-stone-900 hover:bg-stone-800 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
-                            <i class="fa-solid fa-print"></i> In Phiếu Xác Nhận
-                        </button>
                         <button onclick="resetForm()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
                             <i class="fa-solid fa-rotate-right"></i> Đăng Ký Mới
                         </button>
@@ -290,10 +286,7 @@
             const diaChi = document.getElementById('diaChi').value.trim();
             const camKet = document.getElementById('camKet').checked;
 
-            const randomCode = 'QY-' + Math.floor(100000 + Math.random() * 900000);
-
             const formData = {
-                maPhieu: randomCode,
                 hoTen: hoTen,
                 ngaySinh: formattedNgaySinh,
                 ngaySinhRaw: ngaySinhVal,
@@ -308,7 +301,6 @@
                 // Đã chuyển tên nhánh thành registrations_quy_y giống cấu trúc của cầu siêu
                 await database.ref('registrations_quy_y').push(formData);
 
-                document.getElementById('lblMaPhieu').innerText = randomCode;
                 document.getElementById('lblHoTen').innerText = hoTen;
                 document.getElementById('lblNgaySinh').innerText = formattedNgaySinh;
                 document.getElementById('lblGioiTinh').innerText = gioiTinh;

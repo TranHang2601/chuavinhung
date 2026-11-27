@@ -151,9 +151,22 @@
 </div>
 
 <main id="admin-content" class="hidden w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex-grow flex flex-col lg:flex-row gap-4 sm:gap-6 items-start">
+    <!-- Thanh nút 3 gạch / Thu gọn menu dành cho điện thoại & máy tính bảng (< lg) -->
+    <div class="w-full lg:hidden flex items-center justify-between bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl custom-shadow border border-slate-200/80 z-20">
+        <button type="button" id="mobile-menu-toggle-btn" onclick="toggleMobileSidebar()" class="flex items-center gap-2.5 text-slate-800 font-bold text-xs uppercase tracking-wider">
+            <span class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center">
+                <i id="mobile-menu-icon" class="fa-solid fa-bars text-base"></i>
+            </span>
+            <span id="mobile-menu-label">Mở Danh Mục Menu</span>
+        </button>
 
+        <button type="button" id="mobile-menu-collapse-btn" onclick="collapseMobileSidebar()" class="hidden px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-chevron-up"></i>
+            <span>Thu gọn</span>
+        </button>
+    </div>
     <!-- Sidebar Navigation (Horizontal scrollable on mobile/tablet, sticky vertical sidebar on lg+) -->
-    <nav id="admin-sidebar" class="bg-white/95 backdrop-blur-md p-3 sm:p-4.5 rounded-2xl sm:rounded-3xl custom-shadow border border-slate-200/80 w-full lg:w-72 flex flex-row lg:flex-col gap-2 lg:gap-2.5 text-sm font-semibold text-slate-600 flex-shrink-0 lg:sticky lg:top-24 overflow-x-auto no-scrollbar z-20">
+    <nav id="admin-sidebar" class="hidden lg:flex bg-white/95 backdrop-blur-md p-3 sm:p-4.5 rounded-2xl sm:rounded-3xl custom-shadow border border-slate-200/80 w-full lg:w-72 flex-col gap-2 lg:gap-2.5 text-sm font-semibold text-slate-600 flex-shrink-0 lg:sticky lg:top-24 z-20">
         <div class="hidden lg:flex px-3 py-3 border-b border-slate-100 mb-1 items-center justify-between">
             <div>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Danh mục quản lý</h3>
@@ -828,7 +841,7 @@
 
                     <div class="flex items-center bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-200">
                         <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2.5 text-xs"></i>
-                        <input type="text" id="quy-y-search" oninput="quyYCurrentPage = 1; renderQuyYAdminList()" placeholder="Tìm kiếm theo Họ tên, SĐT, Địa chỉ, Mã phiếu..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
+                        <input type="text" id="quy-y-search" oninput="quyYCurrentPage = 1; renderQuyYAdminList()" placeholder="Tìm kiếm theo Họ tên, SĐT, Địa chỉ,..." class="w-full bg-transparent outline-none text-xs font-medium text-slate-700">
                     </div>
 
                     <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
@@ -836,7 +849,7 @@
                             <thead>
                                 <tr class="bg-emerald-100/80 text-emerald-950 text-xs uppercase font-bold border-b border-emerald-200">
                                     <th class="py-3 px-4 w-12 text-center">STT</th>
-                                    <th class="py-3 px-4 w-36">Mã Phiếu & Ngày Gửi</th>
+                                    <th class="py-3 px-4 w-36">Ngày Gửi</th>
                                     <th class="py-3 px-4 w-44">Họ Và Tên</th>
                                     <th class="py-3 px-4 w-36">Ngày Sinh & Giới Tính</th>
                                     <th class="py-3 px-4 w-52">Số Điện Thoại & Địa Chỉ</th>
@@ -4440,7 +4453,7 @@
             const searchTerm = (document.getElementById('quy-y-search')?.value || '').toLowerCase().trim();
             const filtered = records.filter(reg => {
                 if (!searchTerm) return true;
-                const combined = `${reg.maPhieu || reg.code || ''} ${reg.hoTen || reg.fullName || reg.name || ''} ${reg.sdt || reg.phone || ''} ${reg.diaChi || reg.address || ''} ${reg.ngaySinh || reg.dob || ''}`.toLowerCase();
+                const combined = `${reg.hoTen || reg.fullName || reg.name || ''} ${reg.sdt || reg.phone || ''} ${reg.diaChi || reg.address || ''} ${reg.ngaySinh || reg.dob || ''}`.toLowerCase();
                 return combined.includes(searchTerm);
             });
 
@@ -4464,7 +4477,6 @@
             slice.forEach((reg, idx) => {
                 const stt = start + idx + 1;
                 const dateStr = formatRegistrationDate(reg);
-                const maPhieu = reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase();
                 const hoTen = reg.hoTen || reg.fullName || reg.name || 'Chưa nhập';
                 const ngaySinh = reg.ngaySinh || reg.dob || reg.birth || 'Chưa rõ';
                 const gioiTinh = reg.gioiTinh || reg.gender || 'Chưa rõ';
@@ -4486,9 +4498,8 @@
                 html += `
                     <tr class="hover:bg-emerald-50/30 transition border-b border-slate-100 align-top">
                         <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${stt}</td>
-                        <td class="py-3.5 px-4 text-xs">
-                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-mono font-bold inline-block mb-1">#${maPhieu}</span>
-                            <div class="text-slate-500">${dateStr}</div>
+                        <td class="py-3.5 px-4 text-xs text-slate-500 font-medium whitespace-nowrap">
+                            ${dateStr}
                         </td>
                         <td class="py-3.5 px-4">
                             <div class="font-bold text-slate-900">${hoTen}</div>
@@ -4646,7 +4657,6 @@
                     : (rawGioi || ((reg.camKet === true || reg.camKet === 'true') ? 'Phát nguyện trọn vẹn Ngũ Giới' : ''));
                 rows.push({
                     'STT': idx + 1,
-                    'Mã Phiếu': reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase(),
                     'Ngày Gửi': formatRegistrationDate(reg),
                     'Họ Và Tên': reg.hoTen || reg.fullName || reg.name || '',
                     'Pháp Danh': reg.phapDanh || reg.phapdanh || '',
@@ -4948,6 +4958,63 @@
                 confirmResolver = null;
             }
         }
+        function setMobileSidebarOpen(isOpen) {
+            const sidebar = document.getElementById('admin-sidebar');
+            const iconEl = document.getElementById('mobile-menu-icon');
+            const labelEl = document.getElementById('mobile-menu-label');
+            const collapseBtn = document.getElementById('mobile-menu-collapse-btn');
+            if (!sidebar) return;
+
+            if (isOpen) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+                if (iconEl) iconEl.className = 'fa-solid fa-xmark text-base';
+                if (labelEl) labelEl.textContent = 'Đóng Danh Mục Menu';
+                if (collapseBtn) collapseBtn.classList.remove('hidden');
+            } else {
+                if (window.innerWidth < 1024) {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('flex');
+                }
+                if (iconEl) iconEl.className = 'fa-solid fa-bars text-base';
+                if (labelEl) labelEl.textContent = 'Mở Danh Mục Menu';
+                if (collapseBtn) collapseBtn.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            if (!sidebar) return;
+            const isCurrentlyOpen = !sidebar.classList.contains('hidden');
+            setMobileSidebarOpen(!isCurrentlyOpen);
+        }
+
+        function collapseMobileSidebar() {
+            setMobileSidebarOpen(false);
+        }
+
+        const _originalSwitchTab = switchTab;
+        switchTab = function(tabName) {
+            _originalSwitchTab(tabName);
+            if (window.innerWidth < 1024) {
+                setMobileSidebarOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('admin-sidebar');
+            if (!sidebar) return;
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else if (!document.getElementById('mobile-menu-collapse-btn')?.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
+        });
     </script>
 </body>
 </html>
