@@ -1114,21 +1114,21 @@
     </div>
 </div>
 
-<div id="modal-answer-qa" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
-    <div class="bg-white rounded-3xl max-w-4xl w-full p-5 sm:p-8 lg:p-10 shadow-2xl border border-slate-200 space-y-5 sm:space-y-6 max-h-[92vh] overflow-y-auto">
-        <div class="flex items-center justify-between pb-3.5 sm:pb-4 border-b border-slate-100 gap-2">
-            <h3 class="text-base sm:text-xl font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-pen-nib mr-2 text-rose-600"></i> Chỉnh Sửa & Trả Lời Câu Hỏi Phật Pháp</h3>
-            <button onclick="closeAnswerModal()" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition flex-shrink-0"><i class="fa-solid fa-xmark text-lg"></i></button>
+<div id="modal-answer-qa" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden">
+    <div class="bg-white rounded-3xl max-w-4xl w-full p-8 sm:p-10 shadow-2xl border border-slate-200 space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <h3 class="text-xl font-bold font-serif text-slate-900 uppercase"><i class="fa-solid fa-pen-nib mr-2 text-rose-600"></i> Chỉnh Sửa & Trả Lời Câu Hỏi Phật Pháp</h3>
+            <button onclick="closeAnswerModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition"><i class="fa-solid fa-xmark text-lg"></i></button>
         </div>
         
-        <form id="answer-form" onsubmit="saveAnswerQA(event)" class="space-y-4 sm:space-y-5 text-xs sm:text-sm">
+        <form id="answer-form" onsubmit="saveAnswerQA(event)" class="space-y-5 text-xs sm:text-sm">
             <input type="hidden" id="answer-qa-key">
             
-            <div class="bg-amber-50/70 p-4 sm:p-6 rounded-2xl border border-amber-200/90 space-y-4 shadow-inner">
+            <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl border border-amber-200/90 space-y-4 shadow-inner">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <p class="text-xs font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-circle-question text-amber-500"></i> Người hỏi: <span id="qa-modal-author" class="font-semibold text-slate-800"></span></p>
                     
-                    <div class="flex flex-wrap items-center gap-2">
+                    <div class="flex items-center space-x-2">
                         <label for="qa-modal-category" class="text-xs font-bold text-amber-900 uppercase">Chuyên mục (Tag):</label>
                         <select id="qa-modal-category" class="px-3 py-1.5 bg-white border border-amber-300 rounded-xl outline-none font-semibold text-slate-800 text-xs">
                             <option value="Giáo lý Phật Pháp">Giáo lý Phật Pháp</option>
@@ -1147,17 +1147,17 @@
 
             <div>
                 <label class="block font-bold text-slate-700 uppercase mb-2">Nội dung trả lời của Thầy <span class="text-rose-600">*</span></label>
-                <textarea id="qa-modal-answer-text" rows="6" required placeholder="Nhập lời giải đáp giáo lý, lời khuyên tu tập cho Phật tử..." class="w-full px-4 sm:px-5 py-3.5 sm:py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50 font-sans text-sm sm:text-base text-slate-800 shadow-inner"></textarea>
+                <textarea id="qa-modal-answer-text" rows="8" required placeholder="Nhập lời giải đáp giáo lý, lời khuyên tu tập cho Phật tử..." class="w-full px-5 py-4 border border-slate-300 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50 font-sans text-base text-slate-800 shadow-inner"></textarea>
             </div>
 
-            <div class="flex items-center gap-3 bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-200">
-                <input type="checkbox" id="qa-modal-approve" class="w-5 h-5 text-rose-600 rounded focus:ring-rose-500 accent-rose-600 cursor-pointer flex-shrink-0" checked>
+            <div class="flex items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <input type="checkbox" id="qa-modal-approve" class="w-5 h-5 text-rose-600 rounded focus:ring-rose-500 accent-rose-600 cursor-pointer" checked>
                 <label for="qa-modal-approve" class="font-bold text-slate-700 text-xs sm:text-sm cursor-pointer">Duyệt hiển thị công khai lên trang Hỏi Đáp</label>
             </div>
 
-            <div class="flex flex-col-reverse sm:flex-row justify-end gap-2.5 sm:space-x-3 pt-4 border-t border-slate-100">
-                <button type="button" onclick="closeAnswerModal()" class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
-                <button type="submit" class="w-full sm:w-auto px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs tracking-wider">Lưu Thay Đổi & Gửi Phản Hồi</button>
+            <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+                <button type="button" onclick="closeAnswerModal()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 rounded-2xl font-bold uppercase text-xs">Hủy</button>
+                <button type="submit" class="px-7 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-600/20 transition uppercase text-xs tracking-wider">Lưu Thay Đổi & Gửi Phản Hồi</button>
             </div>
         </form>
     </div>
@@ -3483,16 +3483,20 @@
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Mới';
 
                 const statusBadge = isHidden 
-                    ? `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang ẩn</span>`
-                    : `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
+                    ? `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
+                    : `<span onclick="toggleHideVideo('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
 
                 html += `
-                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center font-mono text-xs">${index + 1}</td>
-                        <td class="py-3.5 px-4 text-center"><img src="${item.thumbnail || ''}" class="w-16 h-10 object-cover rounded-lg mx-auto shadow-sm"></td>
+                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${index + 1}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <div class="w-16 h-12 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 mx-auto shadow-sm">
+                                <img src="${item.thumbnail || 'https://placehold.co/150x100/f1f5f9/64748b?text=Video'}" alt="Video" class="w-full h-full object-cover">
+                            </div>
+                        </td>
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
-                        <td class="py-3.5 px-4"><a href="${item.url}" target="_blank" class="text-blue-600 text-xs font-mono font-bold hover:underline"><i class="fa-brands fa-youtube text-rose-600 mr-1"></i>Xem YouTube</a></td>
-                        <td class="py-3.5 px-4 text-xs text-slate-600 whitespace-nowrap font-medium">${dateStr}</td>
+                        <td class="py-3.5 px-4 text-xs text-blue-600 font-mono truncate max-w-[150px]"><a href="${item.url}" target="_blank" class="hover:underline">${item.url}</a></td>
+                        <td class="py-3.5 px-4 text-xs text-slate-500 font-medium">${dateStr}</td>
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
@@ -3509,40 +3513,25 @@
         function openVideoModal() {
             document.getElementById('video-key').value = '';
             document.getElementById('video-title').value = '';
-            
             const todayStr = new Date().toISOString().split('T')[0];
             document.getElementById('video-date').value = todayStr;
-
             document.getElementById('video-url').value = '';
             document.getElementById('video-thumbnail').value = '';
             document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
             document.getElementById('modal-video').classList.remove('hidden');
         }
-
         function closeVideoModal() { document.getElementById('modal-video').classList.add('hidden'); }
 
-        function editVideo(key) {
-            const item = videosData[key];
-            if (!item) return;
-            document.getElementById('video-key').value = key;
-            document.getElementById('video-title').value = item.title || '';
-            
-            if (item.created_at) {
-                const d = new Date(item.created_at);
-                document.getElementById('video-date').value = d.toISOString().split('T')[0];
-            } else {
-                document.getElementById('video-date').value = new Date().toISOString().split('T')[0];
-            }
-
-            document.getElementById('video-url').value = item.url || '';
-            document.getElementById('video-thumbnail').value = item.thumbnail || '';
-            if (item.thumbnail) previewVideoThumb(item.thumbnail);
-            document.getElementById('modal-video').classList.remove('hidden');
+        function extractYoutubeVideoId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
         }
 
         function onVideoUrlChange(url) {
-            const vidId = extractYoutubeId(url);
-            if (vidId) {
+            const vidId = extractYoutubeVideoId(url);
+            if (vidId && !document.getElementById('video-thumbnail').value) {
                 const thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
                 document.getElementById('video-thumbnail').value = thumbUrl;
                 previewVideoThumb(thumbUrl);
@@ -3550,39 +3539,60 @@
         }
 
         function autoExtractYoutubeThumb() {
-            onVideoUrlChange(document.getElementById('video-url').value);
-        }
-
-        function extractYoutubeId(url) {
-            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[7].length === 11) ? match[7] : false;
+            const url = document.getElementById('video-url').value.trim();
+            const vidId = extractYoutubeVideoId(url);
+            if (vidId) {
+                const thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+                document.getElementById('video-thumbnail').value = thumbUrl;
+                previewVideoThumb(thumbUrl);
+                showToast("Đã lấy ảnh thu nhỏ tự động từ YouTube!");
+            } else {
+                showToast("Không trích xuất được ID từ đường dẫn YouTube!", true);
+            }
         }
 
         function previewVideoThumb(url) {
-            if (url) {
-                document.getElementById('video-thumb-preview-img').src = url;
-                document.getElementById('video-thumb-preview-wrap').classList.remove('hidden');
+            const wrap = document.getElementById('video-thumb-preview-wrap');
+            const img = document.getElementById('video-thumb-preview-img');
+            if (url && url.startsWith('http')) {
+                img.src = url;
+                wrap.classList.remove('hidden');
             } else {
-                document.getElementById('video-thumb-preview-wrap').classList.add('hidden');
+                wrap.classList.add('hidden');
             }
+        }
+
+        function editVideo(key) {
+            const item = videosData[key];
+            if (!item) return;
+            document.getElementById('video-key').value = key;
+            document.getElementById('video-title').value = item.title || '';
+            if (item.created_at) {
+                document.getElementById('video-date').value = new Date(item.created_at).toISOString().split('T')[0];
+            }
+            document.getElementById('video-url').value = item.url || '';
+            document.getElementById('video-thumbnail').value = item.thumbnail || '';
+            previewVideoThumb(item.thumbnail || '');
+            document.getElementById('modal-video').classList.remove('hidden');
         }
 
         async function saveVideo(e) {
             e.preventDefault();
             const key = document.getElementById('video-key').value;
             const title = document.getElementById('video-title').value.trim();
-            const dateInputVal = document.getElementById('video-date').value;
+            const dateVal = document.getElementById('video-date').value;
             const url = document.getElementById('video-url').value.trim();
-            const thumbnail = document.getElementById('video-thumbnail').value.trim();
+            let thumbnail = document.getElementById('video-thumbnail').value.trim();
+            
+            if (!thumbnail) {
+                const vidId = extractYoutubeVideoId(url);
+                if (vidId) thumbnail = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+            }
 
             let timestamp = Date.now();
-            if (dateInputVal) {
-                const parsedDate = new Date(dateInputVal);
-                if (!isNaN(parsedDate.getTime())) {
-                    parsedDate.setHours(12, 0, 0, 0);
-                    timestamp = parsedDate.getTime();
-                }
+            if (dateVal) {
+                const parsed = new Date(dateVal);
+                if (!isNaN(parsed.getTime())) { parsed.setHours(12, 0, 0, 0); timestamp = parsed.getTime(); }
             }
 
             const payload = {
@@ -3591,12 +3601,19 @@
                 hidden: key && videosData[key] ? (videosData[key].hidden || false) : false
             };
 
-            if (key) await database.ref(`videos/${key}`).set(payload);
-            else await database.ref('videos').push(payload);
-
-            showToast("Lưu video thành công!");
-            closeVideoModal();
-            loadVideos();
+            try {
+                if (key) {
+                    await database.ref(`videos/${key}`).set(payload);
+                    showToast("Cập nhật video thành công!");
+                } else {
+                    await database.ref('videos').push(payload);
+                    showToast("Thêm video mới thành công!");
+                }
+                closeVideoModal();
+                loadVideos();
+            } catch (err) {
+                showToast("Lỗi lưu video: " + err.message, true);
+            }
         }
 
         async function toggleHideVideo(key) {
@@ -3616,102 +3633,166 @@
 
         async function loadQA() {
             try {
-                const snapshot = await database.ref('qa').once('value');
-                qaData = snapshot.val() || {};
-                const pendingCount = Object.values(qaData).filter(q => !q.answer).length;
-                document.getElementById('stat-pending-qa').textContent = pendingCount;
-                renderQATable();
-            } catch (err) { console.error("Lỗi tải Hỏi Đáp:", err); }
+                database.ref('questions').on('value', (snapshot) => {
+                    qaData = snapshot.val() || {};
+                    let pendingCount = 0;
+                    Object.keys(qaData).forEach(k => {
+                        const item = qaData[k];
+                        const hasAnswer = item.answer && item.answer.trim() !== '';
+                        const isApproved = item.approved === true || item.approved === 'true';
+                        if (!hasAnswer || !isApproved) pendingCount++;
+                    });
+                    const statEl = document.getElementById('stat-pending-qa');
+                    if (statEl) statEl.textContent = pendingCount;
+                    renderQATable();
+                });
+            } catch (err) {
+                console.error("Lỗi tải hỏi đáp:", err);
+            }
         }
 
-        function changeQAFilterStatus() { renderQATable(); }
-        function changeQAPerPage(val) { qaPerPage = parseInt(val); renderQATable(); }
+        function changeQAPerPage(val) { qaPerPage = parseInt(val); currentQAPage = 1; renderQATable(); }
+        function changeQAFilterStatus(val) { currentQAPage = 1; renderQATable(); }
+        function changeQAPage(page) { currentQAPage = page; renderQATable(); }
 
         function renderQATable() {
             const tbody = document.getElementById('qa-table-body');
+            const countInfo = document.getElementById('qa-count-info');
+            const paginationContainer = document.getElementById('qa-pagination-container');
+            const filterStatus = document.getElementById('qa-filter-status').value;
             if (!tbody) return;
             tbody.innerHTML = '';
-            const filter = document.getElementById('qa-filter-status').value;
-            let keys = Object.keys(qaData).sort((a, b) => (qaData[b].created_at || 0) - (qaData[a].created_at || 0));
 
-            if (filter === 'pending') keys = keys.filter(k => !qaData[k].answer);
-            else if (filter === 'answered') keys = keys.filter(k => !!qaData[k].answer);
+            const keys = Object.keys(qaData).sort((a, b) => (qaData[b].created_at || 0) - (qaData[a].created_at || 0));
+            const filteredKeys = keys.filter(key => {
+                const item = qaData[key];
+                const hasAnswer = item.answer && item.answer.trim() !== '';
+                const isApproved = item.approved === true || item.approved === 'true';
+                if (filterStatus === 'pending') return !hasAnswer || !isApproved;
+                if (filterStatus === 'answered') return hasAnswer && isApproved;
+                return true;
+            });
 
-            if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Không có câu hỏi nào.</td></tr>`;
+            const totalQA = filteredKeys.length;
+            if (totalQA === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Không có câu hỏi nào trong trạng thái này.</td></tr>`;
+                if (countInfo) countInfo.textContent = "Hiển thị 0 / 0 câu hỏi";
+                if (paginationContainer) paginationContainer.innerHTML = '';
                 return;
             }
 
+            const totalPages = Math.ceil(totalQA / qaPerPage);
+            if (currentQAPage > totalPages) currentQAPage = totalPages;
+            if (currentQAPage < 1) currentQAPage = 1;
+
+            const startIndex = (currentQAPage - 1) * qaPerPage;
+            const endIndex = Math.min(startIndex + qaPerPage, totalQA);
+            const paginatedKeys = filteredKeys.slice(startIndex, endIndex);
+
+            if (countInfo) countInfo.textContent = `Hiển thị từ ${startIndex + 1} đến ${endIndex} trong tổng số ${totalQA} câu hỏi`;
+
             let html = '';
-            keys.forEach((key, idx) => {
+            paginatedKeys.forEach((key, index) => {
                 const item = qaData[key];
-                const isAnswered = !!item.answer;
-                const badge = isAnswered 
-                    ? `<span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-xl text-xs font-bold">Đã trả lời</span>` 
-                    : `<span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-xl text-xs font-bold">Chờ trả lời</span>`;
+                const actualIndex = startIndex + index + 1;
+                const hasAnswer = item.answer && item.answer.trim() !== '';
+                const isApproved = item.approved === true || item.approved === 'true';
+
+                let statusBadge = '';
+                if (!hasAnswer) {
+                    statusBadge = `<span class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-xl font-bold text-xs shadow-sm inline-block">Chờ trả lời</span>`;
+                } else if (!isApproved) {
+                    statusBadge = `<span class="px-3 py-1.5 bg-rose-100 text-rose-700 rounded-xl font-bold text-xs shadow-sm inline-block">Chờ duyệt công khai</span>`;
+                } else {
+                    statusBadge = `<span class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-xl font-bold text-xs shadow-sm inline-block">Đã duyệt & Công khai</span>`;
+                }
 
                 html += `
-                    <tr class="hover:bg-slate-50 border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center font-mono text-xs">${idx + 1}</td>
-                        <td class="py-3.5 px-4 font-bold text-slate-800">${item.author || 'Phật tử ẩn danh'}</td>
-                        <td class="py-3.5 px-4 text-center"><span class="px-2.5 py-1 bg-slate-100 rounded-lg text-xs font-bold">${item.category || 'Giáo lý Phật Pháp'}</span></td>
-                        <td class="py-3.5 px-4 font-medium text-slate-900">${item.question || ''}</td>
-                        <td class="py-3.5 px-4 text-center">${badge}</td>
-                        <td class="py-3.5 px-4 text-center">
-                            <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-reply mr-1"></i> Trả lời</button>
-                                <button onclick="deleteQA('${key}')" class="px-3.5 py-2 bg-slate-100 text-slate-600 hover:bg-rose-100 hover:text-rose-600 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
+                    <tr class="hover:bg-slate-50/85 transition border-b border-slate-100">
+                        <td class="py-4 px-4 text-center font-mono text-slate-400 text-xs">${actualIndex}</td>
+                        <td class="py-4 px-4 font-bold text-slate-900">${item.name || 'Phật tử ẩn danh'}</td>
+                        <td class="py-4 px-4 text-center">
+                            <span class="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold inline-block">
+                                ${item.category || 'Giáo lý Phật Pháp'}
+                            </span>
+                        </td>
+                        <td class="py-4 px-4 font-medium text-slate-800">${item.question || ''}</td>
+                        <td class="py-4 px-4 text-center">${statusBadge}</td>
+                        <td class="py-4 px-4 text-center">
+                            <div class="inline-flex items-center justify-center gap-2">
+                                <button onclick="openAnswerModal('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-pen-to-square"></i> Sửa & Trả lời</button>
+                                <button onclick="deleteQA('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap"><i class="fa-solid fa-trash"></i> Xóa</button>
                             </div>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = html;
+
+            if (paginationContainer && totalPages > 1) {
+                let pagHtml = `<div class="text-xs text-slate-500 font-medium">Trang ${currentQAPage} / ${totalPages}</div>`;
+                pagHtml += `<div class="flex items-center gap-1.5">`;
+                pagHtml += `<button onclick="changeQAPage(${currentQAPage - 1})" ${currentQAPage === 1 ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Trước</button>`;
+                pagHtml += `<button onclick="changeQAPage(${currentQAPage + 1})" ${currentQAPage === totalPages ? 'disabled class="px-3.5 py-2 bg-slate-100 text-slate-300 rounded-xl text-xs font-bold cursor-not-allowed"' : 'class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition shadow-xs"'}>Tiếp</button>`;
+                pagHtml += `</div>`;
+                paginationContainer.innerHTML = pagHtml;
+            } else if (paginationContainer) {
+                paginationContainer.innerHTML = '';
+            }
         }
 
         function openAnswerModal(key) {
             const item = qaData[key];
             if (!item) return;
             document.getElementById('answer-qa-key').value = key;
-            document.getElementById('qa-modal-author').textContent = item.author || 'Phật tử';
+            document.getElementById('qa-modal-author').textContent = item.name || 'Phật tử ẩn danh';
             document.getElementById('qa-modal-category').value = item.category || 'Giáo lý Phật Pháp';
             document.getElementById('qa-modal-question-input').value = item.question || '';
             document.getElementById('qa-modal-answer-text').value = item.answer || '';
-            document.getElementById('qa-modal-approve').checked = item.approved !== false;
+            document.getElementById('qa-modal-approve').checked = item.approved === true || item.approved === 'true' || false;
             document.getElementById('modal-answer-qa').classList.remove('hidden');
         }
 
-        function closeAnswerModal() { document.getElementById('modal-answer-qa').classList.add('hidden'); }
+        function closeAnswerModal() {
+            document.getElementById('modal-answer-qa').classList.add('hidden');
+        }
 
         async function saveAnswerQA(e) {
             e.preventDefault();
             const key = document.getElementById('answer-qa-key').value;
-            const category = document.getElementById('qa-modal-category').value;
-            const question = document.getElementById('qa-modal-question-input').value.trim();
+            const updatedQuestion = document.getElementById('qa-modal-question-input').value.trim();
+            const updatedCategory = document.getElementById('qa-modal-category').value;
             const answer = document.getElementById('qa-modal-answer-text').value.trim();
             const approved = document.getElementById('qa-modal-approve').checked;
-
-            await database.ref(`qa/${key}`).update({ category, question, answer, approved, answered_at: Date.now() });
-            showToast("Đã gửi câu trả lời!");
-            closeAnswerModal();
-            loadQA();
-        }
-
-        async function deleteQA(key) {
-            if (await promptConfirm("Xóa câu hỏi này?")) {
-                await database.ref(`qa/${key}`).remove();
-                showToast("Đã xóa câu hỏi!");
-                loadQA();
+            if (!key) return;
+            try {
+                await database.ref(`questions/${key}`).update({
+                    question: updatedQuestion,
+                    category: updatedCategory,
+                    answer: answer,
+                    approved: approved
+                });
+                closeAnswerModal();
+                showToast("Đã cập nhật câu hỏi, tag và câu trả lời thành công!");
+            } catch (err) {
+                showToast("Lỗi khi lưu: " + err.message, true);
             }
         }
 
-        /* CHƯ TĂNG NI LOGIC WITH DRAG & DROP & NON-DESTRUCTIVE CROPPING */
+        async function deleteQA(key) {
+            if (await promptConfirm("Bạn có chắc chắn muốn xóa câu hỏi này?")) {
+                await database.ref(`questions/${key}`).remove();
+                showToast("Đã xóa câu hỏi!");
+            }
+        }
+
+        /* --- CHƯ TĂNG NI LOGIC --- */
         async function loadMonks() {
             try {
                 const snapshot = await database.ref('monks').once('value');
                 monksData = snapshot.val() || {};
                 renderMonkTable();
-            } catch (err) { console.error("Lỗi tải Chư Tăng Ni:", err); }
+            } catch (err) { console.error("Lỗi tải chư tăng ni:", err); }
         }
 
         function renderMonkTable() {
@@ -3719,25 +3800,48 @@
             if (!tbody) return;
             tbody.innerHTML = '';
             const keys = Object.keys(monksData).sort((a, b) => (monksData[a].order || 999) - (monksData[b].order || 999));
+
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có danh sách.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">Chưa có thông tin chư tăng ni.</td></tr>`;
                 return;
             }
+
             let html = '';
-            keys.forEach((key, idx) => {
+            keys.forEach((key) => {
                 const item = monksData[key];
-                const avatarSrc = item.avatar || item.original_image || 'https://placehold.co/100x100?text=Avatar';
-                
+                const avatarUrl = item.original_image || item.avatar || 'https://placehold.co/150x150/f1f5f9/64748b?text=Monk';
+                const scale = item.crop_scale || 1;
+                const offsetX = item.crop_offsetX || 0;
+                const offsetY = item.crop_offsetY || 0;
+                const ratio = 64 / 160; 
+
+                let avatarHtml = '';
+                if (item.crop_scale) {
+                    const scaledWidth = `calc(${scale * 100}% * 220 / 160)`;
+                    const leftPos = (offsetX - 30) * ratio;
+                    const topPos = (offsetY - 30) * ratio;
+                    avatarHtml = `
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-rose-200 bg-slate-100 mx-auto shadow-sm relative">
+                            <img src="${avatarUrl}" style="position: absolute; left: ${leftPos}px; top: ${topPos}px; width: ${scaledWidth}; max-width: none;" alt="Avatar">
+                        </div>
+                    `;
+                } else {
+                    avatarHtml = `
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-rose-200 bg-slate-100 mx-auto shadow-sm">
+                            <img src="${avatarUrl}" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                    `;
+                }
+
                 html += `
-                    <tr class="hover:bg-slate-50 border-b border-slate-100 draggable-row" draggable="true" data-key="${key}">
-                        <td class="py-3.5 px-4 text-center text-slate-400 cursor-grab active:cursor-grabbing"><i class="fa-solid fa-grip-vertical text-sm"></i></td>
-                        <td class="py-3.5 px-4 text-center">
-                            <div class="w-12 h-12 rounded-xl overflow-hidden mx-auto border border-slate-200 bg-slate-100 shadow-sm relative">
-                                <img src="${avatarSrc}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100?text=Avatar'">
-                            </div>
+                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100 draggable-row" draggable="true" data-key="${key}">
+                        <td class="py-3.5 px-4 text-center text-slate-400 cursor-grab"><i class="fa-solid fa-grip-vertical"></i></td>
+                        <td class="py-3.5 px-4 text-center">${avatarHtml}</td>
+                        <td class="py-3.5 px-4">
+                            <div class="font-bold text-slate-900">${item.name || ''}</div>
+                            ${item.halap ? `<div class="text-xs text-amber-700 font-medium">Tôn hiệu: ${item.halap}</div>` : ''}
                         </td>
-                        <td class="py-3.5 px-4 font-bold text-slate-900">${item.name || ''}</td>
-                        <td class="py-3.5 px-4 font-medium text-rose-700">${item.role || ''}</td>
+                        <td class="py-3.5 px-4 text-xs font-bold text-rose-700">${item.role || ''}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
                                 <button onclick="editMonk('${key}')" class="px-3.5 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-pen mr-1"></i> Sửa</button>
@@ -3748,148 +3852,50 @@
                 `;
             });
             tbody.innerHTML = html;
-            setupMonkTableDragAndDrop();
+            setupMonkTableDragDrop();
         }
 
-        function setupMonkTableDragAndDrop() {
-            const tbody = document.getElementById('monk-table-body');
-            if (!tbody) return;
+        function setupMonkTableDragDrop() {
+            const rows = document.querySelectorAll('#monk-table-body .draggable-row');
             let draggedRow = null;
 
-            tbody.querySelectorAll('.draggable-row').forEach(row => {
-                row.addEventListener('dragstart', (e) => {
+            rows.forEach(row => {
+                row.addEventListener('dragstart', () => {
                     draggedRow = row;
                     row.classList.add('dragging');
-                    e.dataTransfer.effectAllowed = 'move';
                 });
-
                 row.addEventListener('dragend', () => {
-                    if (draggedRow) draggedRow.classList.remove('dragging');
+                    row.classList.remove('dragging');
                     draggedRow = null;
-                    tbody.querySelectorAll('.draggable-row').forEach(r => r.classList.remove('drag-over'));
+                    saveNewMonkOrders();
                 });
-
                 row.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     if (draggedRow && draggedRow !== row) {
-                        row.classList.add('drag-over');
-                    }
-                });
-
-                row.addEventListener('dragleave', () => {
-                    row.classList.remove('drag-over');
-                });
-
-                row.addEventListener('drop', async (e) => {
-                    e.preventDefault();
-                    row.classList.remove('drag-over');
-                    if (draggedRow && draggedRow !== row) {
+                        const tbody = document.getElementById('monk-table-body');
                         const rect = row.getBoundingClientRect();
                         const next = (e.clientY - rect.top) > (rect.height / 2);
-                        if (next) {
-                            tbody.insertBefore(draggedRow, row.nextSibling);
-                        } else {
-                            tbody.insertBefore(draggedRow, row);
-                        }
-
-                        const rows = Array.from(tbody.querySelectorAll('.draggable-row'));
-                        const updates = {};
-                        rows.forEach((r, index) => {
-                            const key = r.getAttribute('data-key');
-                            if (key && monksData[key]) {
-                                monksData[key].order = index + 1;
-                                updates[`monks/${key}/order`] = index + 1;
-                            }
-                        });
-
-                        try {
-                            await database.ref().update(updates);
-                            showToast("Đã lưu thứ tự sắp xếp Chư Tăng Ni!");
-                        } catch (err) {
-                            showToast("Lỗi khi lưu thứ tự: " + err.message, true);
-                        }
+                        if (next) tbody.insertBefore(draggedRow, row.nextSibling);
+                        else tbody.insertBefore(draggedRow, row);
                     }
                 });
             });
         }
 
-        function openMonkModal() {
-            document.getElementById('monk-key').value = '';
-            document.getElementById('monk-name').value = '';
-            document.getElementById('monk-role').value = '';
-            document.getElementById('monk-halap').value = '';
-            document.getElementById('monk-avatar').value = '';
-            document.getElementById('monk-original-image').value = '';
-            document.getElementById('monk-crop-scale').value = '1';
-            document.getElementById('monk-crop-offsetX').value = '0';
-            document.getElementById('monk-crop-offsetY').value = '0';
-            document.getElementById('monk-bio-editor').innerHTML = '';
-            document.getElementById('monk-file-input').value = '';
-            
-            topcvImage = null;
-            const c = document.getElementById('topcv-crop-canvas');
-            if(c) c.getContext('2d').clearRect(0, 0, c.width, c.height);
-            const p = document.getElementById('topcv-preview-canvas');
-            if(p) p.getContext('2d').clearRect(0, 0, p.width, p.height);
-            
-            const rangeEl = document.getElementById('topcv-zoom-range');
-            rangeEl.min = 50;
-            rangeEl.max = 300;
-            rangeEl.value = 100;
-            document.getElementById('zoom-value-label').textContent = '100%';
-            
-            document.getElementById('modal-monk').classList.remove('hidden');
-        }
-
-        function closeMonkModal() { document.getElementById('modal-monk').classList.add('hidden'); }
-
-        function editMonk(key) {
-            const item = monksData[key];
-            if (!item) return;
-            document.getElementById('monk-key').value = key;
-            document.getElementById('monk-name').value = item.name || '';
-            document.getElementById('monk-role').value = item.role || '';
-            document.getElementById('monk-halap').value = item.halap || '';
-            document.getElementById('monk-avatar').value = item.avatar || '';
-            document.getElementById('monk-original-image').value = item.original_image || item.avatar || '';
-            document.getElementById('monk-bio-editor').innerHTML = item.bio || '';
-
-            const sourceImgUrl = item.original_image || item.avatar;
-            if (sourceImgUrl) {
-                const img = new Image();
-                img.crossOrigin = "Anonymous";
-                img.src = sourceImgUrl;
-                img.onload = () => {
-                    topcvImage = img;
-                    
-                    const cw = 160;
-                    const fitScale = Math.min(cw / img.width, cw / img.height);
-                    const minScale = fitScale;
-                    const maxScale = Math.max(fitScale * 4, 3);
-
-                    const rangeEl = document.getElementById('topcv-zoom-range');
-                    rangeEl.min = Math.round(minScale * 100);
-                    rangeEl.max = Math.round(maxScale * 100);
-
-                    topcvScale = item.crop_scale ? parseFloat(item.crop_scale) : fitScale;
-                    topcvOffsetX = item.crop_offsetX !== undefined ? parseFloat(item.crop_offsetX) : (220 - img.width * topcvScale) / 2;
-                    topcvOffsetY = item.crop_offsetY !== undefined ? parseFloat(item.crop_offsetY) : (220 - img.height * topcvScale) / 2;
-                    
-                    const zoomPercent = Math.round(topcvScale * 100);
-                    rangeEl.value = zoomPercent;
-                    document.getElementById('zoom-value-label').textContent = zoomPercent + '%';
-                    
-                    drawTopCVCropper();
-                    exportTopCVCrop();
-                    saveCurrentCropState();
-                };
-                img.onerror = () => {
-                    const c = document.getElementById('topcv-crop-canvas');
-                    if (c) c.getContext('2d').clearRect(0,0,220,220);
-                };
+        async function saveNewMonkOrders() {
+            const rows = document.querySelectorAll('#monk-table-body .draggable-row');
+            const updates = {};
+            rows.forEach((row, index) => {
+                const key = row.getAttribute('data-key');
+                updates[`${key}/order`] = index + 1;
+            });
+            try {
+                await database.ref('monks').update(updates);
+                showToast("Đã lưu thứ tự sắp xếp Chư Tăng Ni!");
+                loadMonks();
+            } catch (err) {
+                console.error("Lỗi lưu thứ tự:", err);
             }
-
-            document.getElementById('modal-monk').classList.remove('hidden');
         }
 
         function execMonkCmd(cmd) {
@@ -3912,23 +3918,16 @@
 
         function openMonkInlineImageModal() {
             const editor = document.getElementById('monk-bio-editor');
-            window.activeMonkEditor = editor;
-
             const sel = window.getSelection();
-            if (sel.rangeCount > 0) {
-                const range = sel.getRangeAt(0);
-                if (editor.contains(range.commonAncestorContainer)) {
-                    lastMonkSelectionRange = range.cloneRange();
-                } else {
-                    lastMonkSelectionRange = null;
-                }
+            if (sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode)) {
+                lastMonkSelectionRange = sel.getRangeAt(0).cloneRange();
             } else {
                 lastMonkSelectionRange = null;
             }
-
-            document.getElementById('inline-image-url').value = '';
-            document.getElementById('inline-file-input').value = '';
-            document.getElementById('modal-inline-image').classList.remove('hidden');
+            window.activeMonkEditor = editor;
+            document.getElementById('monk-inline-image-url').value = '';
+            document.getElementById('monk-inline-file-input').value = '';
+            document.getElementById('modal-monk-inline-image').classList.remove('hidden');
         }
 
         function closeMonkInlineImageModal() {
@@ -3968,19 +3967,86 @@
             }
             const editor = document.getElementById('monk-bio-editor');
             editor.focus();
-            
             if (lastMonkSelectionRange) {
                 const sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(lastMonkSelectionRange);
             }
-
             const linkHtml = `<a href="${url}" target="_blank" data-img-preview="${url}" class="text-blue-600 underline font-mono text-xs mx-1 inline hover:text-blue-800">${url}</a>`;
             document.execCommand('insertHTML', false, linkHtml);
-            
-            lastMonkSelectionRange = null;
             closeMonkInlineImageModal();
             showToast("Đã chèn link ảnh vào tiểu sử!");
+        }
+
+        function openMonkModal() {
+            document.getElementById('monk-modal-title').textContent = "Thêm Thành Viên Chư Tăng Ni";
+            document.getElementById('monk-key').value = '';
+            document.getElementById('monk-name').value = '';
+            document.getElementById('monk-role').value = '';
+            document.getElementById('monk-halap').value = '';
+            document.getElementById('monk-avatar').value = '';
+            document.getElementById('monk-original-image').value = '';
+            document.getElementById('monk-crop-scale').value = '1';
+            document.getElementById('monk-crop-offsetX').value = '0';
+            document.getElementById('monk-crop-offsetY').value = '0';
+            document.getElementById('monk-bio-editor').innerHTML = '';
+
+            topcvImage = null;
+            const c1 = document.getElementById('topcv-crop-canvas');
+            const c2 = document.getElementById('topcv-preview-canvas');
+            if(c1) c1.getContext('2d').clearRect(0, 0, c1.width, c1.height);
+            if(c2) c2.getContext('2d').clearRect(0, 0, c2.width, c2.height);
+            document.getElementById('topcv-zoom-range').value = 100;
+            document.getElementById('zoom-value-label').textContent = '100%';
+
+            document.getElementById('modal-monk').classList.remove('hidden');
+        }
+
+        function closeMonkModal() { document.getElementById('modal-monk').classList.add('hidden'); }
+
+        function editMonk(key) {
+            const item = monksData[key];
+            if (!item) return;
+            document.getElementById('monk-modal-title').textContent = "Chỉnh Sửa Thông Tin Chư Tăng Ni";
+            document.getElementById('monk-key').value = key;
+            document.getElementById('monk-name').value = item.name || '';
+            document.getElementById('monk-role').value = item.role || '';
+            document.getElementById('monk-halap').value = item.halap || '';
+            document.getElementById('monk-avatar').value = item.avatar || '';
+            document.getElementById('monk-original-image').value = item.original_image || item.avatar || '';
+            document.getElementById('monk-bio-editor').innerHTML = item.bio || '';
+
+            const srcUrl = item.original_image || item.avatar;
+            if (srcUrl) {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.src = srcUrl;
+                img.onload = () => {
+                    topcvImage = img;
+                    const cw = 160;
+                    const fitScale = Math.min(cw / img.width, cw / img.height);
+                    const minScale = fitScale;
+                    const maxScale = Math.max(fitScale * 4, 3);
+
+                    const rangeEl = document.getElementById('topcv-zoom-range');
+                    rangeEl.min = Math.round(minScale * 100);
+                    rangeEl.max = Math.round(maxScale * 100);
+
+                    topcvScale = item.crop_scale || fitScale;
+                    topcvOffsetX = item.crop_offsetX !== undefined ? item.crop_offsetX : (220 - img.width * topcvScale) / 2;
+                    topcvOffsetY = item.crop_offsetY !== undefined ? item.crop_offsetY : (220 - img.height * topcvScale) / 2;
+
+                    const zoomPercent = Math.round(topcvScale * 100);
+                    rangeEl.value = zoomPercent;
+                    document.getElementById('zoom-value-label').textContent = zoomPercent + '%';
+
+                    drawTopCVCropper();
+                    exportTopCVCrop();
+                    saveCurrentCropState();
+                };
+            }
+
+            document.getElementById('modal-monk').classList.remove('hidden');
         }
 
         async function saveMonk(e) {
@@ -3989,119 +4055,657 @@
             const name = document.getElementById('monk-name').value.trim();
             const role = document.getElementById('monk-role').value.trim();
             const halap = document.getElementById('monk-halap').value.trim();
-            let originalImage = document.getElementById('monk-original-image').value.trim();
-            let avatarUrl = document.getElementById('monk-avatar').value.trim();
-            const bio = document.getElementById('monk-bio-editor').innerHTML;
+            const bio = document.getElementById('monk-bio-editor').innerHTML.trim();
 
-            const cropScale = parseFloat(document.getElementById('monk-crop-scale').value) || 1;
-            const cropOffsetX = parseFloat(document.getElementById('monk-crop-offsetX').value) || 0;
-            const cropOffsetY = parseFloat(document.getElementById('monk-crop-offsetY').value) || 0;
-
-            const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+            let originalImage = document.getElementById('monk-original-image').value;
+            const scale = parseFloat(document.getElementById('monk-crop-scale').value) || 1;
+            const offsetX = parseFloat(document.getElementById('monk-crop-offsetX').value) || 0;
+            const offsetY = parseFloat(document.getElementById('monk-crop-offsetY').value) || 0;
 
             if (originalImage && originalImage.startsWith('data:image')) {
-                showToast("Đang lưu ảnh gốc lên ImgBB...");
                 try {
-                    const base64Original = originalImage.split(',')[1];
-                    const formOrig = new FormData();
-                    formOrig.append('image', base64Original);
-                    const resOrig = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+                    const apiKey = localStorage.getItem('vinhhung_imgbb_key') || IMGBB_DEFAULT_API_KEY;
+                    showToast("Đang tải ảnh gốc của thành viên lên ImgBB...");
+                    const res = await fetch(originalImage);
+                    const blob = await res.blob();
+                    const file = new File([blob], "monk_original.webp", { type: "image/webp" });
+                    const webpResult = await compressAndConvertToWebP(file, 1000, 0.88);
+                    
+                    const formData = new FormData();
+                    formData.append('image', webpResult.file);
+                    const uploadResp = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
                         method: 'POST',
-                        body: formOrig
+                        body: formData
                     });
-                    const dataOrig = await resOrig.json();
-                    if (dataOrig && dataOrig.success) {
-                        originalImage = dataOrig.data.url;
+                    const uploadData = await uploadResp.json();
+                    if (uploadData && uploadData.success) {
+                        originalImage = uploadData.data.url;
                     }
                 } catch (err) {
-                    console.error("Lỗi upload ảnh gốc:", err);
+                    console.error("Lỗi tải ảnh gốc lên ImgBB:", err);
                 }
             }
 
-            const previewCanvas = document.getElementById('topcv-preview-canvas');
-            if (topcvImage && previewCanvas) {
-                showToast("Đang lưu ảnh đại diện đã cắt lên ImgBB...");
-                try {
-                    const croppedDataUrl = previewCanvas.toDataURL('image/webp', 0.88);
-                    const base64Crop = croppedDataUrl.split(',')[1];
-                    const formCrop = new FormData();
-                    formCrop.append('image', base64Crop);
-                    const resCrop = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-                        method: 'POST',
-                        body: formCrop
-                    });
-                    const dataCrop = await resCrop.json();
-                    if (dataCrop && dataCrop.success) {
-                        avatarUrl = dataCrop.data.url;
-                    }
-                } catch (err) {
-                    console.error("Lỗi upload ảnh đã cắt:", err);
-                    avatarUrl = originalImage || avatarUrl;
-                }
-            } else if (!avatarUrl && originalImage) {
-                avatarUrl = originalImage;
-            }
-
-            const existingOrder = key && monksData[key] ? (monksData[key].order || 999) : (Object.keys(monksData).length + 1);
-
-            const payload = { 
-                name, role, halap, 
-                avatar: avatarUrl, 
-                original_image: originalImage || avatarUrl,
-                crop_scale: cropScale,
-                crop_offsetX: cropOffsetX,
-                crop_offsetY: cropOffsetY,
-                bio, 
-                order: existingOrder
+            const payload = {
+                name, role, halap, bio,
+                avatar: originalImage,
+                original_image: originalImage,
+                crop_scale: scale,
+                crop_offsetX: offsetX,
+                crop_offsetY: offsetY,
+                order: key && monksData[key] ? (monksData[key].order || 99) : Object.keys(monksData).length + 1
             };
 
-            if (key) await database.ref(`monks/${key}`).set(payload);
-            else await database.ref('monks').push(payload);
-
-            showToast("Lưu thông tin Chư Tăng Ni thành công!");
-            closeMonkModal();
-            loadMonks();
+            try {
+                if (key) {
+                    await database.ref(`monks/${key}`).set(payload);
+                    showToast("Cập nhật thông tin thành viên thành công!");
+                } else {
+                    await database.ref('monks').push(payload);
+                    showToast("Thêm thành viên mới thành công!");
+                }
+                closeMonkModal();
+                loadMonks();
+            } catch (err) {
+                showToast("Lỗi khi lưu: " + err.message, true);
+            }
         }
 
         async function deleteMonk(key) {
-            if (await promptConfirm("Xóa thành viên này?")) {
+            if (await promptConfirm("Xóa thành viên này khỏi danh sách Chư Tăng Ni?")) {
                 await database.ref(`monks/${key}`).remove();
                 showToast("Đã xóa thành viên!");
                 loadMonks();
             }
         }
 
+        /* ==============================================================
+           DANH SÁCH PHẬT TỬ LOGIC (CẦU SIÊU, CẦU AN, QUY Y)
+           - ĐÃ ĐỒNG BỘ CHÍNH XÁC VỚI CẤU TRÚC DỮ LIỆU TỪ 3 FORM ĐĂNG KÝ
+           ============================================================== */
+        let cauSieuCurrentPage = 1;
+        let cauAnCurrentPage = 1;
+        let quyYCurrentPage = 1;
+        const phatTuPerPage = 10;
+
+        function switchSubTabPhatTu(subName) {
+            document.querySelectorAll('[id^="subpane-phattuc-"]').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('[id^="subtab-phattuc-"]').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(`subpane-phattuc-${subName}`);
+            const targetBtn = document.getElementById(`subtab-phattuc-${subName}`);
+            
+            if (targetPane && targetBtn) {
+                targetPane.classList.remove('hidden');
+                targetBtn.classList.add('active');
+            }
+
+            if (subName === 'causieu') renderCauSieuAdminList();
+            if (subName === 'cauan') renderCauAnAdminList();
+            if (subName === 'quyy') renderQuyYAdminList();
+        }
+
+        // Helper trích xuất thông tin Tín Chủ (Hỗ trợ cả object lồng nhau `sender` từ form mới và trường phẳng cũ)
+        function extractSenderInfo(reg) {
+            const s = (reg && typeof reg.sender === 'object' && reg.sender !== null) ? reg.sender : reg;
+            return {
+                name: s.name || s.tinChu || s.hoTen || s.fullName || '',
+                phapdanh: s.phapdanh || s.phapDanh || s.dharmaName || '',
+                phone: s.phone || s.sdt || s.soDienThoai || '',
+                address: s.address || s.diaChi || '',
+                note: s.note || s.loiNguyen || s.ghiChu || reg.note || reg.loiNguyen || reg.ghiChu || ''
+            };
+        }
+
+        // Helper trích xuất danh sách Hương linh (Cầu Siêu)
+        function extractDeceasedList(reg) {
+            const raw = reg.deceased || reg.huongLinhList || reg.huongLinh || reg.danhSachHuongLinh || reg.list || [];
+            if (Array.isArray(raw)) return raw;
+            if (typeof raw === 'object' && raw !== null) return Object.values(raw);
+            return [];
+        }
+
+        // Helper trích xuất danh sách Thành viên (Cầu An)
+        function extractMembersList(reg) {
+            const raw = reg.members || reg.thanhVienList || reg.thanhVien || reg.danhSachThanhVien || reg.list || [];
+            if (Array.isArray(raw)) return raw;
+            if (typeof raw === 'object' && raw !== null) return Object.values(raw);
+            return [];
+        }
+
+        async function fetchRegistrationRecords(type) {
+            const pathMap = {
+                causieu: ['registrations/cau_sieu', 'registrations_cau_sieu', 'cau_sieu'],
+                cauan: ['registrations/cau_an', 'registrations_cau_an', 'cau_an'],
+                quyy: ['registrations/quy_y', 'registrations_quy_y', 'quy_y']
+            };
+            const candidatePaths = pathMap[type] || [];
+            const allRecords = [];
+            const seenKeys = new Set();
+
+            for (const path of candidatePaths) {
+                try {
+                    const snap = await database.ref(path).once('value');
+                    const val = snap.val();
+                    if (val && typeof val === 'object') {
+                        Object.keys(val).forEach(key => {
+                            if (!seenKeys.has(key)) {
+                                seenKeys.add(key);
+                                allRecords.push({
+                                    ...val[key],
+                                    _firebaseKey: key,
+                                    _firebasePath: `${path}/${key}`
+                                });
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.warn("Không đọc được path:", path, e);
+                }
+            }
+
+            // Sắp xếp mới nhất lên đầu
+            allRecords.sort((a, b) => {
+                const ta = a.createdAt || a.created_at || a.timestamp || 0;
+                const tb = b.createdAt || b.created_at || b.timestamp || 0;
+                return tb - ta;
+            });
+            return allRecords;
+        }
+
+        function formatRegistrationDate(reg) {
+            const ts = reg.createdAt || reg.created_at || reg.timestamp;
+            if (ts) {
+                const d = new Date(ts);
+                if (!isNaN(d.getTime())) {
+                    return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                }
+            }
+            return reg.date || reg.ngayGui || 'Mới đăng ký';
+        }
+
+        /* --- RENDER 1: CẦU SIÊU --- */
+        async function renderCauSieuAdminList() {
+            const tbody = document.getElementById('cau-sieu-admin-list-body');
+            const totalSpan = document.getElementById('cau-sieu-total-count');
+            const pagInfo = document.getElementById('cau-sieu-pagination-info');
+            const pagControls = document.getElementById('cau-sieu-pagination-controls');
+            if (!tbody) return;
+
+            const records = await fetchRegistrationRecords('causieu');
+            if (totalSpan) totalSpan.textContent = records.length;
+
+            const searchTerm = (document.getElementById('cau-sieu-search')?.value || '').toLowerCase().trim();
+            const filtered = records.filter(reg => {
+                if (!searchTerm) return true;
+                const sender = extractSenderInfo(reg);
+                const hlList = extractDeceasedList(reg);
+                const hlText = hlList.map(h => `${h.name || h.hoTen || ''} ${h.phapdanh || h.phapDanh || ''} ${h.death || h.ngayMat || ''}`).join(' ');
+                const combined = `${sender.name} ${sender.phapdanh} ${sender.phone} ${sender.address} ${sender.note} ${hlText}`.toLowerCase();
+                return combined.includes(searchTerm);
+            });
+
+            const total = filtered.length;
+            if (total === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký cầu siêu.</td></tr>`;
+                if (pagInfo) pagInfo.textContent = "Hiển thị 0 - 0 trên 0 bản ghi";
+                if (pagControls) pagControls.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(total / phatTuPerPage);
+            if (cauSieuCurrentPage > totalPages) cauSieuCurrentPage = totalPages;
+            const start = (cauSieuCurrentPage - 1) * phatTuPerPage;
+            const end = Math.min(start + phatTuPerPage, total);
+            const slice = filtered.slice(start, end);
+
+            if (pagInfo) pagInfo.textContent = `Hiển thị ${start + 1} - ${end} trên ${total} bản ghi`;
+
+            let html = '';
+            slice.forEach((reg, idx) => {
+                const stt = start + idx + 1;
+                const dateStr = formatRegistrationDate(reg);
+                const sender = extractSenderInfo(reg);
+                const tinChu = sender.name || 'Chưa nhập';
+                const tinChuPD = sender.phapdanh ? `<span class="text-xs text-amber-700 font-semibold block">PD: ${sender.phapdanh}</span>` : '';
+                const loiNguyen = sender.note;
+                const sdt = sender.phone || 'Không có';
+                const diaChi = sender.address || 'Không có';
+
+                const hlList = extractDeceasedList(reg);
+                let hlHtml = '';
+                if (hlList.length > 0) {
+                    hlHtml = `<div class="space-y-1.5">`;
+                    hlList.forEach((h, i) => {
+                        const hName = h.name || h.hoTen || 'Chưa rõ tên';
+                        const hPD = h.phapdanh || h.phapDanh ? ` • PD: <span class="text-amber-800 font-semibold">${h.phapdanh || h.phapDanh}</span>` : '';
+                        const hGender = h.gender || h.gioiTinh ? ` (${h.gender || h.gioiTinh})` : '';
+                        const hDeathRaw = h.death || h.ngayMat || h.namMat || '';
+                        const hCalType = h.calendarType || h.loaiLich || '';
+                        const hDeath = hDeathRaw ? ` • Mất: ${hDeathRaw}${hCalType ? ' (' + hCalType + ')' : ''}` : '';
+                        const hRel = h.relation || h.quanHe ? ` • ${h.relation || h.quanHe}` : '';
+                        hlHtml += `
+                            <div class="text-xs bg-amber-50/70 border border-amber-200/80 rounded-xl px-3 py-1.5 text-slate-700">
+                                <span class="font-bold text-slate-900">${i + 1}. ${hName}</span>${hGender}${hPD}${hDeath}${hRel}
+                            </div>
+                        `;
+                    });
+                    hlHtml += `</div>`;
+                } else {
+                    hlHtml = `<span class="text-xs text-slate-400 italic">Không có danh sách hương linh</span>`;
+                }
+
+                html += `
+                    <tr class="hover:bg-amber-50/30 transition border-b border-slate-100 align-top">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${stt}</td>
+                        <td class="py-3.5 px-4 text-xs text-slate-500 font-medium whitespace-nowrap">${dateStr}</td>
+                        <td class="py-3.5 px-4">
+                            <div class="font-bold text-slate-900">${tinChu}</div>
+                            ${tinChuPD}
+                            ${loiNguyen ? `<div class="text-xs text-slate-600 mt-1 italic bg-slate-50 p-2 rounded-lg border border-slate-200/60">"${loiNguyen}"</div>` : ''}
+                        </td>
+                        <td class="py-3.5 px-4 text-xs space-y-1">
+                            <div class="font-bold text-rose-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
+                            <div class="text-slate-600"><i class="fa-solid fa-location-dot mr-1 text-slate-400"></i> ${diaChi}</div>
+                        </td>
+                        <td class="py-3.5 px-4">${hlHtml}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="deleteRegistrationRecord('${reg._firebasePath}', 'causieu')" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+
+            renderPhatTuPagination(pagControls, cauSieuCurrentPage, totalPages, (p) => {
+                cauSieuCurrentPage = p;
+                renderCauSieuAdminList();
+            });
+        }
+
+        /* --- RENDER 2: CẦU AN --- */
+        async function renderCauAnAdminList() {
+            const tbody = document.getElementById('cau-an-admin-list-body');
+            const totalSpan = document.getElementById('cau-an-total-count');
+            const pagInfo = document.getElementById('cau-an-pagination-info');
+            const pagControls = document.getElementById('cau-an-pagination-controls');
+            if (!tbody) return;
+
+            const records = await fetchRegistrationRecords('cauan');
+            if (totalSpan) totalSpan.textContent = records.length;
+
+            const searchTerm = (document.getElementById('cau-an-search')?.value || '').toLowerCase().trim();
+            const filtered = records.filter(reg => {
+                if (!searchTerm) return true;
+                const sender = extractSenderInfo(reg);
+                const tvList = extractMembersList(reg);
+                const tvText = tvList.map(m => `${m.name || m.hoTen || ''} ${m.phapdanh || m.phapDanh || ''} ${m.birth || m.namSinh || ''}`).join(' ');
+                const combined = `${sender.name} ${sender.phapdanh} ${sender.phone} ${sender.address} ${sender.note} ${tvText}`.toLowerCase();
+                return combined.includes(searchTerm);
+            });
+
+            const total = filtered.length;
+            if (total === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký cầu an.</td></tr>`;
+                if (pagInfo) pagInfo.textContent = "Hiển thị 0 - 0 trên 0 bản ghi";
+                if (pagControls) pagControls.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(total / phatTuPerPage);
+            if (cauAnCurrentPage > totalPages) cauAnCurrentPage = totalPages;
+            const start = (cauAnCurrentPage - 1) * phatTuPerPage;
+            const end = Math.min(start + phatTuPerPage, total);
+            const slice = filtered.slice(start, end);
+
+            if (pagInfo) pagInfo.textContent = `Hiển thị ${start + 1} - ${end} trên ${total} bản ghi`;
+
+            let html = '';
+            slice.forEach((reg, idx) => {
+                const stt = start + idx + 1;
+                const dateStr = formatRegistrationDate(reg);
+                const sender = extractSenderInfo(reg);
+                const tinChu = sender.name || 'Chưa nhập';
+                const tinChuPD = sender.phapdanh ? `<span class="text-xs text-sky-700 font-semibold block">PD: ${sender.phapdanh}</span>` : '';
+                const loiNguyen = sender.note;
+                const sdt = sender.phone || 'Không có';
+                const diaChi = sender.address || 'Không có';
+
+                const tvList = extractMembersList(reg);
+                let tvHtml = '';
+                if (tvList.length > 0) {
+                    tvHtml = `<div class="space-y-1.5">`;
+                    tvList.forEach((m, i) => {
+                        const mName = m.name || m.hoTen || 'Chưa rõ tên';
+                        const mPD = m.phapdanh || m.phapDanh ? ` • PD: <span class="text-sky-800 font-semibold">${m.phapdanh || m.phapDanh}</span>` : '';
+                        const mGender = m.gender || m.gioiTinh ? ` (${m.gender || m.gioiTinh})` : '';
+                        const mBirthRaw = m.birth || m.namSinh || m.ngaySinh || m.tuoi || '';
+                        const mCalType = m.calendarType || m.loaiLich || '';
+                        const mBirth = mBirthRaw ? ` • Năm sinh: ${mBirthRaw}${mCalType ? ' (' + mCalType + ')' : ''}` : '';
+                        const mSao = m.saoHan ? ` • Sao: ${m.saoHan}` : '';
+                        tvHtml += `
+                            <div class="text-xs bg-sky-50/70 border border-sky-200/80 rounded-xl px-3 py-1.5 text-slate-700">
+                                <span class="font-bold text-slate-900">${i + 1}. ${mName}</span>${mGender}${mPD}${mBirth}${mSao}
+                            </div>
+                        `;
+                    });
+                    tvHtml += `</div>`;
+                } else {
+                    tvHtml = `<span class="text-xs text-slate-400 italic">Không có danh sách thành viên</span>`;
+                }
+
+                html += `
+                    <tr class="hover:bg-sky-50/30 transition border-b border-slate-100 align-top">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${stt}</td>
+                        <td class="py-3.5 px-4 text-xs text-slate-500 font-medium whitespace-nowrap">${dateStr}</td>
+                        <td class="py-3.5 px-4">
+                            <div class="font-bold text-slate-900">${tinChu}</div>
+                            ${tinChuPD}
+                            ${loiNguyen ? `<div class="text-xs text-slate-600 mt-1 italic bg-slate-50 p-2 rounded-lg border border-slate-200/60">"${loiNguyen}"</div>` : ''}
+                        </td>
+                        <td class="py-3.5 px-4 text-xs space-y-1">
+                            <div class="font-bold text-sky-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
+                            <div class="text-slate-600"><i class="fa-solid fa-location-dot mr-1 text-slate-400"></i> ${diaChi}</div>
+                        </td>
+                        <td class="py-3.5 px-4">${tvHtml}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="deleteRegistrationRecord('${reg._firebasePath}', 'cauan')" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+
+            renderPhatTuPagination(pagControls, cauAnCurrentPage, totalPages, (p) => {
+                cauAnCurrentPage = p;
+                renderCauAnAdminList();
+            });
+        }
+
+        /* --- RENDER 3: QUY Y --- */
+        async function renderQuyYAdminList() {
+            const tbody = document.getElementById('quy-y-admin-list-body');
+            const totalSpan = document.getElementById('quy-y-total-count');
+            const pagInfo = document.getElementById('quy-y-pagination-info');
+            const pagControls = document.getElementById('quy-y-pagination-controls');
+            if (!tbody) return;
+
+            const records = await fetchRegistrationRecords('quyy');
+            if (totalSpan) totalSpan.textContent = records.length;
+
+            const searchTerm = (document.getElementById('quy-y-search')?.value || '').toLowerCase().trim();
+            const filtered = records.filter(reg => {
+                if (!searchTerm) return true;
+                const combined = `${reg.maPhieu || reg.code || ''} ${reg.hoTen || reg.fullName || reg.name || ''} ${reg.sdt || reg.phone || ''} ${reg.diaChi || reg.address || ''} ${reg.ngaySinh || reg.dob || ''}`.toLowerCase();
+                return combined.includes(searchTerm);
+            });
+
+            const total = filtered.length;
+            if (total === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký quy y.</td></tr>`;
+                if (pagInfo) pagInfo.textContent = "Hiển thị 0 - 0 trên 0 bản ghi";
+                if (pagControls) pagControls.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(total / phatTuPerPage);
+            if (quyYCurrentPage > totalPages) quyYCurrentPage = totalPages;
+            const start = (quyYCurrentPage - 1) * phatTuPerPage;
+            const end = Math.min(start + phatTuPerPage, total);
+            const slice = filtered.slice(start, end);
+
+            if (pagInfo) pagInfo.textContent = `Hiển thị ${start + 1} - ${end} trên ${total} bản ghi`;
+
+            let html = '';
+            slice.forEach((reg, idx) => {
+                const stt = start + idx + 1;
+                const dateStr = formatRegistrationDate(reg);
+                const maPhieu = reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase();
+                const hoTen = reg.hoTen || reg.fullName || reg.name || 'Chưa nhập';
+                const ngaySinh = reg.ngaySinh || reg.dob || reg.birth || 'Chưa rõ';
+                const gioiTinh = reg.gioiTinh || reg.gender || 'Chưa rõ';
+                const sdt = reg.sdt || reg.phone || 'Không có';
+                const diaChi = reg.diaChi || reg.address || 'Không có';
+
+                let nguGioiHtml = '';
+                const rawGioi = reg.nguGioi || reg.phatNguyen || reg.gioiLuat || reg.precepts;
+                if (Array.isArray(rawGioi) && rawGioi.length > 0) {
+                    nguGioiHtml = `<div class="flex flex-wrap gap-1">` + rawGioi.map(g => `<span class="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-md text-[11px] font-semibold">${g}</span>`).join('') + `</div>`;
+                } else if (typeof rawGioi === 'string' && rawGioi.trim()) {
+                    nguGioiHtml = `<span class="text-xs text-emerald-800 font-medium">${rawGioi}</span>`;
+                } else if (reg.camKet === true || reg.camKet === 'true' || reg.pledge === true) {
+                    nguGioiHtml = `<span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold inline-flex items-center gap-1"><i class="fa-solid fa-check-circle text-emerald-600"></i> Phát nguyện trọn vẹn Ngũ Giới</span>`;
+                } else {
+                    nguGioiHtml = `<span class="text-xs text-slate-400 italic">Chưa chọn giới</span>`;
+                }
+
+                html += `
+                    <tr class="hover:bg-emerald-50/30 transition border-b border-slate-100 align-top">
+                        <td class="py-3.5 px-4 text-center font-mono text-slate-400 text-xs">${stt}</td>
+                        <td class="py-3.5 px-4 text-xs">
+                            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-mono font-bold inline-block mb-1">#${maPhieu}</span>
+                            <div class="text-slate-500">${dateStr}</div>
+                        </td>
+                        <td class="py-3.5 px-4">
+                            <div class="font-bold text-slate-900">${hoTen}</div>
+                            ${reg.phapDanh || reg.phapdanh ? `<div class="text-xs text-emerald-700 font-semibold">PD: ${reg.phapDanh || reg.phapdanh}</div>` : ''}
+                        </td>
+                        <td class="py-3.5 px-4 text-xs space-y-1">
+                            <div class="font-semibold text-slate-800"><i class="fa-regular fa-calendar mr-1 text-slate-400"></i> ${ngaySinh}</div>
+                            <div class="text-slate-600"><i class="fa-solid fa-venus-mars mr-1 text-slate-400"></i> ${gioiTinh}</div>
+                        </td>
+                        <td class="py-3.5 px-4 text-xs space-y-1">
+                            <div class="font-bold text-emerald-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
+                            <div class="text-slate-600"><i class="fa-solid fa-location-dot mr-1 text-slate-400"></i> ${diaChi}</div>
+                        </td>
+                        <td class="py-3.5 px-4">${nguGioiHtml}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="deleteRegistrationRecord('${reg._firebasePath}', 'quyy')" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+
+            renderPhatTuPagination(pagControls, quyYCurrentPage, totalPages, (p) => {
+                quyYCurrentPage = p;
+                renderQuyYAdminList();
+            });
+        }
+
+        function renderPhatTuPagination(container, currentPage, totalPages, onPageChange) {
+            if (!container) return;
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            container.innerHTML = '';
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = 'Trước';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.className = currentPage === 1
+                ? 'px-3 py-1.5 bg-slate-100 text-slate-300 rounded-lg font-bold cursor-not-allowed'
+                : 'px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-bold transition';
+            prevBtn.onclick = () => onPageChange(currentPage - 1);
+            container.appendChild(prevBtn);
+
+            for (let p = 1; p <= totalPages; p++) {
+                if (p === 1 || p === totalPages || (p >= currentPage - 1 && p <= currentPage + 1)) {
+                    const btn = document.createElement('button');
+                    btn.textContent = p;
+                    btn.className = p === currentPage
+                        ? 'px-3 py-1.5 bg-rose-600 text-white rounded-lg font-bold shadow-xs'
+                        : 'px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-bold transition';
+                    btn.onclick = () => onPageChange(p);
+                    container.appendChild(btn);
+                } else if (p === currentPage - 2 || p === currentPage + 2) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.className = 'px-1.5 text-slate-400';
+                    container.appendChild(dots);
+                }
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Tiếp';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.className = currentPage === totalPages
+                ? 'px-3 py-1.5 bg-slate-100 text-slate-300 rounded-lg font-bold cursor-not-allowed'
+                : 'px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-bold transition';
+            nextBtn.onclick = () => onPageChange(currentPage + 1);
+            container.appendChild(nextBtn);
+        }
+
+        async function deleteRegistrationRecord(firebasePath, type) {
+            if (currentAdminRole === 'viewer') {
+                showToast("Tài khoản theo dõi không có quyền xóa dữ liệu!", true);
+                return;
+            }
+            if (await promptConfirm("Bạn có chắc chắn muốn xóa bản ghi đăng ký này?")) {
+                try {
+                    await database.ref(firebasePath).remove();
+                    showToast("Đã xóa bản ghi đăng ký thành công!");
+                    if (type === 'causieu') renderCauSieuAdminList();
+                    if (type === 'cauan') renderCauAnAdminList();
+                    if (type === 'quyy') renderQuyYAdminList();
+                    updateOverviewPhatTuStats();
+                } catch (err) {
+                    showToast("Lỗi khi xóa: " + err.message, true);
+                }
+            }
+        }
+
+        /* --- XUẤT FILE EXCEL --- */
+        async function exportCauSieuToExcel() {
+            const records = await fetchRegistrationRecords('causieu');
+            if (records.length === 0) {
+                showToast("Không có dữ liệu cầu siêu để xuất Excel!", true);
+                return;
+            }
+            const rows = [];
+            records.forEach((reg, idx) => {
+                const sender = extractSenderInfo(reg);
+                const hlList = extractDeceasedList(reg);
+                const hlText = hlList.map((h, i) => `${i + 1}. ${h.name || h.hoTen || ''} (PD: ${h.phapdanh || h.phapDanh || 'Không'}, Mất: ${h.death || h.ngayMat || ''}${h.calendarType ? ' ' + h.calendarType : ''})`).join('; ');
+                rows.push({
+                    'STT': idx + 1,
+                    'Ngày Gửi': formatRegistrationDate(reg),
+                    'Tín Chủ': sender.name,
+                    'Pháp Danh Tín Chủ': sender.phapdanh,
+                    'Số Điện Thoại': sender.phone,
+                    'Địa Chỉ': sender.address,
+                    'Lời Nguyện': sender.note,
+                    'Danh Sách Hương Linh': hlText
+                });
+            });
+            downloadExcelSheet(rows, 'Danh_Sach_Cau_Sieu', `Danh_Sach_Cau_Sieu_${new Date().toISOString().slice(0, 10)}.xlsx`);
+        }
+
+        async function exportCauAnToExcel() {
+            const records = await fetchRegistrationRecords('cauan');
+            if (records.length === 0) {
+                showToast("Không có dữ liệu cầu an để xuất Excel!", true);
+                return;
+            }
+            const rows = [];
+            records.forEach((reg, idx) => {
+                const sender = extractSenderInfo(reg);
+                const tvList = extractMembersList(reg);
+                const tvText = tvList.map((m, i) => `${i + 1}. ${m.name || m.hoTen || ''} (PD: ${m.phapdanh || m.phapDanh || 'Không'}, NS: ${m.birth || m.namSinh || ''}${m.calendarType ? ' ' + m.calendarType : ''})`).join('; ');
+                rows.push({
+                    'STT': idx + 1,
+                    'Ngày Gửi': formatRegistrationDate(reg),
+                    'Tín Chủ': sender.name,
+                    'Pháp Danh Tín Chủ': sender.phapdanh,
+                    'Số Điện Thoại': sender.phone,
+                    'Địa Chỉ': sender.address,
+                    'Lời Nguyện': sender.note,
+                    'Danh Sách Thành Viên': tvText
+                });
+            });
+            downloadExcelSheet(rows, 'Danh_Sach_Cau_An', `Danh_Sach_Cau_An_${new Date().toISOString().slice(0, 10)}.xlsx`);
+        }
+
+        async function exportQuyYToExcel() {
+            const records = await fetchRegistrationRecords('quyy');
+            if (records.length === 0) {
+                showToast("Không có dữ liệu quy y để xuất Excel!", true);
+                return;
+            }
+            const rows = [];
+            records.forEach((reg, idx) => {
+                const rawGioi = reg.nguGioi || reg.phatNguyen || reg.gioiLuat || reg.precepts;
+                const gioiText = Array.isArray(rawGioi)
+                    ? rawGioi.join(', ')
+                    : (rawGioi || ((reg.camKet === true || reg.camKet === 'true') ? 'Phát nguyện trọn vẹn Ngũ Giới' : ''));
+                rows.push({
+                    'STT': idx + 1,
+                    'Mã Phiếu': reg.maPhieu || reg.code || reg._firebaseKey.slice(-6).toUpperCase(),
+                    'Ngày Gửi': formatRegistrationDate(reg),
+                    'Họ Và Tên': reg.hoTen || reg.fullName || reg.name || '',
+                    'Pháp Danh': reg.phapDanh || reg.phapdanh || '',
+                    'Ngày Sinh': reg.ngaySinh || reg.dob || reg.birth || '',
+                    'Giới Tính': reg.gioiTinh || reg.gender || '',
+                    'Số Điện Thoại': reg.sdt || reg.phone || '',
+                    'Địa Chỉ': reg.diaChi || reg.address || '',
+                    'Phát Nguyện Ngũ Giới': gioiText
+                });
+            });
+            downloadExcelSheet(rows, 'Danh_Sach_Quy_Y', `Danh_Sach_Quy_Y_${new Date().toISOString().slice(0, 10)}.xlsx`);
+        }
+
+        function downloadExcelSheet(rows, sheetName, fileName) {
+            if (typeof XLSX === 'undefined') {
+                showToast("Thư viện xuất Excel chưa sẵn sàng!", true);
+                return;
+            }
+            const ws = XLSX.utils.json_to_sheet(rows);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
+            XLSX.writeFile(wb, fileName);
+            showToast(`Đã xuất file ${fileName} thành công!`);
+        }
+
+        /* --- QUẢN LÝ MENU LOGIC --- */
         async function loadMenu() {
             try {
                 const snapshot = await database.ref('menu').once('value');
                 menuData = snapshot.val() || {};
                 renderMenuTable();
-            } catch (err) { console.error("Lỗi tải Menu:", err); }
+            } catch (err) { console.error("Lỗi tải menu:", err); }
         }
 
         function renderMenuTable() {
             const tbody = document.getElementById('menu-table-body');
             if (!tbody) return;
             tbody.innerHTML = '';
-            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 0) - (menuData[b].order || 0));
+            const keys = Object.keys(menuData).sort((a, b) => (menuData[a].order || 99) - (menuData[b].order || 99));
+
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Chưa có danh mục menu.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Chưa có mục menu nào.</td></tr>`;
                 return;
             }
+
             let html = '';
             keys.forEach((key) => {
                 const item = menuData[key];
                 const isHidden = item.hidden === true;
                 const statusBadge = isHidden 
-                    ? `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl text-xs font-bold inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Ẩn</span>` 
-                    : `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl text-xs font-bold inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển thị</span>`;
+                    ? `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye-slash mr-1"></i>Đang Ẩn</span>` 
+                    : `<span onclick="toggleHideMenu('${key}')" class="cursor-pointer px-3 py-1.5 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-xl font-bold text-xs shadow-sm inline-block transition"><i class="fa-solid fa-eye mr-1"></i>Hiển Thị</span>`;
 
                 html += `
-                    <tr class="hover:bg-slate-50 border-b border-slate-100">
-                        <td class="py-3.5 px-4 text-center text-slate-400"><i class="fa-solid fa-grip-vertical"></i></td>
+                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100 draggable-row" draggable="true" data-key="${key}">
+                        <td class="py-3.5 px-4 text-center text-slate-400 cursor-grab"><i class="fa-solid fa-grip-vertical"></i></td>
                         <td class="py-3.5 px-4 font-bold text-slate-900">${item.title || ''}</td>
-                        <td class="py-3.5 px-4 font-mono text-xs text-slate-600">${item.url || ''}</td>
-                        <td class="py-3.5 px-4 text-center font-bold">${item.order || 1}</td>
+                        <td class="py-3.5 px-4 text-xs text-blue-600 font-mono">${item.url || ''}</td>
+                        <td class="py-3.5 px-4 text-center font-bold text-slate-700">${item.order || 1}</td>
                         <td class="py-3.5 px-4 text-center">${statusBadge}</td>
                         <td class="py-3.5 px-4 text-center">
                             <div class="flex items-center justify-center gap-1.5">
@@ -4113,21 +4717,66 @@
                 `;
             });
             tbody.innerHTML = html;
+            setupMenuTableDragDrop();
+        }
+
+        function setupMenuTableDragDrop() {
+            const rows = document.querySelectorAll('#menu-table-body .draggable-row');
+            let draggedRow = null;
+
+            rows.forEach(row => {
+                row.addEventListener('dragstart', () => {
+                    draggedRow = row;
+                    row.classList.add('dragging');
+                });
+                row.addEventListener('dragend', () => {
+                    row.classList.remove('dragging');
+                    draggedRow = null;
+                    saveNewMenuOrders();
+                });
+                row.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (draggedRow && draggedRow !== row) {
+                        const tbody = document.getElementById('menu-table-body');
+                        const rect = row.getBoundingClientRect();
+                        const next = (e.clientY - rect.top) > (rect.height / 2);
+                        if (next) tbody.insertBefore(draggedRow, row.nextSibling);
+                        else tbody.insertBefore(draggedRow, row);
+                    }
+                });
+            });
+        }
+
+        async function saveNewMenuOrders() {
+            const rows = document.querySelectorAll('#menu-table-body .draggable-row');
+            const updates = {};
+            rows.forEach((row, index) => {
+                const key = row.getAttribute('data-key');
+                updates[`${key}/order`] = index + 1;
+            });
+            try {
+                await database.ref('menu').update(updates);
+                showToast("Đã cập nhật thứ tự Menu!");
+                loadMenu();
+            } catch (err) {
+                console.error("Lỗi lưu thứ tự menu:", err);
+            }
         }
 
         function openMenuModal() {
+            document.getElementById('menu-modal-title').textContent = "Thêm Mục Menu Mới";
             document.getElementById('menu-key').value = '';
             document.getElementById('menu-title').value = '';
             document.getElementById('menu-url').value = '';
             document.getElementById('menu-order').value = Object.keys(menuData).length + 1;
             document.getElementById('modal-menu').classList.remove('hidden');
         }
-
         function closeMenuModal() { document.getElementById('modal-menu').classList.add('hidden'); }
 
         function editMenu(key) {
             const item = menuData[key];
             if (!item) return;
+            document.getElementById('menu-modal-title').textContent = "Chỉnh Sửa Mục Menu";
             document.getElementById('menu-key').value = key;
             document.getElementById('menu-title').value = item.title || '';
             document.getElementById('menu-url').value = item.url || '';
@@ -4141,15 +4790,25 @@
             const title = document.getElementById('menu-title').value.trim();
             const url = document.getElementById('menu-url').value.trim();
             const order = parseInt(document.getElementById('menu-order').value) || 1;
-            const hidden = key && menuData[key] ? (menuData[key].hidden || false) : false;
 
-            const payload = { title, url, order, hidden };
-            if (key) await database.ref(`menu/${key}`).set(payload);
-            else await database.ref('menu').push(payload);
+            const payload = {
+                title, url, order,
+                hidden: key && menuData[key] ? (menuData[key].hidden || false) : false
+            };
 
-            showToast("Lưu Menu thành công!");
-            closeMenuModal();
-            loadMenu();
+            try {
+                if (key) {
+                    await database.ref(`menu/${key}`).set(payload);
+                    showToast("Cập nhật mục menu thành công!");
+                } else {
+                    await database.ref('menu').push(payload);
+                    showToast("Thêm mục menu mới thành công!");
+                }
+                closeMenuModal();
+                loadMenu();
+            } catch (err) {
+                showToast("Lỗi khi lưu menu: " + err.message, true);
+            }
         }
 
         async function toggleHideMenu(key) {
@@ -4167,61 +4826,89 @@
             }
         }
 
+        /* --- QUẢN LÝ PHÂN QUYỀN TÀI KHOẢN --- */
         async function loadAdminAccounts() {
             try {
                 const snapshot = await database.ref('admin_accounts').once('value');
                 adminAccountsData = snapshot.val() || {};
                 renderAdminAccountsTable();
-            } catch (err) { console.error("Lỗi tải danh sách tài khoản:", err); }
+            } catch (err) { console.error("Lỗi tải tài khoản admin:", err); }
         }
 
         function renderAdminAccountsTable() {
             const tbody = document.getElementById('admin-accounts-table-body');
             if (!tbody) return;
             tbody.innerHTML = '';
-            const keys = Object.keys(adminAccountsData);
-            if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-slate-400">Chưa có tài khoản quản trị tùy chỉnh.</td></tr>`;
-                return;
-            }
-            let html = '';
-            keys.forEach((key) => {
+
+            const roleMap = {
+                super: `<span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-100 text-rose-700">Tối Cao (Super Admin)</span>`,
+                editor: `<span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-700">Biên Tập Viên (Editor)</span>`,
+                viewer: `<span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-700">Theo Dõi (Viewer)</span>`
+            };
+
+            let html = `
+                <tr class="bg-amber-50/40 border-b border-slate-100">
+                    <td class="py-3.5 px-4 font-bold text-slate-900">Thầy Trụ Trì (Mặc Định)</td>
+                    <td class="py-3.5 px-4">${roleMap.super}</td>
+                    <td class="py-3.5 px-4 font-mono font-bold text-slate-600">••••</td>
+                    <td class="py-3.5 px-4 text-center text-xs text-slate-400 italic">Hệ thống</td>
+                </tr>
+            `;
+
+            for (const key in adminAccountsData) {
                 const acc = adminAccountsData[key];
-                const roleLabel = acc.role === 'super' ? 'Tối Cao (Super)' : (acc.role === 'editor' ? 'Biên Tập Viên' : 'Theo Dõi');
                 html += `
-                    <tr class="hover:bg-slate-50 border-b border-slate-100">
-                        <td class="py-3.5 px-4 font-bold text-slate-800">${acc.name || ''}</td>
-                        <td class="py-3.5 px-4 font-semibold text-rose-700">${roleLabel}</td>
-                        <td class="py-3.5 px-4 font-mono font-bold text-slate-600">${acc.pin || ''}</td>
+                    <tr class="hover:bg-slate-50/80 transition border-b border-slate-100">
+                        <td class="py-3.5 px-4 font-bold text-slate-900">${acc.name || ''}</td>
+                        <td class="py-3.5 px-4">${roleMap[acc.role] || acc.role}</td>
+                        <td class="py-3.5 px-4 font-mono font-bold text-slate-700">${acc.pin || ''}</td>
                         <td class="py-3.5 px-4 text-center">
                             <button onclick="deleteAdminAccount('${key}')" class="px-3.5 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-xl text-xs font-bold transition shadow-sm"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>
                         </td>
                     </tr>
                 `;
-            });
+            }
             tbody.innerHTML = html;
         }
 
         function openAddAdminModal() {
             document.getElementById('admin-acc-name').value = '';
+            document.getElementById('admin-acc-role').value = 'editor';
             document.getElementById('admin-acc-pin').value = '';
             document.getElementById('modal-admin-account').classList.remove('hidden');
         }
-
         function closeAddAdminModal() { document.getElementById('modal-admin-account').classList.add('hidden'); }
 
         async function saveAdminAccount(e) {
             e.preventDefault();
+            if (currentAdminRole !== 'super') {
+                showToast("Chỉ tài khoản Tối Cao (Super Admin) mới có quyền thêm tài khoản!", true);
+                return;
+            }
             const name = document.getElementById('admin-acc-name').value.trim();
             const role = document.getElementById('admin-acc-role').value;
             const pin = document.getElementById('admin-acc-pin').value.trim();
-            await database.ref('admin_accounts').push({ name, role, pin });
-            showToast("Đã cấp tài khoản quản trị mới!");
-            closeAddAdminModal();
-            loadAdminAccounts();
+
+            if (pin.length < 4) {
+                showToast("Mã PIN phải có ít nhất 4 ký tự!", true);
+                return;
+            }
+
+            try {
+                await database.ref('admin_accounts').push({ name, role, pin, created_at: Date.now() });
+                showToast("Đã cấp tài khoản quản trị mới thành công!");
+                closeAddAdminModal();
+                loadAdminAccounts();
+            } catch (err) {
+                showToast("Lỗi khi tạo tài khoản: " + err.message, true);
+            }
         }
 
         async function deleteAdminAccount(key) {
+            if (currentAdminRole !== 'super') {
+                showToast("Chỉ tài khoản Tối Cao mới có quyền xóa!", true);
+                return;
+            }
             if (await promptConfirm("Xóa tài khoản quản trị này?")) {
                 await database.ref(`admin_accounts/${key}`).remove();
                 showToast("Đã xóa tài khoản!");
@@ -4229,24 +4916,28 @@
             }
         }
 
+        /* --- KIỂM TRA KẾT NỐI CLOUD & MODAL XÁC NHẬN --- */
         async function testCloudConnection() {
             const statusEl = document.getElementById('connection-status');
-            statusEl.textContent = "Đang kiểm tra kết nối...";
+            if (statusEl) statusEl.textContent = "Đang kiểm tra kết nối tới Firebase Realtime Database...";
             try {
-                await database.ref('test_ping').set(Date.now());
-                statusEl.innerHTML = `<span class="text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i> Kết nối Firebase Realtime Database hoạt động ổn định!</span>`;
-                showToast("Kết nối thành công!");
+                const snap = await database.ref('.info/connected').once('value');
+                if (snap.val() === true) {
+                    if (statusEl) statusEl.innerHTML = `<span class="text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i> Kết nối Realtime Database thành công!</span>`;
+                    showToast("Kết nối cơ sở dữ liệu đám mây ổn định!");
+                } else {
+                    if (statusEl) statusEl.innerHTML = `<span class="text-amber-600"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Đang đồng bộ ngoại tuyến...</span>`;
+                }
             } catch (err) {
-                statusEl.innerHTML = `<span class="text-rose-600"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Lỗi kết nối: ${err.message}</span>`;
-                showToast("Lỗi kết nối!", true);
+                if (statusEl) statusEl.innerHTML = `<span class="text-rose-600"><i class="fa-solid fa-circle-xmark mr-1"></i> Lỗi kết nối: ${err.message}</span>`;
             }
         }
 
-        function promptConfirm(msg) {
+        function promptConfirm(message) {
             return new Promise((resolve) => {
-                document.getElementById('confirm-msg').textContent = msg;
-                document.getElementById('modal-confirm').classList.remove('hidden');
                 confirmResolver = resolve;
+                document.getElementById('confirm-msg').textContent = message;
+                document.getElementById('modal-confirm').classList.remove('hidden');
             });
         }
 
@@ -4256,908 +4947,6 @@
                 confirmResolver(result);
                 confirmResolver = null;
             }
-        }
-
-        /* ==============================================================
-           DANH SÁCH PHẬT TỬ (CẦU SIÊU, CẦU AN, QUY Y) - KHỚP DỮ LIỆU FIREBASE
-        ============================================================== */
-        function switchSubTabPhatTu(subTabName) {
-            document.querySelectorAll('[id^="subpane-phattuc-"]').forEach(pane => pane.classList.add('hidden'));
-            document.querySelectorAll('[id^="subtab-phattuc-"]').forEach(btn => btn.classList.remove('active'));
-            const targetPane = document.getElementById(`subpane-phattuc-${subTabName}`);
-            const targetBtn = document.getElementById(`subtab-phattuc-${subTabName}`);
-            if (targetPane && targetBtn) {
-                targetPane.classList.remove('hidden');
-                targetBtn.classList.add('active');
-            }
-            if (subTabName === 'causieu') renderCauSieuAdminList();
-            else if (subTabName === 'cauan') renderCauAnAdminList();
-            else if (subTabName === 'quyy') renderQuyYAdminList();
-        }
-
-        function escapeHtml(text) {
-            if (text === null || text === undefined) return '';
-            return String(text)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        function formatRegistrationDateTime(reg) {
-            if (!reg) return 'Chưa rõ';
-            if (reg.createdAt) {
-                const d = new Date(reg.createdAt);
-                if (!isNaN(d.getTime())) return d.toLocaleString('vi-VN');
-            }
-            if (reg.submittedAt && typeof reg.submittedAt === 'number') {
-                const d = new Date(reg.submittedAt);
-                if (!isNaN(d.getTime())) return d.toLocaleString('vi-VN');
-            }
-            if (reg.timestamp) {
-                const d = new Date(reg.timestamp);
-                if (!isNaN(d.getTime())) return d.toLocaleString('vi-VN');
-            }
-            if (reg.created_at) {
-                const d = new Date(reg.created_at);
-                if (!isNaN(d.getTime())) return d.toLocaleString('vi-VN');
-            }
-            if (typeof reg.submittedAt === 'string' && reg.submittedAt.trim() !== '') {
-                return reg.submittedAt.trim();
-            }
-            if (typeof reg.ngayGui === 'string' && reg.ngayGui.trim() !== '') {
-                return reg.ngayGui.trim();
-            }
-            return 'Chưa rõ';
-        }
-
-        function getRegistrationSortTime(reg) {
-            if (!reg) return 0;
-            if (typeof reg.createdAt === 'number') return reg.createdAt;
-            if (typeof reg.submittedAt === 'number') return reg.submittedAt;
-            if (typeof reg.timestamp === 'number') return reg.timestamp;
-            if (typeof reg.created_at === 'number') return reg.created_at;
-            if (typeof reg.submittedAt === 'string') {
-                const parsed = Date.parse(reg.submittedAt);
-                if (!isNaN(parsed)) return parsed;
-            }
-            return 0;
-        }
-
-        async function fetchRegistrationRecords(type) {
-            const recordsMap = new Map();
-
-            const nodeNamesMap = {
-                causieu: ['registrations_cau_sieu', 'cau_sieu', 'causieu'],
-                cauan: ['registrations_cau_an', 'cau_an', 'cauan'],
-                quyy: ['registrations_quy_y', 'quy_y', 'quyy']
-            };
-
-            const candidateNodes = nodeNamesMap[type] || [];
-
-            for (const nodeName of candidateNodes) {
-                try {
-                    const snap = await database.ref(nodeName).once('value');
-                    const val = snap.val();
-                    if (val && typeof val === 'object') {
-                        Object.entries(val).forEach(([key, item]) => {
-                            if (item && typeof item === 'object') {
-                                recordsMap.set(`${nodeName}::${key}`, {
-                                    ...item,
-                                    _id: key,
-                                    _path: `${nodeName}/${key}`
-                                });
-                            }
-                        });
-                    }
-                } catch (e) {
-                    console.warn(`Không đọc được nhánh ${nodeName}:`, e);
-                }
-            }
-
-            try {
-                const generalSnap = await database.ref('registrations').once('value');
-                const generalVal = generalSnap.val();
-                if (generalVal && typeof generalVal === 'object') {
-                    Object.entries(generalVal).forEach(([key, item]) => {
-                        if (!item || typeof item !== 'object') return;
-                        const itemType = String(item.type || item.loai || item.formType || item.category || '').toLowerCase();
-                        let matched = false;
-                        if (type === 'causieu' && (itemType.includes('sieu') || itemType.includes('siêu'))) matched = true;
-                        if (type === 'cauan' && (itemType.includes('an') && !itemType.includes('tâm'))) matched = true;
-                        if (type === 'quyy' && (itemType.includes('quy') || itemType.includes('y'))) matched = true;
-
-                        if (matched) {
-                            recordsMap.set(`registrations::${key}`, {
-                                ...item,
-                                _id: key,
-                                _path: `registrations/${key}`
-                            });
-                        }
-                    });
-                }
-            } catch (e) {
-                console.warn('Không đọc được nhánh registrations:', e);
-            }
-
-            const result = Array.from(recordsMap.values());
-            result.sort((a, b) => {
-                const timeDiff = getRegistrationSortTime(b) - getRegistrationSortTime(a);
-                if (timeDiff !== 0) return timeDiff;
-                return String(b._id || '').localeCompare(String(a._id || ''));
-            });
-            return result;
-        }
-
-        function normalizeListItems(rawList) {
-            if (!rawList) return [];
-            if (Array.isArray(rawList)) {
-                return rawList.filter(item => item && typeof item === 'object');
-            }
-            if (typeof rawList === 'object') {
-                return Object.values(rawList).filter(item => item && typeof item === 'object');
-            }
-            return [];
-        }
-
-        // --- 1. CẦU SIÊU ---
-        let cauSieuCurrentPage = 1;
-        const CAU_SIEU_PAGE_SIZE = 10;
-
-        async function renderCauSieuAdminList() {
-            const tbody = document.getElementById('cau-sieu-admin-list-body');
-            const totalCountEl = document.getElementById('cau-sieu-total-count');
-            const infoEl = document.getElementById('cau-sieu-pagination-info');
-            const controlsEl = document.getElementById('cau-sieu-pagination-controls');
-            if (!tbody) return;
-
-            const searchInput = document.getElementById('cau-sieu-search');
-            const keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('causieu');
-            } catch (err) {
-                console.error("Lỗi đọc dữ liệu cầu siêu từ Firebase:", err);
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-rose-500 italic">Lỗi kết nối dữ liệu Firebase. Vui lòng thử lại sau!</td></tr>`;
-                return;
-            }
-
-            if (totalCountEl) totalCountEl.textContent = allRegistrations.length;
-
-            const filtered = allRegistrations.filter(reg => {
-                if (!keyword) return true;
-                const tinChu = (reg.tinChu || reg.hoTen || reg.fullName || reg.name || '').toLowerCase();
-                const phapDanhTinChu = (reg.phapDanhTinChu || reg.tinChuPhapDanh || '').toLowerCase();
-                const sdt = (reg.sdt || reg.soDienThoai || reg.phone || '').toLowerCase();
-                const diaChi = (reg.diaChi || reg.address || '').toLowerCase();
-                const loiNguyen = (reg.loiNguyen || reg.ghiChu || reg.note || '').toLowerCase();
-                const hlList = normalizeListItems(reg.huongLinhList || reg.huongLinh || reg.danhSachHuongLinh || reg.members);
-                const hlMatch = hlList.some(hl =>
-                    (hl.ten || hl.hoTen || hl.name || '').toLowerCase().includes(keyword) ||
-                    (hl.phapDanh || '').toLowerCase().includes(keyword) ||
-                    (hl.quanHe || hl.moiQuanHe || '').toLowerCase().includes(keyword)
-                );
-                return tinChu.includes(keyword) || phapDanhTinChu.includes(keyword) || sdt.includes(keyword) || diaChi.includes(keyword) || loiNguyen.includes(keyword) || hlMatch;
-            });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký cầu siêu nào khớp với tìm kiếm.</td></tr>`;
-                if (infoEl) infoEl.textContent = 'Hiển thị 0 - 0 trên 0 bản ghi';
-                if (controlsEl) controlsEl.innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(filtered.length / CAU_SIEU_PAGE_SIZE);
-            if (cauSieuCurrentPage > totalPages) cauSieuCurrentPage = totalPages;
-            if (cauSieuCurrentPage < 1) cauSieuCurrentPage = 1;
-
-            const startIdx = (cauSieuCurrentPage - 1) * CAU_SIEU_PAGE_SIZE;
-            const endIdx = Math.min(startIdx + CAU_SIEU_PAGE_SIZE, filtered.length);
-            const paginatedItems = filtered.slice(startIdx, endIdx);
-
-            if (infoEl) infoEl.textContent = `Hiển thị ${startIdx + 1} - ${endIdx} trên ${filtered.length} bản ghi`;
-
-            tbody.innerHTML = paginatedItems.map((reg, index) => {
-                const stt = startIdx + index + 1;
-                const dateStr = escapeHtml(formatRegistrationDateTime(reg));
-                const tinChuName = escapeHtml(reg.tinChu || reg.hoTen || reg.fullName || reg.name || 'Chưa nhập');
-                const phapDanhTinChu = reg.phapDanhTinChu || reg.tinChuPhapDanh || '';
-                const sdt = escapeHtml(reg.sdt || reg.soDienThoai || reg.phone || 'Không có');
-                const diaChi = escapeHtml(reg.diaChi || reg.address || 'Chưa cung cấp');
-                const loiNguyen = reg.loiNguyen || reg.ghiChu || reg.note || '';
-
-                const hlList = normalizeListItems(reg.huongLinhList || reg.huongLinh || reg.danhSachHuongLinh || reg.members);
-                const hlHtml = hlList.length > 0 ? hlList.map((hl, i) => {
-                    const hlName = escapeHtml(hl.ten || hl.hoTen || hl.name || 'Không rõ');
-                    const pd = hl.phapDanh ? ` <span class="text-amber-700 font-semibold">(PD: ${escapeHtml(hl.phapDanh)})</span>` : '';
-                    const qh = (hl.quanHe || hl.moiQuanHe) ? ` <span class="text-rose-700 font-semibold">[${escapeHtml(hl.quanHe || hl.moiQuanHe)}]</span>` : '';
-                    const ns = hl.namSinh ? ` • SN: ${escapeHtml(hl.namSinh)}` : '';
-                    const nm = hl.namMat ? ` • Mất: ${escapeHtml(hl.namMat)}` : '';
-                    const ht = hl.huongTho ? ` • Hưởng thọ/dương: ${escapeHtml(hl.huongTho)}` : '';
-                    return `
-                        <div class="py-1.5 ${i > 0 ? 'border-t border-slate-100' : ''}">
-                            <div class="font-bold text-slate-800">${i + 1}. ${hlName}${pd}${qh}</div>
-                            <div class="text-xs text-slate-500">${ns}${nm}${ht}</div>
-                        </div>
-                    `;
-                }).join('') : '<span class="text-slate-400 italic text-xs">Không có danh sách hương linh</span>';
-
-                const deletePath = escapeHtml(reg._path || `registrations_cau_sieu/${reg._id}`);
-
-                return `
-                    <tr class="hover:bg-amber-50/40 transition align-top">
-                        <td class="py-3 px-4 text-center font-mono text-xs text-slate-500 font-bold">${stt}</td>
-                        <td class="py-3 px-4 text-xs text-slate-500">${dateStr}</td>
-                        <td class="py-3 px-4">
-                            <div class="font-bold text-slate-900">${tinChuName}</div>
-                            ${phapDanhTinChu ? `<div class="text-xs text-amber-700 font-semibold mt-0.5">PD: ${escapeHtml(phapDanhTinChu)}</div>` : ''}
-                            ${loiNguyen ? `<div class="text-xs text-slate-500 italic mt-1 bg-amber-50/70 px-2 py-1 rounded-lg border border-amber-100">"${escapeHtml(loiNguyen)}"</div>` : ''}
-                        </td>
-                        <td class="py-3 px-4 text-xs">
-                            <div class="font-bold text-emerald-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
-                            <div class="text-slate-600 mt-1"><i class="fa-solid fa-location-dot mr-1 text-rose-500"></i> ${diaChi}</div>
-                        </td>
-                        <td class="py-3 px-4 text-xs">${hlHtml}</td>
-                        <td class="py-3 px-4 text-center">
-                            <button type="button" onclick="deleteCauSieuAdminItem('${deletePath}')" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
-                                <i class="fa-solid fa-trash-can mr-1"></i> Xóa
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            if (controlsEl) {
-                let controlsHtml = '';
-                controlsHtml += `<button type="button" onclick="cauSieuCurrentPage = ${cauSieuCurrentPage - 1}; renderCauSieuAdminList();" ${cauSieuCurrentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-left"></i></button>`;
-                for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= cauSieuCurrentPage - 1 && p <= cauSieuCurrentPage + 1)) {
-                        const activeClass = p === cauSieuCurrentPage ? 'bg-rose-600 text-white border-rose-600 shadow-sm' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
-                        controlsHtml += `<button type="button" onclick="cauSieuCurrentPage = ${p}; renderCauSieuAdminList();" class="px-3 py-1.5 rounded-lg border font-bold transition ${activeClass}">${p}</button>`;
-                    } else if (p === cauSieuCurrentPage - 2 || p === cauSieuCurrentPage + 2) {
-                        controlsHtml += `<span class="px-1.5 text-slate-400">...</span>`;
-                    }
-                }
-                controlsHtml += `<button type="button" onclick="cauSieuCurrentPage = ${cauSieuCurrentPage + 1}; renderCauSieuAdminList();" ${cauSieuCurrentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-right"></i></button>`;
-                controlsEl.innerHTML = controlsHtml;
-            }
-        }
-
-        async function deleteCauSieuAdminItem(path) {
-            if (!await promptConfirm("Bạn có chắc chắn muốn xóa đăng ký cầu siêu này khỏi hệ thống?")) return;
-            try {
-                await database.ref(path).remove();
-                showToast("Đã xóa đăng ký cầu siêu thành công!");
-                renderCauSieuAdminList();
-                updateOverviewPhatTuStats();
-            } catch (err) {
-                showToast("Lỗi khi xóa đăng ký cầu siêu: " + err.message, true);
-            }
-        }
-
-        async function exportCauSieuToExcel() {
-            if (typeof XLSX === 'undefined') {
-                showToast("Thư viện xuất Excel chưa sẵn sàng. Vui lòng tải lại trang!", true);
-                return;
-            }
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('causieu');
-            } catch (err) {
-                showToast("Lỗi tải dữ liệu cầu siêu từ Firebase!", true);
-                return;
-            }
-            if (allRegistrations.length === 0) {
-                showToast("Chưa có dữ liệu đăng ký cầu siêu để xuất Excel!", true);
-                return;
-            }
-
-            const titleStyle = { font: { name: "Times New Roman", sz: 16, bold: true, color: { rgb: "991B1B" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const subtitleStyle = { font: { name: "Times New Roman", sz: 11, italic: true, color: { rgb: "4B5563" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const headerStyle = {
-                font: { name: "Times New Roman", sz: 11, bold: true, color: { rgb: "FFFFFF" } },
-                fill: { fgColor: { rgb: "B45309" } },
-                alignment: { horizontal: "center", vertical: "center", wrapText: true },
-                border: { top: { style: "thin", color: { rgb: "78350F" } }, bottom: { style: "thin", color: { rgb: "78350F" } }, left: { style: "thin", color: { rgb: "78350F" } }, right: { style: "thin", color: { rgb: "78350F" } } }
-            };
-            const baseCellBorder = { top: { style: "thin", color: { rgb: "D1D5DB" } }, bottom: { style: "thin", color: { rgb: "D1D5DB" } }, left: { style: "thin", color: { rgb: "D1D5DB" } }, right: { style: "thin", color: { rgb: "D1D5DB" } } };
-
-            const wsData = [
-                [{ v: "CHÙA VĨNH HƯNG - DANH SÁCH ĐĂNG KÝ CẦU SIÊU", s: titleStyle }],
-                [{ v: `Ngày xuất báo cáo: ${new Date().toLocaleString('vi-VN')}`, s: subtitleStyle }],
-                [],
-                [
-                    { v: "STT", s: headerStyle },
-                    { v: "Ngày Gửi", s: headerStyle },
-                    { v: "Họ Tên Tín Chủ", s: headerStyle },
-                    { v: "Pháp Danh Tín Chủ", s: headerStyle },
-                    { v: "Số Điện Thoại", s: headerStyle },
-                    { v: "Địa Chỉ", s: headerStyle },
-                    { v: "Lời Nguyện / Ghi Chú", s: headerStyle },
-                    { v: "Họ Tên Hương Linh", s: headerStyle },
-                    { v: "Pháp Danh HL", s: headerStyle },
-                    { v: "Mối Quan Hệ", s: headerStyle },
-                    { v: "Năm Sinh", s: headerStyle },
-                    { v: "Năm Mất", s: headerStyle },
-                    { v: "Hưởng Thọ / Dương", s: headerStyle }
-                ]
-            ];
-
-            let sttCounter = 1;
-            allRegistrations.forEach((reg, regIdx) => {
-                const dateStr = formatRegistrationDateTime(reg);
-                const tinChu = reg.tinChu || reg.hoTen || reg.fullName || reg.name || '';
-                const phapDanhTinChu = reg.phapDanhTinChu || reg.tinChuPhapDanh || '';
-                const sdt = reg.sdt || reg.soDienThoai || reg.phone || '';
-                const diaChi = reg.diaChi || reg.address || '';
-                const loiNguyen = reg.loiNguyen || reg.ghiChu || reg.note || '';
-                const hlList = normalizeListItems(reg.huongLinhList || reg.huongLinh || reg.danhSachHuongLinh || reg.members);
-                const fillRgb = regIdx % 2 === 1 ? "FFFBEB" : "FFFFFF";
-
-                const centerStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "center", vertical: "center", wrapText: true }, border: baseCellBorder };
-                const leftStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "left", vertical: "center", wrapText: true }, border: baseCellBorder };
-
-                if (hlList.length > 0) {
-                    hlList.forEach(hl => {
-                        wsData.push([
-                            { v: sttCounter++, s: centerStyle },
-                            { v: dateStr, s: centerStyle },
-                            { v: tinChu, s: leftStyle },
-                            { v: phapDanhTinChu, s: leftStyle },
-                            { v: sdt, s: centerStyle },
-                            { v: diaChi, s: leftStyle },
-                            { v: loiNguyen, s: leftStyle },
-                            { v: hl.ten || hl.hoTen || hl.name || '', s: leftStyle },
-                            { v: hl.phapDanh || '', s: leftStyle },
-                            { v: hl.quanHe || hl.moiQuanHe || '', s: centerStyle },
-                            { v: hl.namSinh || '', s: centerStyle },
-                            { v: hl.namMat || '', s: centerStyle },
-                            { v: hl.huongTho || '', s: centerStyle }
-                        ]);
-                    });
-                } else {
-                    wsData.push([
-                        { v: sttCounter++, s: centerStyle },
-                        { v: dateStr, s: centerStyle },
-                        { v: tinChu, s: leftStyle },
-                        { v: phapDanhTinChu, s: leftStyle },
-                        { v: sdt, s: centerStyle },
-                        { v: diaChi, s: leftStyle },
-                        { v: loiNguyen, s: leftStyle },
-                        { v: '', s: leftStyle },
-                        { v: '', s: leftStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle }
-                    ]);
-                }
-            });
-
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            ws['!merges'] = [
-                { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } },
-                { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } }
-            ];
-            ws['!cols'] = [
-                { wch: 6 }, { wch: 20 }, { wch: 22 }, { wch: 18 }, { wch: 16 },
-                { wch: 30 }, { wch: 26 }, { wch: 24 }, { wch: 18 }, { wch: 16 },
-                { wch: 12 }, { wch: 12 }, { wch: 16 }
-            ];
-
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Danh_Sach_Cau_Sieu");
-            const dateFile = new Date().toISOString().slice(0, 10);
-            XLSX.writeFile(wb, `Danh_Sach_Cau_Sieu_Chua_Vinh_Hung_${dateFile}.xlsx`);
-            showCenterAlert("Đã xuất dữ liệu đăng ký Cầu Siêu ra file Excel thành công!", "Xuất Excel Thành Công");
-        }
-
-        // --- 2. CẦU AN ---
-        let cauAnCurrentPage = 1;
-        const CAU_AN_PAGE_SIZE = 10;
-
-        async function renderCauAnAdminList() {
-            const tbody = document.getElementById('cau-an-admin-list-body');
-            const totalCountEl = document.getElementById('cau-an-total-count');
-            const infoEl = document.getElementById('cau-an-pagination-info');
-            const controlsEl = document.getElementById('cau-an-pagination-controls');
-            if (!tbody) return;
-
-            const searchInput = document.getElementById('cau-an-search');
-            const keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('cauan');
-            } catch (err) {
-                console.error("Lỗi đọc dữ liệu cầu an từ Firebase:", err);
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-rose-500 italic">Lỗi kết nối dữ liệu Firebase. Vui lòng thử lại sau!</td></tr>`;
-                return;
-            }
-
-            if (totalCountEl) totalCountEl.textContent = allRegistrations.length;
-
-            const filtered = allRegistrations.filter(reg => {
-                if (!keyword) return true;
-                const tinChu = (reg.tinChu || reg.hoTen || reg.fullName || reg.name || '').toLowerCase();
-                const phapDanhTinChu = (reg.phapDanhTinChu || reg.tinChuPhapDanh || '').toLowerCase();
-                const sdt = (reg.sdt || reg.soDienThoai || reg.phone || '').toLowerCase();
-                const diaChi = (reg.diaChi || reg.address || '').toLowerCase();
-                const loiNguyen = (reg.loiNguyen || reg.ghiChu || reg.note || '').toLowerCase();
-                const tvList = normalizeListItems(reg.thanhVienList || reg.thanhVien || reg.danhSachThanhVien || reg.members);
-                const tvMatch = tvList.some(tv =>
-                    (tv.ten || tv.hoTen || tv.name || '').toLowerCase().includes(keyword) ||
-                    (tv.phapDanh || '').toLowerCase().includes(keyword) ||
-                    (tv.quanHe || tv.moiQuanHe || '').toLowerCase().includes(keyword)
-                );
-                return tinChu.includes(keyword) || phapDanhTinChu.includes(keyword) || sdt.includes(keyword) || diaChi.includes(keyword) || loiNguyen.includes(keyword) || tvMatch;
-            });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký cầu an nào khớp với tìm kiếm.</td></tr>`;
-                if (infoEl) infoEl.textContent = 'Hiển thị 0 - 0 trên 0 bản ghi';
-                if (controlsEl) controlsEl.innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(filtered.length / CAU_AN_PAGE_SIZE);
-            if (cauAnCurrentPage > totalPages) cauAnCurrentPage = totalPages;
-            if (cauAnCurrentPage < 1) cauAnCurrentPage = 1;
-
-            const startIdx = (cauAnCurrentPage - 1) * CAU_AN_PAGE_SIZE;
-            const endIdx = Math.min(startIdx + CAU_AN_PAGE_SIZE, filtered.length);
-            const paginatedItems = filtered.slice(startIdx, endIdx);
-
-            if (infoEl) infoEl.textContent = `Hiển thị ${startIdx + 1} - ${endIdx} trên ${filtered.length} bản ghi`;
-
-            tbody.innerHTML = paginatedItems.map((reg, index) => {
-                const stt = startIdx + index + 1;
-                const dateStr = escapeHtml(formatRegistrationDateTime(reg));
-                const tinChuName = escapeHtml(reg.tinChu || reg.hoTen || reg.fullName || reg.name || 'Chưa nhập');
-                const phapDanhTinChu = reg.phapDanhTinChu || reg.tinChuPhapDanh || '';
-                const sdt = escapeHtml(reg.sdt || reg.soDienThoai || reg.phone || 'Không có');
-                const diaChi = escapeHtml(reg.diaChi || reg.address || 'Chưa cung cấp');
-                const loiNguyen = reg.loiNguyen || reg.ghiChu || reg.note || '';
-
-                const tvList = normalizeListItems(reg.thanhVienList || reg.thanhVien || reg.danhSachThanhVien || reg.members);
-                const tvHtml = tvList.length > 0 ? tvList.map((tv, i) => {
-                    const tvName = escapeHtml(tv.ten || tv.hoTen || tv.name || 'Không rõ');
-                    const pd = tv.phapDanh ? ` <span class="text-sky-700 font-semibold">(PD: ${escapeHtml(tv.phapDanh)})</span>` : '';
-                    const qh = (tv.quanHe || tv.moiQuanHe) ? ` <span class="text-indigo-700 font-semibold">[${escapeHtml(tv.quanHe || tv.moiQuanHe)}]</span>` : '';
-                    const ns = tv.namSinh ? ` • SN: ${escapeHtml(tv.namSinh)}` : '';
-                    const tuoi = tv.tuoi ? ` • Tuổi: ${escapeHtml(tv.tuoi)}` : '';
-                    const saoHan = tv.saoHan ? ` • Sao hạn: ${escapeHtml(tv.saoHan)}` : '';
-                    return `
-                        <div class="py-1.5 ${i > 0 ? 'border-t border-slate-100' : ''}">
-                            <div class="font-bold text-slate-800">${i + 1}. ${tvName}${pd}${qh}</div>
-                            <div class="text-xs text-slate-500">${ns}${tuoi}${saoHan}</div>
-                        </div>
-                    `;
-                }).join('') : '<span class="text-slate-400 italic text-xs">Không có danh sách thành viên</span>';
-
-                const deletePath = escapeHtml(reg._path || `registrations_cau_an/${reg._id}`);
-
-                return `
-                    <tr class="hover:bg-sky-50/40 transition align-top">
-                        <td class="py-3 px-4 text-center font-mono text-xs text-slate-500 font-bold">${stt}</td>
-                        <td class="py-3 px-4 text-xs text-slate-500">${dateStr}</td>
-                        <td class="py-3 px-4">
-                            <div class="font-bold text-slate-900">${tinChuName}</div>
-                            ${phapDanhTinChu ? `<div class="text-xs text-sky-700 font-semibold mt-0.5">PD: ${escapeHtml(phapDanhTinChu)}</div>` : ''}
-                            ${loiNguyen ? `<div class="text-xs text-slate-500 italic mt-1 bg-sky-50/70 px-2 py-1 rounded-lg border border-sky-100">"${escapeHtml(loiNguyen)}"</div>` : ''}
-                        </td>
-                        <td class="py-3 px-4 text-xs">
-                            <div class="font-bold text-emerald-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
-                            <div class="text-slate-600 mt-1"><i class="fa-solid fa-location-dot mr-1 text-rose-500"></i> ${diaChi}</div>
-                        </td>
-                        <td class="py-3 px-4 text-xs">${tvHtml}</td>
-                        <td class="py-3 px-4 text-center">
-                            <button type="button" onclick="deleteCauAnAdminItem('${deletePath}')" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
-                                <i class="fa-solid fa-trash-can mr-1"></i> Xóa
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            if (controlsEl) {
-                let controlsHtml = '';
-                controlsHtml += `<button type="button" onclick="cauAnCurrentPage = ${cauAnCurrentPage - 1}; renderCauAnAdminList();" ${cauAnCurrentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-left"></i></button>`;
-                for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= cauAnCurrentPage - 1 && p <= cauAnCurrentPage + 1)) {
-                        const activeClass = p === cauAnCurrentPage ? 'bg-sky-600 text-white border-sky-600 shadow-sm' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
-                        controlsHtml += `<button type="button" onclick="cauAnCurrentPage = ${p}; renderCauAnAdminList();" class="px-3 py-1.5 rounded-lg border font-bold transition ${activeClass}">${p}</button>`;
-                    } else if (p === cauAnCurrentPage - 2 || p === cauAnCurrentPage + 2) {
-                        controlsHtml += `<span class="px-1.5 text-slate-400">...</span>`;
-                    }
-                }
-                controlsHtml += `<button type="button" onclick="cauAnCurrentPage = ${cauAnCurrentPage + 1}; renderCauAnAdminList();" ${cauAnCurrentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-right"></i></button>`;
-                controlsEl.innerHTML = controlsHtml;
-            }
-        }
-
-        async function deleteCauAnAdminItem(path) {
-            if (!await promptConfirm("Bạn có chắc chắn muốn xóa đăng ký cầu an này khỏi hệ thống?")) return;
-            try {
-                await database.ref(path).remove();
-                showToast("Đã xóa đăng ký cầu an thành công!");
-                renderCauAnAdminList();
-                updateOverviewPhatTuStats();
-            } catch (err) {
-                showToast("Lỗi khi xóa đăng ký cầu an: " + err.message, true);
-            }
-        }
-
-        async function exportCauAnToExcel() {
-            if (typeof XLSX === 'undefined') {
-                showToast("Thư viện xuất Excel chưa sẵn sàng. Vui lòng tải lại trang!", true);
-                return;
-            }
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('cauan');
-            } catch (err) {
-                showToast("Lỗi tải dữ liệu cầu an từ Firebase!", true);
-                return;
-            }
-            if (allRegistrations.length === 0) {
-                showToast("Chưa có dữ liệu đăng ký cầu an để xuất Excel!", true);
-                return;
-            }
-
-            const titleStyle = { font: { name: "Times New Roman", sz: 16, bold: true, color: { rgb: "0369A1" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const subtitleStyle = { font: { name: "Times New Roman", sz: 11, italic: true, color: { rgb: "4B5563" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const headerStyle = {
-                font: { name: "Times New Roman", sz: 11, bold: true, color: { rgb: "FFFFFF" } },
-                fill: { fgColor: { rgb: "0284C7" } },
-                alignment: { horizontal: "center", vertical: "center", wrapText: true },
-                border: { top: { style: "thin", color: { rgb: "0369A1" } }, bottom: { style: "thin", color: { rgb: "0369A1" } }, left: { style: "thin", color: { rgb: "0369A1" } }, right: { style: "thin", color: { rgb: "0369A1" } } }
-            };
-            const baseCellBorder = { top: { style: "thin", color: { rgb: "D1D5DB" } }, bottom: { style: "thin", color: { rgb: "D1D5DB" } }, left: { style: "thin", color: { rgb: "D1D5DB" } }, right: { style: "thin", color: { rgb: "D1D5DB" } } };
-
-            const wsData = [
-                [{ v: "CHÙA VĨNH HƯNG - DANH SÁCH ĐĂNG KÝ CẦU AN", s: titleStyle }],
-                [{ v: `Ngày xuất báo cáo: ${new Date().toLocaleString('vi-VN')}`, s: subtitleStyle }],
-                [],
-                [
-                    { v: "STT", s: headerStyle },
-                    { v: "Ngày Gửi", s: headerStyle },
-                    { v: "Họ Tên Tín Chủ", s: headerStyle },
-                    { v: "Pháp Danh Tín Chủ", s: headerStyle },
-                    { v: "Số Điện Thoại", s: headerStyle },
-                    { v: "Địa Chỉ", s: headerStyle },
-                    { v: "Lời Nguyện / Ghi Chú", s: headerStyle },
-                    { v: "Họ Tên Thành Viên", s: headerStyle },
-                    { v: "Pháp Danh TV", s: headerStyle },
-                    { v: "Mối Quan Hệ", s: headerStyle },
-                    { v: "Năm Sinh", s: headerStyle },
-                    { v: "Tuổi", s: headerStyle },
-                    { v: "Sao Hạn", s: headerStyle }
-                ]
-            ];
-
-            let sttCounter = 1;
-            allRegistrations.forEach((reg, regIdx) => {
-                const dateStr = formatRegistrationDateTime(reg);
-                const tinChu = reg.tinChu || reg.hoTen || reg.fullName || reg.name || '';
-                const phapDanhTinChu = reg.phapDanhTinChu || reg.tinChuPhapDanh || '';
-                const sdt = reg.sdt || reg.soDienThoai || reg.phone || '';
-                const diaChi = reg.diaChi || reg.address || '';
-                const loiNguyen = reg.loiNguyen || reg.ghiChu || reg.note || '';
-                const tvList = normalizeListItems(reg.thanhVienList || reg.thanhVien || reg.danhSachThanhVien || reg.members);
-                const fillRgb = regIdx % 2 === 1 ? "F0F9FF" : "FFFFFF";
-
-                const centerStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "center", vertical: "center", wrapText: true }, border: baseCellBorder };
-                const leftStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "left", vertical: "center", wrapText: true }, border: baseCellBorder };
-
-                if (tvList.length > 0) {
-                    tvList.forEach(tv => {
-                        wsData.push([
-                            { v: sttCounter++, s: centerStyle },
-                            { v: dateStr, s: centerStyle },
-                            { v: tinChu, s: leftStyle },
-                            { v: phapDanhTinChu, s: leftStyle },
-                            { v: sdt, s: centerStyle },
-                            { v: diaChi, s: leftStyle },
-                            { v: loiNguyen, s: leftStyle },
-                            { v: tv.ten || tv.hoTen || tv.name || '', s: leftStyle },
-                            { v: tv.phapDanh || '', s: leftStyle },
-                            { v: tv.quanHe || tv.moiQuanHe || '', s: centerStyle },
-                            { v: tv.namSinh || '', s: centerStyle },
-                            { v: tv.tuoi || '', s: centerStyle },
-                            { v: tv.saoHan || '', s: centerStyle }
-                        ]);
-                    });
-                } else {
-                    wsData.push([
-                        { v: sttCounter++, s: centerStyle },
-                        { v: dateStr, s: centerStyle },
-                        { v: tinChu, s: leftStyle },
-                        { v: phapDanhTinChu, s: leftStyle },
-                        { v: sdt, s: centerStyle },
-                        { v: diaChi, s: leftStyle },
-                        { v: loiNguyen, s: leftStyle },
-                        { v: '', s: leftStyle },
-                        { v: '', s: leftStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle },
-                        { v: '', s: centerStyle }
-                    ]);
-                }
-            });
-
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            ws['!merges'] = [
-                { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } },
-                { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } }
-            ];
-            ws['!cols'] = [
-                { wch: 6 }, { wch: 20 }, { wch: 22 }, { wch: 18 }, { wch: 16 },
-                { wch: 30 }, { wch: 26 }, { wch: 24 }, { wch: 18 }, { wch: 16 },
-                { wch: 12 }, { wch: 10 }, { wch: 16 }
-            ];
-
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Danh_Sach_Cau_An");
-            const dateFile = new Date().toISOString().slice(0, 10);
-            XLSX.writeFile(wb, `Danh_Sach_Cau_An_Chua_Vinh_Hung_${dateFile}.xlsx`);
-            showCenterAlert("Đã xuất dữ liệu đăng ký Cầu An ra file Excel thành công!", "Xuất Excel Thành Công");
-        }
-
-        // --- 3. QUY Y ---
-        let quyYCurrentPage = 1;
-        const QUY_Y_PAGE_SIZE = 10;
-
-        async function renderQuyYAdminList() {
-            const tbody = document.getElementById('quy-y-admin-list-body');
-            const totalCountEl = document.getElementById('quy-y-total-count');
-            const infoEl = document.getElementById('quy-y-pagination-info');
-            const controlsEl = document.getElementById('quy-y-pagination-controls');
-            if (!tbody) return;
-
-            const searchInput = document.getElementById('quy-y-search');
-            const keyword = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('quyy');
-            } catch (err) {
-                console.error("Lỗi đọc dữ liệu quy y từ Firebase:", err);
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-rose-500 italic">Lỗi kết nối dữ liệu Firebase. Vui lòng thử lại sau!</td></tr>`;
-                return;
-            }
-
-            if (totalCountEl) totalCountEl.textContent = allRegistrations.length;
-
-            const filtered = allRegistrations.filter(reg => {
-                if (!keyword) return true;
-                const hoTen = (reg.hoTen || reg.fullName || reg.tinChu || reg.name || '').toLowerCase();
-                const sdt = (reg.sdt || reg.soDienThoai || reg.phone || '').toLowerCase();
-                const diaChi = (reg.diaChi || reg.address || '').toLowerCase();
-                const maPhieu = (reg.maPhieu || reg.code || reg._id || '').toLowerCase();
-                const gioiTinh = (reg.gioiTinh || reg.gender || '').toLowerCase();
-                const ngaySinh = (reg.ngaySinh || reg.dob || '').toLowerCase();
-                const phapDanh = (reg.phapDanh || reg.phapDanhMongMuon || '').toLowerCase();
-                return hoTen.includes(keyword) || sdt.includes(keyword) || diaChi.includes(keyword) || maPhieu.includes(keyword) || gioiTinh.includes(keyword) || ngaySinh.includes(keyword) || phapDanh.includes(keyword);
-            });
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400 italic">Chưa có dữ liệu đăng ký quy y nào khớp với tìm kiếm.</td></tr>`;
-                if (infoEl) infoEl.textContent = 'Hiển thị 0 - 0 trên 0 bản ghi';
-                if (controlsEl) controlsEl.innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(filtered.length / QUY_Y_PAGE_SIZE);
-            if (quyYCurrentPage > totalPages) quyYCurrentPage = totalPages;
-            if (quyYCurrentPage < 1) quyYCurrentPage = 1;
-
-            const startIdx = (quyYCurrentPage - 1) * QUY_Y_PAGE_SIZE;
-            const endIdx = Math.min(startIdx + QUY_Y_PAGE_SIZE, filtered.length);
-            const paginatedItems = filtered.slice(startIdx, endIdx);
-
-            if (infoEl) infoEl.textContent = `Hiển thị ${startIdx + 1} - ${endIdx} trên ${filtered.length} bản ghi`;
-
-            tbody.innerHTML = paginatedItems.map((reg, index) => {
-                const stt = startIdx + index + 1;
-                const maPhieu = escapeHtml(reg.maPhieu || reg.code || reg._id || 'Chưa có mã');
-                const dateStr = escapeHtml(formatRegistrationDateTime(reg));
-                const hoTen = escapeHtml(reg.hoTen || reg.fullName || reg.tinChu || reg.name || 'Chưa nhập');
-                const phapDanh = reg.phapDanh || reg.phapDanhMongMuon || '';
-                const ngaySinh = escapeHtml(reg.ngaySinh || reg.dob || 'Chưa rõ');
-                const gioiTinh = escapeHtml(reg.gioiTinh || reg.gender || 'Chưa rõ');
-                const sdt = escapeHtml(reg.sdt || reg.soDienThoai || reg.phone || 'Không có');
-                const email = reg.email ? escapeHtml(reg.email) : '';
-                const diaChi = escapeHtml(reg.diaChi || reg.address || 'Chưa cung cấp');
-                const ghiChu = reg.ghiChu || reg.loiNguyen || reg.note || '';
-                
-                let nguGioiHtml = '<span class="text-slate-400 italic text-xs">Chưa chọn giới</span>';
-                const rawNguGioi = reg.nguGioi || reg.phatNguyen || reg.gioiLuat || reg.precepts;
-                if (Array.isArray(rawNguGioi) && rawNguGioi.length > 0) {
-                    nguGioiHtml = rawNguGioi.map(g => `<span class="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md text-[11px] font-semibold mr-1 mb-1"><i class="fa-solid fa-check text-emerald-600 mr-1"></i>${escapeHtml(g)}</span>`).join('');
-                } else if (rawNguGioi && typeof rawNguGioi === 'object') {
-                    const selected = Object.entries(rawNguGioi)
-                        .filter(([, v]) => Boolean(v))
-                        .map(([k, v]) => typeof v === 'string' ? v : k);
-                    if (selected.length > 0) {
-                        nguGioiHtml = selected.map(g => `<span class="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md text-[11px] font-semibold mr-1 mb-1"><i class="fa-solid fa-check text-emerald-600 mr-1"></i>${escapeHtml(g)}</span>`).join('');
-                    }
-                } else if (typeof rawNguGioi === 'string' && rawNguGioi.trim() !== '') {
-                    nguGioiHtml = `<span class="text-xs font-semibold text-emerald-800">${escapeHtml(rawNguGioi)}</span>`;
-                }
-
-                const deletePath = escapeHtml(reg._path || `registrations_quy_y/${reg._id}`);
-
-                return `
-                    <tr class="hover:bg-emerald-50/40 transition align-top">
-                        <td class="py-3 px-4 text-center font-mono text-xs text-slate-500 font-bold">${stt}</td>
-                        <td class="py-3 px-4">
-                            <span class="font-mono text-xs font-bold text-emerald-800 bg-emerald-100/80 px-2 py-1 rounded-lg border border-emerald-200 inline-block">${maPhieu}</span>
-                            <div class="text-[11px] text-slate-400 mt-1">${dateStr}</div>
-                        </td>
-                        <td class="py-3 px-4">
-                            <div class="font-bold text-slate-900">${hoTen}</div>
-                            ${phapDanh ? `<div class="text-xs text-emerald-700 font-semibold mt-0.5">PD: ${escapeHtml(phapDanh)}</div>` : ''}
-                            ${ghiChu ? `<div class="text-xs text-slate-500 italic mt-1">"${escapeHtml(ghiChu)}"</div>` : ''}
-                        </td>
-                        <td class="py-3 px-4 text-xs text-slate-600">
-                            <div><i class="fa-solid fa-cake-candles mr-1 text-amber-500"></i> ${ngaySinh}</div>
-                            <div class="mt-1"><i class="fa-solid fa-venus-mars mr-1 text-sky-500"></i> ${gioiTinh}</div>
-                        </td>
-                        <td class="py-3 px-4 text-xs">
-                            <div class="font-bold text-emerald-700"><i class="fa-solid fa-phone mr-1"></i> ${sdt}</div>
-                            ${email ? `<div class="text-slate-500 mt-0.5"><i class="fa-solid fa-envelope mr-1"></i> ${email}</div>` : ''}
-                            <div class="text-slate-600 mt-1"><i class="fa-solid fa-location-dot mr-1 text-rose-500"></i> ${diaChi}</div>
-                        </td>
-                        <td class="py-3 px-4 text-xs">${nguGioiHtml}</td>
-                        <td class="py-3 px-4 text-center">
-                            <button type="button" onclick="deleteQuyYAdminItem('${deletePath}')" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-bold transition shadow-xs" title="Xóa đăng ký">
-                                <i class="fa-solid fa-trash-can mr-1"></i> Xóa
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            if (controlsEl) {
-                let controlsHtml = '';
-                controlsHtml += `<button type="button" onclick="quyYCurrentPage = ${quyYCurrentPage - 1}; renderQuyYAdminList();" ${quyYCurrentPage === 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-left"></i></button>`;
-                for (let p = 1; p <= totalPages; p++) {
-                    if (p === 1 || p === totalPages || (p >= quyYCurrentPage - 1 && p <= quyYCurrentPage + 1)) {
-                        const activeClass = p === quyYCurrentPage ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
-                        controlsHtml += `<button type="button" onclick="quyYCurrentPage = ${p}; renderQuyYAdminList();" class="px-3 py-1.5 rounded-lg border font-bold transition ${activeClass}">${p}</button>`;
-                    } else if (p === quyYCurrentPage - 2 || p === quyYCurrentPage + 2) {
-                        controlsHtml += `<span class="px-1.5 text-slate-400">...</span>`;
-                    }
-                }
-                controlsHtml += `<button type="button" onclick="quyYCurrentPage = ${quyYCurrentPage + 1}; renderQuyYAdminList();" ${quyYCurrentPage === totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"><i class="fa-solid fa-chevron-right"></i></button>`;
-                controlsEl.innerHTML = controlsHtml;
-            }
-        }
-
-        async function deleteQuyYAdminItem(path) {
-            if (!await promptConfirm("Bạn có chắc chắn muốn xóa đăng ký quy y này khỏi hệ thống?")) return;
-            try {
-                await database.ref(path).remove();
-                showToast("Đã xóa đăng ký quy y thành công!");
-                renderQuyYAdminList();
-                updateOverviewPhatTuStats();
-            } catch (err) {
-                showToast("Lỗi khi xóa đăng ký quy y: " + err.message, true);
-            }
-        }
-
-        async function exportQuyYToExcel() {
-            if (typeof XLSX === 'undefined') {
-                showToast("Thư viện xuất Excel chưa sẵn sàng. Vui lòng tải lại trang!", true);
-                return;
-            }
-            let allRegistrations = [];
-            try {
-                allRegistrations = await fetchRegistrationRecords('quyy');
-            } catch (err) {
-                showToast("Lỗi tải dữ liệu quy y từ Firebase!", true);
-                return;
-            }
-            if (allRegistrations.length === 0) {
-                showToast("Chưa có dữ liệu đăng ký quy y để xuất Excel!", true);
-                return;
-            }
-
-            const titleStyle = { font: { name: "Times New Roman", sz: 16, bold: true, color: { rgb: "065F46" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const subtitleStyle = { font: { name: "Times New Roman", sz: 11, italic: true, color: { rgb: "4B5563" } }, alignment: { horizontal: "center", vertical: "center" } };
-            const headerStyle = {
-                font: { name: "Times New Roman", sz: 11, bold: true, color: { rgb: "FFFFFF" } },
-                fill: { fgColor: { rgb: "059669" } },
-                alignment: { horizontal: "center", vertical: "center", wrapText: true },
-                border: { top: { style: "thin", color: { rgb: "065F46" } }, bottom: { style: "thin", color: { rgb: "065F46" } }, left: { style: "thin", color: { rgb: "065F46" } }, right: { style: "thin", color: { rgb: "065F46" } } }
-            };
-            const baseCellBorder = { top: { style: "thin", color: { rgb: "D1D5DB" } }, bottom: { style: "thin", color: { rgb: "D1D5DB" } }, left: { style: "thin", color: { rgb: "D1D5DB" } }, right: { style: "thin", color: { rgb: "D1D5DB" } } };
-
-            const wsData = [
-                [{ v: "CHÙA VĨNH HƯNG - DANH SÁCH ĐĂNG KÝ QUY Y TAM BẢO", s: titleStyle }],
-                [{ v: `Ngày xuất báo cáo: ${new Date().toLocaleString('vi-VN')}`, s: subtitleStyle }],
-                [],
-                [
-                    { v: "STT", s: headerStyle },
-                    { v: "Mã Phiếu", s: headerStyle },
-                    { v: "Ngày Gửi", s: headerStyle },
-                    { v: "Họ Và Tên", s: headerStyle },
-                    { v: "Pháp Danh", s: headerStyle },
-                    { v: "Ngày Sinh", s: headerStyle },
-                    { v: "Giới Tính", s: headerStyle },
-                    { v: "Số Điện Thoại", s: headerStyle },
-                    { v: "Email", s: headerStyle },
-                    { v: "Địa Chỉ", s: headerStyle },
-                    { v: "Phát Nguyện Ngũ Giới", s: headerStyle },
-                    { v: "Ghi Chú", s: headerStyle }
-                ]
-            ];
-
-            allRegistrations.forEach((reg, idx) => {
-                const maPhieu = reg.maPhieu || reg.code || reg._id || '';
-                const dateStr = formatRegistrationDateTime(reg);
-                const hoTen = reg.hoTen || reg.fullName || reg.tinChu || reg.name || '';
-                const phapDanh = reg.phapDanh || reg.phapDanhMongMuon || '';
-                const ngaySinh = reg.ngaySinh || reg.dob || '';
-                const gioiTinh = reg.gioiTinh || reg.gender || '';
-                const sdt = reg.sdt || reg.soDienThoai || reg.phone || '';
-                const email = reg.email || '';
-                const diaChi = reg.diaChi || reg.address || '';
-                const ghiChu = reg.ghiChu || reg.loiNguyen || reg.note || '';
-
-                const rawNguGioi = reg.nguGioi || reg.phatNguyen || reg.gioiLuat || reg.precepts;
-                let nguGioiStr = '';
-                if (Array.isArray(rawNguGioi)) {
-                    nguGioiStr = rawNguGioi.join(', ');
-                } else if (rawNguGioi && typeof rawNguGioi === 'object') {
-                    nguGioiStr = Object.entries(rawNguGioi)
-                        .filter(([, v]) => Boolean(v))
-                        .map(([k, v]) => typeof v === 'string' ? v : k)
-                        .join(', ');
-                } else if (typeof rawNguGioi === 'string') {
-                    nguGioiStr = rawNguGioi;
-                }
-
-                const fillRgb = idx % 2 === 1 ? "ECFDF5" : "FFFFFF";
-                const centerStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "center", vertical: "center", wrapText: true }, border: baseCellBorder };
-                const leftStyle = { font: { name: "Times New Roman", sz: 11 }, fill: { fgColor: { rgb: fillRgb } }, alignment: { horizontal: "left", vertical: "center", wrapText: true }, border: baseCellBorder };
-
-                wsData.push([
-                    { v: idx + 1, s: centerStyle },
-                    { v: maPhieu, s: centerStyle },
-                    { v: dateStr, s: centerStyle },
-                    { v: hoTen, s: leftStyle },
-                    { v: phapDanh, s: leftStyle },
-                    { v: ngaySinh, s: centerStyle },
-                    { v: gioiTinh, s: centerStyle },
-                    { v: sdt, s: centerStyle },
-                    { v: email, s: leftStyle },
-                    { v: diaChi, s: leftStyle },
-                    { v: nguGioiStr, s: leftStyle },
-                    { v: ghiChu, s: leftStyle }
-                ]);
-            });
-
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            ws['!merges'] = [
-                { s: { r: 0, c: 0 }, e: { r: 0, c: 11 } },
-                { s: { r: 1, c: 0 }, e: { r: 1, c: 11 } }
-            ];
-            ws['!cols'] = [
-                { wch: 6 }, { wch: 16 }, { wch: 20 }, { wch: 22 }, { wch: 18 },
-                { wch: 14 }, { wch: 12 }, { wch: 16 }, { wch: 24 }, { wch: 30 },
-                { wch: 36 }, { wch: 24 }
-            ];
-
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Danh_Sach_Quy_Y");
-            const dateFile = new Date().toISOString().slice(0, 10);
-            XLSX.writeFile(wb, `Danh_Sach_Quy_Y_Chua_Vinh_Hung_${dateFile}.xlsx`);
-            showCenterAlert("Đã xuất dữ liệu đăng ký Quy Y ra file Excel thành công!", "Xuất Excel Thành Công");
         }
     </script>
 </body>
