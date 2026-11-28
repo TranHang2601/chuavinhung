@@ -107,8 +107,17 @@
 
     <div id="bubble-container"></div>
     
-    <div class="w-full max-w-2xl">
+    <div class="w-full max-w-2xl relative z-10">
         
+        <!-- Top Navigation Bar (Bên ngoài Form - tự ẩn khi mở trong iframe trang chủ) -->
+        <div id="top-nav-bar" class="flex items-center justify-between mb-4 px-1 no-print">
+            <a href="../index.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/90 hover:bg-amber-100 text-amber-950 font-bold text-xs transition border-2 border-amber-500/80 shadow-sm">
+                <i class="fa-solid fa-house text-canvaGreen"></i>
+                <span>Trang Chủ</span>
+            </a>
+            <span class="text-xs font-bold text-amber-900/70">Chùa Vĩnh Hưng</span>
+        </div>
+
         <!-- Main Form Box -->
         <div class="canva-box p-6 sm:p-10">
             
@@ -116,7 +125,27 @@
             <div class="text-center mb-8">
                 <span class="text-xs font-bold tracking-widest text-canvaGreen uppercase block mb-1">NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT</span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-canvaGreen tracking-tight">Đăng Ký Cầu Siêu</h1>
-                <p class="text-xs text-amber-900/70 mt-2">Vui lòng điền đầy đủ thông tin tín chủ và danh sách hương linh cần cầu siêu</p>
+                <p id="form-subtitle" class="text-xs text-amber-900/70 mt-2">Vui lòng điền đầy đủ thông tin tín chủ và danh sách hương linh cần cầu siêu</p>
+            </div>
+
+            <!-- Khối Thông Báo Tạm Đóng Form (Đồng bộ real-time từ Admin) -->
+            <div id="closedFormNotice" class="hidden py-8 px-4 sm:px-6 text-center space-y-5 bg-amber-50/80 rounded-2xl border-2 border-dashed border-amber-400">
+                <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-amber-300 shadow-inner">
+                    <i class="fa-solid fa-door-closed"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-lg sm:text-xl font-extrabold text-canvaGreen uppercase tracking-wide">
+                        Tạm Ngưng Nhận Đăng Ký Cầu Siêu
+                    </h2>
+                    <p class="text-xs sm:text-sm text-stone-700 leading-relaxed max-w-md mx-auto font-medium">
+                        Kính bạch chư Tôn đức, kính thưa quý Phật tử! Hiện tại cổng đăng ký Cầu Siêu trực tuyến của bổn tự đang tạm đóng. Kính mong quý Phật tử hoan hỷ quay lại sau hoặc liên hệ trực tiếp văn phòng Chùa Vĩnh Hưng để được hướng dẫn.
+                    </p>
+                </div>
+                <div class="pt-2 home-link-wrapper">
+                    <a href="../index.html" class="inline-flex items-center justify-center gap-2 bg-[#fef08a] hover:bg-[#fde047] text-amber-950 font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider shadow-sm transition border border-amber-300">
+                        <i class="fa-solid fa-house"></i> Quay Về Trang Chủ
+                    </a>
+                </div>
             </div>
 
             <form id="cauSieuForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
@@ -192,6 +221,9 @@
                     <p class="text-xs text-amber-900/70 mb-5">Nam Mô Phật Bổn Sư Thích Ca Mâu Ni.</p>
                     
                     <div class="flex flex-col sm:flex-row gap-3 justify-center no-print">
+                        <a href="../index.html" class="home-link-btn bg-amber-100 hover:bg-amber-200 text-amber-950 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer border border-amber-300">
+                            <i class="fa-solid fa-house"></i> Về Trang Chủ
+                        </a>
                         <button onclick="resetForm()" class="bg-[#fef08a] hover:bg-[#fde047] text-amber-950 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer border border-amber-300">
                             <i class="fa-solid fa-rotate-right"></i> Đăng Ký Mới
                         </button>
@@ -247,10 +279,60 @@
     <script>
         let personCounter = 0;
         let pendingRecord = null;
+        let isCauSieuFormOpen = true;
         
+        // Khởi tạo Firebase Realtime Database để đồng bộ trạng thái đóng/mở form từ Admin
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
         // Sử dụng đúng đường dẫn cơ sở dữ liệu Firebase thực tế
         const CLOUD_DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/registrations_cau_sieu';
         const STORAGE_KEY_RECORDS = 'chua_vinh_hung_cau_sieu_records';
+
+        function applyFormAvailabilityUI(isOpen) {
+            isCauSieuFormOpen = isOpen;
+            const formEl = document.getElementById('cauSieuForm');
+            const closedNoticeEl = document.getElementById('closedFormNotice');
+            const successEl = document.getElementById('successModal');
+            const subtitleEl = document.getElementById('form-subtitle');
+
+            if (!isOpen) {
+                if (formEl) formEl.style.display = 'none';
+                if (successEl) successEl.classList.add('hidden');
+                if (closedNoticeEl) closedNoticeEl.classList.remove('hidden');
+                if (subtitleEl) subtitleEl.classList.add('hidden');
+                // Đóng các modal xem lại/bảo mật nếu đang mở
+                document.getElementById('review-modal')?.classList.add('hidden');
+                const privacyModal = document.getElementById('privacyModal');
+                if (privacyModal) {
+                    privacyModal.classList.add('hidden');
+                    privacyModal.classList.remove('flex');
+                }
+            } else {
+                if (closedNoticeEl) closedNoticeEl.classList.add('hidden');
+                if (subtitleEl) subtitleEl.classList.remove('hidden');
+                if (formEl && successEl && successEl.classList.contains('hidden')) {
+                    formEl.style.display = 'block';
+                }
+            }
+        }
+
+        function listenToCauSieuFormStatus() {
+            try {
+                database.ref('settings/registration_forms/causieu').on('value', (snapshot) => {
+                    const val = snapshot.val();
+                    const isOpen = (val === null || val === undefined) ? true : (val === true);
+                    applyFormAvailabilityUI(isOpen);
+                });
+            } catch (err) {
+                console.warn("Không thể lắng nghe trạng thái form cầu siêu:", err);
+            }
+        }
 
         function createBubbles() {
             const container = document.getElementById('bubble-container');
@@ -296,8 +378,16 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Ẩn nút "Trang Chủ" khi form được nhúng trong iframe ở trang chủ
+            const isEmbedded = window.self !== window.top || new URLSearchParams(window.location.search).get('embed') === '1';
+            if (isEmbedded) {
+                document.getElementById('top-nav-bar')?.classList.add('hidden');
+                document.querySelectorAll('.home-link-wrapper, .home-link-btn').forEach(el => el.classList.add('hidden'));
+            }
+
             createBubbles();
             addPersonRow();
+            listenToCauSieuFormStatus();
         });
 
         function addPersonRow() {
@@ -388,6 +478,11 @@
 
         function handleFormSubmit(e) {
             e.preventDefault();
+
+            if (!isCauSieuFormOpen) {
+                showToast("Form đăng ký Cầu Siêu hiện đang tạm đóng!", true);
+                return;
+            }
 
             const senderName = document.getElementById('sender_name').value.trim();
             const senderPhapdanh = document.getElementById('sender_phapdanh').value.trim();
@@ -481,6 +576,11 @@
             document.getElementById('privacyModal').classList.add('hidden');
             document.getElementById('privacyModal').classList.remove('flex');
 
+            if (!isCauSieuFormOpen) {
+                showToast("Form đăng ký Cầu Siêu hiện đang tạm đóng!", true);
+                return;
+            }
+
             if (!pendingRecord) return;
             const record = pendingRecord;
             pendingRecord = null;
@@ -517,7 +617,9 @@
 
         function resetForm() {
             document.getElementById('cauSieuForm').reset();
-            document.getElementById('cauSieuForm').style.display = 'block';
+            if (isCauSieuFormOpen) {
+                document.getElementById('cauSieuForm').style.display = 'block';
+            }
             document.getElementById('successModal').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }

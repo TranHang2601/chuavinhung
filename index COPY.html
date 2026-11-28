@@ -158,6 +158,21 @@
         .floating-badge {
             animation: pulseBubble 3.5s ease-in-out infinite;
         }
+
+        @keyframes modalPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.94) translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .closed-modal-card {
+            animation: modalPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            background: linear-gradient(180deg, #ffffff 0%, #fffdf7 55%, #fdf6e2 100%);
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased bg-[#faf8f5]">
@@ -351,19 +366,64 @@
                     Quý Phật tử có nhu cầu đăng ký cầu an cho gia đình, cầu siêu cho cửu huyền thất tổ hoặc đăng ký quy y Tam Bảo, vui lòng chọn hình thức bên dưới.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
-                    <button onclick="openCauAnModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
+                    <button id="btn-open-cauan" onclick="openCauAnModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-hands-praying text-buddhist-maroon"></i> Đăng Ký Cầu An
                     </button>
-                    <button onclick="openCauSieuModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
+                    <button id="btn-open-causieu" onclick="openCauSieuModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-dove text-buddhist-maroon"></i> Đăng Ký Cầu Siêu
                     </button>
-                    <button onclick="openQuyYModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
+                    <button id="btn-open-quyy" onclick="openQuyYModal()" class="bg-[#fef08a] hover:bg-[#faedcd] text-buddhist-dark px-6 py-3.5 rounded-xl shadow-xl font-bold transition duration-300 hover:scale-105 transform flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-dharmachakra text-buddhist-maroon"></i> Đăng Ký Quy Y
                     </button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal Thông Báo Tạm Đóng Form Đăng Ký -->
+    <div id="closedFormModal" onclick="if(event.target === this) closeClosedFormModal()" class="fixed inset-0 bg-stone-900/45 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden transition-opacity duration-200">
+        <div class="closed-modal-card relative w-full max-w-md border-2 border-buddhist-gold/80 rounded-3xl shadow-[0_24px_60px_-15px_rgba(107,32,36,0.25),0_0_0_1px_rgba(255,255,255,0.9)_inset] p-7 sm:p-8 text-center overflow-hidden">
+            <!-- Dải ánh sáng vàng nhạt trang trí phía trên -->
+            <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-300 via-buddhist-gold to-amber-300"></div>
+
+            <!-- Nút đóng nhanh góc trên bên phải -->
+            <button onclick="closeClosedFormModal()" aria-label="Đóng thông báo" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-amber-50 hover:bg-amber-100 text-stone-500 hover:text-buddhist-maroon flex items-center justify-center transition cursor-pointer border border-amber-200/80">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Huy hiệu biểu tượng sáng sủa -->
+            <div class="relative w-20 h-20 mx-auto mb-5 flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-amber-200/50 blur-md"></div>
+                <div class="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-50 via-[#fef9e7] to-amber-100/90 text-buddhist-maroon flex items-center justify-center text-2xl border border-buddhist-gold/60 shadow-sm rotate-3">
+                    <i class="fa-solid fa-dharmachakra text-buddhist-gold -rotate-3"></i>
+                </div>
+                <span class="w-7 h-7 rounded-full bg-white border border-amber-200 shadow-xs text-buddhist-maroon flex items-center justify-center text-xs font-bold -bottom-0.5 -right-0.5 absolute">
+                    <i class="fa-solid fa-bell text-amber-500"></i>
+                </span>
+            </div>
+
+            <!-- Nhãn nhỏ & Nội dung thông báo -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-300/60 text-[11px] font-bold uppercase tracking-wider text-amber-800 mb-2">
+                <i class="fa-brands fa-pagelines text-buddhist-gold"></i> Thông Báo Phật Sự
+            </div>
+
+            <h3 id="closedFormTitle" class="text-xl sm:text-2xl font-heading font-bold text-buddhist-maroon mb-2.5">
+                Tạm Ngưng Nhận Đăng Ký
+            </h3>
+
+            <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-buddhist-gold to-transparent mx-auto mb-3.5"></div>
+
+            <p id="closedFormMessage" class="text-sm sm:text-[15px] text-stone-600 leading-relaxed mb-6">
+                Biểu mẫu đăng ký hiện đang tạm đóng theo thông báo từ Ban Quản Trị Chùa Vĩnh Hưng. Quý Phật tử vui lòng quay lại sau.
+            </p>
+
+            <!-- Nút xác nhận sáng rõ, thân thiện -->
+            <button onclick="closeClosedFormModal()" class="w-full py-3.5 px-5 bg-gradient-to-r from-buddhist-maroon via-[#7d262b] to-buddhist-maroon hover:brightness-110 text-buddhist-lightgold font-bold rounded-2xl text-sm tracking-wide transition duration-200 cursor-pointer shadow-lg shadow-buddhist-maroon/20 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-check-circle text-buddhist-gold"></i>
+                <span>Đã Hiểu & Đóng Thông Báo</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Modal Đăng Ký Cầu An bằng Iframe giữ nguyên Form gốc -->
     <div id="cauAnModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-2 sm:p-4 hidden">
@@ -443,8 +503,92 @@
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
+        const homeDatabase = firebase.database();
+
+        const registrationFormsState = {
+            causieu: true,
+            cauan: true,
+            quyy: true
+        };
+
+        function applyFormButtonState(formKey, isOpen) {
+            registrationFormsState[formKey] = isOpen;
+            const btnMap = {
+                causieu: 'btn-open-causieu',
+                cauan: 'btn-open-cauan',
+                quyy: 'btn-open-quyy'
+            };
+            const modalMap = {
+                causieu: { modal: 'cauSieuModal', closeFn: closeCauSieuModal },
+                cauan: { modal: 'cauAnModal', closeFn: closeCauAnModal },
+                quyy: { modal: 'quyYModal', closeFn: closeQuyYModal }
+            };
+
+            const btn = document.getElementById(btnMap[formKey]);
+            if (btn) {
+                if (isOpen) {
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    btn.classList.add('cursor-pointer', 'hover:scale-105');
+                    btn.setAttribute('aria-disabled', 'false');
+                } else {
+                    btn.classList.add('opacity-60');
+                    btn.classList.remove('hover:scale-105');
+                    btn.setAttribute('aria-disabled', 'true');
+                }
+            }
+
+            // Nếu admin vừa đóng form khi modal đang mở trên trang chủ thì tự đóng modal & báo thông báo
+            if (!isOpen && modalMap[formKey]) {
+                const modalEl = document.getElementById(modalMap[formKey].modal);
+                if (modalEl && !modalEl.classList.contains('hidden')) {
+                    modalMap[formKey].closeFn();
+                    openClosedFormModal(formKey);
+                }
+            }
+        }
+
+        function listenRegistrationFormsState() {
+            ['causieu', 'cauan', 'quyy'].forEach((key) => {
+                homeDatabase.ref(`settings/registration_forms/${key}`).on('value', (snapshot) => {
+                    const val = snapshot.val();
+                    const isOpen = val === null || val === undefined ? true : val === true;
+                    applyFormButtonState(key, isOpen);
+                });
+            });
+        }
+
+        function openClosedFormModal(formKey) {
+            const labels = {
+                causieu: 'Đăng Ký Cầu Siêu',
+                cauan: 'Đăng Ký Cầu An',
+                quyy: 'Đăng Ký Quy Y Tam Bảo'
+            };
+            const titleEl = document.getElementById('closedFormTitle');
+            const msgEl = document.getElementById('closedFormMessage');
+            const modalEl = document.getElementById('closedFormModal');
+
+            if (titleEl) {
+                titleEl.textContent = `Tạm Ngưng Nhận ${labels[formKey] || 'Đăng Ký'}`;
+            }
+            if (msgEl) {
+                msgEl.textContent = `Biểu mẫu ${labels[formKey] || 'đăng ký'} hiện đang tạm đóng theo thông báo từ Ban Quản Trị Chùa Vĩnh Hưng. Quý Phật tử vui lòng liên hệ chùa hoặc quay lại sau.`;
+            }
+            if (modalEl) {
+                modalEl.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeClosedFormModal() {
+            const modalEl = document.getElementById('closedFormModal');
+            if (modalEl) {
+                modalEl.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
+            listenRegistrationFormsState();
             loadLatestNews();
             loadHomeVideos();
             revealOnScroll();
@@ -621,11 +765,16 @@
                 container.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8">Không thể tải video.</p>';
             }
         }
+
         function openCauAnModal() {
+            if (!registrationFormsState.cauan) {
+                openClosedFormModal('cauan');
+                return;
+            }
             const modal = document.getElementById('cauAnModal');
             const iframe = document.getElementById('cauAnIframe');
 
-            // Gán đường dẫn file dang-ky-cau-an.html vào iframe nếu chưa có
+            // Gán đường dẫn file Form-cau-an.html vào iframe nếu chưa có
             if (!iframe.src || iframe.src === "" || iframe.src === window.location.href) {
                 iframe.src = 'Form-cau-an.html';
             }
@@ -639,7 +788,12 @@
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto'; // Mở lại cuộn trang
         }
+
         function openCauSieuModal() {
+            if (!registrationFormsState.causieu) {
+                openClosedFormModal('causieu');
+                return;
+            }
             const modal = document.getElementById('cauSieuModal');
             const iframe = document.getElementById('cauSieuIframe');
             
@@ -657,7 +811,12 @@
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto'; // Mở lại cuộn trang
         }
+
         function openQuyYModal() {
+            if (!registrationFormsState.quyy) {
+                openClosedFormModal('quyy');
+                return;
+            }
             const modal = document.getElementById('quyYModal');
             const iframe = document.getElementById('quyYIframe');
             

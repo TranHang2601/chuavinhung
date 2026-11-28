@@ -128,7 +128,17 @@
     <!-- Vùng chứa hiệu ứng bong bóng nền -->
     <div id="bubble-container"></div>
 
-    <div class="w-full max-w-2xl">
+    <div class="w-full max-w-2xl relative z-10">
+
+        <!-- Thanh điều hướng bên ngoài Form (tự ẩn khi mở trong iframe trang chủ) -->
+        <div id="top-nav-bar" class="flex items-center justify-between mb-4 px-1 no-print">
+            <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/90 hover:bg-sky-100 text-sky-950 font-bold text-xs transition border-2 border-sky-400/80 shadow-sm">
+                <i class="fa-solid fa-house text-canvaGreen"></i>
+                <span>Trang Chủ</span>
+            </a>
+            <span class="text-xs font-bold text-sky-900/70">Chùa Vĩnh Hưng</span>
+        </div>
+
         <!-- Hộp Form Đăng Ký Chính -->
         <div class="canva-box p-6 sm:p-10">
 
@@ -136,7 +146,27 @@
             <div class="text-center mb-8">
                 <span class="text-xs font-bold tracking-widest text-canvaGreen uppercase block mb-1">NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT</span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-canvaGreen tracking-tight">Đăng Ký Cầu An</h1>
-                <p class="text-xs text-sky-900/70 mt-2">Vui lòng điền đầy đủ thông tin tín chủ và danh sách thành viên cầu an</p>
+                <p id="form-subtitle" class="text-xs text-sky-900/70 mt-2">Vui lòng điền đầy đủ thông tin tín chủ và danh sách thành viên cầu an</p>
+            </div>
+
+            <!-- Khối Thông Báo Tạm Đóng Form (Đồng bộ real-time từ Admin) -->
+            <div id="closedFormNotice" class="hidden py-8 px-4 sm:px-6 text-center space-y-5 bg-sky-50/90 rounded-2xl border-2 border-dashed border-sky-400">
+                <div class="w-16 h-16 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-sky-300 shadow-inner">
+                    <i class="fa-solid fa-door-closed"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-lg sm:text-xl font-extrabold text-canvaGreen uppercase tracking-wide">
+                        Tạm Ngưng Nhận Đăng Ký Cầu An
+                    </h2>
+                    <p class="text-xs sm:text-sm text-stone-700 leading-relaxed max-w-md mx-auto font-medium">
+                        Kính bạch chư Tôn đức, kính thưa quý Phật tử! Hiện tại cổng đăng ký Cầu An trực tuyến của bổn tự đang tạm đóng. Kính mong quý Phật tử hoan hỷ quay lại sau hoặc liên hệ trực tiếp văn phòng Chùa Vĩnh Hưng để được hướng dẫn.
+                    </p>
+                </div>
+                <div class="pt-2 home-link-wrapper">
+                    <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-[#bae6fd] hover:bg-[#7dd3fc] text-sky-950 font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider shadow-sm transition border border-sky-300">
+                        <i class="fa-solid fa-house"></i> Quay Về Trang Chủ
+                    </a>
+                </div>
             </div>
 
             <form id="cauAnForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
@@ -213,6 +243,9 @@
                     <p class="text-xs text-sky-900/70 mb-5">Nam Mô Phật Bổn Sư Thích Ca Mâu Ni.</p>
 
                     <div class="flex flex-col sm:flex-row gap-3 justify-center no-print">
+                        <a href="index.html" class="home-link-btn bg-sky-100 hover:bg-sky-200 text-sky-950 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer border border-sky-300">
+                            <i class="fa-solid fa-house"></i> Về Trang Chủ
+                        </a>
                         <button type="button" onclick="resetForm()" class="bg-[#bae6fd] hover:bg-[#7dd3fc] text-sky-950 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer border border-sky-300">
                             <i class="fa-solid fa-rotate-right"></i> Đăng Ký Mới
                         </button>
@@ -269,9 +302,69 @@
     <script>
         let personCounter = 0;
         let pendingRecord = null;
+        let isCauAnFormOpen = true;
+        let database = null;
+
+        // Khởi tạo Firebase Realtime Database an toàn
+        const firebaseConfig = {
+            databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                database = firebase.database();
+            }
+        } catch (err) {
+            console.warn("Không thể khởi tạo Firebase SDK:", err);
+        }
 
         // Đường dẫn cơ sở dữ liệu Firebase Realtime Database cho đăng ký cầu an
         const CLOUD_DB_URL = 'https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app/registrations_cau_an';
+
+        // Cập nhật giao diện mở hoặc tạm đóng biểu mẫu theo cấu hình Admin
+        function applyFormAvailabilityUI(isOpen) {
+            isCauAnFormOpen = isOpen;
+            const formEl = document.getElementById('cauAnForm');
+            const closedNoticeEl = document.getElementById('closedFormNotice');
+            const successEl = document.getElementById('successModal');
+            const subtitleEl = document.getElementById('form-subtitle');
+
+            if (!isOpen) {
+                if (formEl) formEl.style.display = 'none';
+                if (successEl) successEl.classList.add('hidden');
+                if (closedNoticeEl) closedNoticeEl.classList.remove('hidden');
+                if (subtitleEl) subtitleEl.classList.add('hidden');
+                const reviewModal = document.getElementById('review-modal');
+                if (reviewModal) reviewModal.classList.add('hidden');
+                const privacyModal = document.getElementById('privacyModal');
+                if (privacyModal) {
+                    privacyModal.classList.add('hidden');
+                    privacyModal.classList.remove('flex');
+                }
+            } else {
+                if (closedNoticeEl) closedNoticeEl.classList.add('hidden');
+                if (subtitleEl) subtitleEl.classList.remove('hidden');
+                if (formEl && successEl && successEl.classList.contains('hidden')) {
+                    formEl.style.display = 'block';
+                }
+            }
+        }
+
+        // Lắng nghe trạng thái đóng/mở form cầu an từ Firebase
+        function listenToCauAnFormStatus() {
+            if (!database) return;
+            try {
+                database.ref('settings/registration_forms/cauan').on('value', (snapshot) => {
+                    const val = snapshot.val();
+                    const isOpen = (val === null || val === undefined) ? true : (val === true);
+                    applyFormAvailabilityUI(isOpen);
+                });
+            } catch (err) {
+                console.warn("Không thể lắng nghe trạng thái form cầu an:", err);
+            }
+        }
 
         // Tạo hiệu ứng bong bóng màu xanh da trời dịu nhẹ trên nền
         function createBubbles() {
@@ -417,6 +510,11 @@
         function handleFormSubmit(e) {
             e.preventDefault();
 
+            if (!isCauAnFormOpen) {
+                showToast("Form đăng ký Cầu An hiện đang tạm đóng!", true);
+                return;
+            }
+
             const senderName = document.getElementById('sender_name').value.trim();
             const senderPhapdanh = document.getElementById('sender_phapdanh').value.trim();
             const senderPhone = document.getElementById('sender_phone').value.trim();
@@ -429,9 +527,9 @@
             for (let row of rows) {
                 const nameInput = row.querySelector('.person-name');
                 const name = nameInput ? nameInput.value.trim() : '';
-                const phapdanh = row.querySelector('.person-phapdanh')?.value.trim() || '';
-                const gender = row.querySelector('.person-gender')?.value || 'Nam';
-                const birth = row.querySelector('.person-birth')?.value.trim() || '';
+                const phapdanh = row.querySelector('.person-phapdanh') ? row.querySelector('.person-phapdanh').value.trim() : '';
+                const gender = row.querySelector('.person-gender') ? row.querySelector('.person-gender').value : 'Nam';
+                const birth = row.querySelector('.person-birth') ? row.querySelector('.person-birth').value.trim() : '';
                 const calendarRadio = row.querySelector('input[type="radio"]:checked');
                 const calendarType = calendarRadio ? calendarRadio.value : 'Âm lịch';
 
@@ -518,6 +616,11 @@
             document.getElementById('privacyModal').classList.add('hidden');
             document.getElementById('privacyModal').classList.remove('flex');
 
+            if (!isCauAnFormOpen) {
+                showToast("Form đăng ký Cầu An hiện đang tạm đóng!", true);
+                return;
+            }
+
             if (!pendingRecord) return;
             const record = pendingRecord;
 
@@ -551,18 +654,38 @@
             document.getElementById('people-container').innerHTML = '';
             personCounter = 0;
             addPersonRow();
-            document.getElementById('cauAnForm').style.display = 'block';
+            if (isCauAnFormOpen) {
+                document.getElementById('cauAnForm').style.display = 'block';
+            }
             document.getElementById('successModal').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Khởi tạo giao diện khi tải trang
         function initCauAnForm() {
+            // Ẩn nút "Trang Chủ" khi form được nhúng trong iframe ở trang chủ
+            let isEmbedded = false;
+            try {
+                isEmbedded = window.self !== window.top;
+            } catch (e) {
+                isEmbedded = true;
+            }
+            if (!isEmbedded && new URLSearchParams(window.location.search).get('embed') === '1') {
+                isEmbedded = true;
+            }
+
+            if (isEmbedded) {
+                const topNav = document.getElementById('top-nav-bar');
+                if (topNav) topNav.classList.add('hidden');
+                document.querySelectorAll('.home-link-wrapper, .home-link-btn').forEach(el => el.classList.add('hidden'));
+            }
+
             createBubbles();
             const container = document.getElementById('people-container');
             if (container && container.children.length === 0) {
                 addPersonRow();
             }
+            listenToCauAnFormStatus();
         }
 
         if (document.readyState === 'loading') {

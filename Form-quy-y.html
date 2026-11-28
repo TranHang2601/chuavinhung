@@ -84,6 +84,21 @@
             }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+
         @media print {
             body { background: white !important; }
             .no-print { display: none !important; }
@@ -98,7 +113,16 @@
     <!-- Container hiệu ứng bong bóng đủ màu rơi/bay lên -->
     <div id="bubble-container"></div>
     
-    <div class="w-full max-w-lg">
+    <div class="w-full max-w-lg relative z-10">
+
+        <!-- Thanh điều hướng bên ngoài Form (tự ẩn khi mở trong iframe trang chủ) -->
+        <div id="top-nav-bar" class="flex items-center justify-between mb-4 px-1 no-print">
+            <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/90 hover:bg-[#e6f4ea] text-stone-900 font-bold text-xs transition border-2 border-canvaGreen/80 shadow-sm">
+                <i class="fa-solid fa-house text-canvaGreen"></i>
+                <span>Trang Chủ</span>
+            </a>
+            <span class="text-xs font-bold text-stone-600">Chùa Vĩnh Hưng</span>
+        </div>
         
         <!-- Main Form Box -->
         <div class="canva-box p-6 sm:p-10">
@@ -107,7 +131,27 @@
             <div class="text-center mb-8">
                 <span class="text-xs font-bold tracking-widest text-canvaGreen uppercase block mb-1">NAM MÔ BỔN SƯ THÍCH CA MÂU NI PHẬT</span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-canvaGreen tracking-tight">Đăng Ký Quy Y Tam Bảo</h1>
-                <p class="text-xs text-stone-500 mt-2">Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đăng ký</p>
+                <p id="form-subtitle" class="text-xs text-stone-500 mt-2">Vui lòng điền đầy đủ thông tin bên dưới để hoàn tất đăng ký</p>
+            </div>
+
+            <!-- Khối Thông Báo Tạm Đóng Form (Đồng bộ real-time từ Admin) -->
+            <div id="closedFormNotice" class="hidden py-8 px-4 sm:px-6 text-center space-y-5 bg-[#f2faf4] rounded-2xl border-2 border-dashed border-canvaGreen/60">
+                <div class="w-16 h-16 bg-[#e6f4ea] text-canvaGreen rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-[#c6e7cb] shadow-inner">
+                    <i class="fa-solid fa-door-closed"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-lg sm:text-xl font-extrabold text-canvaGreen uppercase tracking-wide">
+                        Tạm Ngưng Nhận Đăng Ký Quy Y
+                    </h2>
+                    <p class="text-xs sm:text-sm text-stone-700 leading-relaxed max-w-md mx-auto font-medium">
+                        Kính bạch chư Tôn đức, kính thưa quý Phật tử! Hiện tại cổng đăng ký Quy Y Tam Bảo trực tuyến của bổn tự đang tạm đóng. Kính mong quý Phật tử hoan hỷ quay lại sau hoặc liên hệ trực tiếp văn phòng Chùa Vĩnh Hưng để được hướng dẫn.
+                    </p>
+                </div>
+                <div class="pt-2 home-link-wrapper">
+                    <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider shadow-sm transition border border-[#bef264]">
+                        <i class="fa-solid fa-house"></i> Quay Về Trang Chủ
+                    </a>
+                </div>
             </div>
 
             <form id="quyYForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
@@ -193,7 +237,10 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-3 justify-center no-print">
-                        <button onclick="resetForm()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
+                        <a href="index.html" class="home-link-btn bg-[#e6f4ea] hover:bg-[#c6e7cb] text-stone-900 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer border border-[#c6e7cb]">
+                            <i class="fa-solid fa-house text-canvaGreen"></i> Về Trang Chủ
+                        </a>
+                        <button type="button" onclick="resetForm()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-5 py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-2 cursor-pointer">
                             <i class="fa-solid fa-rotate-right"></i> Đăng Ký Mới
                         </button>
                     </div>
@@ -209,6 +256,9 @@
         </div>
     </div>
 
+    <!-- Vùng hiển thị Toast thông báo -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
     <!-- Privacy Info Modal -->
     <div id="privacyModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl p-6 max-w-sm w-full border-2 border-canvaGreen shadow-2xl text-center">
@@ -216,21 +266,75 @@
             <p class="text-xs text-stone-600 mb-4 leading-relaxed">
                 Mọi thông tin Phật tử đăng ký quy y được bảo mật tuyệt đối và chỉ sử dụng cho mục đích lập danh sách đạo hữu tại bổn tự.
             </p>
-            <button onclick="closePrivacyModal()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-6 py-2 rounded-xl text-xs cursor-pointer">Đã hiểu</button>
+            <button type="button" onclick="closePrivacyModal()" class="bg-[#d9f99d] hover:bg-[#bef264] text-stone-900 font-bold px-6 py-2 rounded-xl text-xs cursor-pointer">Đã hiểu</button>
         </div>
     </div>
 
     <script>
+        let isQuyYFormOpen = true;
+        let database = null;
+
         const firebaseConfig = {
             databaseURL: "https://chuavinhhung-web-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                database = firebase.database();
+            }
+        } catch (err) {
+            console.warn("Không thể khởi tạo Firebase SDK:", err);
         }
-        const database = firebase.database();
+
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-xl text-xs font-bold shadow-lg text-white flex items-center space-x-2 pointer-events-auto animate-fadeIn ${isError ? 'bg-red-600' : 'bg-emerald-600'}`;
+            toast.innerHTML = `<i class="fa-solid ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3500);
+        }
+
+        function applyFormAvailabilityUI(isOpen) {
+            isQuyYFormOpen = isOpen;
+            const formEl = document.getElementById('quyYForm');
+            const closedNoticeEl = document.getElementById('closedFormNotice');
+            const successEl = document.getElementById('successModal');
+            const subtitleEl = document.getElementById('form-subtitle');
+
+            if (!isOpen) {
+                if (formEl) formEl.style.display = 'none';
+                if (successEl) successEl.classList.add('hidden');
+                if (closedNoticeEl) closedNoticeEl.classList.remove('hidden');
+                if (subtitleEl) subtitleEl.classList.add('hidden');
+            } else {
+                if (closedNoticeEl) closedNoticeEl.classList.add('hidden');
+                if (subtitleEl) subtitleEl.classList.remove('hidden');
+                if (formEl && successEl && successEl.classList.contains('hidden')) {
+                    formEl.style.display = 'block';
+                }
+            }
+        }
+
+        function listenToQuyYFormStatus() {
+            if (!database) return;
+            try {
+                database.ref('settings/registration_forms/quyy').on('value', (snapshot) => {
+                    const val = snapshot.val();
+                    const isOpen = (val === null || val === undefined) ? true : (val === true);
+                    applyFormAvailabilityUI(isOpen);
+                });
+            } catch (err) {
+                console.warn("Không thể lắng nghe trạng thái form quy y:", err);
+            }
+        }
 
         function createBubbles() {
             const container = document.getElementById('bubble-container');
+            if (!container) return;
             const bubbleCount = 22;
             const colors = [
                 'radial-gradient(circle, rgba(34,197,94,0.4) 0%, rgba(22,163,74,0.15) 100%)',
@@ -262,10 +366,41 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", createBubbles);
+        function initQuyYForm() {
+            // Ẩn nút "Trang Chủ" khi form được nhúng trong iframe ở trang chủ
+            let isEmbedded = false;
+            try {
+                isEmbedded = window.self !== window.top;
+            } catch (e) {
+                isEmbedded = true;
+            }
+            if (!isEmbedded && new URLSearchParams(window.location.search).get('embed') === '1') {
+                isEmbedded = true;
+            }
+
+            if (isEmbedded) {
+                const topNav = document.getElementById('top-nav-bar');
+                if (topNav) topNav.classList.add('hidden');
+                document.querySelectorAll('.home-link-wrapper, .home-link-btn').forEach(el => el.classList.add('hidden'));
+            }
+
+            createBubbles();
+            listenToQuyYFormStatus();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initQuyYForm);
+        } else {
+            initQuyYForm();
+        }
 
         async function handleFormSubmit(event) {
             event.preventDefault();
+
+            if (!isQuyYFormOpen) {
+                showToast("Form đăng ký Quy Y hiện đang tạm đóng!", true);
+                return;
+            }
 
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
@@ -298,7 +433,7 @@
             };
 
             try {
-                // Đã chuyển tên nhánh thành registrations_quy_y giống cấu trúc của cầu siêu
+                if (!database) throw new Error("Firebase chưa sẵn sàng");
                 await database.ref('registrations_quy_y').push(formData);
 
                 document.getElementById('lblHoTen').innerText = hoTen;
@@ -309,20 +444,23 @@
 
                 document.getElementById('quyYForm').style.display = 'none';
                 document.getElementById('successModal').classList.remove('hidden');
+                showToast("Đã gửi đăng ký Quy Y thành công!");
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
                 console.error("Lỗi khi lưu dữ liệu lên Firebase:", error);
-                alert("Có lỗi xảy ra khi gửi đăng ký. Vui lòng kiểm tra lại kết nối và thử lại.");
+                showToast("Có lỗi xảy ra khi gửi đăng ký. Vui lòng kiểm tra kết nối và thử lại.", true);
             } finally {
                 submitBtn.disabled = false;
-                btnText.innerText = "Submit";
+                btnText.innerText = "Gửi đăng ký";
                 btnIcon.className = "fa-solid fa-arrow-right text-xs";
             }
         }
 
         function resetForm() {
             document.getElementById('quyYForm').reset();
-            document.getElementById('quyYForm').style.display = 'block';
+            if (isQuyYFormOpen) {
+                document.getElementById('quyYForm').style.display = 'block';
+            }
             document.getElementById('successModal').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
